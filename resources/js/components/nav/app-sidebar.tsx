@@ -30,6 +30,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import {Link} from "@inertiajs/react";
 
 const data = {
     user: {
@@ -37,113 +38,29 @@ const data = {
         email: "m@example.com",
         avatar: "/avatars/shadcn.jpg",
     },
-    navMain: [
+    nav: [
         {
-            title: "Dashboard",
-            url: "#",
-            icon: IconDashboard,
-        },
-        {
-            title: "Lifecycle",
-            url: "#",
-            icon: IconListDetails,
-        },
-        {
-            title: "Analytics",
-            url: "#",
-            icon: IconChartBar,
-        },
-        {
-            title: "Projects",
-            url: "#",
-            icon: IconFolder,
-        },
-        {
-            title: "Team",
-            url: "#",
-            icon: IconUsers,
-        },
-    ],
-    navClouds: [
-        {
-            title: "Capture",
-            icon: IconCamera,
-            isActive: true,
-            url: "#",
             items: [
                 {
-                    title: "Active Proposals",
-                    url: "#",
-                },
-                {
-                    title: "Archived",
-                    url: "#",
-                },
+                    title: "Dashboard",
+                    href: "#",
+                    icon: IconDashboard,
+                }
             ],
         },
-        {
-            title: "Proposal",
-            icon: IconFileDescription,
-            url: "#",
+        { label: "Akademik",
             items: [
                 {
-                    title: "Active Proposals",
-                    url: "#",
-                },
-                {
-                    title: "Archived",
-                    url: "#",
-                },
+                    title: "Program Kejuruan",
+                    href: "#",
+                    icon: IconListDetails,
+                }
+                ,{
+                    title: "Tahun Ajaran",
+                    href: "#",
+                    icon: IconListDetails,
+                }
             ],
-        },
-        {
-            title: "Prompts",
-            icon: IconFileAi,
-            url: "#",
-            items: [
-                {
-                    title: "Active Proposals",
-                    url: "#",
-                },
-                {
-                    title: "Archived",
-                    url: "#",
-                },
-            ],
-        },
-    ],
-    navSecondary: [
-        {
-            title: "Settings",
-            url: "#",
-            icon: IconSettings,
-        },
-        {
-            title: "Get Help",
-            url: "#",
-            icon: IconHelp,
-        },
-        {
-            title: "Search",
-            url: "#",
-            icon: IconSearch,
-        },
-    ],
-    documents: [
-        {
-            name: "Data Library",
-            url: "#",
-            icon: IconDatabase,
-        },
-        {
-            name: "Reports",
-            url: "#",
-            icon: IconReport,
-        },
-        {
-            name: "Word Assistant",
-            url: "#",
-            icon: IconFileWord,
         },
     ],
 };
@@ -155,21 +72,21 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <SidebarMenu>
                     <SidebarMenuItem>
                         <SidebarMenuButton
-                            asChild
                             className="data-[slot=sidebar-menu-button]:p-1.5!"
-                        >
-                            <a href="#">
+                            render={  <Link href="#">
                                 <IconInnerShadowTop className="size-5!" />
                                 <span className="text-base font-semibold">
                                     Acme Inc.
                                 </span>
-                            </a>
-                        </SidebarMenuButton>
+                            </Link>}
+                        />
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarHeader>
             <SidebarContent>
-                <NavMain items={data.navMain} />
+                {data.nav.map((n, i) => (
+                <NavMain key={`${n.label}_${i}`} items={n.items} label={n.label} />
+                ))}
             </SidebarContent>
             <SidebarFooter>
                 <NavUser user={data.user} />
