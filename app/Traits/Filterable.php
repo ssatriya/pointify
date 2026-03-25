@@ -4,7 +4,7 @@ namespace App\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 
-class Filterable
+trait Filterable
 {
     /**
      * Scope to apply filters to the query

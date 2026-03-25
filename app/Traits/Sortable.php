@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @mixin Model
  */
-class Sortable
+trait Sortable
 {
     /**
      * Scope for dynamic sorting based on model's sortable fields

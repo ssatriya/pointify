@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @mixin Model
  */
-class Searchable
+trait Searchable
 {
     /**
      * Scope to search across model attributes and relationships (case-insensitive).
