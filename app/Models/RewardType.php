@@ -2,9 +2,38 @@
 
 namespace App\Models;
 
+use App\Traits\Searchable;
+use App\Traits\Sortable;
+use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
 
 class RewardType extends Model
 {
-    //
+    use HasUlids, Sortable, Searchable;
+
+    public $incrementing = false;
+    protected $keyType = 'string';
+    protected $fillable = [
+        'code',
+        'description',
+        'points',
+        'is_active',
+        'created_by',
+        'updated_by',
+    ];
+
+    protected array $searchable = [
+        'code',
+        'description',
+    ];
+
+    protected array $sortable = [
+        'code',
+        'points',
+        'created_at',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
 }
