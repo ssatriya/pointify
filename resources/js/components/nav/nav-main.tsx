@@ -1,4 +1,3 @@
-
 import {
     SidebarGroup,
     SidebarGroupContent, SidebarGroupLabel,
@@ -14,11 +13,12 @@ type Props = {
     items: NavItem[]
     label?: string
 }
+
 export function NavMain({
-    items,
-    label
-}: Props) {
-    const { isCurrentUrl } = useCurrentUrl();
+                            items,
+                            label
+                        }: Props) {
+    const {isCurrentUrl} = useCurrentUrl();
     return (
         <SidebarGroup>
             <SidebarGroupContent className="flex flex-col gap-2">
@@ -28,17 +28,16 @@ export function NavMain({
                         <SidebarMenuItem key={item.title}>
                             <SidebarMenuButton
                                 className="tabular-nums data-[active=true]:bg-muted text-muted-foreground"
-                                tooltip={{ children: item.title }}
+                                tooltip={{children: item.title}}
                                 isActive={isCurrentUrl(item.href)}
-                                render={  <Link
+                                render={<Link
                                     href={item.href}
                                     prefetch
                                 >
-                                    {item.icon && <item.icon className="size-4 shrink-0" />}
+                                    {item.icon && <item.icon className="size-4 shrink-0"/>}
                                     <span>{item.title}</span>
                                 </Link>}
                             />
-
                         </SidebarMenuItem>
                     ))}
                 </SidebarMenu>

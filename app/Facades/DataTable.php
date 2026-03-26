@@ -33,7 +33,7 @@ class DataTable
     {
         $searchTerm = $searchTerm ?? $this->params['search'] ?? null;
 
-        if (! empty($searchTerm)) {
+        if (!empty($searchTerm)) {
             $this->query->search($searchTerm);
         }
 
@@ -62,7 +62,7 @@ class DataTable
         $sortBy = $sortBy ?? $this->params['sort_by'] ?? 'created_at';
         $sortDirection = $sortDirection ?? $this->params['sort_direction'] ?? 'desc';
 
-        $this->query->orderByField($sortBy, $sortDirection);
+        $this->query->sortByField($sortBy, $sortDirection);
 
         return $this;
     }

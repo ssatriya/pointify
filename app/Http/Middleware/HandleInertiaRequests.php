@@ -37,7 +37,16 @@ class HandleInertiaRequests extends Middleware
     {
         return [
             ...parent::share($request),
-            //
+            'auth' => [
+                'user' => $request->user(),
+            ],
+            'filters' => [
+                'search' => $request->query('search'),
+                'per_page' => $request->query('per_page'),
+                'sort_by' => $request->query('sort_by'),
+                'sort_direction' => $request->query('sort_direction'),
+                'filters' => $request->query('filters'),
+            ],
         ];
     }
 }
