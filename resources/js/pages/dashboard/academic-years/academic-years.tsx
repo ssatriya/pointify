@@ -17,23 +17,24 @@ import {
 } from "@/components/ui/table"
 import TableToolbar from "@/components/table/table-toolbar";
 import SearchInput from "@/components/table/search-input";
-import {Button} from "@/components/ui/button";
-import type {Paginated, AcademicYear} from "@/types";
-import {useModal} from "@ebay/nice-modal-react";
+import { Button } from "@/components/ui/button";
+import type { Paginated, AcademicYear } from "@/types";
+import { useModal } from "@ebay/nice-modal-react";
 import CreateAcademicYear from "@/pages/dashboard/academic-years/partials/create-academic-year";
-import {Badge} from "@/components/ui/badge";
+import { Badge } from "@/components/ui/badge";
 import TablePagination from "@/components/table/table-pagination";
+import AcademicYearActions from "./partials/academic-year-actions";
 
 type Props = {
     academicYears: Paginated<AcademicYear>;
 };
 
-export default function AcademicYears({academicYears}: Props) {
-    const {show} = useModal(CreateAcademicYear)
+export default function AcademicYears({ academicYears }: Props) {
+    const { show } = useModal(CreateAcademicYear)
     return <AppLayout>
         <CardTable>
             <CardTableHeader>
-                <CardTableTitle title="Data Tahun Akademik"/>
+                <CardTableTitle title="Data Tahun Akademik" />
                 <CardTableActions>
                     <TableToolbar>
                         <SearchInput
@@ -60,6 +61,7 @@ export default function AcademicYears({academicYears}: Props) {
                                 <TableHead>Akhir</TableHead>
                                 <TableHead className="text-center">Status</TableHead>
                                 <TableHead className="text-end">Tanggal Dibuat</TableHead>
+                                <TableHead className="w-[1%] whitespace-nowrap"></TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -77,6 +79,11 @@ export default function AcademicYears({academicYears}: Props) {
                                             )}
                                         </TableCell>
                                         <TableCell className="text-end">{item.created_at}</TableCell>
+                                        <TableCell className="text-end">
+                                            <div className="flex justify-end gap-2">
+                                                <AcademicYearActions id={item.id} />
+                                            </div>
+                                        </TableCell>
                                     </TableRow>
                                 ))
                             ) : (
@@ -88,7 +95,7 @@ export default function AcademicYears({academicYears}: Props) {
                             )}
                         </TableBody>
                     </Table>
-                    <TablePagination links={academicYears.links} meta={academicYears.meta}/>
+                    <TablePagination links={academicYears.links} meta={academicYears.meta} />
                 </div>
             </CardTableContent>
         </CardTable>

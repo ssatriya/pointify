@@ -19,8 +19,7 @@ class AcademicYearController extends Controller
 {
     public function __construct(
         protected AcademicYearService $academicYearService
-    )
-    {
+    ) {
     }
 
     /**
@@ -69,11 +68,9 @@ class AcademicYearController extends Controller
      */
     public function show(AcademicYear $academicYear)
     {
-        return response()->json(
-            [
-                'data' => new AcademicYearResource($academicYear),
-            ]
-        );
+        return Inertia::modal('dashboard/academic-years/partials/edit-academic-year', [
+            'academicYear' => new AcademicYearResource($academicYear),
+        ]);
     }
 
     /**
