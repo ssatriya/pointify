@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AcademicYear\AcademicYearController;
+use App\Http\Controllers\SearchVocationalProgramController;
+use App\Http\Controllers\StudentClassController;
 use App\Http\Controllers\VocationalProgramController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,5 +28,16 @@ Route::middleware(['auth', 'verified'])
             Route::get('/{vocationalProgram}', [VocationalProgramController::class, 'show'])->name('show');
             Route::put('/{vocationalProgram}', [VocationalProgramController::class, 'update'])->name('update');
             Route::delete('/{vocationalProgram}', [VocationalProgramController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('classes')->name('student-classes.')->group(function () {
+            Route::get('/', [StudentClassController::class, 'index'])->name('index');
+            Route::post('/', [StudentClassController::class, 'store'])->name('store');
+
+            Route::get('/search', SearchVocationalProgramController::class)->name('search');
+
+            Route::get('/{studentClass}', [StudentClassController::class, 'show'])->name('show');
+            Route::put('/{studentClass}', [StudentClassController::class, 'update'])->name('update');
+            Route::delete('/{studentClass}', [StudentClassController::class, 'destroy'])->name('destroy');
         });
     });

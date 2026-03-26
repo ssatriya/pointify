@@ -29,7 +29,7 @@ class StudentClassResource extends JsonResource
                 'value' => $this->vocationalProgram->id,
                 'label' => $this->vocationalProgram->name,
             ],
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at->format('d/m/Y'),
         ];
     }
 }

@@ -6,6 +6,7 @@ use App\Traits\Searchable;
 use App\Traits\Sortable;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class StudentClass extends Model
 {
@@ -23,13 +24,20 @@ class StudentClass extends Model
         'created_by',
         'updated_by',
     ];
-
     protected array $searchable = [
         'name',
     ];
-
     protected array $sortable = [
         'created_at',
         'grade_level',
     ];
+
+    /**
+     * Get the vocationalProgram that owns the StudentClass
+     */
+    public function vocationalProgram(): BelongsTo
+    {
+        return $this->belongsTo(VocationalProgram::class);
+    }
+
 }

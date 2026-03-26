@@ -7,8 +7,8 @@ import {
     IconListDetails,
 } from "@tabler/icons-react";
 
-import {NavMain} from "@/components/nav/nav-main";
-import {NavUser} from "@/components/nav/nav-user";
+import { NavMain } from "@/components/nav/nav-main";
+import { NavUser } from "@/components/nav/nav-user";
 import {
     Sidebar,
     SidebarContent,
@@ -18,10 +18,11 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import {Link} from "@inertiajs/react";
-import {index as dashboardIndex} from "@/routes/dashboard"
-import {index as academicYearsIndex} from "@/routes/dashboard/academic-years"
-import {index as vocationalProgramsIndex} from "@/routes/dashboard/vocational-programs"
+import { Link } from "@inertiajs/react";
+import { index as dashboardIndex } from "@/routes/dashboard"
+import { index as academicYearsIndex } from "@/routes/dashboard/academic-years"
+import { index as vocationalProgramsIndex } from "@/routes/dashboard/vocational-programs"
+import { index as classesIndex } from "@/routes/dashboard/student-classes"
 
 const data = {
     user: {
@@ -51,13 +52,42 @@ const data = {
                     title: "Tahun Ajaran",
                     href: academicYearsIndex(),
                     icon: IconListDetails,
+                }, {
+                    title: "Data Kelas",
+                    href: classesIndex(),
+                    icon: IconListDetails,
                 }
             ],
         },
+        {
+            label: "Siswa",
+            items: [
+                {
+                    title: "Data Siswa",
+                    href: "#",
+                    icon: IconListDetails,
+                },
+                {
+                    title: "Batas Poin Pelanggaran",
+                    href: "#",
+                    icon: IconListDetails,
+                },
+                {
+                    title: "Jenis Pelanggaran",
+                    href: "#",
+                    icon: IconListDetails,
+                },
+                {
+                    title: "Jenis Prestasi",
+                    href: "#",
+                    icon: IconListDetails,
+                },
+            ],
+        }
     ],
 };
 
-export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     return (
         <Sidebar collapsible="offcanvas" {...props}>
             <SidebarHeader>
@@ -66,7 +96,7 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
                         <SidebarMenuButton
                             className="data-[slot=sidebar-menu-button]:p-1.5!"
                             render={<Link href="#">
-                                <IconInnerShadowTop className="size-5!"/>
+                                <IconInnerShadowTop className="size-5!" />
                                 <span className="text-base font-semibold">
                                     Acme Inc.
                                 </span>
@@ -77,11 +107,11 @@ export function AppSidebar({...props}: React.ComponentProps<typeof Sidebar>) {
             </SidebarHeader>
             <SidebarContent>
                 {data.nav.map((n, i) => (
-                    <NavMain key={`${n.label}_${i}`} items={n.items} label={n.label}/>
+                    <NavMain key={`${n.label}_${i}`} items={n.items} label={n.label} />
                 ))}
             </SidebarContent>
             <SidebarFooter>
-                <NavUser user={data.user}/>
+                <NavUser user={data.user} />
             </SidebarFooter>
         </Sidebar>
     );
