@@ -51,7 +51,7 @@ function PaginationButton({href, ariaLabel, className, children}: PaginationButt
     );
 }
 
-export default function Pagination({links, meta, onPageSizeChange}: Props) {
+export default function TablePagination({links, meta, onPageSizeChange}: Props) {
     const isFirstPage = meta.current_page <= 1;
     const isLastPage = meta.current_page >= meta.last_page;
 

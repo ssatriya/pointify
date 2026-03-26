@@ -19,12 +19,10 @@ class VocationalProgram extends Model
         'created_by',
         'updated_by',
     ];
-
     protected array $searchable = [
         'name',
         'abbreviation'
     ];
-
     protected array $sortable = [
         'created_at',
     ];

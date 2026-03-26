@@ -1,4 +1,4 @@
-import NiceModal, {useModal} from "@ebay/nice-modal-react";
+import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import {
     Dialog,
     DialogClose,
@@ -9,23 +9,24 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import {useForm} from "@inertiajs/react";
-import {Field, FieldError, FieldGroup, FieldLabel} from "@/components/ui/field";
-import {Input} from "@/components/ui/input";
-import {Button} from "@/components/ui/button";
+import { useForm } from "@inertiajs/react";
+import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import CheckboxCard from "@/components/ui/checkbox-card";
-import {useFocusRestore} from "@/hooks/use-restore-focus";
-import {SyntheticEvent} from "react";
-import {store} from "@/actions/App/Http/Controllers/AcademicYear/AcademicYearController"
+import { useFocusRestore } from "@/hooks/use-restore-focus";
+import { SyntheticEvent } from "react";
+import { store } from "@/actions/App/Http/Controllers/AcademicYear/AcademicYearController"
+import { Loader } from "lucide-react";
 
 export default NiceModal.create(() => {
-    const {visible, hide, show, remove} = useModal()
-    const {visible: confirmVisible, show: confirmShow} = useModal("confirm-modal")
-    const {lastFocusedRef, onFocusCapture} = useFocusRestore(
+    const { visible, hide, show, remove } = useModal()
+    const { visible: confirmVisible, show: confirmShow } = useModal("confirm-dialog")
+    const { lastFocusedRef, onFocusCapture } = useFocusRestore(
         visible,
         confirmVisible
     );
-    const {data, setData, post, processing, errors, isDirty} = useForm({
+    const { data, setData, post, processing, errors, isDirty } = useForm({
         start_date: "",
         end_date: "",
         is_active: false,
@@ -104,8 +105,14 @@ export default NiceModal.create(() => {
                     </FieldGroup>
                 </form>
                 <DialogFooter>
-                    <DialogClose render={<Button variant="outline">Cancel</Button>}/>
-                    <Button type="submit" form="create-academic-year">Save changes</Button>
+                    <DialogClose render={<Button variant="outline" className="min-w-18">Batal</Button>} />
+                    <Button type="submit" form="create-academic-year" className="min-w-24">
+                        {processing ? (
+                            <Loader className="h-4 w-4 animate-spin" />
+                        ) : (
+                            "Simpan"
+                        )}
+                    </Button>
                 </DialogFooter>
             </DialogContent>
         </Dialog>

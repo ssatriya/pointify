@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::index
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:34
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:35
  * @route '/dashboard/academic-years'
  */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::index
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:34
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:35
  * @route '/dashboard/academic-years'
  */
 index.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ index.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::index
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:34
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:35
  * @route '/dashboard/academic-years'
  */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,7 +34,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::index
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:34
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:35
  * @route '/dashboard/academic-years'
  */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,7 +44,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::index
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:34
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:35
  * @route '/dashboard/academic-years'
  */
     const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -54,7 +54,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::index
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:34
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:35
  * @route '/dashboard/academic-years'
  */
         indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -63,7 +63,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::index
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:34
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:35
  * @route '/dashboard/academic-years'
  */
         indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -79,7 +79,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     index.form = indexForm
 /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::store
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:53
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:54
  * @route '/dashboard/academic-years'
  */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -94,7 +94,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::store
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:53
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:54
  * @route '/dashboard/academic-years'
  */
 store.url = (options?: RouteQueryOptions) => {
@@ -103,7 +103,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::store
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:53
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:54
  * @route '/dashboard/academic-years'
  */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -113,7 +113,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
     /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::store
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:53
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:54
  * @route '/dashboard/academic-years'
  */
     const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -123,7 +123,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
             /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::store
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:53
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:54
  * @route '/dashboard/academic-years'
  */
         storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -134,7 +134,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     store.form = storeForm
 /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::show
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:69
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:70
  * @route '/dashboard/academic-years/{academicYear}'
  */
 export const show = (args: { academicYear: string | { id: string } } | [academicYear: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -149,7 +149,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::show
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:69
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:70
  * @route '/dashboard/academic-years/{academicYear}'
  */
 show.url = (args: { academicYear: string | { id: string } } | [academicYear: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
@@ -182,7 +182,7 @@ show.url = (args: { academicYear: string | { id: string } } | [academicYear: str
 
 /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::show
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:69
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:70
  * @route '/dashboard/academic-years/{academicYear}'
  */
 show.get = (args: { academicYear: string | { id: string } } | [academicYear: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -191,7 +191,7 @@ show.get = (args: { academicYear: string | { id: string } } | [academicYear: str
 })
 /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::show
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:69
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:70
  * @route '/dashboard/academic-years/{academicYear}'
  */
 show.head = (args: { academicYear: string | { id: string } } | [academicYear: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -201,7 +201,7 @@ show.head = (args: { academicYear: string | { id: string } } | [academicYear: st
 
     /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::show
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:69
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:70
  * @route '/dashboard/academic-years/{academicYear}'
  */
     const showForm = (args: { academicYear: string | { id: string } } | [academicYear: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -211,7 +211,7 @@ show.head = (args: { academicYear: string | { id: string } } | [academicYear: st
 
             /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::show
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:69
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:70
  * @route '/dashboard/academic-years/{academicYear}'
  */
         showForm.get = (args: { academicYear: string | { id: string } } | [academicYear: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -220,7 +220,7 @@ show.head = (args: { academicYear: string | { id: string } } | [academicYear: st
         })
             /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::show
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:69
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:70
  * @route '/dashboard/academic-years/{academicYear}'
  */
         showForm.head = (args: { academicYear: string | { id: string } } | [academicYear: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -236,7 +236,7 @@ show.head = (args: { academicYear: string | { id: string } } | [academicYear: st
     show.form = showForm
 /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::update
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:89
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:90
  * @route '/dashboard/academic-years/{academicYear}'
  */
 export const update = (args: { academicYear: string | { id: string } } | [academicYear: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -251,7 +251,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::update
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:89
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:90
  * @route '/dashboard/academic-years/{academicYear}'
  */
 update.url = (args: { academicYear: string | { id: string } } | [academicYear: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
@@ -284,7 +284,7 @@ update.url = (args: { academicYear: string | { id: string } } | [academicYear: s
 
 /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::update
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:89
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:90
  * @route '/dashboard/academic-years/{academicYear}'
  */
 update.put = (args: { academicYear: string | { id: string } } | [academicYear: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -294,7 +294,7 @@ update.put = (args: { academicYear: string | { id: string } } | [academicYear: s
 
     /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::update
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:89
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:90
  * @route '/dashboard/academic-years/{academicYear}'
  */
     const updateForm = (args: { academicYear: string | { id: string } } | [academicYear: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -309,7 +309,7 @@ update.put = (args: { academicYear: string | { id: string } } | [academicYear: s
 
             /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::update
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:89
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:90
  * @route '/dashboard/academic-years/{academicYear}'
  */
         updateForm.put = (args: { academicYear: string | { id: string } } | [academicYear: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -325,7 +325,7 @@ update.put = (args: { academicYear: string | { id: string } } | [academicYear: s
     update.form = updateForm
 /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::destroy
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:106
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:107
  * @route '/dashboard/academic-years/{academicYear}'
  */
 export const destroy = (args: { academicYear: string | { id: string } } | [academicYear: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -340,7 +340,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::destroy
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:106
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:107
  * @route '/dashboard/academic-years/{academicYear}'
  */
 destroy.url = (args: { academicYear: string | { id: string } } | [academicYear: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
@@ -373,7 +373,7 @@ destroy.url = (args: { academicYear: string | { id: string } } | [academicYear: 
 
 /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::destroy
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:106
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:107
  * @route '/dashboard/academic-years/{academicYear}'
  */
 destroy.delete = (args: { academicYear: string | { id: string } } | [academicYear: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -383,7 +383,7 @@ destroy.delete = (args: { academicYear: string | { id: string } } | [academicYea
 
     /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::destroy
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:106
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:107
  * @route '/dashboard/academic-years/{academicYear}'
  */
     const destroyForm = (args: { academicYear: string | { id: string } } | [academicYear: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -398,7 +398,7 @@ destroy.delete = (args: { academicYear: string | { id: string } } | [academicYea
 
             /**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::destroy
- * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:106
+ * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:107
  * @route '/dashboard/academic-years/{academicYear}'
  */
         destroyForm.delete = (args: { academicYear: string | { id: string } } | [academicYear: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

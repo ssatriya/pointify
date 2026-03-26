@@ -8,3 +8,10 @@ export type AcademicYear = {
     is_active: boolean,
     created_at: string
 }
+
+export type VocationalProgram = {
+    id: string
+    name: string
+    abbreviation?: string
+    created_at: string
+}

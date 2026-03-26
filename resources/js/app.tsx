@@ -1,12 +1,13 @@
-import {createInertiaApp} from "@inertiajs/react";
-import {resolvePageComponent} from "laravel-vite-plugin/inertia-helpers";
-import {StrictMode} from "react";
-import {createRoot} from "react-dom/client";
-import {TooltipProvider} from "@/components/ui/tooltip";
+import { createInertiaApp } from "@inertiajs/react";
+import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import "../css/app.css";
-import {initializeTheme} from "@/hooks/use-appearance";
+import { initializeTheme } from "@/hooks/use-appearance";
 import NiceModal from "@ebay/nice-modal-react";
 import ConfirmationDialog from "@/components/confirmation-dialog";
+import { renderApp } from '@inertiaui/modal-react'
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
@@ -17,14 +18,14 @@ createInertiaApp({
             `./pages/${name}.tsx`,
             import.meta.glob("./pages/**/*.tsx"),
         ),
-    setup({el, App, props}) {
+    setup({ el, App, props }) {
         const root = createRoot(el);
-        NiceModal.register("confirm-modal", ConfirmationDialog);
+        NiceModal.register("confirm-dialog", ConfirmationDialog);
         root.render(
             <StrictMode>
                 <NiceModal.Provider>
                     <TooltipProvider>
-                        <App {...props} />
+                        {renderApp(App as any, props as any)}
                     </TooltipProvider>
                 </NiceModal.Provider>
             </StrictMode>,

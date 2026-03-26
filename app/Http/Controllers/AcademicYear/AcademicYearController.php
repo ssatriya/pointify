@@ -12,6 +12,7 @@ use App\Models\AcademicYear;
 use Illuminate\Http\JsonResponse;
 use Inertia\Inertia;
 use Inertia\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Throwable;
 
 class AcademicYearController extends Controller
@@ -31,7 +32,7 @@ class AcademicYearController extends Controller
      *
      * @return Response
      */
-    public function index(GetListRequestParams $request)
+    public function index(GetListRequestParams $request): Response
     {
         $paginatedList = $this->academicYearService->index($request->validated());
         return Inertia::render('dashboard/academic-years/academic-years', [
@@ -47,10 +48,10 @@ class AcademicYearController extends Controller
      * @authenticated
      *
      * @param StoreAcademicYearRequest $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      * @throws Throwable
      */
-    public function store(StoreAcademicYearRequest $request)
+    public function store(StoreAcademicYearRequest $request): RedirectResponse
     {
         $this->academicYearService->create($request->validated());
         return Inertia::flash(['message' => 'Tahun akademik berhasil disimpan.'])->back();
@@ -83,10 +84,10 @@ class AcademicYearController extends Controller
      * @authenticated
      *
      * @param AcademicYear $academicYear The resolved academic year instance.
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      * @throws Throwable
      */
-    public function update(UpdateAcademicYearRequest $request, AcademicYear $academicYear)
+    public function update(UpdateAcademicYearRequest $request, AcademicYear $academicYear): RedirectResponse
     {
         $this->academicYearService->update($request->validated(), $academicYear);
         return Inertia::flash(['message' => 'Tahun akademik berhasil diperbarui.'])->back();
@@ -100,10 +101,10 @@ class AcademicYearController extends Controller
      * @authenticated
      *
      * @param AcademicYear $academicYear The resolved academic year instance.
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      * @throws Throwable
      */
-    public function destroy(AcademicYear $academicYear)
+    public function destroy(AcademicYear $academicYear): RedirectResponse
     {
         $this->academicYearService->delete($academicYear);
         return Inertia::flash(['message' => 'Tahun akademik berhasil dihapus.'])->back();

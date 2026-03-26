@@ -21,6 +21,7 @@ import {
 import {Link} from "@inertiajs/react";
 import {index as dashboardIndex} from "@/routes/dashboard"
 import {index as academicYearsIndex} from "@/routes/dashboard/academic-years"
+import {index as vocationalProgramsIndex} from "@/routes/dashboard/vocational-programs"
 
 const data = {
     user: {
@@ -43,7 +44,7 @@ const data = {
             items: [
                 {
                     title: "Program Kejuruan",
-                    href: "#",
+                    href: vocationalProgramsIndex(),
                     icon: IconListDetails,
                 }
                 , {

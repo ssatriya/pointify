@@ -1,4 +1,4 @@
-import NiceModal, {useModal} from "@ebay/nice-modal-react"
+import NiceModal, { useModal } from "@ebay/nice-modal-react"
 import {
     AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
     AlertDialogDescription,
@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/alert-dialog"
 
 export default NiceModal.create(() => {
-    const modal = useModal("confirm-modal");
+    const modal = useModal("confirm-dialog");
 
     const handleConfirm = () => {
         modal.resolve?.();

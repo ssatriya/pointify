@@ -1,5 +1,6 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../wayfinder'
 import academicYears from './academic-years'
+import vocationalPrograms from './vocational-programs'
 /**
 * @see \Inertia\Controller::__invoke
  * @see vendor/inertiajs/inertia-laravel/src/Controller.php:13
@@ -81,6 +82,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 const dashboard = {
     index: Object.assign(index, index),
 academicYears: Object.assign(academicYears, academicYears),
+vocationalPrograms: Object.assign(vocationalPrograms, vocationalPrograms),
 }
 
 export default dashboard

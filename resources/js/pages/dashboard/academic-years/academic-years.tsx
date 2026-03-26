@@ -18,13 +18,11 @@ import {
 import TableToolbar from "@/components/table/table-toolbar";
 import SearchInput from "@/components/table/search-input";
 import {Button} from "@/components/ui/button";
-import type {Paginated} from "@/types/pagination";
-import type {AcademicYear} from "@/types/data-props";
+import type {Paginated, AcademicYear} from "@/types";
 import {useModal} from "@ebay/nice-modal-react";
 import CreateAcademicYear from "@/pages/dashboard/academic-years/partials/create-academic-year";
 import {Badge} from "@/components/ui/badge";
-import {Fragment} from "react";
-import Pagination from "@/components/table/pagination";
+import TablePagination from "@/components/table/table-pagination";
 
 type Props = {
     academicYears: Paginated<AcademicYear>;
@@ -90,7 +88,7 @@ export default function AcademicYears({academicYears}: Props) {
                             )}
                         </TableBody>
                     </Table>
-                    <Pagination links={academicYears.links} meta={academicYears.meta}/>
+                    <TablePagination links={academicYears.links} meta={academicYears.meta}/>
                 </div>
             </CardTableContent>
         </CardTable>

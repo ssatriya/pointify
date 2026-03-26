@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\Update;
 
-use App\Http\Requests\Rule;
 use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateVocationalProgramRequest extends FormRequest
@@ -23,10 +23,11 @@ class UpdateVocationalProgramRequest extends FormRequest
      */
     public function rules(): array
     {
-        $vocationalProgramId = $this->route('vocationalProgram');
+        $vocationalProgram = $this->route('vocationalProgram');
 
         return [
-            'name' => ['required', 'string', Rule::unique('vocational_programs', 'name')->ignore($vocationalProgramId)],
+            'name' => ['required', 'string', Rule::unique('vocational_programs', 'name')->ignore($vocationalProgram)],
+            'abbreviation' => ['sometimes', 'nullable', 'string']
         ];
     }
 }
