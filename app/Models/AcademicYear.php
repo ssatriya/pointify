@@ -21,12 +21,16 @@ class AcademicYear extends Model
         'created_by',
         'updated_by',
     ];
-
     protected array $searchable = [
         'name',
     ];
-
     protected array $sortable = [
         'created_at',
     ];
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
+        'is_active' => 'boolean',
+    ];
+
 }
