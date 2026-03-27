@@ -36,8 +36,8 @@ export default NiceModal.create(() => {
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
-                    <AlertDialogCancel onClick={handleCancel}>Kembali</AlertDialogCancel>
-                    <AlertDialogAction onClick={handleConfirm}>Tutup</AlertDialogAction>
+                    <AlertDialogCancel onClick={handleCancel} className="min-w-20">Kembali</AlertDialogCancel>
+                    <AlertDialogAction onClick={handleConfirm} className="min-w-18">Tutup</AlertDialogAction>
                 </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>

@@ -14,12 +14,12 @@ import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import { useFocusRestore } from "@/hooks/use-restore-focus";
 import { useForm } from "@inertiajs/react";
 import { SyntheticEvent, useCallback, useState } from "react";
-import { store } from "@/actions/App/Http/Controllers/StudentClassController";
+import { store } from "@/actions/App/Http/Controllers/StudentController";
 import SearchVocationalProgramController from "@/actions/App/Http/Controllers/SearchVocationalProgramController";
 import { Loader } from "lucide-react";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import type { OptionType } from "@/types";
 import { ReactAsyncSelect } from "@/components/react-select";
+import CheckboxCard from "@/components/ui/checkbox-card";
 
 export default NiceModal.create(() => {
     const { visible, hide, show, remove } = useModal()
@@ -32,9 +32,10 @@ export default NiceModal.create(() => {
     const [selectedOption, setSelectedOption] = useState<OptionType | null>(null);
 
     const { data, setData, post, processing, errors, isDirty } = useForm({
-        grade_level: "",
+        student_number: "",
+        name: "",
         vocational_program_id: "",
-        section: "",
+        is_active: true,
     });
 
     const loadOptions = useCallback(async (inputValue: string): Promise<OptionType[]> => {
@@ -81,71 +82,73 @@ export default NiceModal.create(() => {
                 className="sm:max-w-xl"
             >
                 <DialogHeader>
-                    <DialogTitle>Tambah Kelas</DialogTitle>
+                    <DialogTitle>Tambah Siswa</DialogTitle>
                     <DialogDescription>
-                        Isi formulir di bawah ini untuk menambahkan data kelas baru ke dalam sistem.
+                        Isi formulir di bawah ini untuk menambahkan data siswa baru ke dalam sistem.
                     </DialogDescription>
                 </DialogHeader>
-                <form onSubmit={submit} id="create-class">
+                <form onSubmit={submit} id="create-student">
                     <FieldGroup>
-                        <div className="flex gap-3">
-                            <Field className="w-1/3">
-                                <FieldLabel htmlFor="grade_level">Tingkat</FieldLabel>
-                                <Select
-                                    value={data.grade_level}
-                                    onValueChange={(value) => setData("grade_level", value ?? "")}
-                                >
-                                    <SelectTrigger id="grade_level">
-                                        <SelectValue placeholder="Pilih tingkat" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectGroup>
-                                            <SelectItem value="10">10</SelectItem>
-                                            <SelectItem value="11">11</SelectItem>
-                                            <SelectItem value="12">12</SelectItem>
-                                        </SelectGroup>
-                                    </SelectContent>
-                                </Select>
-                                <FieldError>{errors.grade_level}</FieldError>
-                            </Field>
+                        <Field>
+                            <FieldLabel htmlFor="name">Nama Lengkap</FieldLabel>
+                            <Input
+                                id="name"
+                                type="text"
+                                value={data.name}
+                                onChange={(e) => setData("name", e.target.value)}
+                                placeholder="Masukkan nama lengkap siswa"
+                            />
+                            <FieldError>{errors.name}</FieldError>
+                        </Field>
 
+                        <div className="flex gap-3">
                             <Field className="flex-1">
-                                <FieldLabel htmlFor="vocational_program_id">Kejuruan</FieldLabel>
-                                <ReactAsyncSelect
-                                    inputId="vocational_program_id"
-                                    loadOptions={loadOptions}
-                                    defaultOptions
-                                    cacheOptions
-                                    placeholder="Pilih kejuruan"
-                                    value={selectedOption}
-                                    onChange={(selected) => {
-                                        if (selected) {
-                                            setSelectedOption(selected);
-                                            setData("vocational_program_id", selected.value as string);
-                                        }
-                                    }}
+                                <FieldLabel htmlFor="student_number">Nomor Induk Siswa (NIS/NISN)</FieldLabel>
+                                <Input
+                                    id="student_number"
+                                    type="text"
+                                    value={data.student_number}
+                                    onChange={(e) => setData("student_number", e.target.value)}
+                                    placeholder="Masukkan NIS/NISN"
                                 />
-                                <FieldError>{errors.vocational_program_id}</FieldError>
+                                <FieldError>{errors.student_number}</FieldError>
                             </Field>
                         </div>
 
                         <Field>
-                            <FieldLabel htmlFor="section">Rombel / Suffix (Opsional)</FieldLabel>
-                            <Input
-                                id="section"
-                                type="text"
-                                value={data.section}
-                                onChange={(e) => setData("section", e.target.value.toUpperCase().replace(/[^A-Z]/g, ''))}
-                                placeholder="Misal: A, B, atau C"
-                                maxLength={1}
+                            <FieldLabel htmlFor="vocational_program_id">Kejuruan</FieldLabel>
+                            <ReactAsyncSelect
+                                inputId="vocational_program_id"
+                                loadOptions={loadOptions}
+                                defaultOptions
+                                cacheOptions
+                                placeholder="Pilih kejuruan"
+                                value={selectedOption}
+                                onChange={(selected) => {
+                                    if (selected) {
+                                        setSelectedOption(selected);
+                                        setData("vocational_program_id", selected.value as string);
+                                    }
+                                }}
                             />
-                            <FieldError>{errors.section}</FieldError>
+                            <FieldError>{errors.vocational_program_id}</FieldError>
+                        </Field>
+
+                        <Field>
+                            <CheckboxCard
+                                id="is_active"
+                                checked={data.is_active}
+                                onCheckedChange={(checked) => setData("is_active", checked)}
+                                title="Status siswa"
+                                detail="Centang jika siswa masih aktif di sekolah."
+                            />
+                            <FieldError>{errors.is_active}</FieldError>
                         </Field>
                     </FieldGroup>
                 </form>
                 <DialogFooter>
                     <DialogClose render={<Button variant="outline" className="min-w-18">Batal</Button>} />
-                    <Button type="submit" form="create-class" className="min-w-24">
+                    <Button type="submit" form="create-student" className="min-w-24">
                         {processing ? (
                             <Loader className="h-4 w-4 animate-spin" />
                         ) : (

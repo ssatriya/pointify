@@ -12,14 +12,14 @@ import { ModalLink } from "@inertiaui/modal-react";
 import { Loader } from "lucide-react";
 
 interface TableOptionsProps {
-    onClickConfirm: MouseEventHandler<HTMLButtonElement>;
-    isPending: boolean;
+    onClickConfirm?: MouseEventHandler<HTMLButtonElement>;
+    isPending?: boolean;
     href: string;
 }
 
 export default function TableOptions({
     onClickConfirm,
-    isPending,
+    isPending = false,
     href,
 }: TableOptionsProps) {
     return (
@@ -40,31 +40,33 @@ export default function TableOptions({
                     </span>
                 )}
             </ModalLink>
-            <AlertDialog>
-                <AlertDialogTrigger render={<Button variant="destructive" />}>
-                    <IconTrash className="size-4" />
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                    <AlertDialogHeader>
-                        <AlertDialogTitle>Apakah Anda yakin?</AlertDialogTitle>
-                        <AlertDialogDescription>
-                            Tindakan ini tidak dapat dibatalkan. Data yang dihapus tidak dapat
-                            dikembalikan.
-                        </AlertDialogDescription>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                        <AlertDialogCancel className="min-w-18">Batal</AlertDialogCancel>
-                        <AlertDialogAction onClick={onClickConfirm} variant="destructive"
-                            disabled={isPending} className="min-w-24">{
-                                isPending ? (
-                                    <Loader className="h-4 w-4 animate-spin" />
-                                ) : (
-                                    "Lanjutkan"
-                                )
-                            }</AlertDialogAction>
-                    </AlertDialogFooter>
-                </AlertDialogContent>
-            </AlertDialog>
+            {onClickConfirm && (
+                <AlertDialog>
+                    <AlertDialogTrigger render={<Button variant="destructive" />}>
+                        <IconTrash className="size-4" />
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>Apakah Anda yakin?</AlertDialogTitle>
+                            <AlertDialogDescription>
+                                Tindakan ini tidak dapat dibatalkan. Data yang dihapus tidak dapat
+                                dikembalikan.
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                            <AlertDialogCancel className="min-w-18">Batal</AlertDialogCancel>
+                            <AlertDialogAction onClick={onClickConfirm} variant="destructive"
+                                disabled={isPending} className="min-w-24">{
+                                    isPending ? (
+                                        <Loader className="h-4 w-4 animate-spin" />
+                                    ) : (
+                                        "Lanjutkan"
+                                    )
+                                }</AlertDialogAction>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
+            )}
         </div>
     );
 }

@@ -23,7 +23,7 @@ class UpdateRewardTypeRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rewardType = $this->route('reward_type');
+        $rewardType = $this->route('rewardType');
 
         return [
             'code' => [

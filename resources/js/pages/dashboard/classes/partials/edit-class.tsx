@@ -79,7 +79,7 @@ export default function EditClass({
                                             </SelectGroup>
                                         </SelectContent>
                                     </Select>
-                                    <FieldError>{errors.grade_level ?? undefined}</FieldError>
+                                    <FieldError>{errors.grade_level}</FieldError>
                                 </Field>
 
                                 <Field className="flex-1">
@@ -91,12 +91,14 @@ export default function EditClass({
                                         cacheOptions
                                         placeholder="Pilih kejuruan"
                                         value={selectedOption}
-                                        onChange={(option: any) => {
-                                            setSelectedOption(option);
-                                            setData("vocational_program_id", option?.value ?? "");
+                                        onChange={(selected) => {
+                                            if (selected) {
+                                                setSelectedOption(selected);
+                                                setData("vocational_program_id", selected.value as string);
+                                            }
                                         }}
                                     />
-                                    <FieldError>{errors.vocational_program_id ?? undefined}</FieldError>
+                                    <FieldError>{errors.vocational_program_id}</FieldError>
                                 </Field>
                             </div>
 
@@ -110,7 +112,7 @@ export default function EditClass({
                                     placeholder="Misal: A, B, atau C"
                                     maxLength={1}
                                 />
-                                <FieldError>{errors.section ?? undefined}</FieldError>
+                                <FieldError>{errors.section}</FieldError>
                             </Field>
                         </FieldGroup>
                     </form>

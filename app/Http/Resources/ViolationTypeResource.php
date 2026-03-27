@@ -20,7 +20,7 @@ class ViolationTypeResource extends JsonResource
             'description' => $this->description,
             'points' => $this->points,
             'is_active' => $this->is_active,
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at->format('d/m/Y'),
         ];
     }
 }

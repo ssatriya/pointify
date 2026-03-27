@@ -32,4 +32,14 @@ class Student extends Model
         'name',
         'created_at',
     ];
+
+    /**
+     * Get the vocationalProgram that owns the Student
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function vocationalProgram(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(VocationalProgram::class);
+    }
 }

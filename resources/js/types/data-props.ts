@@ -29,3 +29,39 @@ export type Class = {
     vocational_program: OptionType
     created_at: string
 }
+
+export type Student = {
+    id: string
+    name: string
+    student_number: string
+    vocational_program: OptionType
+    is_active: boolean
+    created_at: string
+}
+
+export type PointThreshold = {
+    id: string
+    cumulative_points_threshold: number
+    academic_year: OptionType
+    description?: string
+    is_active: boolean
+    created_at: string
+}
+
+export type ViolationType = {
+    id: string
+    code: string
+    description: string
+    points: number
+    is_active: boolean
+    created_at: string
+}
+
+export type RewardType = {
+    id: string
+    code: string
+    description: string
+    points: number
+    is_active: boolean
+    created_at: string
+}

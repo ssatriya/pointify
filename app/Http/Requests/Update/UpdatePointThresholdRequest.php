@@ -23,7 +23,7 @@ class UpdatePointThresholdRequest extends FormRequest
      */
     public function rules(): array
     {
-        $pointThreshold = $this->route('point_threshold');
+        $pointThreshold = $this->route('pointThreshold');
 
         return [
             'academic_year_id' => [

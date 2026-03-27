@@ -18,12 +18,12 @@ class PointThresholdResource extends JsonResource
             'id' => $this->id,
             'cumulative_points_threshold' => $this->cumulative_points_threshold,
             'academic_year' => [
-                'id' => $this->academicYear->id,
-                'name' => $this->academicYear->name,
+                'value' => $this->academicYear->id,
+                'label' => $this->academicYear->name,
             ],
             'description' => $this->description ?? '',
             'is_active' => $this->is_active,
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at->format('d/m/Y H:i:s'),
         ];
     }
 }

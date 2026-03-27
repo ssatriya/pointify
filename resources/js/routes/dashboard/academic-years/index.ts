@@ -133,6 +133,84 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     
     store.form = storeForm
 /**
+* @see \App\Http\Controllers\SearchAcademicYearController::__invoke
+ * @see app/Http/Controllers/SearchAcademicYearController.php:20
+ * @route '/dashboard/academic-years/search'
+ */
+export const search = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: search.url(options),
+    method: 'get',
+})
+
+search.definition = {
+    methods: ["get","head"],
+    url: '/dashboard/academic-years/search',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\SearchAcademicYearController::__invoke
+ * @see app/Http/Controllers/SearchAcademicYearController.php:20
+ * @route '/dashboard/academic-years/search'
+ */
+search.url = (options?: RouteQueryOptions) => {
+    return search.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\SearchAcademicYearController::__invoke
+ * @see app/Http/Controllers/SearchAcademicYearController.php:20
+ * @route '/dashboard/academic-years/search'
+ */
+search.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: search.url(options),
+    method: 'get',
+})
+/**
+* @see \App\Http\Controllers\SearchAcademicYearController::__invoke
+ * @see app/Http/Controllers/SearchAcademicYearController.php:20
+ * @route '/dashboard/academic-years/search'
+ */
+search.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: search.url(options),
+    method: 'head',
+})
+
+    /**
+* @see \App\Http\Controllers\SearchAcademicYearController::__invoke
+ * @see app/Http/Controllers/SearchAcademicYearController.php:20
+ * @route '/dashboard/academic-years/search'
+ */
+    const searchForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: search.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\SearchAcademicYearController::__invoke
+ * @see app/Http/Controllers/SearchAcademicYearController.php:20
+ * @route '/dashboard/academic-years/search'
+ */
+        searchForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: search.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\SearchAcademicYearController::__invoke
+ * @see app/Http/Controllers/SearchAcademicYearController.php:20
+ * @route '/dashboard/academic-years/search'
+ */
+        searchForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: search.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    search.form = searchForm
+/**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::show
  * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:69
  * @route '/dashboard/academic-years/{academicYear}'
@@ -415,6 +493,7 @@ destroy.delete = (args: { academicYear: string | { id: string } } | [academicYea
 const academicYears = {
     index: Object.assign(index, index),
 store: Object.assign(store, store),
+search: Object.assign(search, search),
 show: Object.assign(show, show),
 update: Object.assign(update, update),
 destroy: Object.assign(destroy, destroy),

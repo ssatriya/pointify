@@ -23,6 +23,10 @@ import { index as dashboardIndex } from "@/routes/dashboard"
 import { index as academicYearsIndex } from "@/routes/dashboard/academic-years"
 import { index as vocationalProgramsIndex } from "@/routes/dashboard/vocational-programs"
 import { index as classesIndex } from "@/routes/dashboard/student-classes"
+import { index as studentsIndex } from "@/routes/dashboard/students"
+import { index as pointThresholdsIndex } from "@/routes/dashboard/point-thresholds"
+import { index as violationTypesIndex } from "@/routes/dashboard/violation-types"
+import { index as rewardTypesIndex } from "@/routes/dashboard/reward-types"
 
 const data = {
     user: {
@@ -53,7 +57,7 @@ const data = {
                     href: academicYearsIndex(),
                     icon: IconListDetails,
                 }, {
-                    title: "Data Kelas",
+                    title: "Kelas",
                     href: classesIndex(),
                     icon: IconListDetails,
                 }
@@ -63,23 +67,23 @@ const data = {
             label: "Siswa",
             items: [
                 {
-                    title: "Data Siswa",
-                    href: "#",
+                    title: "Siswa",
+                    href: studentsIndex(),
                     icon: IconListDetails,
                 },
                 {
                     title: "Batas Poin Pelanggaran",
-                    href: "#",
+                    href: pointThresholdsIndex(),
                     icon: IconListDetails,
                 },
                 {
                     title: "Jenis Pelanggaran",
-                    href: "#",
+                    href: violationTypesIndex(),
                     icon: IconListDetails,
                 },
                 {
                     title: "Jenis Prestasi",
-                    href: "#",
+                    href: rewardTypesIndex(),
                     icon: IconListDetails,
                 },
             ],

@@ -2,6 +2,10 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFo
 import academicYears from './academic-years'
 import vocationalPrograms from './vocational-programs'
 import studentClasses from './student-classes'
+import students from './students'
+import pointThresholds from './point-thresholds'
+import violationTypes from './violation-types'
+import rewardTypes from './reward-types'
 /**
 * @see \Inertia\Controller::__invoke
  * @see vendor/inertiajs/inertia-laravel/src/Controller.php:13
@@ -85,6 +89,10 @@ const dashboard = {
 academicYears: Object.assign(academicYears, academicYears),
 vocationalPrograms: Object.assign(vocationalPrograms, vocationalPrograms),
 studentClasses: Object.assign(studentClasses, studentClasses),
+students: Object.assign(students, students),
+pointThresholds: Object.assign(pointThresholds, pointThresholds),
+violationTypes: Object.assign(violationTypes, violationTypes),
+rewardTypes: Object.assign(rewardTypes, rewardTypes),
 }
 
 export default dashboard

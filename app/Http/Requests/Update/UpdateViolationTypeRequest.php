@@ -23,7 +23,7 @@ class UpdateViolationTypeRequest extends FormRequest
      */
     public function rules(): array
     {
-        $violationType = $this->route('violation_type');
+        $violationType = $this->route('violationType');
 
         return [
             'code' => [
