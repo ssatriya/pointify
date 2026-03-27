@@ -7,7 +7,7 @@ import { useModal } from "@ebay/nice-modal-react";
 import CreateStudent from "./partials/create-student";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import TablePagination from "@/components/table/table-pagination";
-import type { Paginated, Student } from "@/types";
+import type { BreadcrumbItem, Paginated, Student } from "@/types";
 import StudentActions from "./partials/student-actions";
 import { Badge } from "@/components/ui/badge";
 
@@ -15,9 +15,20 @@ type Props = {
     students: Paginated<Student>
 }
 
+const breadcrumbs: BreadcrumbItem[] = [
+    {
+        title: "Dashboard",
+        href: "/dashboard"
+    },
+    {
+        title: "Siswa",
+        href: "/dashboard/students"
+    }
+]
+
 export default function Students({ students }: Props) {
     const { show } = useModal(CreateStudent)
-    return <AppLayout>
+    return <AppLayout breadcrumbs={breadcrumbs}>
         <CardTable>
             <CardTableHeader>
                 <CardTableTitle title="Data Siswa" />

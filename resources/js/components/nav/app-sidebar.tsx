@@ -18,7 +18,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { index as dashboardIndex } from "@/routes/dashboard"
 import { index as academicYearsIndex } from "@/routes/dashboard/academic-years"
 import { index as vocationalProgramsIndex } from "@/routes/dashboard/vocational-programs"
@@ -27,6 +27,7 @@ import { index as studentsIndex } from "@/routes/dashboard/students"
 import { index as pointThresholdsIndex } from "@/routes/dashboard/point-thresholds"
 import { index as violationTypesIndex } from "@/routes/dashboard/violation-types"
 import { index as rewardTypesIndex } from "@/routes/dashboard/reward-types"
+import { StudentClass } from "@/types";
 
 const data = {
     user: {
@@ -91,7 +92,23 @@ const data = {
     ],
 };
 
+
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+    const { studentClasses } = usePage().props as { studentClasses?: StudentClass[] };
+
+    const navData = [
+        ...data.nav,
+        {
+            label: "Daftar Kelas",
+            items: studentClasses?.map((c) => ({
+                title: c.abbreviation ? c.abbreviation : c.name,
+                href: c.url,
+                icon: IconListDetails,
+            })) || [],
+        }
+    ];
+
     return (
         <Sidebar collapsible="offcanvas" {...props}>
             <SidebarHeader>
@@ -110,7 +127,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </SidebarMenu>
             </SidebarHeader>
             <SidebarContent>
-                {data.nav.map((n, i) => (
+                {navData.map((n, i) => (
                     <NavMain key={`${n.label}_${i}`} items={n.items} label={n.label} />
                 ))}
             </SidebarContent>

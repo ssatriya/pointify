@@ -22,15 +22,15 @@ import CheckboxCard from "@/components/ui/checkbox-card";
 export default function EditPointThreshold({
     pointThreshold,
 }: {
-    pointThreshold: { data: PointThreshold };
+    pointThreshold: PointThreshold;
 }) {
-    const [selectedAcademicYear, setSelectedAcademicYear] = useState<OptionType | null>(pointThreshold.data.academic_year);
+    const [selectedAcademicYear, setSelectedAcademicYear] = useState<OptionType | null>(pointThreshold.academic_year);
 
     const { data, setData, put, processing, errors, isDirty } = useForm({
-        academic_year_id: pointThreshold.data.academic_year.value as string,
-        cumulative_points_threshold: pointThreshold.data.cumulative_points_threshold,
-        description: pointThreshold.data.description || "",
-        is_active: pointThreshold.data.is_active,
+        academic_year_id: pointThreshold.academic_year.value as string,
+        cumulative_points_threshold: pointThreshold.cumulative_points_threshold,
+        description: pointThreshold.description || "",
+        is_active: pointThreshold.is_active,
     });
 
     const loadAcademicYears = useCallback(async (inputValue: string): Promise<OptionType[]> => {
@@ -46,7 +46,7 @@ export default function EditPointThreshold({
 
     function submit(e: SyntheticEvent<HTMLFormElement>, close: () => void) {
         e.preventDefault()
-        put(update({ pointThreshold: pointThreshold.data.id }).url, {
+        put(update({ pointThreshold: pointThreshold.id }).url, {
             onSuccess: () => {
                 close()
             }

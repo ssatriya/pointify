@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import TablePagination from "@/components/table/table-pagination";
 import AppLayout from "@/components/layout/app-layout";
-import type { Paginated, ViolationType } from "@/types";
+import type { BreadcrumbItem, Paginated, ViolationType } from "@/types";
 import { useModal } from "@ebay/nice-modal-react";
 import { Badge } from "@/components/ui/badge";
 import createViolationType from "./partials/create-violation-type";
@@ -21,10 +21,21 @@ type Props = {
     violationTypes: Paginated<ViolationType>;
 };
 
+const breadcrumbs: BreadcrumbItem[] = [
+    {
+        title: "Dashboard",
+        href: "/dashboard"
+    },
+    {
+        title: "Jenis Pelanggaran",
+        href: "/dashboard/violation-types"
+    }
+]
+
 export default function ViolationTypes({ violationTypes }: Props) {
     const { show } = useModal(createViolationType)
 
-    return (<AppLayout>
+    return (<AppLayout breadcrumbs={breadcrumbs}>
         <CardTable>
             <CardTableHeader>
                 <CardTableTitle title="Data Jenis Pelanggaran" />

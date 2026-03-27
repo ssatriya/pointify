@@ -20,14 +20,14 @@ import { InertiaModal } from "@/components/inertia-modal";
 
 export default function EditClass({
     class: studentClass
-}: { class: { data: Class } }) {
+}: { class: Class }) {
     const { data, setData, put, processing, errors, isDirty } = useForm({
-        grade_level: studentClass.data.grade_level.value.toString(),
-        vocational_program_id: studentClass.data.vocational_program.value.toString(),
-        section: studentClass.data.section?.value.toString() ?? "",
+        grade_level: studentClass.grade_level.value.toString(),
+        vocational_program_id: studentClass.vocational_program.value.toString(),
+        section: studentClass.section?.value.toString() ?? "",
     });
 
-    const [selectedOption, setSelectedOption] = useState<OptionType | null>(studentClass.data.vocational_program);
+    const [selectedOption, setSelectedOption] = useState<OptionType | null>(studentClass.vocational_program);
 
     const loadOptions = useCallback(async (inputValue: string): Promise<OptionType[]> => {
         const url = SearchVocationalProgramController.url({ query: { q: inputValue } });
@@ -42,7 +42,7 @@ export default function EditClass({
 
     function submit(e: SyntheticEvent<HTMLFormElement>, close: () => void) {
         e.preventDefault()
-        put(update({ studentClass: studentClass.data.id }).url, {
+        put(update({ studentClass: studentClass.id }).url, {
             onSuccess: () => {
                 close()
             }

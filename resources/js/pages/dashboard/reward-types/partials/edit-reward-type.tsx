@@ -20,18 +20,18 @@ import CheckboxCard from "@/components/ui/checkbox-card";
 export default function EditRewardType({
     rewardType,
 }: {
-    rewardType: { data: RewardType };
+    rewardType: RewardType;
 }) {
     const { data, setData, put, processing, errors, isDirty } = useForm({
-        code: rewardType.data.code,
-        description: rewardType.data.description,
-        points: rewardType.data.points,
-        is_active: rewardType.data.is_active,
+        code: rewardType.code,
+        description: rewardType.description,
+        points: rewardType.points,
+        is_active: rewardType.is_active,
     });
 
     function submit(e: SyntheticEvent<HTMLFormElement>, close: () => void) {
         e.preventDefault()
-        put(update({ rewardType: rewardType.data.id }).url, {
+        put(update({ rewardType: rewardType.id }).url, {
             onSuccess: () => {
                 close()
             }

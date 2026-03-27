@@ -1,11 +1,16 @@
 <?php
 
 use App\Http\Controllers\AcademicYear\AcademicYearController;
+use App\Http\Controllers\ActiveAcademicYearController;
 use App\Http\Controllers\PointThresholdController;
 use App\Http\Controllers\RewardTypeController;
+use App\Http\Controllers\SearchAcademicYearController;
+use App\Http\Controllers\SearchUnenrolledStudentController;
 use App\Http\Controllers\SearchVocationalProgramController;
+use App\Http\Controllers\SearchStudentEnrollmentController;
 use App\Http\Controllers\StudentClassController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StudentEnrollmentController;
 use App\Http\Controllers\ViolationTypeController;
 use App\Http\Controllers\VocationalProgramController;
 use Illuminate\Support\Facades\Route;
@@ -19,9 +24,10 @@ Route::middleware(['auth', 'verified'])
         Route::inertia('/', 'dashboard/dashboard')->name('index');
 
         Route::prefix('academic-years')->name('academic-years.')->group(function () {
+            Route::get('/active', ActiveAcademicYearController::class)->name('active');
             Route::get('/', [AcademicYearController::class, 'index'])->name('index');
             Route::post('/', [AcademicYearController::class, 'store'])->name('store');
-            Route::get('/search', \App\Http\Controllers\SearchAcademicYearController::class)->name('search');
+            Route::get('/search', SearchAcademicYearController::class)->name('search');
             Route::get('/{academicYear}', [AcademicYearController::class, 'show'])->name('show');
             Route::put('/{academicYear}', [AcademicYearController::class, 'update'])->name('update');
             Route::delete('/{academicYear}', [AcademicYearController::class, 'destroy'])->name('destroy');
@@ -46,7 +52,17 @@ Route::middleware(['auth', 'verified'])
             Route::delete('/{studentClass}', [StudentClassController::class, 'destroy'])->name('destroy');
         });
 
+        Route::prefix('student-enrollments')->name('student-enrollments.')->group(function () {
+            Route::get('/search', SearchStudentEnrollmentController::class)->name('search');
+
+            Route::get('/{studentEnrollment}', [StudentEnrollmentController::class, 'show'])->name('show');
+            Route::put('/{studentEnrollment}', [StudentEnrollmentController::class, 'update'])->name('update');
+            Route::delete('/{studentEnrollment}', [StudentEnrollmentController::class, 'destroy'])->name('destroy');
+        });
+
         Route::prefix('students')->name('students.')->group(function () {
+            Route::get('/select-unenrolled/{vocational_program}', SearchUnenrolledStudentController::class)->name('selectUnenrolled');
+
             Route::get('/', [StudentController::class, 'index'])->name('index');
             Route::post('/', [StudentController::class, 'store'])->name('store');
             Route::get('/{student}', [StudentController::class, 'show'])->name('show');
@@ -76,4 +92,14 @@ Route::middleware(['auth', 'verified'])
             Route::put('/{rewardType}', [RewardTypeController::class, 'update'])->name('update');
             Route::delete('/{rewardType}', [RewardTypeController::class, 'destroy'])->name('destroy');
         });
+
+        Route::prefix('{studentClass:slug}')->name('class.')->group(function () {
+            Route::get('/', [StudentEnrollmentController::class, 'index'])->name('index');
+            Route::post('/', [StudentEnrollmentController::class, 'store'])->name('store');
+            
+            Route::get('/reports', [StudentEnrollmentController::class, 'reports'])->name('reports');
+
+            Route::get('/{studentEnrollment}', [StudentEnrollmentController::class, 'studentByEnrollment'])->name('student-detail');
+        });
+
     });

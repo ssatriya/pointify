@@ -17,16 +17,16 @@ import { Loader } from "lucide-react";
 export default function EditVocationalProgram({
     vocationalProgram,
 }: {
-    vocationalProgram: { data: { id: string; name: string; abbreviation: string } };
+    vocationalProgram: { id: string; name: string; abbreviation: string };
 }) {
     const { data, setData, put, processing, errors, isDirty } = useForm({
-        name: vocationalProgram.data.name,
-        abbreviation: vocationalProgram.data.abbreviation,
+        name: vocationalProgram.name,
+        abbreviation: vocationalProgram.abbreviation,
     });
 
     function submit(e: SyntheticEvent<HTMLFormElement>, close: () => void) {
         e.preventDefault()
-        put(update({ vocationalProgram: vocationalProgram.data.id }).url, {
+        put(update({ vocationalProgram: vocationalProgram.id }).url, {
             onSuccess: () => {
                 close()
             }

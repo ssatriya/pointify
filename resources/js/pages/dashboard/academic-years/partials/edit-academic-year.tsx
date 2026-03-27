@@ -17,17 +17,17 @@ import { update } from "@/actions/App/Http/Controllers/AcademicYear/AcademicYear
 
 export default function EditAcademicYear({
     academicYear
-}: { academicYear: { data: { id: string, name: string, start_date_raw: string, end_date_raw: string, is_active: boolean } } }) {
+}: { academicYear: { id: string, name: string, start_date_raw: string, end_date_raw: string, is_active: boolean } }) {
     const { data, setData, put, processing, errors, isDirty } = useForm({
-        name: academicYear.data.name,
-        start_date: academicYear.data.start_date_raw,
-        end_date: academicYear.data.end_date_raw,
-        is_active: academicYear.data.is_active,
+        name: academicYear.name,
+        start_date: academicYear.start_date_raw,
+        end_date: academicYear.end_date_raw,
+        is_active: academicYear.is_active,
     });
 
     function submit(e: SyntheticEvent<HTMLFormElement>, close: () => void) {
         e.preventDefault()
-        put(update({ academicYear: academicYear.data.id }).url, {
+        put(update({ academicYear: academicYear.id }).url, {
             onSuccess: () => {
                 close()
             }

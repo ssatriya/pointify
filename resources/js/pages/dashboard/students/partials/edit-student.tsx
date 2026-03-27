@@ -20,15 +20,15 @@ import CheckboxCard from "@/components/ui/checkbox-card";
 
 export default function EditStudent({
     student
-}: { student: { data: Student } }) {
+}: { student: Student }) {
     const { data, setData, put, processing, errors, isDirty } = useForm({
-        student_number: student.data.student_number,
-        name: student.data.name,
-        vocational_program_id: student.data.vocational_program.value.toString(),
-        is_active: student.data.is_active,
+        student_number: student.student_number,
+        name: student.name,
+        vocational_program_id: student.vocational_program.value.toString(),
+        is_active: student.is_active,
     });
 
-    const [selectedOption, setSelectedOption] = useState<OptionType | null>(student.data.vocational_program);
+    const [selectedOption, setSelectedOption] = useState<OptionType | null>(student.vocational_program);
 
     const loadOptions = useCallback(async (inputValue: string): Promise<OptionType[]> => {
         const url = SearchVocationalProgramController.url({ query: { q: inputValue } });
@@ -43,7 +43,7 @@ export default function EditStudent({
 
     function submit(e: SyntheticEvent<HTMLFormElement>, close: () => void) {
         e.preventDefault()
-        put(update({ student: student.data.id }).url, {
+        put(update({ student: student.id }).url, {
             onSuccess: () => {
                 close()
             }

@@ -18,7 +18,7 @@ import {
 import TableToolbar from "@/components/table/table-toolbar";
 import SearchInput from "@/components/table/search-input";
 import { Button } from "@/components/ui/button";
-import type { Paginated, AcademicYear } from "@/types";
+import type { Paginated, AcademicYear, BreadcrumbItem } from "@/types";
 import { useModal } from "@ebay/nice-modal-react";
 import CreateAcademicYear from "@/pages/dashboard/academic-years/partials/create-academic-year";
 import { Badge } from "@/components/ui/badge";
@@ -29,9 +29,20 @@ type Props = {
     academicYears: Paginated<AcademicYear>;
 };
 
+const breadcrumbs: BreadcrumbItem[] = [
+    {
+        title: "Dashboard",
+        href: "/dashboard"
+    },
+    {
+        title: "Tahun Akademik",
+        href: "/dashboard/academic-years"
+    }
+]
+
 export default function AcademicYears({ academicYears }: Props) {
     const { show } = useModal(CreateAcademicYear)
-    return <AppLayout>
+    return <AppLayout breadcrumbs={breadcrumbs}>
         <CardTable>
             <CardTableHeader>
                 <CardTableTitle title="Data Tahun Akademik" />

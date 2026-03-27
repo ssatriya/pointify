@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Store;
 
-use App\Http\Requests\UniqueStudentEnrollment;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreStudentEnrollmentRequest extends FormRequest
 {
@@ -29,7 +29,8 @@ class StoreStudentEnrollmentRequest extends FormRequest
                 'required',
                 'string',
                 'exists:students,id',
-                new UniqueStudentEnrollment,
+                Rule::unique('student_enrollments', 'student_id')
+                    ->where('academic_year_id', $this->academic_year_id),
             ],
             'academic_year_id' => [
                 'required',

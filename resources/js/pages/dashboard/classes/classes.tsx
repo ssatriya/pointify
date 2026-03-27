@@ -10,7 +10,7 @@ import {
     CardTableTitle
 } from "@/components/ui/card-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import type { Paginated, Class, OptionType } from "@/types";
+import type { Paginated, Class, BreadcrumbItem } from "@/types";
 import TablePagination from "@/components/table/table-pagination";
 import { useModal } from "@ebay/nice-modal-react";
 import CreateClass from "./partials/create-class";
@@ -20,13 +20,24 @@ type Props = {
     classes: Paginated<Class>;
 };
 
+const breadcrumbs: BreadcrumbItem[] = [
+    {
+        title: "Dashboard",
+        href: "/dashboard"
+    },
+    {
+        title: "Kelas",
+        href: "/dashboard/classes"
+    }
+]
+
 export default function Classes({ classes }: Props) {
     const { show } = useModal(CreateClass)
 
-    return <AppLayout>
+    return <AppLayout breadcrumbs={breadcrumbs}>
         <CardTable>
             <CardTableHeader>
-                <CardTableTitle title="Data Tahun Akademik" />
+                <CardTableTitle title="Data Kelas" />
                 <CardTableActions>
                     <TableToolbar>
                         <SearchInput

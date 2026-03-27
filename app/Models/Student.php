@@ -7,6 +7,7 @@ use App\Traits\Sortable;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Student extends Model
 {
@@ -21,6 +22,10 @@ class Student extends Model
         'is_active',
         'created_by',
         'updated_by',
+    ];
+
+    protected $casts = [
+        'is_active' => 'boolean',
     ];
 
     protected array $searchable = [
@@ -41,5 +46,13 @@ class Student extends Model
     public function vocationalProgram(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(VocationalProgram::class);
+    }
+
+    /**
+     * Get all the studentEnrollments for the Student
+     */
+    public function studentEnrollments(): HasMany
+    {
+        return $this->hasMany(StudentEnrollment::class);
     }
 }

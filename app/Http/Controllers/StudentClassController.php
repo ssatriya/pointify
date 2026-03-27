@@ -110,4 +110,5 @@ class StudentClassController extends Controller
 
         return Inertia::flash(['message' => 'Data kelas berhasil dihapus.'])->back();
     }
+
 }

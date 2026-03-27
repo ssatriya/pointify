@@ -1,5 +1,83 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../wayfinder'
 /**
+* @see \App\Http\Controllers\ActiveAcademicYearController::__invoke
+ * @see app/Http/Controllers/ActiveAcademicYearController.php:19
+ * @route '/dashboard/academic-years/active'
+ */
+export const active = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: active.url(options),
+    method: 'get',
+})
+
+active.definition = {
+    methods: ["get","head"],
+    url: '/dashboard/academic-years/active',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\ActiveAcademicYearController::__invoke
+ * @see app/Http/Controllers/ActiveAcademicYearController.php:19
+ * @route '/dashboard/academic-years/active'
+ */
+active.url = (options?: RouteQueryOptions) => {
+    return active.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\ActiveAcademicYearController::__invoke
+ * @see app/Http/Controllers/ActiveAcademicYearController.php:19
+ * @route '/dashboard/academic-years/active'
+ */
+active.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: active.url(options),
+    method: 'get',
+})
+/**
+* @see \App\Http\Controllers\ActiveAcademicYearController::__invoke
+ * @see app/Http/Controllers/ActiveAcademicYearController.php:19
+ * @route '/dashboard/academic-years/active'
+ */
+active.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: active.url(options),
+    method: 'head',
+})
+
+    /**
+* @see \App\Http\Controllers\ActiveAcademicYearController::__invoke
+ * @see app/Http/Controllers/ActiveAcademicYearController.php:19
+ * @route '/dashboard/academic-years/active'
+ */
+    const activeForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: active.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\ActiveAcademicYearController::__invoke
+ * @see app/Http/Controllers/ActiveAcademicYearController.php:19
+ * @route '/dashboard/academic-years/active'
+ */
+        activeForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: active.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\ActiveAcademicYearController::__invoke
+ * @see app/Http/Controllers/ActiveAcademicYearController.php:19
+ * @route '/dashboard/academic-years/active'
+ */
+        activeForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: active.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    active.form = activeForm
+/**
 * @see \App\Http\Controllers\AcademicYear\AcademicYearController::index
  * @see app/Http/Controllers/AcademicYear/AcademicYearController.php:34
  * @route '/dashboard/academic-years'
@@ -491,7 +569,8 @@ destroy.delete = (args: { academicYear: string | { id: string } } | [academicYea
     
     destroy.form = destroyForm
 const academicYears = {
-    index: Object.assign(index, index),
+    active: Object.assign(active, active),
+index: Object.assign(index, index),
 store: Object.assign(store, store),
 search: Object.assign(search, search),
 show: Object.assign(show, show),

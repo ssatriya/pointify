@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Update;
 
-use App\Http\Requests\Rule;
+use Illuminate\Validation\Rule;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -23,7 +23,7 @@ class UpdateStudentEnrollmentRequest extends FormRequest
      */
     public function rules(): array
     {
-        $studentEnrollment = $this->route('student_enrollment');
+        $studentEnrollment = $this->route('studentEnrollment');
 
         return [
             'student_id' => [

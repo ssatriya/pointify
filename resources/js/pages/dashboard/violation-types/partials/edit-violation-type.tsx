@@ -20,18 +20,18 @@ import CheckboxCard from "@/components/ui/checkbox-card";
 export default function EditViolationType({
     violationType,
 }: {
-    violationType: { data: ViolationType };
+    violationType: ViolationType;
 }) {
     const { data, setData, put, processing, errors, isDirty } = useForm({
-        code: violationType.data.code,
-        description: violationType.data.description,
-        points: violationType.data.points,
-        is_active: violationType.data.is_active,
+        code: violationType.code,
+        description: violationType.description,
+        points: violationType.points,
+        is_active: violationType.is_active,
     });
 
     function submit(e: SyntheticEvent<HTMLFormElement>, close: () => void) {
         e.preventDefault()
-        put(update({ violationType: violationType.data.id }).url, {
+        put(update({ violationType: violationType.id }).url, {
             onSuccess: () => {
                 close()
             }

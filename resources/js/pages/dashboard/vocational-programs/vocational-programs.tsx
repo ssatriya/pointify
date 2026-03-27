@@ -7,12 +7,12 @@ import {
 } from "@/components/ui/card-table";
 import TableToolbar from "@/components/table/table-toolbar";
 import SearchInput from "@/components/table/search-input";
-import {Button} from "@/components/ui/button";
-import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import TablePagination from "@/components/table/table-pagination";
 import AppLayout from "@/components/layout/app-layout";
-import type {Paginated, VocationalProgram} from "@/types";
-import {useModal} from "@ebay/nice-modal-react";
+import type { BreadcrumbItem, Paginated, VocationalProgram } from "@/types";
+import { useModal } from "@ebay/nice-modal-react";
 import CreateVocationalProgram from "@/pages/dashboard/vocational-programs/partials/create-vocational-program";
 import VocationalProgramActions from "@/pages/dashboard/vocational-programs/partials/vocational-program-actions";
 
@@ -20,12 +20,23 @@ type Props = {
     vocationalPrograms: Paginated<VocationalProgram>;
 };
 
-export default function VocationalPrograms({vocationalPrograms}: Props) {
-    const {show} = useModal(CreateVocationalProgram)
-    return (<AppLayout>
+const breadcrumbs: BreadcrumbItem[] = [
+    {
+        title: "Dashboard",
+        href: "/dashboard"
+    },
+    {
+        title: "Program Kejuruan",
+        href: "/dashboard/vocational-programs"
+    }
+]
+
+export default function VocationalPrograms({ vocationalPrograms }: Props) {
+    const { show } = useModal(CreateVocationalProgram)
+    return (<AppLayout breadcrumbs={breadcrumbs}>
         <CardTable>
             <CardTableHeader>
-                <CardTableTitle title="Data Tahun Akademik"/>
+                <CardTableTitle title="Data Tahun Akademik" />
                 <CardTableActions>
                     <TableToolbar>
                         <SearchInput
@@ -47,11 +58,9 @@ export default function VocationalPrograms({vocationalPrograms}: Props) {
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                {/* Define proportional widths only in the TableHead */}
                                 <TableHead className="w-[40%] min-w-[200px]">Nama Kejuruan</TableHead>
                                 <TableHead className="w-[30%] min-w-[150px]">Singkatan</TableHead>
                                 <TableHead className="w-[30%] min-w-[150px] text-end">Tanggal Dibuat</TableHead>
-                                {/* Shrink the action column to the absolute minimum width needed */}
                                 <TableHead className="w-[1%] whitespace-nowrap"></TableHead>
                             </TableRow>
                         </TableHeader>
@@ -59,14 +68,12 @@ export default function VocationalPrograms({vocationalPrograms}: Props) {
                             {vocationalPrograms.data.length > 0 ? (
                                 vocationalPrograms.data.map((item) => (
                                     <TableRow key={item.id}>
-                                        {/* Remove width classes from TableCell */}
-                                        <TableCell className="font-medium">{item.name}</TableCell>
+                                        <TableCell>{item.name}</TableCell>
                                         <TableCell>{item.abbreviation ?? "—"}</TableCell>
                                         <TableCell className="text-end">{item.created_at}</TableCell>
                                         <TableCell className="text-end">
-                                            {/* Ensure action buttons are grouped to the right */}
                                             <div className="flex justify-end gap-2">
-                                                <VocationalProgramActions id={item.id}/>
+                                                <VocationalProgramActions id={item.id} />
                                             </div>
                                         </TableCell>
                                     </TableRow>
@@ -80,7 +87,7 @@ export default function VocationalPrograms({vocationalPrograms}: Props) {
                             )}
                         </TableBody>
                     </Table>
-                    <TablePagination links={vocationalPrograms.links} meta={vocationalPrograms.meta}/>
+                    <TablePagination links={vocationalPrograms.links} meta={vocationalPrograms.meta} />
                 </div>
             </CardTableContent>
         </CardTable>
