@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Update;
 
+use App\Enums\Permission;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -13,7 +14,7 @@ class UpdateVocationalProgramRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()->can(Permission::UPDATE_VOCATIONAL_PROGRAMS->value);
     }
 
     /**

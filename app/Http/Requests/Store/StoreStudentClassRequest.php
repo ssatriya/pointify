@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Store;
 
+use App\Enums\Permission;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -12,7 +13,7 @@ class StoreStudentClassRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()->can(Permission::CREATE_STUDENT_CLASSES->value);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Store;
 
+use App\Enums\Permission;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -13,7 +14,7 @@ class StoreStudentEnrollmentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()->can(Permission::CREATE_STUDENT_ENROLLMENTS->value);
     }
 
     /**

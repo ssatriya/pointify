@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Update;
 
+use App\Enums\Permission;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -13,7 +14,7 @@ class UpdateViolationTypeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()->can(Permission::UPDATE_VIOLATION_TYPES->value);
     }
 
     /**
