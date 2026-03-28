@@ -45,11 +45,11 @@ export default function TableOptions({
                     <AlertDialogTrigger render={<Button variant="destructive" />}>
                         <IconTrash className="size-4" />
                     </AlertDialogTrigger>
-                    <AlertDialogContent>
+                    <AlertDialogContent className="sm:min-w-lg">
                         <AlertDialogHeader>
                             <AlertDialogTitle>Apakah Anda yakin?</AlertDialogTitle>
-                            <AlertDialogDescription>
-                                Tindakan ini tidak dapat dibatalkan. Data yang dihapus tidak dapat
+                            <AlertDialogDescription className="text-balance">
+                                Tindakan ini tidak dapat dibatalkan. Data akan dihapus secara permanent dari server dan tidak dapat
                                 dikembalikan.
                             </AlertDialogDescription>
                         </AlertDialogHeader>

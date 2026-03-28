@@ -36,7 +36,7 @@ export default function VocationalPrograms({ vocationalPrograms }: Props) {
     return (<AppLayout breadcrumbs={breadcrumbs}>
         <CardTable>
             <CardTableHeader>
-                <CardTableTitle title="Data Tahun Akademik" />
+                <CardTableTitle title="Data Program Kejuruan" />
                 <CardTableActions>
                     <TableToolbar>
                         <SearchInput

@@ -9,6 +9,7 @@ import {
 
 import { NavMain } from "@/components/nav/nav-main";
 import { NavUser } from "@/components/nav/nav-user";
+import { usePermission } from "@/hooks/use-permission";
 import {
     Sidebar,
     SidebarContent,
@@ -27,14 +28,9 @@ import { index as studentsIndex } from "@/routes/dashboard/students"
 import { index as pointThresholdsIndex } from "@/routes/dashboard/point-thresholds"
 import { index as violationTypesIndex } from "@/routes/dashboard/violation-types"
 import { index as rewardTypesIndex } from "@/routes/dashboard/reward-types"
-import { StudentClass } from "@/types";
+import { Auth, StudentClass, User } from "@/types";
 
 const data = {
-    user: {
-        name: "shadcn",
-        email: "m@example.com",
-        avatar: "/avatars/shadcn.jpg",
-    },
     nav: [
         {
             items: [
@@ -42,6 +38,7 @@ const data = {
                     title: "Dashboard",
                     href: dashboardIndex(),
                     icon: IconDashboard,
+                    permission: "dashboard.view",
                 }
             ],
         },
@@ -52,15 +49,18 @@ const data = {
                     title: "Program Kejuruan",
                     href: vocationalProgramsIndex(),
                     icon: IconListDetails,
+                    permission: "vocational-programs.view",
                 }
                 , {
                     title: "Tahun Ajaran",
                     href: academicYearsIndex(),
                     icon: IconListDetails,
+                    permission: "academic-years.view",
                 }, {
                     title: "Kelas",
                     href: classesIndex(),
                     icon: IconListDetails,
+                    permission: "student-classes.view",
                 }
             ],
         },
@@ -71,21 +71,25 @@ const data = {
                     title: "Siswa",
                     href: studentsIndex(),
                     icon: IconListDetails,
+                    permission: "students.view",
                 },
                 {
                     title: "Batas Poin Pelanggaran",
                     href: pointThresholdsIndex(),
                     icon: IconListDetails,
+                    permission: "point-thresholds.view",
                 },
                 {
                     title: "Jenis Pelanggaran",
                     href: violationTypesIndex(),
                     icon: IconListDetails,
+                    permission: "violation-types.view",
                 },
                 {
                     title: "Jenis Prestasi",
                     href: rewardTypesIndex(),
                     icon: IconListDetails,
+                    permission: "reward-types.view",
                 },
             ],
         }
@@ -97,17 +101,26 @@ const data = {
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const { studentClasses } = usePage().props as { studentClasses?: StudentClass[] };
 
+    const { auth } = usePage().props as unknown as { auth: Auth & { user: User } };
+    const { hasPermission } = usePermission();
+
+    const filteredNav = data.nav.map(group => ({
+        ...group,
+        items: group.items.filter(item => !item.permission || hasPermission(item.permission))
+    })).filter(group => group.items.length > 0);
+
     const navData = [
-        ...data.nav,
+        ...filteredNav,
         {
             label: "Daftar Kelas",
             items: studentClasses?.map((c) => ({
                 title: c.abbreviation ? c.abbreviation : c.name,
                 href: c.url,
                 icon: IconListDetails,
-            })) || [],
+                permission: "student-classes.view",
+            })).filter(item => !item.permission || hasPermission(item.permission)) || [],
         }
-    ];
+    ].filter(group => group.items.length > 0);
 
     return (
         <Sidebar collapsible="offcanvas" {...props}>
@@ -132,7 +145,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 ))}
             </SidebarContent>
             <SidebarFooter>
-                <NavUser user={data.user} />
+                <NavUser user={{
+                    name: auth.user.name,
+                    email: auth.user.email,
+                    avatar: auth.user.avatar ?? "/avatars/shadcn.jpg"
+                }} />
             </SidebarFooter>
         </Sidebar>
     );

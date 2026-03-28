@@ -21,10 +21,11 @@ import {
     SidebarMenuItem,
     useSidebar,
 } from "@/components/ui/sidebar";
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import { useMobileNavigation } from "@/hooks/use-mobile-navigation";
 import { Settings } from "lucide-react";
 import { edit } from '@/routes/profile';
+import { logout } from '@/routes';
 
 export function NavUser({
     user,
@@ -37,6 +38,12 @@ export function NavUser({
 }) {
     const cleanup = useMobileNavigation();
     const { isMobile } = useSidebar();
+
+    const handleLogout = () => {
+        cleanup();
+        router.flushAll();
+    };
+
     return (
         <SidebarMenu>
             <SidebarMenuItem>
@@ -105,7 +112,7 @@ export function NavUser({
                                         prefetch
                                         onClick={cleanup}
                                     >
-                                        <Settings className="mr-2" />
+                                        <Settings />
                                         Settings
                                     </Link>
                                 }
@@ -120,10 +127,16 @@ export function NavUser({
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>
-                            <IconLogout />
-                            Log out
-                        </DropdownMenuItem>
+                        <DropdownMenuItem
+                            render={<Link
+                                className="block w-full cursor-pointer"
+                                href={logout()}
+                                as="button"
+                                onClick={handleLogout}
+                            >
+                                <IconLogout />
+                                Log out</Link>}
+                        />
                     </DropdownMenuContent>
                 </DropdownMenu>
             </SidebarMenuItem>

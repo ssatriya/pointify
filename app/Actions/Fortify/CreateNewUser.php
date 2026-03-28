@@ -3,6 +3,7 @@
 namespace App\Actions\Fortify;
 
 use App\Models\User;
+use App\Enums\Role;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -34,10 +35,21 @@ class CreateNewUser implements CreatesNewUsers
             'password' => $this->passwordRules(),
         ])->validate();
 
-        return User::create([
+        $users = User::all();
+
+        $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
+
+        // Check if this is the first user (count was 0 before creation)
+        if (count($users) === 0) {
+            $user->assignRole(Role::SUPER_ADMIN->value);
+        } else {
+            $user->assignRole(Role::DUTY_TEACHER->value);
+        }
+
+        return $user;
     }
 }
