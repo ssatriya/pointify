@@ -1,3 +1,4 @@
+import Settings from './Settings'
 import ActiveAcademicYearController from './ActiveAcademicYearController'
 import AcademicYear from './AcademicYear'
 import SearchAcademicYearController from './SearchAcademicYearController'
@@ -12,7 +13,8 @@ import PointThresholdController from './PointThresholdController'
 import ViolationTypeController from './ViolationTypeController'
 import RewardTypeController from './RewardTypeController'
 const Controllers = {
-    ActiveAcademicYearController: Object.assign(ActiveAcademicYearController, ActiveAcademicYearController),
+    Settings: Object.assign(Settings, Settings),
+ActiveAcademicYearController: Object.assign(ActiveAcademicYearController, ActiveAcademicYearController),
 AcademicYear: Object.assign(AcademicYear, AcademicYear),
 SearchAcademicYearController: Object.assign(SearchAcademicYearController, SearchAcademicYearController),
 VocationalProgramController: Object.assign(VocationalProgramController, VocationalProgramController),

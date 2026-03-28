@@ -3,6 +3,7 @@ import { SidebarInset, SidebarProvider } from "../ui/sidebar";
 import { AppSidebar } from "../nav/app-sidebar";
 import { BreadcrumbItem } from "@/types";
 import { SiteHeader } from "../nav/site-header";
+import { usePage } from "@inertiajs/react";
 
 type Props = {
     children: ReactNode,
@@ -10,8 +11,10 @@ type Props = {
 }
 
 export default function AppLayout({ children, breadcrumbs }: Props) {
+    const { sidebarOpen } = usePage().props as { sidebarOpen: boolean };
     return (
         <SidebarProvider
+            defaultOpen={sidebarOpen}
             style={
                 {
                     "--sidebar-width": "calc(var(--spacing) * 72)",

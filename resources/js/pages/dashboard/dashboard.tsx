@@ -1,5 +1,6 @@
 import AppLayout from "@/components/layout/app-layout";
 import { BreadcrumbItem } from "@/types";
+import { Head } from "@inertiajs/react";
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -9,5 +10,8 @@ const breadcrumbs: BreadcrumbItem[] = [
 ]
 
 export default function Dashboard() {
-    return <AppLayout breadcrumbs={breadcrumbs}>Dashboard</AppLayout>;
+    return <AppLayout breadcrumbs={breadcrumbs}>
+        <Head title="Dashboard" />
+        Dashboard
+    </AppLayout>;
 }

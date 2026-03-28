@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'welcome')->name('home');
 
+require __DIR__ . '/settings.php';
+
 Route::middleware(['auth', 'verified'])
     ->prefix('dashboard')
     ->name('dashboard.')
@@ -96,7 +98,7 @@ Route::middleware(['auth', 'verified'])
         Route::prefix('{studentClass:slug}')->name('class.')->group(function () {
             Route::get('/', [StudentEnrollmentController::class, 'index'])->name('index');
             Route::post('/', [StudentEnrollmentController::class, 'store'])->name('store');
-            
+
             Route::get('/reports', [StudentEnrollmentController::class, 'reports'])->name('reports');
 
             Route::get('/{studentEnrollment}', [StudentEnrollmentController::class, 'studentByEnrollment'])->name('student-detail');

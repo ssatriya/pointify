@@ -137,7 +137,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
  * @see app/Http/Controllers/VocationalProgramController.php:70
  * @route '/dashboard/vocational-programs/{vocationalProgram}'
  */
-export const show = (args: { vocationalProgram: string | { id: string } } | [vocationalProgram: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const show = (args: { vocationalProgram: string | number | { id: string | number } } | [vocationalProgram: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -152,7 +152,7 @@ show.definition = {
  * @see app/Http/Controllers/VocationalProgramController.php:70
  * @route '/dashboard/vocational-programs/{vocationalProgram}'
  */
-show.url = (args: { vocationalProgram: string | { id: string } } | [vocationalProgram: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
+show.url = (args: { vocationalProgram: string | number | { id: string | number } } | [vocationalProgram: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { vocationalProgram: args }
     }
@@ -185,7 +185,7 @@ show.url = (args: { vocationalProgram: string | { id: string } } | [vocationalPr
  * @see app/Http/Controllers/VocationalProgramController.php:70
  * @route '/dashboard/vocational-programs/{vocationalProgram}'
  */
-show.get = (args: { vocationalProgram: string | { id: string } } | [vocationalProgram: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+show.get = (args: { vocationalProgram: string | number | { id: string | number } } | [vocationalProgram: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -194,7 +194,7 @@ show.get = (args: { vocationalProgram: string | { id: string } } | [vocationalPr
  * @see app/Http/Controllers/VocationalProgramController.php:70
  * @route '/dashboard/vocational-programs/{vocationalProgram}'
  */
-show.head = (args: { vocationalProgram: string | { id: string } } | [vocationalProgram: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+show.head = (args: { vocationalProgram: string | number | { id: string | number } } | [vocationalProgram: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: show.url(args, options),
     method: 'head',
 })
@@ -204,7 +204,7 @@ show.head = (args: { vocationalProgram: string | { id: string } } | [vocationalP
  * @see app/Http/Controllers/VocationalProgramController.php:70
  * @route '/dashboard/vocational-programs/{vocationalProgram}'
  */
-    const showForm = (args: { vocationalProgram: string | { id: string } } | [vocationalProgram: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const showForm = (args: { vocationalProgram: string | number | { id: string | number } } | [vocationalProgram: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: show.url(args, options),
         method: 'get',
     })
@@ -214,7 +214,7 @@ show.head = (args: { vocationalProgram: string | { id: string } } | [vocationalP
  * @see app/Http/Controllers/VocationalProgramController.php:70
  * @route '/dashboard/vocational-programs/{vocationalProgram}'
  */
-        showForm.get = (args: { vocationalProgram: string | { id: string } } | [vocationalProgram: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.get = (args: { vocationalProgram: string | number | { id: string | number } } | [vocationalProgram: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, options),
             method: 'get',
         })
@@ -223,7 +223,7 @@ show.head = (args: { vocationalProgram: string | { id: string } } | [vocationalP
  * @see app/Http/Controllers/VocationalProgramController.php:70
  * @route '/dashboard/vocational-programs/{vocationalProgram}'
  */
-        showForm.head = (args: { vocationalProgram: string | { id: string } } | [vocationalProgram: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.head = (args: { vocationalProgram: string | number | { id: string | number } } | [vocationalProgram: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -239,7 +239,7 @@ show.head = (args: { vocationalProgram: string | { id: string } } | [vocationalP
  * @see app/Http/Controllers/VocationalProgramController.php:89
  * @route '/dashboard/vocational-programs/{vocationalProgram}'
  */
-export const update = (args: { vocationalProgram: string | { id: string } } | [vocationalProgram: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { vocationalProgram: string | number | { id: string | number } } | [vocationalProgram: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -254,7 +254,7 @@ update.definition = {
  * @see app/Http/Controllers/VocationalProgramController.php:89
  * @route '/dashboard/vocational-programs/{vocationalProgram}'
  */
-update.url = (args: { vocationalProgram: string | { id: string } } | [vocationalProgram: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
+update.url = (args: { vocationalProgram: string | number | { id: string | number } } | [vocationalProgram: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { vocationalProgram: args }
     }
@@ -287,7 +287,7 @@ update.url = (args: { vocationalProgram: string | { id: string } } | [vocational
  * @see app/Http/Controllers/VocationalProgramController.php:89
  * @route '/dashboard/vocational-programs/{vocationalProgram}'
  */
-update.put = (args: { vocationalProgram: string | { id: string } } | [vocationalProgram: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { vocationalProgram: string | number | { id: string | number } } | [vocationalProgram: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -297,7 +297,7 @@ update.put = (args: { vocationalProgram: string | { id: string } } | [vocational
  * @see app/Http/Controllers/VocationalProgramController.php:89
  * @route '/dashboard/vocational-programs/{vocationalProgram}'
  */
-    const updateForm = (args: { vocationalProgram: string | { id: string } } | [vocationalProgram: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateForm = (args: { vocationalProgram: string | number | { id: string | number } } | [vocationalProgram: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -312,7 +312,7 @@ update.put = (args: { vocationalProgram: string | { id: string } } | [vocational
  * @see app/Http/Controllers/VocationalProgramController.php:89
  * @route '/dashboard/vocational-programs/{vocationalProgram}'
  */
-        updateForm.put = (args: { vocationalProgram: string | { id: string } } | [vocationalProgram: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { vocationalProgram: string | number | { id: string | number } } | [vocationalProgram: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
@@ -328,7 +328,7 @@ update.put = (args: { vocationalProgram: string | { id: string } } | [vocational
  * @see app/Http/Controllers/VocationalProgramController.php:107
  * @route '/dashboard/vocational-programs/{vocationalProgram}'
  */
-export const destroy = (args: { vocationalProgram: string | { id: string } } | [vocationalProgram: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { vocationalProgram: string | number | { id: string | number } } | [vocationalProgram: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -343,7 +343,7 @@ destroy.definition = {
  * @see app/Http/Controllers/VocationalProgramController.php:107
  * @route '/dashboard/vocational-programs/{vocationalProgram}'
  */
-destroy.url = (args: { vocationalProgram: string | { id: string } } | [vocationalProgram: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
+destroy.url = (args: { vocationalProgram: string | number | { id: string | number } } | [vocationalProgram: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { vocationalProgram: args }
     }
@@ -376,7 +376,7 @@ destroy.url = (args: { vocationalProgram: string | { id: string } } | [vocationa
  * @see app/Http/Controllers/VocationalProgramController.php:107
  * @route '/dashboard/vocational-programs/{vocationalProgram}'
  */
-destroy.delete = (args: { vocationalProgram: string | { id: string } } | [vocationalProgram: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { vocationalProgram: string | number | { id: string | number } } | [vocationalProgram: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -386,7 +386,7 @@ destroy.delete = (args: { vocationalProgram: string | { id: string } } | [vocati
  * @see app/Http/Controllers/VocationalProgramController.php:107
  * @route '/dashboard/vocational-programs/{vocationalProgram}'
  */
-    const destroyForm = (args: { vocationalProgram: string | { id: string } } | [vocationalProgram: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { vocationalProgram: string | number | { id: string | number } } | [vocationalProgram: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -401,7 +401,7 @@ destroy.delete = (args: { vocationalProgram: string | { id: string } } | [vocati
  * @see app/Http/Controllers/VocationalProgramController.php:107
  * @route '/dashboard/vocational-programs/{vocationalProgram}'
  */
-        destroyForm.delete = (args: { vocationalProgram: string | { id: string } } | [vocationalProgram: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { vocationalProgram: string | number | { id: string | number } } | [vocationalProgram: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',
