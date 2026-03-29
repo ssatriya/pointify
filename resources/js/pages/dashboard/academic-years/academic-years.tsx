@@ -66,19 +66,19 @@ export default function AcademicYears({ academicYears }: Props) {
                 <div className="overflow-clip bg-transparent">
                     <Table>
                         <TableHeader>
-                            <TableRow>
+                            <TableRow className="h-12">
                                 <TableHead>Tahun Ajaran</TableHead>
                                 <TableHead>Awal</TableHead>
                                 <TableHead>Akhir</TableHead>
                                 <TableHead className="text-center">Status</TableHead>
-                                <TableHead className="text-end">Tanggal Dibuat</TableHead>
+                                <TableHead className="w-[15%] min-w-[150px]">Tanggal Dibuat</TableHead>
                                 <TableHead className="w-[1%] whitespace-nowrap"></TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {academicYears.data.length > 0 ? (
                                 academicYears.data.map((item) => (
-                                    <TableRow key={item.id}>
+                                    <TableRow key={item.id} className="h-12">
                                         <TableCell>{item.name}</TableCell>
                                         <TableCell>{item.start_date}</TableCell>
                                         <TableCell>{item.end_date}</TableCell>
@@ -89,7 +89,7 @@ export default function AcademicYears({ academicYears }: Props) {
                                                 <Badge variant="secondary">Nonaktif</Badge>
                                             )}
                                         </TableCell>
-                                        <TableCell className="text-end">{item.created_at}</TableCell>
+                                        <TableCell>{item.created_at}</TableCell>
                                         <TableCell className="text-end">
                                             <div className="flex justify-end gap-2">
                                                 <AcademicYearActions id={item.id} />

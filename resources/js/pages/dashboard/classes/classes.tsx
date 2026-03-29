@@ -58,24 +58,24 @@ export default function Classes({ classes }: Props) {
                 <div className="overflow-clip bg-transparent">
                     <Table>
                         <TableHeader>
-                            <TableRow>
+                            <TableRow className="h-12">
                                 <TableHead>Nama</TableHead>
                                 <TableHead>Tingkat</TableHead>
                                 <TableHead>Rombel</TableHead>
                                 <TableHead>Kejuruan</TableHead>
-                                <TableHead className="text-end">Tanggal Dibuat</TableHead>
+                                <TableHead className="w-[15%] min-w-[150px]">Tanggal Dibuat</TableHead>
                                 <TableHead className="w-[1%] whitespace-nowrap"></TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {classes.data.length > 0 ? (
                                 classes.data.map((item) => (
-                                    <TableRow key={item.id}>
+                                    <TableRow key={item.id} className="h-12">
                                         <TableCell>{item.name}</TableCell>
                                         <TableCell>{item.grade_level.label}</TableCell>
                                         <TableCell>{item.section.label}</TableCell>
                                         <TableCell>{item.vocational_program.label}</TableCell>
-                                        <TableCell className="text-end">{item.created_at}</TableCell>
+                                        <TableCell>{item.created_at}</TableCell>
                                         <TableCell className="text-end">
                                             <div className="flex justify-end gap-2">
                                                 <StudentClassActions id={item.id} />

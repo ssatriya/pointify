@@ -59,19 +59,19 @@ export default function PointThresholds({ pointThresholds }: Props) {
                 <div className="overflow-clip bg-transparent">
                     <Table>
                         <TableHeader>
-                            <TableRow>
+                            <TableRow className="h-12">
                                 <TableHead className="w-[20%] min-w-[150px]">Tahun Akademik</TableHead>
                                 <TableHead className="w-[15%] min-w-[100px] text-center">Ambang Poin</TableHead>
                                 <TableHead className="w-[35%] min-w-[200px]">Keterangan</TableHead>
                                 <TableHead className="w-[10%] min-w-[100px] text-center">Status</TableHead>
-                                <TableHead className="w-[20%] min-w-[150px]">Tanggal Dibuat</TableHead>
+                                <TableHead className="w-[15%] min-w-[150px]">Tanggal Dibuat</TableHead>
                                 <TableHead className="w-[1%] whitespace-nowrap"></TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {pointThresholds.data.length > 0 ? (
                                 pointThresholds.data.map((item) => (
-                                    <TableRow key={item.id}>
+                                    <TableRow key={item.id} className="h-12">
                                         <TableCell>{item.academic_year.label as string}</TableCell>
                                         <TableCell className="text-center">{item.cumulative_points_threshold}</TableCell>
                                         <TableCell className="italic text-muted-foreground">{item.description || "—"}</TableCell>

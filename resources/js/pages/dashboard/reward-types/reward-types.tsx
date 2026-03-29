@@ -59,19 +59,19 @@ export default function RewardTypes({ rewardTypes }: Props) {
                 <div className="overflow-x-auto">
                     <Table>
                         <TableHeader>
-                            <TableRow>
+                            <TableRow className="h-12">
                                 <TableHead className="w-[10%] min-w-[100px]">Kode</TableHead>
                                 <TableHead className="w-[50%] min-w-[250px]">Keterangan</TableHead>
                                 <TableHead className="w-[10%] min-w-[100px] text-center">Poin</TableHead>
                                 <TableHead className="w-[10%] min-w-[100px] text-center">Status</TableHead>
-                                <TableHead className="w-[20%] min-w-[150px]">Tanggal Dibuat</TableHead>
+                                <TableHead className="w-[15%] min-w-[150px]">Tanggal Dibuat</TableHead>
                                 <TableHead className="w-[1%] whitespace-nowrap"></TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {rewardTypes.data.length > 0 ? (
                                 rewardTypes.data.map((item) => (
-                                    <TableRow key={item.id}>
+                                    <TableRow key={item.id} className="h-12">
                                         <TableCell>{item.code}</TableCell>
                                         <TableCell>{item.description}</TableCell>
                                         <TableCell className="text-center">{item.points}</TableCell>

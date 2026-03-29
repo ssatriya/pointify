@@ -79,7 +79,7 @@ export default NiceModal.create(() => {
                                 id="code"
                                 value={data.code}
                                 onChange={(e) => setData("code", e.target.value.toUpperCase())}
-                                placeholder="Misal: PL01"
+                                placeholder="Misal: PL001"
                             />
                             <FieldError>{errors.code}</FieldError>
                         </Field>

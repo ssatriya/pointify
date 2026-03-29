@@ -5,7 +5,7 @@ import AppLayout from "@/components/layout/app-layout";
 import SettingsLayout from "@/components/layout/settings-layout";
 import ProfileController from "@/actions/App/Http/Controllers/Settings/ProfileController";
 import { Heading } from "@/pages/dashboard/settings/partials/heading";
-import { Form, Link, usePage } from "@inertiajs/react";
+import { Form, Link, usePage, usePrefetch } from "@inertiajs/react";
 import { Head } from "@inertiajs/react";
 import type { BreadcrumbItem, Auth } from "@/types";
 import DeleteUser from "@/pages/dashboard/settings/partials/delete-user";
@@ -29,13 +29,12 @@ export default function Profile({
     status?: string;
 }) {
     const { auth } = usePage<{ auth: Auth }>().props;
+    const { flush } = usePrefetch()
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Profile settings" />
-
             <h1 className="sr-only">Profile settings</h1>
-
             <SettingsLayout>
                 <div className="space-y-6">
                     <Heading
@@ -46,6 +45,7 @@ export default function Profile({
 
                     <Form
                         {...ProfileController.update.form()}
+                        onSuccess={() => flush()}
                         className="space-y-6"
                     >
                         {(form) => (

@@ -57,20 +57,20 @@ export default function VocationalPrograms({ vocationalPrograms }: Props) {
                 <div className="overflow-clip bg-transparent">
                     <Table>
                         <TableHeader>
-                            <TableRow>
+                            <TableRow className="h-12">
                                 <TableHead className="w-[40%] min-w-[200px]">Nama Kejuruan</TableHead>
                                 <TableHead className="w-[30%] min-w-[150px]">Singkatan</TableHead>
-                                <TableHead className="w-[30%] min-w-[150px] text-end">Tanggal Dibuat</TableHead>
+                                <TableHead className="w-[15%] min-w-[150px]">Tanggal Dibuat</TableHead>
                                 <TableHead className="w-[1%] whitespace-nowrap"></TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {vocationalPrograms.data.length > 0 ? (
                                 vocationalPrograms.data.map((item) => (
-                                    <TableRow key={item.id}>
+                                    <TableRow key={item.id} className="h-12">
                                         <TableCell>{item.name}</TableCell>
                                         <TableCell>{item.abbreviation ?? "—"}</TableCell>
-                                        <TableCell className="text-end">{item.created_at}</TableCell>
+                                        <TableCell>{item.created_at}</TableCell>
                                         <TableCell className="text-end">
                                             <div className="flex justify-end gap-2">
                                                 <VocationalProgramActions id={item.id} />

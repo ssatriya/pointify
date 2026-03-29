@@ -50,7 +50,7 @@ export default function StudentEnrollments({ studentClass, studentEnrollments }:
                     <div className="overflow-x-auto">
                         <Table>
                             <TableHeader>
-                                <TableRow>
+                                <TableRow className="h-12">
                                     <TableHead className="w-[30%] min-w-[200px]">Nama Siswa</TableHead>
                                     <TableHead className="w-[15%] min-w-[150px] text-center">Poin Saat Ini</TableHead>
                                     <TableHead className="w-[15%] min-w-[150px] text-center">Poin Pelanggaran</TableHead>
@@ -62,7 +62,7 @@ export default function StudentEnrollments({ studentClass, studentEnrollments }:
                             <TableBody>
                                 {studentEnrollments.data.length > 0 ? (
                                     studentEnrollments.data.map((item) => (
-                                        <TableRow key={item.id}>
+                                        <TableRow key={item.id} className="h-12">
                                             <TableCell>
                                                 <Link
                                                     href={studentDetail({ studentClass: studentClass.slug, studentEnrollment: item.id }).url}

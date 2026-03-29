@@ -4,6 +4,7 @@ import vocationalPrograms from './vocational-programs'
 import studentClasses from './student-classes'
 import studentEnrollments from './student-enrollments'
 import students from './students'
+import users from './users'
 import pointThresholds from './point-thresholds'
 import violationTypes from './violation-types'
 import rewardTypes from './reward-types'
@@ -93,6 +94,7 @@ vocationalPrograms: Object.assign(vocationalPrograms, vocationalPrograms),
 studentClasses: Object.assign(studentClasses, studentClasses),
 studentEnrollments: Object.assign(studentEnrollments, studentEnrollments),
 students: Object.assign(students, students),
+users: Object.assign(users, users),
 pointThresholds: Object.assign(pointThresholds, pointThresholds),
 violationTypes: Object.assign(violationTypes, violationTypes),
 rewardTypes: Object.assign(rewardTypes, rewardTypes),

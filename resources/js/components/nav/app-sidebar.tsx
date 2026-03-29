@@ -28,6 +28,7 @@ import { index as studentsIndex } from "@/routes/dashboard/students"
 import { index as pointThresholdsIndex } from "@/routes/dashboard/point-thresholds"
 import { index as violationTypesIndex } from "@/routes/dashboard/violation-types"
 import { index as rewardTypesIndex } from "@/routes/dashboard/reward-types"
+import { index as usersIndex } from "@/routes/dashboard/users"
 import { Auth, StudentClass, User } from "@/types";
 
 const data = {
@@ -92,6 +93,17 @@ const data = {
                     permission: "reward-types.view",
                 },
             ],
+        },
+        {
+            label: "Manajemen",
+            items: [
+                {
+                    title: "Pengguna",
+                    href: usersIndex().url,
+                    icon: IconListDetails,
+                    permission: "permissions.view",
+                },
+            ],
         }
     ],
 };
@@ -106,7 +118,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
     const filteredNav = data.nav.map(group => ({
         ...group,
-        items: group.items.filter(item => !item.permission || hasPermission(item.permission))
+        items: (group.items || []).filter(item => !item.permission || hasPermission(item.permission))
     })).filter(group => group.items.length > 0);
 
     const navData = [

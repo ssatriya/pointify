@@ -9,6 +9,7 @@ import SearchStudentEnrollmentController from './SearchStudentEnrollmentControll
 import StudentEnrollmentController from './StudentEnrollmentController'
 import SearchUnenrolledStudentController from './SearchUnenrolledStudentController'
 import StudentController from './StudentController'
+import UserController from './UserController'
 import PointThresholdController from './PointThresholdController'
 import ViolationTypeController from './ViolationTypeController'
 import RewardTypeController from './RewardTypeController'
@@ -24,6 +25,7 @@ SearchStudentEnrollmentController: Object.assign(SearchStudentEnrollmentControll
 StudentEnrollmentController: Object.assign(StudentEnrollmentController, StudentEnrollmentController),
 SearchUnenrolledStudentController: Object.assign(SearchUnenrolledStudentController, SearchUnenrolledStudentController),
 StudentController: Object.assign(StudentController, StudentController),
+UserController: Object.assign(UserController, UserController),
 PointThresholdController: Object.assign(PointThresholdController, PointThresholdController),
 ViolationTypeController: Object.assign(ViolationTypeController, ViolationTypeController),
 RewardTypeController: Object.assign(RewardTypeController, RewardTypeController),

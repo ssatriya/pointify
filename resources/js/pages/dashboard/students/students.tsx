@@ -52,19 +52,19 @@ export default function Students({ students }: Props) {
                 <div className="overflow-clip bg-transparent">
                     <Table>
                         <TableHeader>
-                            <TableRow>
+                            <TableRow className="h-12">
                                 <TableHead>Nama</TableHead>
                                 <TableHead>NIS / NISN</TableHead>
                                 <TableHead>Kejuruan</TableHead>
                                 <TableHead>Status</TableHead>
-                                <TableHead>Tanggal Dibuat</TableHead>
+                                <TableHead className="w-[15%] min-w-[150px]">Tanggal Dibuat</TableHead>
                                 <TableHead className="w-[1%] whitespace-nowrap"></TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
                             {students.data.length > 0 ? (
                                 students.data.map((item) => (
-                                    <TableRow key={item.id}>
+                                    <TableRow key={item.id} className="h-12">
                                         <TableCell>{item.name}</TableCell>
                                         <TableCell>{item.student_number}</TableCell>
                                         <TableCell>{item.vocational_program.label}</TableCell>

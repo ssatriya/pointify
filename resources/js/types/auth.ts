@@ -1,5 +1,5 @@
 export type User = {
-    id: number;
+    id: string;
     name: string;
     email: string;
     avatar?: string;
@@ -7,9 +7,11 @@ export type User = {
     two_factor_enabled?: boolean;
     created_at: string;
     updated_at: string;
-    roles?: { name: string }[];
-    permissions?: { name: string }[];
-    [key: string]: unknown;
+    roles?: string[];
+    role_labels?: string[];
+    permissions?: string[];
+    role_permissions?: string[];
+    direct_permissions?: string[];
 };
 
 export type Auth = {

@@ -1,12 +1,12 @@
 import * as React from "react";
-import {cn} from "@/lib/utils";
-import {Card, CardContent} from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+import { Card, CardContent } from "@/components/ui/card";
 
 interface CardTableProps extends React.ComponentProps<typeof Card> {
     children: React.ReactNode;
 }
 
-function CardTable({className, children, ...props}: CardTableProps) {
+function CardTable({ className, children, ...props }: CardTableProps) {
     return (
         <Card
             className={cn(
@@ -26,11 +26,11 @@ interface CardTableHeaderProps extends React.ComponentProps<"div"> {
 }
 
 function CardTableHeader({
-                             className,
-                             children,
-                             direction,
-                             ...props
-                         }: CardTableHeaderProps) {
+    className,
+    children,
+    direction,
+    ...props
+}: CardTableHeaderProps) {
     return (
         <div
             data-slot="card-table-header"
@@ -55,11 +55,11 @@ interface CardTableTitleProps
 }
 
 function CardTableTitle({
-                            className,
-                            title,
-                            description,
-                            ...props
-                        }: CardTableTitleProps) {
+    className,
+    title,
+    description,
+    ...props
+}: CardTableTitleProps) {
     return (
         <div
             className={cn(
@@ -85,10 +85,10 @@ interface CardTableActionsProps extends React.ComponentProps<"div"> {
 }
 
 function CardTableActions({
-                              className,
-                              children,
-                              ...props
-                          }: CardTableActionsProps) {
+    className,
+    children,
+    ...props
+}: CardTableActionsProps) {
     return (
         <div
             data-slot="card-table-actions"
@@ -106,10 +106,10 @@ interface CardTableContentProps
 }
 
 function CardTableContent({
-                              className,
-                              children,
-                              ...props
-                          }: CardTableContentProps) {
+    className,
+    children,
+    ...props
+}: CardTableContentProps) {
     return (
         <div
             className={cn(
