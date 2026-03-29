@@ -72,6 +72,13 @@ Route::middleware(['auth', 'verified'])
             Route::delete('/{student}', [StudentController::class, 'destroy'])->name('destroy');
         });
 
+        Route::prefix('users')->name('users.')->group(function () {
+            Route::get('/', [\App\Http\Controllers\UserController::class, 'index'])->name('index');
+            Route::get('/{user}', [\App\Http\Controllers\UserController::class, 'show'])->name('show');
+            Route::get('/{user}/edit', [\App\Http\Controllers\UserController::class, 'edit'])->name('edit');
+            Route::put('/{user}', [\App\Http\Controllers\UserController::class, 'update'])->name('update');
+        });
+
         Route::prefix('point-thresholds')->name('point-thresholds.')->group(function () {
             Route::get('/', [PointThresholdController::class, 'index'])->name('index');
             Route::post('/', [PointThresholdController::class, 'store'])->name('store');

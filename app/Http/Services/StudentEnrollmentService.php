@@ -8,7 +8,7 @@ use App\Models\StudentEnrollment;
 use App\Models\Violation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class StudentEnrollmentService
@@ -61,7 +61,7 @@ class StudentEnrollmentService
         });
     }
 
-    /** @throws ConflictHttpException|Throwable */
+    /** @throws ValidationException|Throwable */
     public function delete(StudentEnrollment $studentEnrollment)
     {
         return DB::transaction(function () use ($studentEnrollment) {
@@ -69,7 +69,9 @@ class StudentEnrollmentService
             $rewards = Reward::where('student_enrollment_id', $studentEnrollment->id)->exists();
 
             if ($violations || $rewards) {
-                throw new ConflictHttpException(ErrorMessage::CONFLICT_DELETE->value);
+                throw ValidationException::withMessages([
+                    'student_enrollment' => ErrorMessage::CONFLICT_DELETE->value
+                ]);
             }
 
             $studentEnrollment->delete();

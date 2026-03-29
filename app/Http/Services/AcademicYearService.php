@@ -8,7 +8,6 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
-use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use Throwable;
 
 class AcademicYearService
@@ -24,7 +23,7 @@ class AcademicYearService
      * Create a new academic year, if it is a first make is_current true.
      * If it is not first and is_current set to true,
      * make other is_current to false
-     * @throws ConflictHttpException|Throwable
+     * @throws ValidationException|Throwable
      */
     public function create(array $data): void
     {
@@ -92,12 +91,14 @@ class AcademicYearService
         });
     }
 
-    /** @throws ConflictHttpException|Throwable */
+    /** @throws ValidationException|Throwable */
     public function delete(AcademicYear $academicYear): void
     {
         DB::transaction(function () use ($academicYear) {
             if ($academicYear->is_active) {
-                throw new ConflictHttpException('Tahun akademik aktif tidak bisa dihapus.');
+                throw ValidationException::withMessages([
+                    'academic_year' => 'Tahun akademik aktif tidak bisa dihapus.'
+                ]);
             }
 
             $academicYear->delete();

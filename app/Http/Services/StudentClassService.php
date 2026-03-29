@@ -5,7 +5,7 @@ namespace App\Http\Services;
 use App\Facades\DataTable;
 use App\Models\StudentClass;
 use App\Models\VocationalProgram;
-use Exception;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -50,7 +50,7 @@ class StudentClassService
     }
 
     /**
-     * @throws Exception
+     * @throws ValidationException
      */
     private function validateUniqueness(array $data, ?StudentClass $studentClass = null): void
     {
@@ -62,7 +62,9 @@ class StudentClassService
         }
 
         if ($query->exists()) {
-            throw new Exception('Data kelas sudah ada di dalam sistem.');
+            throw ValidationException::withMessages([
+                'name' => 'Data kelas sudah ada di dalam sistem.'
+            ]);
         }
     }
 
