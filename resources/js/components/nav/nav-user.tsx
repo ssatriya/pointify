@@ -48,31 +48,32 @@ export function NavUser({
         <SidebarMenu>
             <SidebarMenuItem>
                 <DropdownMenu>
-                    <DropdownMenuTrigger render={
-                        <SidebarMenuButton
-                            size="lg"
-                            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
-                        >
-                            <Avatar className="h-8 w-8 rounded-lg grayscale">
-                                <AvatarImage
-                                    src={user.avatar}
-                                    alt={user.name}
-                                />
-                                <AvatarFallback className="rounded-lg">
-                                    CN
-                                </AvatarFallback>
-                            </Avatar>
-                            <div className="grid flex-1 text-left text-sm leading-tight">
-                                <span className="truncate font-medium">
-                                    {user.name}
-                                </span>
-                                <span className="truncate text-xs text-muted-foreground">
-                                    {user.email}
-                                </span>
-                            </div>
-                            <IconDotsVertical className="ml-auto size-4" />
-                        </SidebarMenuButton>
-                    } />
+                    <DropdownMenuTrigger
+                        render={
+                            <SidebarMenuButton
+                                size="lg"
+                                className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                            >
+                                <Avatar className="h-8 w-8 rounded-lg grayscale">
+                                    <AvatarImage
+                                        src={user.avatar}
+                                        alt={user.name}
+                                    />
+                                    <AvatarFallback className="rounded-lg">
+                                        CN
+                                    </AvatarFallback>
+                                </Avatar>
+                                <div className="grid flex-1 text-left text-sm leading-tight">
+                                    <span className="truncate font-medium">
+                                        {user.name}
+                                    </span>
+                                    <span className="truncate text-xs text-muted-foreground">
+                                        {user.email}
+                                    </span>
+                                </div>
+                                <IconDotsVertical className="ml-auto size-4" />
+                            </SidebarMenuButton>
+                        } />
                     <DropdownMenuContent
                         className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
                         side={isMobile ? "bottom" : "right"}
@@ -105,6 +106,7 @@ export function NavUser({
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>
                             <DropdownMenuItem
+                                nativeButton={false}
                                 render={
                                     <Link
                                         className="block w-full cursor-pointer"
@@ -128,9 +130,11 @@ export function NavUser({
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem
+                            nativeButton={true}
                             render={<Link
                                 className="block w-full cursor-pointer"
                                 href={logout()}
+                                method="post"
                                 as="button"
                                 onClick={handleLogout}
                             >

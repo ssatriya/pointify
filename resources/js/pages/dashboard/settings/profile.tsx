@@ -5,10 +5,11 @@ import AppLayout from "@/components/layout/app-layout";
 import SettingsLayout from "@/components/layout/settings-layout";
 import ProfileController from "@/actions/App/Http/Controllers/Settings/ProfileController";
 import { Heading } from "@/pages/dashboard/settings/partials/heading";
-import { Form, Link, usePage, usePrefetch } from "@inertiajs/react";
+import { Form, Link, usePage } from "@inertiajs/react";
 import { Head } from "@inertiajs/react";
 import type { BreadcrumbItem, Auth } from "@/types";
 import DeleteUser from "@/pages/dashboard/settings/partials/delete-user";
+import { Loader } from "lucide-react";
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -29,8 +30,6 @@ export default function Profile({
     status?: string;
 }) {
     const { auth } = usePage<{ auth: Auth }>().props;
-    const { flush } = usePrefetch()
-
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
             <Head title="Profile settings" />
@@ -42,13 +41,16 @@ export default function Profile({
                         title="Profile information"
                         description="Update your account's profile information and email address."
                     />
-
                     <Form
                         {...ProfileController.update.form()}
-                        onSuccess={() => flush()}
+                        options={{
+                            preserveScroll: true,
+                            preserveState: true,
+
+                        }}
                         className="space-y-6"
                     >
-                        {(form) => (
+                        {({ errors, processing, recentlySuccessful }) => (
                             <>
                                 <FieldGroup>
                                     <Field>
@@ -56,29 +58,30 @@ export default function Profile({
                                         <Input
                                             id="name"
                                             name="name"
+                                            type="text"
+                                            key={auth.user.name}
                                             defaultValue={auth.user.name}
                                             required
                                             autoComplete="name"
                                         />
-                                        <FieldError>{form.errors.name}</FieldError>
+                                        <FieldError>{errors.name}</FieldError>
                                     </Field>
-
                                     <Field>
                                         <FieldLabel htmlFor="email">Email address</FieldLabel>
                                         <Input
                                             id="email"
                                             name="email"
                                             type="email"
+                                            key={auth.user.email}
                                             defaultValue={auth.user.email}
                                             required
                                             autoComplete="username"
                                         />
-                                        <FieldError>{form.errors.email}</FieldError>
+                                        <FieldError>{errors.email}</FieldError>
                                     </Field>
                                 </FieldGroup>
-
                                 {mustVerifyEmail &&
-                                    auth.user.email_verified_at === null && (
+                                    auth.user?.email_verified_at === null && (
                                         <div>
                                             <p className="text-sm text-neutral-600 dark:text-neutral-400">
                                                 Your email address is unverified.{" "}
@@ -99,11 +102,15 @@ export default function Profile({
                                             )}
                                         </div>
                                     )}
-
                                 <div className="flex items-center gap-4">
-                                    <Button type="submit" disabled={form.processing}>Save</Button>
-
-                                    {form.recentlySuccessful && (
+                                    <Button type="submit" disabled={processing} className="min-w-20">
+                                        {processing ? (
+                                            <Loader className="h-4 w-4 animate-spin" />
+                                        ) : (
+                                            "Simpan"
+                                        )}
+                                    </Button>
+                                    {recentlySuccessful && (
                                         <p className="text-sm text-neutral-600 dark:text-neutral-400">
                                             Saved.
                                         </p>
@@ -113,8 +120,7 @@ export default function Profile({
                         )}
                     </Form>
                 </div>
-
-                <DeleteUser />
+                {!auth.user.roles.some((role) => role.name === 'super-admin') && <DeleteUser />}
             </SettingsLayout>
         </AppLayout>
     );
