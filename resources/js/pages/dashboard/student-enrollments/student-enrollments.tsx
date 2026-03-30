@@ -14,10 +14,11 @@ import ClassLayout from "@/components/layout/class-layout";
 import type { BreadcrumbItem, Class, Paginated, StudentEnrollment } from "@/types";
 import { Badge } from "@/components/ui/badge";
 import { Link, Head } from "@inertiajs/react";
-import { studentDetail } from "@/routes/dashboard/class";
+import { studentDetail, index as classIndex } from "@/routes/dashboard/class";
 import { useModal } from "@ebay/nice-modal-react";
 import createStudentEnrollment from "./partials/create-student-enrollment";
 import StudentEnrollmentActions from "./partials/student-enrollment-actions";
+import { useFilter } from "@/hooks/use-filter";
 
 type Props = {
     studentClass: Class;
@@ -26,6 +27,12 @@ type Props = {
 
 export default function StudentEnrollments({ studentClass, studentEnrollments }: Props) {
     const { show } = useModal(createStudentEnrollment)
+    const { 
+        search, 
+        setSearch, 
+        resetFilters 
+    } = useFilter(classIndex({ studentClass: studentClass.slug }).url);
+
     return (
         <ClassLayout studentClass={studentClass} activeTab="daftar-siswa">
             <Head title={studentClass.name} />
@@ -35,10 +42,10 @@ export default function StudentEnrollments({ studentClass, studentEnrollments }:
                     <CardTableActions>
                         <TableToolbar>
                             <SearchInput
-                                search={""}
-                                setSearch={(value) => { }}
-                                hasSearch={false}
-                                resetSearch={() => { }}
+                                search={search}
+                                setSearch={setSearch}
+                                hasSearch={!!search}
+                                resetSearch={resetFilters}
                             />
                             <Button variant="outline" onClick={() => show({ studentClassSlug: studentClass.slug, vocationalProgramId: studentClass.vocational_program_id })}>
                                 Tambah Siswa
@@ -48,7 +55,7 @@ export default function StudentEnrollments({ studentClass, studentEnrollments }:
                 </CardTableHeader>
                 <CardTableContent>
                     <div className="overflow-x-auto">
-                        <Table>
+                        <Table className="table-fixed">
                             <TableHeader>
                                 <TableRow className="h-12">
                                     <TableHead className="w-[30%] min-w-[200px]">Nama Siswa</TableHead>
@@ -56,7 +63,7 @@ export default function StudentEnrollments({ studentClass, studentEnrollments }:
                                     <TableHead className="w-[15%] min-w-[150px] text-center">Poin Pelanggaran</TableHead>
                                     <TableHead className="w-[15%] min-w-[150px] text-center">Poin Prestasi</TableHead>
                                     <TableHead className="w-[15%] min-w-[150px] text-center">Status</TableHead>
-                                    <TableHead className="w-[1%] whitespace-nowrap"></TableHead>
+                                    <TableHead className="w-[10%] whitespace-nowrap"></TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>

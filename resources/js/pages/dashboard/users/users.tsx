@@ -15,6 +15,8 @@ import type { BreadcrumbItem, Paginated, User, Auth } from "@/types";
 import { router, usePage } from "@inertiajs/react";
 import { useState } from "react";
 import UserActions from "@/pages/dashboard/users/partials/user-actions";
+import { useFilter } from "@/hooks/use-filter";
+import { index as dashboardIndex } from "@/routes/dashboard";
 import { index as usersIndex } from "@/routes/dashboard/users";
 
 type Props = {
@@ -24,25 +26,21 @@ type Props = {
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: "Dashboard",
-        href: "/dashboard"
+        href: dashboardIndex().url
     },
     {
         title: "Pengguna",
-        href: "/dashboard/users"
+        href: usersIndex().url
     }
 ]
 
 export default function UserIndex({ users }: Props) {
     const { auth } = usePage<{ auth: Auth }>().props;
-    const [search, setSearch] = useState("");
-
-    const handleSearch = (value: string) => {
-        setSearch(value);
-        router.get(usersIndex({ query: { search: value } }).url, {
-            preserveState: true,
-            replace: true
-        });
-    };
+    const { 
+        search, 
+        setSearch, 
+        resetFilters 
+    } = useFilter(usersIndex().url);
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
@@ -53,24 +51,24 @@ export default function UserIndex({ users }: Props) {
                         <TableToolbar>
                             <SearchInput
                                 search={search}
-                                setSearch={handleSearch}
+                                setSearch={setSearch}
                                 hasSearch={!!search}
-                                resetSearch={() => handleSearch("")}
+                                resetSearch={resetFilters}
                             />
                         </TableToolbar>
                     </CardTableActions>
                 </CardTableHeader>
                 <CardTableContent>
                     <div className="overflow-clip bg-transparent">
-                        <Table>
+                        <Table className="table-fixed">
                             <TableHeader>
                                 <TableRow className="h-12">
                                     <TableHead className="w-[20%] min-w-[150px]">Nama</TableHead>
                                     <TableHead className="w-[25%] min-w-[200px]">Email</TableHead>
                                     <TableHead className="w-[15%] min-w-[120px]">Role</TableHead>
                                     <TableHead className="w-[15%] min-w-[120px]">Hak Akses</TableHead>
-                                    <TableHead className="w-[25%] min-w-[150px] text-end">Terdaftar Pada</TableHead>
-                                    <TableHead className="w-[1%] whitespace-nowrap"></TableHead>
+                                    <TableHead className="w-[20%] min-w-[150px] text-end">Terdaftar Pada</TableHead>
+                                    <TableHead className="w-[5%] whitespace-nowrap"></TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>

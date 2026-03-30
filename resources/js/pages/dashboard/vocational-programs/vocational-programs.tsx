@@ -16,6 +16,10 @@ import { useModal } from "@ebay/nice-modal-react";
 import CreateVocationalProgram from "@/pages/dashboard/vocational-programs/partials/create-vocational-program";
 import VocationalProgramActions from "@/pages/dashboard/vocational-programs/partials/vocational-program-actions";
 
+import { useFilter } from "@/hooks/use-filter";
+import { index as dashboardIndex } from "@/routes/dashboard";
+import { index as vocationalProgramsIndex } from "@/routes/dashboard/vocational-programs";
+
 type Props = {
     vocationalPrograms: Paginated<VocationalProgram>;
 };
@@ -23,16 +27,22 @@ type Props = {
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: "Dashboard",
-        href: "/dashboard"
+        href: dashboardIndex().url
     },
     {
         title: "Program Kejuruan",
-        href: "/dashboard/vocational-programs"
+        href: vocationalProgramsIndex().url
     }
 ]
 
 export default function VocationalPrograms({ vocationalPrograms }: Props) {
     const { show } = useModal(CreateVocationalProgram)
+    const { 
+        search, 
+        setSearch, 
+        resetFilters 
+    } = useFilter(vocationalProgramsIndex().url);
+
     return (<AppLayout breadcrumbs={breadcrumbs}>
         <CardTable>
             <CardTableHeader>
@@ -40,12 +50,10 @@ export default function VocationalPrograms({ vocationalPrograms }: Props) {
                 <CardTableActions>
                     <TableToolbar>
                         <SearchInput
-                            search={""}
-                            setSearch={(value) => {
-                            }}
-                            hasSearch={false}
-                            resetSearch={() => {
-                            }}
+                            search={search}
+                            setSearch={setSearch}
+                            hasSearch={!!search}
+                            resetSearch={resetFilters}
                         />
                         <Button variant="outline" onClick={() => show()}>
                             Tambah
@@ -55,13 +63,13 @@ export default function VocationalPrograms({ vocationalPrograms }: Props) {
             </CardTableHeader>
             <CardTableContent>
                 <div className="overflow-clip bg-transparent">
-                    <Table>
+                    <Table className="table-fixed">
                         <TableHeader>
                             <TableRow className="h-12">
-                                <TableHead className="w-[40%] min-w-[200px]">Nama Kejuruan</TableHead>
-                                <TableHead className="w-[30%] min-w-[150px]">Singkatan</TableHead>
-                                <TableHead className="w-[15%] min-w-[150px]">Tanggal Dibuat</TableHead>
-                                <TableHead className="w-[1%] whitespace-nowrap"></TableHead>
+                                <TableHead className="w-[45%] min-w-[200px]">Nama Kejuruan</TableHead>
+                                <TableHead className="w-[25%] min-w-[150px]">Singkatan</TableHead>
+                                <TableHead className="w-[25%] min-w-[150px]">Tanggal Dibuat</TableHead>
+                                <TableHead className="w-[5%] whitespace-nowrap"></TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>

@@ -4,6 +4,10 @@ import TableToolbar from "@/components/table/table-toolbar";
 import { Button } from "@/components/ui/button";
 import { CardTable, CardTableActions, CardTableContent, CardTableHeader, CardTableTitle } from "@/components/ui/card-table";
 import { useModal } from "@ebay/nice-modal-react";
+import { useFilter } from "@/hooks/use-filter";
+import { Head } from "@inertiajs/react";
+import { index as dashboardIndex } from "@/routes/dashboard";
+import { index as studentsIndex } from "@/routes/dashboard/students";
 import CreateStudent from "./partials/create-student";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import TablePagination from "@/components/table/table-pagination";
@@ -18,29 +22,34 @@ type Props = {
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: "Dashboard",
-        href: "/dashboard"
+        href: dashboardIndex().url
     },
     {
         title: "Siswa",
-        href: "/dashboard/students"
+        href: studentsIndex().url
     }
 ]
 
 export default function Students({ students }: Props) {
     const { show } = useModal(CreateStudent)
+    const {
+        search,
+        setSearch,
+        resetFilters
+    } = useFilter(studentsIndex().url);
+
     return <AppLayout breadcrumbs={breadcrumbs}>
+        <Head title="Data Siswa" />
         <CardTable>
             <CardTableHeader>
                 <CardTableTitle title="Data Siswa" />
                 <CardTableActions>
                     <TableToolbar>
                         <SearchInput
-                            search={""}
-                            setSearch={(value) => {
-                            }}
-                            hasSearch={false}
-                            resetSearch={() => {
-                            }}
+                            search={search}
+                            setSearch={setSearch}
+                            hasSearch={!!search}
+                            resetSearch={resetFilters}
                         />
                         <Button variant="outline" onClick={() => show()}>
                             Tambah
@@ -50,15 +59,15 @@ export default function Students({ students }: Props) {
             </CardTableHeader>
             <CardTableContent>
                 <div className="overflow-clip bg-transparent">
-                    <Table>
+                    <Table className="table-fixed">
                         <TableHeader>
                             <TableRow className="h-12">
-                                <TableHead>Nama</TableHead>
-                                <TableHead>NIS / NISN</TableHead>
-                                <TableHead>Kejuruan</TableHead>
-                                <TableHead>Status</TableHead>
+                                <TableHead className="w-[30%]">Nama</TableHead>
+                                <TableHead className="w-[20%]">NIS / NISN</TableHead>
+                                <TableHead className="w-[20%]">Kejuruan</TableHead>
+                                <TableHead className="w-[12%]">Status</TableHead>
                                 <TableHead className="w-[15%] min-w-[150px]">Tanggal Dibuat</TableHead>
-                                <TableHead className="w-[1%] whitespace-nowrap"></TableHead>
+                                <TableHead className="w-[3%] whitespace-nowrap"></TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>

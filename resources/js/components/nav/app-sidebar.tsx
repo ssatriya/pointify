@@ -29,6 +29,7 @@ import { index as pointThresholdsIndex } from "@/routes/dashboard/point-threshol
 import { index as violationTypesIndex } from "@/routes/dashboard/violation-types"
 import { index as rewardTypesIndex } from "@/routes/dashboard/reward-types"
 import { index as usersIndex } from "@/routes/dashboard/users"
+import { index as violationApprovalsIndex } from "@/routes/dashboard/violations/approval"
 import { Auth, StudentClass, User } from "@/types";
 
 const data = {
@@ -37,9 +38,15 @@ const data = {
             items: [
                 {
                     title: "Dashboard",
-                    href: dashboardIndex(),
+                    href: dashboardIndex().url,
                     icon: IconDashboard,
                     permission: "dashboard.view",
+                },
+                {
+                    title: "Persetujuan Pelanggaran",
+                    href: violationApprovalsIndex({ query: { status: "pending" } }).url,
+                    icon: IconListDetails,
+                    permission: "violations.view",
                 }
             ],
         },
@@ -48,18 +55,18 @@ const data = {
             items: [
                 {
                     title: "Program Kejuruan",
-                    href: vocationalProgramsIndex(),
+                    href: vocationalProgramsIndex().url,
                     icon: IconListDetails,
                     permission: "vocational-programs.view",
                 }
                 , {
                     title: "Tahun Ajaran",
-                    href: academicYearsIndex(),
+                    href: academicYearsIndex().url,
                     icon: IconListDetails,
                     permission: "academic-years.view",
                 }, {
                     title: "Kelas",
-                    href: classesIndex(),
+                    href: classesIndex().url,
                     icon: IconListDetails,
                     permission: "student-classes.view",
                 }
@@ -70,25 +77,25 @@ const data = {
             items: [
                 {
                     title: "Siswa",
-                    href: studentsIndex(),
+                    href: studentsIndex().url,
                     icon: IconListDetails,
                     permission: "students.view",
                 },
                 {
                     title: "Batas Poin Pelanggaran",
-                    href: pointThresholdsIndex(),
+                    href: pointThresholdsIndex().url,
                     icon: IconListDetails,
                     permission: "point-thresholds.view",
                 },
                 {
                     title: "Jenis Pelanggaran",
-                    href: violationTypesIndex(),
+                    href: violationTypesIndex().url,
                     icon: IconListDetails,
                     permission: "violation-types.view",
                 },
                 {
                     title: "Jenis Prestasi",
-                    href: rewardTypesIndex(),
+                    href: rewardTypesIndex().url,
                     icon: IconListDetails,
                     permission: "reward-types.view",
                 },

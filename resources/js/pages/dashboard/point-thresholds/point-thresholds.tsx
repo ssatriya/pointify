@@ -11,11 +11,16 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import TablePagination from "@/components/table/table-pagination";
 import AppLayout from "@/components/layout/app-layout";
+import { Head } from "@inertiajs/react";
 import type { BreadcrumbItem, Paginated, PointThreshold } from "@/types";
 import { useModal } from "@ebay/nice-modal-react";
 import PointThresholdActions from "@/pages/dashboard/point-thresholds/partials/point-threshold-actions";
 import { Badge } from "@/components/ui/badge";
 import createPointThreshold from "./partials/create-point-threshold";
+
+import { useFilter } from "@/hooks/use-filter";
+import { index as dashboardIndex } from "@/routes/dashboard";
+import { index as pointThresholdsIndex } from "@/routes/dashboard/point-thresholds";
 
 type Props = {
     pointThresholds: Paginated<PointThreshold>;
@@ -24,30 +29,34 @@ type Props = {
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: "Dashboard",
-        href: "/dashboard"
+        href: dashboardIndex().url
     },
     {
         title: "Batas Poin",
-        href: "/dashboard/point-thresholds"
+        href: pointThresholdsIndex().url
     }
 ]
 
 export default function PointThresholds({ pointThresholds }: Props) {
     const { show } = useModal(createPointThreshold)
+    const { 
+        search, 
+        setSearch, 
+        resetFilters 
+    } = useFilter(pointThresholdsIndex().url);
 
     return (<AppLayout breadcrumbs={breadcrumbs}>
+        <Head title="Batas Poin" />
         <CardTable>
             <CardTableHeader>
                 <CardTableTitle title="Data Batas Poin" />
                 <CardTableActions>
                     <TableToolbar>
                         <SearchInput
-                            search={""}
-                            setSearch={(value) => {
-                            }}
-                            hasSearch={false}
-                            resetSearch={() => {
-                            }}
+                            search={search}
+                            setSearch={setSearch}
+                            hasSearch={!!search}
+                            resetSearch={resetFilters}
                         />
                         <Button variant="outline" onClick={() => show()}>
                             Tambah
@@ -57,15 +66,15 @@ export default function PointThresholds({ pointThresholds }: Props) {
             </CardTableHeader>
             <CardTableContent>
                 <div className="overflow-clip bg-transparent">
-                    <Table>
+                    <Table className="table-fixed">
                         <TableHeader>
                             <TableRow className="h-12">
                                 <TableHead className="w-[20%] min-w-[150px]">Tahun Akademik</TableHead>
                                 <TableHead className="w-[15%] min-w-[100px] text-center">Ambang Poin</TableHead>
-                                <TableHead className="w-[35%] min-w-[200px]">Keterangan</TableHead>
+                                <TableHead className="w-[30%] min-w-[200px]">Keterangan</TableHead>
                                 <TableHead className="w-[10%] min-w-[100px] text-center">Status</TableHead>
-                                <TableHead className="w-[15%] min-w-[150px]">Tanggal Dibuat</TableHead>
-                                <TableHead className="w-[1%] whitespace-nowrap"></TableHead>
+                                <TableHead className="w-[20%] min-w-[150px]">Tanggal Dibuat</TableHead>
+                                <TableHead className="w-[5%] whitespace-nowrap"></TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>

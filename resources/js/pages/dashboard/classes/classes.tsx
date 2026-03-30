@@ -1,4 +1,5 @@
 import AppLayout from "@/components/layout/app-layout";
+import { Head } from "@inertiajs/react";
 import SearchInput from "@/components/table/search-input";
 import TableToolbar from "@/components/table/table-toolbar";
 import { Button } from "@/components/ui/button";
@@ -15,6 +16,9 @@ import TablePagination from "@/components/table/table-pagination";
 import { useModal } from "@ebay/nice-modal-react";
 import CreateClass from "./partials/create-class";
 import StudentClassActions from "./partials/student-class-actions";
+import { useFilter } from "@/hooks/use-filter";
+import { index as dashboardIndex } from "@/routes/dashboard";
+import { index as classesIndex } from "@/routes/dashboard/student-classes";
 
 type Props = {
     classes: Paginated<Class>;
@@ -23,30 +27,34 @@ type Props = {
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: "Dashboard",
-        href: "/dashboard"
+        href: dashboardIndex().url
     },
     {
         title: "Kelas",
-        href: "/dashboard/classes"
+        href: classesIndex().url
     }
 ]
 
 export default function Classes({ classes }: Props) {
     const { show } = useModal(CreateClass)
+    const { 
+        search, 
+        setSearch, 
+        resetFilters 
+    } = useFilter(classesIndex().url);
 
     return <AppLayout breadcrumbs={breadcrumbs}>
+        <Head title="Data Kelas" />
         <CardTable>
             <CardTableHeader>
                 <CardTableTitle title="Data Kelas" />
                 <CardTableActions>
                     <TableToolbar>
                         <SearchInput
-                            search={""}
-                            setSearch={(value) => {
-                            }}
-                            hasSearch={false}
-                            resetSearch={() => {
-                            }}
+                            search={search}
+                            setSearch={setSearch}
+                            hasSearch={!!search}
+                            resetSearch={resetFilters}
                         />
                         <Button variant="outline" onClick={() => show()}>
                             Tambah
@@ -56,15 +64,15 @@ export default function Classes({ classes }: Props) {
             </CardTableHeader>
             <CardTableContent>
                 <div className="overflow-clip bg-transparent">
-                    <Table>
+                    <Table className="table-fixed">
                         <TableHeader>
                             <TableRow className="h-12">
-                                <TableHead>Nama</TableHead>
-                                <TableHead>Tingkat</TableHead>
-                                <TableHead>Rombel</TableHead>
-                                <TableHead>Kejuruan</TableHead>
+                                <TableHead className="w-[30%]">Nama</TableHead>
+                                <TableHead className="w-[15%]">Tingkat</TableHead>
+                                <TableHead className="w-[15%]">Rombel</TableHead>
+                                <TableHead className="w-[20%]">Kejuruan</TableHead>
                                 <TableHead className="w-[15%] min-w-[150px]">Tanggal Dibuat</TableHead>
-                                <TableHead className="w-[1%] whitespace-nowrap"></TableHead>
+                                <TableHead className="w-[5%] whitespace-nowrap"></TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -97,4 +105,4 @@ export default function Classes({ classes }: Props) {
             </CardTableContent>
         </CardTable>
     </AppLayout>
-}
+}

@@ -112,8 +112,9 @@ Route::middleware(['auth', 'verified'])
         });
 
         Route::prefix('violations')->name('violations.')->group(function () {
-            Route::get('/approval', [ViolationApprovalController::class, 'index']);
-            Route::patch('/approval/{violation}', [ViolationApprovalController::class, 'update']);
+            Route::get('/approval', [ViolationApprovalController::class, 'index'])->name('approval.index');
+            Route::get('/approval/{violation}', [ViolationApprovalController::class, 'show'])->name('approval.show');
+            Route::patch('/approval/{violation}', [ViolationApprovalController::class, 'update'])->name('approval.update');
 
             Route::post('/', ViolationController::class)->name('store');
         });

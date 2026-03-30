@@ -3,11 +3,12 @@ import { BreadcrumbItem } from "@/types";
 import { Head } from "@inertiajs/react";
 import CreateViolations from "./partials/create-violations";
 import CreateRewards from "./partials/create-rewards";
+import { index as dashboardIndex } from "@/routes/dashboard";
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: "Dashboard",
-        href: "/dashboard"
+        href: dashboardIndex().url
     },
 ]
 

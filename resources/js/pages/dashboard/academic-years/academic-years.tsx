@@ -1,4 +1,5 @@
 import AppLayout from "@/components/layout/app-layout";
+import { Head } from "@inertiajs/react";
 import {
     CardTable,
     CardTableHeader,
@@ -25,6 +26,10 @@ import { Badge } from "@/components/ui/badge";
 import TablePagination from "@/components/table/table-pagination";
 import AcademicYearActions from "./partials/academic-year-actions";
 
+import { useFilter } from "@/hooks/use-filter";
+import { index as dashboardIndex } from "@/routes/dashboard";
+import { index as academicYearsIndex } from "@/routes/dashboard/academic-years";
+
 type Props = {
     academicYears: Paginated<AcademicYear>;
 };
@@ -32,29 +37,34 @@ type Props = {
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: "Dashboard",
-        href: "/dashboard"
+        href: dashboardIndex().url
     },
     {
         title: "Tahun Akademik",
-        href: "/dashboard/academic-years"
+        href: academicYearsIndex().url
     }
 ]
 
 export default function AcademicYears({ academicYears }: Props) {
     const { show } = useModal(CreateAcademicYear)
+    const { 
+        search, 
+        setSearch, 
+        resetFilters 
+    } = useFilter(academicYearsIndex().url);
+
     return <AppLayout breadcrumbs={breadcrumbs}>
+        <Head title="Tahun Akademik" />
         <CardTable>
             <CardTableHeader>
                 <CardTableTitle title="Data Tahun Akademik" />
                 <CardTableActions>
                     <TableToolbar>
                         <SearchInput
-                            search={""}
-                            setSearch={(value) => {
-                            }}
-                            hasSearch={false}
-                            resetSearch={() => {
-                            }}
+                            search={search}
+                            setSearch={setSearch}
+                            hasSearch={!!search}
+                            resetSearch={resetFilters}
                         />
                         <Button variant="outline" onClick={() => show()}>
                             Tambah
@@ -64,15 +74,15 @@ export default function AcademicYears({ academicYears }: Props) {
             </CardTableHeader>
             <CardTableContent>
                 <div className="overflow-clip bg-transparent">
-                    <Table>
+                    <Table className="table-fixed">
                         <TableHeader>
                             <TableRow className="h-12">
-                                <TableHead>Tahun Ajaran</TableHead>
-                                <TableHead>Awal</TableHead>
-                                <TableHead>Akhir</TableHead>
-                                <TableHead className="text-center">Status</TableHead>
+                                <TableHead className="w-[40%]">Tahun Ajaran</TableHead>
+                                <TableHead className="w-[15%]">Awal</TableHead>
+                                <TableHead className="w-[15%]">Akhir</TableHead>
+                                <TableHead className="w-[10%] text-center">Status</TableHead>
                                 <TableHead className="w-[15%] min-w-[150px]">Tanggal Dibuat</TableHead>
-                                <TableHead className="w-[1%] whitespace-nowrap"></TableHead>
+                                <TableHead className="w-[5%] whitespace-nowrap"></TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>

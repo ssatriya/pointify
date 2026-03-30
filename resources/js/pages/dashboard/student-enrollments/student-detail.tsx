@@ -2,23 +2,30 @@ import AppLayout from "@/components/layout/app-layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { BreadcrumbItem, StudentEnrollmentSummary } from "@/types";
 import { Badge } from "@/components/ui/badge";
+import { index as dashboardIndex } from "@/routes/dashboard";
+import { index as classIndex } from "@/routes/dashboard/class";
 
 type Props = {
     studentEnrollment: StudentEnrollmentSummary;
 };
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: "Dashboard",
-        href: "/dashboard"
-    },
-    {
-        title: "Siswa",
-        href: "/dashboard/students"
-    }
-]
+// Dynamic breadcrumbs will be defined inside the component
 
 export default function StudentDetail({ studentEnrollment }: Props) {
+    const breadcrumbs: BreadcrumbItem[] = [
+        {
+            title: "Dashboard",
+            href: dashboardIndex().url
+        },
+        {
+            title: studentEnrollment.student_class,
+            href: classIndex(studentEnrollment.student_class_slug).url
+        },
+        {
+            title: studentEnrollment.name,
+            href: "#"
+        }
+    ];
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>

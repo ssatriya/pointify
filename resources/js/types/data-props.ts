@@ -88,10 +88,12 @@ export type StudentEnrollment = {
 }
 
 export type StudentEnrollmentSummary = {
+    id: string
     name: string
     student_number: string
     academic_year: string
     student_class: string
+    student_class_slug: string
     initial_points: number
     remaining_points: number
     total_violations_points: number

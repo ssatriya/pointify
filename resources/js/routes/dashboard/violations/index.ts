@@ -1,4 +1,5 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../wayfinder'
+import approval from './approval'
 /**
 * @see \App\Http\Controllers\ViolationController::__invoke
  * @see app/Http/Controllers/ViolationController.php:18
@@ -55,7 +56,8 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     
     store.form = storeForm
 const violations = {
-    store: Object.assign(store, store),
+    approval: Object.assign(approval, approval),
+store: Object.assign(store, store),
 }
 
 export default violations

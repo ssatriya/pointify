@@ -17,6 +17,10 @@ import { Badge } from "@/components/ui/badge";
 import createRewardType from "./partials/create-reward-type";
 import RewardTypeActions from "./partials/reward-type-actions";
 
+import { useFilter } from "@/hooks/use-filter";
+import { index as dashboardIndex } from "@/routes/dashboard";
+import { index as rewardTypesIndex } from "@/routes/dashboard/reward-types";
+
 type Props = {
     rewardTypes: Paginated<RewardType>;
 };
@@ -24,16 +28,21 @@ type Props = {
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: "Dashboard",
-        href: "/dashboard"
+        href: dashboardIndex().url
     },
     {
         title: "Jenis Prestasi",
-        href: "/dashboard/reward-types"
+        href: rewardTypesIndex().url
     }
 ]
 
 export default function RewardTypes({ rewardTypes }: Props) {
     const { show } = useModal(createRewardType)
+    const { 
+        search, 
+        setSearch, 
+        resetFilters 
+    } = useFilter(rewardTypesIndex().url);
 
     return (<AppLayout breadcrumbs={breadcrumbs}>
         <CardTable>
@@ -42,12 +51,10 @@ export default function RewardTypes({ rewardTypes }: Props) {
                 <CardTableActions>
                     <TableToolbar>
                         <SearchInput
-                            search={""}
-                            setSearch={(value) => {
-                            }}
-                            hasSearch={false}
-                            resetSearch={() => {
-                            }}
+                            search={search}
+                            setSearch={setSearch}
+                            hasSearch={!!search}
+                            resetSearch={resetFilters}
                         />
                         <Button variant="outline" onClick={() => show()}>
                             Tambah
@@ -57,7 +64,7 @@ export default function RewardTypes({ rewardTypes }: Props) {
             </CardTableHeader>
             <CardTableContent>
                 <div className="overflow-x-auto">
-                    <Table>
+                    <Table className="table-fixed">
                         <TableHeader>
                             <TableRow className="h-12">
                                 <TableHead className="w-[10%] min-w-[100px]">Kode</TableHead>
@@ -65,7 +72,7 @@ export default function RewardTypes({ rewardTypes }: Props) {
                                 <TableHead className="w-[10%] min-w-[100px] text-center">Poin</TableHead>
                                 <TableHead className="w-[10%] min-w-[100px] text-center">Status</TableHead>
                                 <TableHead className="w-[15%] min-w-[150px]">Tanggal Dibuat</TableHead>
-                                <TableHead className="w-[1%] whitespace-nowrap"></TableHead>
+                                <TableHead className="w-[5%] whitespace-nowrap"></TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>

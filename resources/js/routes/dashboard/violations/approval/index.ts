@@ -268,6 +268,10 @@ update.patch = (args: { violation: string | { id: string } } | [violation: strin
         })
     
     update.form = updateForm
-const ViolationApprovalController = { index, show, update }
+const approval = {
+    index: Object.assign(index, index),
+show: Object.assign(show, show),
+update: Object.assign(update, update),
+}
 
-export default ViolationApprovalController
+export default approval
