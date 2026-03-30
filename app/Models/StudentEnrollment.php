@@ -90,6 +90,14 @@ class StudentEnrollment extends Model
     }
 
     /**
+     * Get all the pointTransactionGroups for the StudentEnrollment
+     */
+    public function pointTransactionGroups(): HasMany
+    {
+        return $this->hasMany(PointTransactionGroup::class);
+    }
+
+    /**
      * Get the student's name for this enrollment
      */
     public function getNameAttribute(): ?string

@@ -100,6 +100,29 @@ export type StudentEnrollmentSummary = {
     total_rewards_points: number
     is_active: boolean
     is_repeating: boolean
+    point_transaction_groups?: PointTransactionGroup[]
+}
+
+export type PointTransactionGroup = {
+    id: string
+    sequence: number
+    is_closed: boolean
+    has_letter: boolean
+    transactions: PointTransaction[]
+}
+
+export type PointTransaction = {
+    id: string
+    student_name: string
+    type: "violation" | "reward" | "reset" | "initial"
+    code: string
+    created_by: string
+    notes: string
+    approval_status: string
+    points_change: number
+    intended_points: number
+    points_after: number
+    created_at: string
 }
 
 export type StudentClass = {

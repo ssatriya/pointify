@@ -27,10 +27,10 @@ type Props = {
 
 export default function StudentEnrollments({ studentClass, studentEnrollments }: Props) {
     const { show } = useModal(createStudentEnrollment)
-    const { 
-        search, 
-        setSearch, 
-        resetFilters 
+    const {
+        search,
+        setSearch,
+        resetFilters
     } = useFilter(classIndex({ studentClass: studentClass.slug }).url);
 
     return (
@@ -73,7 +73,7 @@ export default function StudentEnrollments({ studentClass, studentEnrollments }:
                                             <TableCell>
                                                 <Link
                                                     href={studentDetail({ studentClass: studentClass.slug, studentEnrollment: item.id }).url}
-                                                    className="font-medium text-foreground hover:underline"
+                                                    className="hover:underline"
                                                 >
                                                     {item.student.name}
                                                 </Link>

@@ -114,18 +114,21 @@ class StudentEnrollmentController extends Controller
 
     public function studentByEnrollment(StudentClass $studentClass, StudentEnrollment $studentEnrollment)
     {
-        $studentEnrollment = StudentEnrollment::with([
-            'violations' => fn($q) => $q->with(['createdBy', 'pointTransaction', 'violationType'])
-                ->whereHas('pointTransaction', fn($q) => $q->whereNotNull('violation_id'))
-                ->orderBy('created_at', 'desc'),
+        $studentEnrollment->loadMissing([
             'student',
-            'pointTransactions:id,student_enrollment_id,transaction_type,points_change',
             'academicYear',
             'studentClass',
-        ])
-            ->where('id', $studentEnrollment->id)
-            ->where('is_active', true)
-            ->firstOrFail();
+            'pointTransactionGroups' => fn($q) => $q->with([
+                'violations.pointTransaction' => fn($q) => $q->with([
+                    'violation.violationType',
+                    'violation.createdBy',
+                ]),
+                'rewards.pointTransaction' => fn($q) => $q->with([
+                    'reward.rewardType',
+                    'reward.createdBy',
+                ]),
+            ])->withExists(['violationLetters as has_letter'])->orderBy('sequence'),
+        ]);
 
         return Inertia::render('dashboard/student-enrollments/student-detail', [
             'studentEnrollment' => new StudentEnrollmentSummaryResource($studentEnrollment),

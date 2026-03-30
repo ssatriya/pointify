@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use App\Http\Resources\PointTransactionGroupResource;
 
 class StudentEnrollmentSummaryResource extends JsonResource
 {
@@ -29,6 +30,7 @@ class StudentEnrollmentSummaryResource extends JsonResource
             'total_rewards_points' => $this->total_rewards_points,
             'is_active' => $this->is_active,
             'is_repeating' => $this->is_repeating,
+            'point_transaction_groups' => PointTransactionGroupResource::collection($this->whenLoaded('pointTransactionGroups')),
         ];
     }
 }
