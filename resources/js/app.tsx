@@ -8,6 +8,7 @@ import { initializeTheme } from "@/hooks/use-appearance";
 import NiceModal from "@ebay/nice-modal-react";
 import ConfirmationDialog from "@/components/confirmation-dialog";
 import { renderApp } from '@inertiaui/modal-react'
+import { Toaster } from "@/components/ui/sonner"
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
@@ -26,6 +27,7 @@ createInertiaApp({
                 <NiceModal.Provider>
                     <TooltipProvider>
                         {renderApp(App as any, props as any)}
+                        <Toaster richColors position="top-right" />
                     </TooltipProvider>
                 </NiceModal.Provider>
             </StrictMode>,

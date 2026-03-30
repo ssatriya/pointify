@@ -8,6 +8,8 @@ import users from './users'
 import pointThresholds from './point-thresholds'
 import violationTypes from './violation-types'
 import rewardTypes from './reward-types'
+import violations from './violations'
+import rewards from './rewards'
 import classMethod from './class'
 /**
 * @see \Inertia\Controller::__invoke
@@ -98,6 +100,8 @@ users: Object.assign(users, users),
 pointThresholds: Object.assign(pointThresholds, pointThresholds),
 violationTypes: Object.assign(violationTypes, violationTypes),
 rewardTypes: Object.assign(rewardTypes, rewardTypes),
+violations: Object.assign(violations, violations),
+rewards: Object.assign(rewards, rewards),
 class: Object.assign(classMethod, classMethod),
 }
 

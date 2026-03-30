@@ -75,6 +75,7 @@ export default NiceModal.create(() => {
                                 type="text"
                                 value={data.name}
                                 onChange={(e) => setData("name", e.target.value)}
+                                aria-invalid={!!errors.name}
                             />
                             <FieldError>{errors.name}</FieldError>
                         </Field>

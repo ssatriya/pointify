@@ -1,5 +1,83 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../wayfinder'
 /**
+* @see \App\Http\Controllers\SearchViolationTypeController::__invoke
+ * @see app/Http/Controllers/SearchViolationTypeController.php:23
+ * @route '/dashboard/violation-types/search'
+ */
+export const search = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: search.url(options),
+    method: 'get',
+})
+
+search.definition = {
+    methods: ["get","head"],
+    url: '/dashboard/violation-types/search',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\SearchViolationTypeController::__invoke
+ * @see app/Http/Controllers/SearchViolationTypeController.php:23
+ * @route '/dashboard/violation-types/search'
+ */
+search.url = (options?: RouteQueryOptions) => {
+    return search.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\SearchViolationTypeController::__invoke
+ * @see app/Http/Controllers/SearchViolationTypeController.php:23
+ * @route '/dashboard/violation-types/search'
+ */
+search.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: search.url(options),
+    method: 'get',
+})
+/**
+* @see \App\Http\Controllers\SearchViolationTypeController::__invoke
+ * @see app/Http/Controllers/SearchViolationTypeController.php:23
+ * @route '/dashboard/violation-types/search'
+ */
+search.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: search.url(options),
+    method: 'head',
+})
+
+    /**
+* @see \App\Http\Controllers\SearchViolationTypeController::__invoke
+ * @see app/Http/Controllers/SearchViolationTypeController.php:23
+ * @route '/dashboard/violation-types/search'
+ */
+    const searchForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: search.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\SearchViolationTypeController::__invoke
+ * @see app/Http/Controllers/SearchViolationTypeController.php:23
+ * @route '/dashboard/violation-types/search'
+ */
+        searchForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: search.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\SearchViolationTypeController::__invoke
+ * @see app/Http/Controllers/SearchViolationTypeController.php:23
+ * @route '/dashboard/violation-types/search'
+ */
+        searchForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: search.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    search.form = searchForm
+/**
 * @see \App\Http\Controllers\ViolationTypeController::index
  * @see app/Http/Controllers/ViolationTypeController.php:33
  * @route '/dashboard/violation-types'
@@ -413,7 +491,8 @@ destroy.delete = (args: { violationType: string | { id: string } } | [violationT
     
     destroy.form = destroyForm
 const violationTypes = {
-    index: Object.assign(index, index),
+    search: Object.assign(search, search),
+index: Object.assign(index, index),
 store: Object.assign(store, store),
 show: Object.assign(show, show),
 update: Object.assign(update, update),

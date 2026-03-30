@@ -319,10 +319,6 @@ const BaseAsyncSelect = <IsMulti extends boolean = false>(
             ref={ref}
             instanceId={instanceId}
             unstyled
-            filterOption={createFilter({
-                matchFrom: "any",
-                stringify: (option) => option.label,
-            })}
             components={{
                 DropdownIndicator,
                 ClearIndicator,

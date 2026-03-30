@@ -5,23 +5,24 @@ namespace App\Http\Controllers;
 use App\Facades\QueryFilter;
 use App\Http\Requests\SearchQueryRequest;
 use App\Http\Resources\SelectOptionResource;
-use App\Models\StudentEnrollment;
+use App\Models\ViolationType;
 use Illuminate\Http\JsonResponse;
 
-class SearchStudentEnrollmentController extends Controller
+class SearchViolationTypeController extends Controller
 {
     /**
      * Search.
      *
-     * Search a student enrolment.
+     * Search an entry of violation type.
      *
      * @authenticated
      *
+     * @param SelectOptionResource $request
      * @return JsonResponse
      */
-    public function __invoke(SearchQueryRequest $request)
+    public function __invoke(SearchQueryRequest $request): JsonResponse
     {
-        $query = StudentEnrollment::query()->with('student')->where('is_active', true)->limit(10);
+        $query = ViolationType::query()->limit(10)->latest();
 
         $data = QueryFilter::make($query)->search($request->validated('q'))->get();
 

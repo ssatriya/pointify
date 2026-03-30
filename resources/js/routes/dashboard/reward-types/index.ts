@@ -1,5 +1,83 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../wayfinder'
 /**
+* @see \App\Http\Controllers\SearchRewardTypeController::__invoke
+ * @see app/Http/Controllers/SearchRewardTypeController.php:23
+ * @route '/dashboard/reward-types/search'
+ */
+export const search = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: search.url(options),
+    method: 'get',
+})
+
+search.definition = {
+    methods: ["get","head"],
+    url: '/dashboard/reward-types/search',
+} satisfies RouteDefinition<["get","head"]>
+
+/**
+* @see \App\Http\Controllers\SearchRewardTypeController::__invoke
+ * @see app/Http/Controllers/SearchRewardTypeController.php:23
+ * @route '/dashboard/reward-types/search'
+ */
+search.url = (options?: RouteQueryOptions) => {
+    return search.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\SearchRewardTypeController::__invoke
+ * @see app/Http/Controllers/SearchRewardTypeController.php:23
+ * @route '/dashboard/reward-types/search'
+ */
+search.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+    url: search.url(options),
+    method: 'get',
+})
+/**
+* @see \App\Http\Controllers\SearchRewardTypeController::__invoke
+ * @see app/Http/Controllers/SearchRewardTypeController.php:23
+ * @route '/dashboard/reward-types/search'
+ */
+search.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+    url: search.url(options),
+    method: 'head',
+})
+
+    /**
+* @see \App\Http\Controllers\SearchRewardTypeController::__invoke
+ * @see app/Http/Controllers/SearchRewardTypeController.php:23
+ * @route '/dashboard/reward-types/search'
+ */
+    const searchForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        action: search.url(options),
+        method: 'get',
+    })
+
+            /**
+* @see \App\Http\Controllers\SearchRewardTypeController::__invoke
+ * @see app/Http/Controllers/SearchRewardTypeController.php:23
+ * @route '/dashboard/reward-types/search'
+ */
+        searchForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: search.url(options),
+            method: 'get',
+        })
+            /**
+* @see \App\Http\Controllers\SearchRewardTypeController::__invoke
+ * @see app/Http/Controllers/SearchRewardTypeController.php:23
+ * @route '/dashboard/reward-types/search'
+ */
+        searchForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+            action: search.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'HEAD',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'get',
+        })
+    
+    search.form = searchForm
+/**
 * @see \App\Http\Controllers\RewardTypeController::index
  * @see app/Http/Controllers/RewardTypeController.php:23
  * @route '/dashboard/reward-types'
@@ -413,7 +491,8 @@ destroy.delete = (args: { rewardType: string | { id: string } } | [rewardType: s
     
     destroy.form = destroyForm
 const rewardTypes = {
-    index: Object.assign(index, index),
+    search: Object.assign(search, search),
+index: Object.assign(index, index),
 store: Object.assign(store, store),
 show: Object.assign(show, show),
 update: Object.assign(update, update),

@@ -3,14 +3,19 @@
 use App\Http\Controllers\AcademicYear\AcademicYearController;
 use App\Http\Controllers\ActiveAcademicYearController;
 use App\Http\Controllers\PointThresholdController;
+use App\Http\Controllers\RewardController;
 use App\Http\Controllers\RewardTypeController;
 use App\Http\Controllers\SearchAcademicYearController;
 use App\Http\Controllers\SearchUnenrolledStudentController;
+use App\Http\Controllers\SearchRewardTypeController;
+use App\Http\Controllers\SearchViolationTypeController;
 use App\Http\Controllers\SearchVocationalProgramController;
 use App\Http\Controllers\SearchStudentEnrollmentController;
 use App\Http\Controllers\StudentClassController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentEnrollmentController;
+use App\Http\Controllers\ViolationApprovalController;
+use App\Http\Controllers\ViolationController;
 use App\Http\Controllers\ViolationTypeController;
 use App\Http\Controllers\VocationalProgramController;
 use Illuminate\Support\Facades\Route;
@@ -87,6 +92,8 @@ Route::middleware(['auth', 'verified'])
         });
 
         Route::prefix('violation-types')->name('violation-types.')->group(function () {
+            Route::get('/search', SearchViolationTypeController::class)->name('search');
+
             Route::get('/', [ViolationTypeController::class, 'index'])->name('index');
             Route::post('/', [ViolationTypeController::class, 'store'])->name('store');
             Route::get('/{violationType}', [ViolationTypeController::class, 'show'])->name('show');
@@ -95,11 +102,26 @@ Route::middleware(['auth', 'verified'])
         });
 
         Route::prefix('reward-types')->name('reward-types.')->group(function () {
+            Route::get('/search', SearchRewardTypeController::class)->name('search');
+
             Route::get('/', [RewardTypeController::class, 'index'])->name('index');
             Route::post('/', [RewardTypeController::class, 'store'])->name('store');
             Route::get('/{rewardType}', [RewardTypeController::class, 'show'])->name('show');
             Route::put('/{rewardType}', [RewardTypeController::class, 'update'])->name('update');
             Route::delete('/{rewardType}', [RewardTypeController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('violations')->name('violations.')->group(function () {
+            Route::get('/approval', [ViolationApprovalController::class, 'index']);
+            Route::patch('/approval/{violation}', [ViolationApprovalController::class, 'update']);
+
+            Route::post('/', ViolationController::class)->name('store');
+        });
+
+        Route::prefix('rewards')->name('rewards.')->group(function () {
+            Route::post('/', RewardController::class)->name('store');
+            // Route::post('/{student_enrollment}', [RewardStudentController::class, 'store']);
+            // Route::post('/{reward}/revoke', [RewardStudentController::class, 'revokeReward']);
         });
 
         Route::prefix('{studentClass:slug}')->name('class.')->group(function () {

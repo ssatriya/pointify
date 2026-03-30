@@ -78,7 +78,11 @@ class ViolationService
         return DB::transaction(function () use ($data, $studentEnrollment) {
             $pointThreshold = PointThreshold::exists();
 
-            abort_if(!$pointThreshold, 403, 'Batas poin belum diatur. Silakan atur terlebih dahulu sebelum menambah pelanggaran.');
+            if (!$pointThreshold) {
+                throw \Illuminate\Validation\ValidationException::withMessages([
+                    'point_threshold' => 'Batas poin belum diatur. Silakan atur terlebih dahulu sebelum menambah pelanggaran.',
+                ]);
+            }
 
             $violationType = ViolationType::findOrFail($data['violation_type_id']);
 

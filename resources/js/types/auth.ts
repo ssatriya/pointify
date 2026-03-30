@@ -1,3 +1,20 @@
+export type Permission = {
+    id: number;
+    name: string;
+    guard_name: string;
+    created_at: string;
+    updated_at: string;
+};
+
+export type Role = {
+    id: number;
+    name: string;
+    guard_name: string;
+    created_at: string;
+    updated_at: string;
+    permissions?: Permission[];
+};
+
 export type User = {
     id: string;
     name: string;
@@ -7,15 +24,15 @@ export type User = {
     two_factor_enabled?: boolean;
     created_at: string;
     updated_at: string;
-    roles?: string[];
-    role_labels?: string[];
-    permissions?: string[];
+    roles: Role[];
+    role_labels: string[];
+    permissions: string[];
     role_permissions?: string[];
     direct_permissions?: string[];
 };
 
 export type Auth = {
-    user: User | null;
+    user: User;
     permissions: string[];
 };
 

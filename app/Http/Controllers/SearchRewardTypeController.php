@@ -5,23 +5,24 @@ namespace App\Http\Controllers;
 use App\Facades\QueryFilter;
 use App\Http\Requests\SearchQueryRequest;
 use App\Http\Resources\SelectOptionResource;
-use App\Models\StudentEnrollment;
+use App\Models\RewardType;
 use Illuminate\Http\JsonResponse;
 
-class SearchStudentEnrollmentController extends Controller
+class SearchRewardTypeController extends Controller
 {
     /**
      * Search.
      *
-     * Search a student enrolment.
+     * Search an entry of reward type.
      *
      * @authenticated
      *
+     * @param SearchQueryRequest $request
      * @return JsonResponse
      */
-    public function __invoke(SearchQueryRequest $request)
+    public function __invoke(SearchQueryRequest $request): JsonResponse
     {
-        $query = StudentEnrollment::query()->with('student')->where('is_active', true)->limit(10);
+        $query = RewardType::query()->limit(10)->latest();
 
         $data = QueryFilter::make($query)->search($request->validated('q'))->get();
 
