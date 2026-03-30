@@ -26,8 +26,11 @@ trait Searchable
         $query->where(function ($subQuery) use ($searchableAttributes, $lowerTerm, $parentTable) {
             foreach ($searchableAttributes as $attribute) {
                 if (strpos($attribute, '.') !== false) {
-                    [$relationName, $relationAttribute] = explode('.', $attribute, 2);
-                    $subQuery->orWhereHas($relationName, function ($relationQuery) use ($relationAttribute, $lowerTerm) {
+                    $parts = explode('.', $attribute);
+                    $relationAttribute = array_pop($parts);
+                    $relationPath = implode('.', $parts);
+
+                    $subQuery->orWhereHas($relationPath, function ($relationQuery) use ($relationAttribute, $lowerTerm) {
                         $relatedTable = $relationQuery->getModel()->getTable();
                         $relationQuery->whereRaw("LOWER({$relatedTable}.{$relationAttribute}) LIKE ?", ["%{$lowerTerm}%"]);
                     });
