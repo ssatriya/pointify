@@ -36,10 +36,10 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function UserIndex({ users }: Props) {
     const { auth } = usePage<{ auth: Auth }>().props;
-    const { 
-        search, 
-        setSearch, 
-        resetFilters 
+    const {
+        search,
+        setSearch,
+        resetFilters
     } = useFilter(usersIndex().url);
 
     return (
@@ -64,10 +64,10 @@ export default function UserIndex({ users }: Props) {
                             <TableHeader>
                                 <TableRow className="h-12">
                                     <TableHead className="w-[20%] min-w-[150px]">Nama</TableHead>
-                                    <TableHead className="w-[25%] min-w-[200px]">Email</TableHead>
+                                    <TableHead className="w-[30%] min-w-[200px]">Email</TableHead>
                                     <TableHead className="w-[15%] min-w-[120px]">Role</TableHead>
                                     <TableHead className="w-[15%] min-w-[120px]">Hak Akses</TableHead>
-                                    <TableHead className="w-[20%] min-w-[150px] text-end">Terdaftar Pada</TableHead>
+                                    <TableHead className="w-[15%] min-w-[150px]">Terdaftar Pada</TableHead>
                                     <TableHead className="w-[5%] whitespace-nowrap"></TableHead>
                                 </TableRow>
                             </TableHeader>
@@ -76,7 +76,7 @@ export default function UserIndex({ users }: Props) {
                                     users.data.map((user) => (
                                         <TableRow key={user.id} className="h-12">
                                             <TableCell>
-                                                <span className="font-medium text-foreground">{user.name}</span>
+                                                <span className="text-foreground">{user.name}</span>
                                             </TableCell>
                                             <TableCell>
                                                 <span className="text-muted-foreground">{user.email}</span>
@@ -95,7 +95,7 @@ export default function UserIndex({ users }: Props) {
                                                     {user.permissions?.length ?? 0} Hak Akses
                                                 </span>
                                             </TableCell>
-                                            <TableCell className="text-end">{user.created_at}</TableCell>
+                                            <TableCell>{user.created_at}</TableCell>
                                             <TableCell className="text-end">
                                                 <div className="flex justify-end gap-2">
                                                     {user.id !== auth.user?.id && (

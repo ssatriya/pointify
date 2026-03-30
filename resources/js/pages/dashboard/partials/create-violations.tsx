@@ -82,7 +82,7 @@ export default function CreateViolations() {
                 setHasSignature(false);
             },
             onError: (error) => {
-                if (error && error.point_threshold) {
+                if (error.point_threshold) {
                     toast.warning(error.point_threshold)
                 }
             }

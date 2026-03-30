@@ -39,10 +39,10 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function PointThresholds({ pointThresholds }: Props) {
     const { show } = useModal(createPointThreshold)
-    const { 
-        search, 
-        setSearch, 
-        resetFilters 
+    const {
+        search,
+        setSearch,
+        resetFilters
     } = useFilter(pointThresholdsIndex().url);
 
     return (<AppLayout breadcrumbs={breadcrumbs}>
@@ -83,7 +83,7 @@ export default function PointThresholds({ pointThresholds }: Props) {
                                     <TableRow key={item.id} className="h-12">
                                         <TableCell>{item.academic_year.label as string}</TableCell>
                                         <TableCell className="text-center">{item.cumulative_points_threshold}</TableCell>
-                                        <TableCell className="italic text-muted-foreground">{item.description || "—"}</TableCell>
+                                        <TableCell>{item.description || "—"}</TableCell>
                                         <TableCell className="text-center">
                                             {item.is_active ? (
                                                 <Badge variant="success">Aktif</Badge>

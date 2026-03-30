@@ -63,7 +63,7 @@ class StudentClassService
 
         if ($query->exists()) {
             throw ValidationException::withMessages([
-                'name' => 'Data kelas sudah ada di dalam sistem.'
+                'grade_level' => 'Data kelas sudah ada di dalam sistem.'
             ]);
         }
     }

@@ -20,6 +20,7 @@ import { Loader } from "lucide-react";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import type { OptionType } from "@/types";
 import { ReactAsyncSelect } from "@/components/react-select";
+import { reactSelectBorderStyle } from "@/lib/utils";
 
 export default NiceModal.create(() => {
     const { visible, hide, show, remove } = useModal()
@@ -89,13 +90,13 @@ export default NiceModal.create(() => {
                 <form onSubmit={submit} id="create-class">
                     <FieldGroup>
                         <div className="flex gap-3">
-                            <Field className="w-1/3">
+                            <Field className="w-1/3" data-invalid={!!errors.grade_level}>
                                 <FieldLabel htmlFor="grade_level">Tingkat</FieldLabel>
                                 <Select
                                     value={data.grade_level}
                                     onValueChange={(value) => setData("grade_level", value ?? "")}
                                 >
-                                    <SelectTrigger id="grade_level">
+                                    <SelectTrigger id="grade_level" aria-invalid={!!errors.grade_level}>
                                         <SelectValue placeholder="Pilih tingkat" />
                                     </SelectTrigger>
                                     <SelectContent>
@@ -106,10 +107,9 @@ export default NiceModal.create(() => {
                                         </SelectGroup>
                                     </SelectContent>
                                 </Select>
-                                <FieldError>{errors.grade_level}</FieldError>
                             </Field>
 
-                            <Field className="flex-1">
+                            <Field className="flex-1" data-invalid={!!errors.vocational_program_id}>
                                 <FieldLabel htmlFor="vocational_program_id">Kejuruan</FieldLabel>
                                 <ReactAsyncSelect
                                     inputId="vocational_program_id"
@@ -124,12 +124,12 @@ export default NiceModal.create(() => {
                                             setData("vocational_program_id", selected.value as string);
                                         }
                                     }}
+                                    styles={reactSelectBorderStyle(!!errors.vocational_program_id)}
                                 />
-                                <FieldError>{errors.vocational_program_id}</FieldError>
                             </Field>
                         </div>
 
-                        <Field>
+                        <Field data-invalid={!!errors.section}>
                             <FieldLabel htmlFor="section">Rombel / Suffix (Opsional)</FieldLabel>
                             <Input
                                 id="section"
@@ -138,9 +138,15 @@ export default NiceModal.create(() => {
                                 onChange={(e) => setData("section", e.target.value.toUpperCase().replace(/[^A-Z]/g, ''))}
                                 placeholder="Misal: A, B, atau C"
                                 maxLength={1}
+                                aria-invalid={!!errors.section}
                             />
-                            <FieldError>{errors.section}</FieldError>
                         </Field>
+
+                        {(errors.grade_level || errors.vocational_program_id || errors.section) && (
+                            <FieldError>
+                                {errors.grade_level || errors.vocational_program_id || errors.section}
+                            </FieldError>
+                        )}
                     </FieldGroup>
                 </form>
                 <DialogFooter>
