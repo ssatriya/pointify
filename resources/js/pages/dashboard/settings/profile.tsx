@@ -31,8 +31,7 @@ export default function Profile({
 }) {
     const { auth } = usePage<{ auth: Auth }>().props;
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Profile settings" />
+        <>            <Head title="Profile settings" />
             <h1 className="sr-only">Profile settings</h1>
             <SettingsLayout>
                 <div className="space-y-6">
@@ -122,6 +121,19 @@ export default function Profile({
                 </div>
                 {!auth.user.roles.some((role) => role.name === 'super-admin') && <DeleteUser />}
             </SettingsLayout>
-        </AppLayout>
+        </>
     );
 }
+
+Profile.layout = {
+    breadcrumbs: [
+        {
+            title: "Dashboard",
+            href: "/dashboard",
+        },
+        {
+            title: 'Profile settings',
+            href: '/dashboard/settings/profile',
+        },
+    ],
+};

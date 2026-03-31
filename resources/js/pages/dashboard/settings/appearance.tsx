@@ -18,7 +18,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function Appearance() {
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <>
             <Head title="Appearance settings" />
 
             <h1 className="sr-only">Appearance settings</h1>
@@ -33,6 +33,19 @@ export default function Appearance() {
                     <AppearanceTabs />
                 </div>
             </SettingsLayout>
-        </AppLayout>
+        </>
     );
 }
+
+Appearance.layout = {
+    breadcrumbs: [
+        {
+            title: "Dashboard",
+            href: "/dashboard",
+        },
+        {
+            title: "Appearance settings",
+            href: "/dashboard/settings/appearance",
+        },
+    ],
+};

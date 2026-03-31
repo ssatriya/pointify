@@ -38,7 +38,7 @@ export default function Students({ students }: Props) {
         resetFilters
     } = useFilter(studentsIndex().url);
 
-    return <AppLayout breadcrumbs={breadcrumbs}>
+    return <>
         <Head title="Data Siswa" />
         <CardTable>
             <CardTableHeader>
@@ -105,5 +105,18 @@ export default function Students({ students }: Props) {
                 </div>
             </CardTableContent>
         </CardTable>
-    </AppLayout>
+    </>
+}
+
+Students.layout = {
+    breadcrumbs: [
+        {
+            title: "Dashboard",
+            href: dashboardIndex().url
+        },
+        {
+            title: "Siswa",
+            href: studentsIndex().url
+        }
+    ]
 }

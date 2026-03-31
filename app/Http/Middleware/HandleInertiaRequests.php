@@ -27,6 +27,13 @@ class HandleInertiaRequests extends Middleware
     }
 
     /**
+     * Defines the routes that should not use SSR.
+     *
+     * @var array<int, string>
+     */
+    protected $withoutSsr = [];
+
+    /**
      * Define the props that are shared by default.
      *
      * @see https://inertiajs.com/shared-data

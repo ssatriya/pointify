@@ -38,77 +38,89 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function RewardTypes({ rewardTypes }: Props) {
     const { show } = useModal(createRewardType)
-    const { 
-        search, 
-        setSearch, 
-        resetFilters 
+    const {
+        search,
+        setSearch,
+        resetFilters
     } = useFilter(rewardTypesIndex().url);
 
-    return (<AppLayout breadcrumbs={breadcrumbs}>
-        <CardTable>
-            <CardTableHeader>
-                <CardTableTitle title="Data Jenis Prestasi" />
-                <CardTableActions>
-                    <TableToolbar>
-                        <SearchInput
-                            search={search}
-                            setSearch={setSearch}
-                            hasSearch={!!search}
-                            resetSearch={resetFilters}
-                        />
-                        <Button variant="outline" onClick={() => show()}>
-                            Tambah
-                        </Button>
-                    </TableToolbar>
-                </CardTableActions>
-            </CardTableHeader>
-            <CardTableContent>
-                <div className="overflow-x-auto">
-                    <Table className="table-fixed">
-                        <TableHeader>
-                            <TableRow className="h-12">
-                                <TableHead className="w-[10%] min-w-[100px]">Kode</TableHead>
-                                <TableHead className="w-[50%] min-w-[250px]">Keterangan</TableHead>
-                                <TableHead className="w-[10%] min-w-[100px] text-center">Poin</TableHead>
-                                <TableHead className="w-[10%] min-w-[100px] text-center">Status</TableHead>
-                                <TableHead className="w-[15%] min-w-[150px]">Tanggal Dibuat</TableHead>
-                                <TableHead className="w-[5%] whitespace-nowrap"></TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {rewardTypes.data.length > 0 ? (
-                                rewardTypes.data.map((item) => (
-                                    <TableRow key={item.id} className="h-12">
-                                        <TableCell>{item.code}</TableCell>
-                                        <TableCell>{item.description}</TableCell>
-                                        <TableCell className="text-center">{item.points}</TableCell>
-                                        <TableCell className="text-center">
-                                            {item.is_active ? (
-                                                <Badge variant="success">Aktif</Badge>
-                                            ) : (
-                                                <Badge variant="secondary">Nonaktif</Badge>
-                                            )}
-                                        </TableCell>
-                                        <TableCell>{item.created_at}</TableCell>
-                                        <TableCell className="text-end">
-                                            <div className="flex justify-end gap-2">
-                                                <RewardTypeActions id={item.id} />
-                                            </div>
-                                        </TableCell>
-                                    </TableRow>
-                                ))
-                            ) : (
-                                <TableRow>
-                                    <TableCell colSpan={6} className="h-24 text-center text-muted-foreground">
-                                        Data tidak ditemukan.
+    return (<CardTable>
+        <CardTableHeader>
+            <CardTableTitle title="Data Jenis Prestasi" />
+            <CardTableActions>
+                <TableToolbar>
+                    <SearchInput
+                        search={search}
+                        setSearch={setSearch}
+                        hasSearch={!!search}
+                        resetSearch={resetFilters}
+                    />
+                    <Button variant="outline" onClick={() => show()}>
+                        Tambah
+                    </Button>
+                </TableToolbar>
+            </CardTableActions>
+        </CardTableHeader>
+        <CardTableContent>
+            <div className="overflow-x-auto">
+                <Table className="table-fixed">
+                    <TableHeader>
+                        <TableRow className="h-12">
+                            <TableHead className="w-[10%] min-w-[100px]">Kode</TableHead>
+                            <TableHead className="w-[50%] min-w-[250px]">Keterangan</TableHead>
+                            <TableHead className="w-[10%] min-w-[100px] text-center">Poin</TableHead>
+                            <TableHead className="w-[10%] min-w-[100px] text-center">Status</TableHead>
+                            <TableHead className="w-[15%] min-w-[150px]">Tanggal Dibuat</TableHead>
+                            <TableHead className="w-[5%] whitespace-nowrap"></TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {rewardTypes.data.length > 0 ? (
+                            rewardTypes.data.map((item) => (
+                                <TableRow key={item.id} className="h-12">
+                                    <TableCell>{item.code}</TableCell>
+                                    <TableCell>{item.description}</TableCell>
+                                    <TableCell className="text-center">{item.points}</TableCell>
+                                    <TableCell className="text-center">
+                                        {item.is_active ? (
+                                            <Badge variant="success">Aktif</Badge>
+                                        ) : (
+                                            <Badge variant="secondary">Nonaktif</Badge>
+                                        )}
+                                    </TableCell>
+                                    <TableCell>{item.created_at}</TableCell>
+                                    <TableCell className="text-end">
+                                        <div className="flex justify-end gap-2">
+                                            <RewardTypeActions id={item.id} />
+                                        </div>
                                     </TableCell>
                                 </TableRow>
-                            )}
-                        </TableBody>
-                    </Table>
-                    <TablePagination links={rewardTypes.links} meta={rewardTypes.meta} />
-                </div>
-            </CardTableContent>
-        </CardTable>
-    </AppLayout>);
+                            ))
+                        ) : (
+                            <TableRow>
+                                <TableCell colSpan={6} className="h-24 text-center text-muted-foreground">
+                                    Data tidak ditemukan.
+                                </TableCell>
+                            </TableRow>
+                        )}
+                    </TableBody>
+                </Table>
+                <TablePagination links={rewardTypes.links} meta={rewardTypes.meta} />
+            </div>
+        </CardTableContent>
+    </CardTable>
+    );
+}
+
+RewardTypes.layout = {
+    breadcrumbs: [
+        {
+            title: "Dashboard",
+            href: dashboardIndex().url
+        },
+        {
+            title: "Jenis Prestasi",
+            href: rewardTypesIndex().url
+        }
+    ]
 }

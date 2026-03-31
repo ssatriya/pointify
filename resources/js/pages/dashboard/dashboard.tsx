@@ -5,20 +5,22 @@ import CreateViolations from "./partials/create-violations";
 import CreateRewards from "./partials/create-rewards";
 import { index as dashboardIndex } from "@/routes/dashboard";
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: "Dashboard",
-        href: dashboardIndex().url
-    },
-]
 
 export default function Dashboard() {
-    return <AppLayout breadcrumbs={breadcrumbs}>
+    return <>
         <Head title="Dashboard" />
         <div className="py-6 grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
-            <CreateViolations />
-            <CreateRewards />
+            {/* <CreateViolations />
+            <CreateRewards /> */}
         </div>
-    </AppLayout>;
+    </>
 }
 
+Dashboard.layout = {
+    breadcrumbs: [
+        {
+            title: 'Dashboard',
+            href: dashboardIndex(),
+        },
+    ],
+};

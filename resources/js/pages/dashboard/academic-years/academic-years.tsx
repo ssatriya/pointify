@@ -47,13 +47,13 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function AcademicYears({ academicYears }: Props) {
     const { show } = useModal(CreateAcademicYear)
-    const { 
-        search, 
-        setSearch, 
-        resetFilters 
+    const {
+        search,
+        setSearch,
+        resetFilters
     } = useFilter(academicYearsIndex().url);
 
-    return <AppLayout breadcrumbs={breadcrumbs}>
+    return <>
         <Head title="Tahun Akademik" />
         <CardTable>
             <CardTableHeader>
@@ -120,5 +120,18 @@ export default function AcademicYears({ academicYears }: Props) {
                 </div>
             </CardTableContent>
         </CardTable>
-    </AppLayout>
+    </>
+}
+
+AcademicYears.layout = {
+    breadcrumbs: [
+        {
+            title: "Dashboard",
+            href: dashboardIndex().url
+        },
+        {
+            title: "Tahun Akademik",
+            href: academicYearsIndex().url
+        }
+    ]
 }

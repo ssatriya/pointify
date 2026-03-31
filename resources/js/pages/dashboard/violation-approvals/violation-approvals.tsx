@@ -71,7 +71,7 @@ export default function ViolationApprovals({ violations }: Props) {
     };
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <>
             <Head title="Persetujuan Pelanggaran" />
             <CardTable>
                 <CardTableHeader>
@@ -143,6 +143,19 @@ export default function ViolationApprovals({ violations }: Props) {
                     </div>
                 </CardTableContent>
             </CardTable>
-        </AppLayout>
+        </>
     );
+}
+
+ViolationApprovals.layout = {
+    breadcrumbs: [
+        {
+            title: "Dashboard",
+            href: dashboardIndex().url
+        },
+        {
+            title: "Persetujuan Pelanggaran",
+            href: violationApprovalsIndex().url
+        }
+    ]
 }

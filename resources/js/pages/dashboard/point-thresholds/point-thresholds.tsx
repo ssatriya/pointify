@@ -45,7 +45,7 @@ export default function PointThresholds({ pointThresholds }: Props) {
         resetFilters
     } = useFilter(pointThresholdsIndex().url);
 
-    return (<AppLayout breadcrumbs={breadcrumbs}>
+    return (<>
         <Head title="Batas Poin" />
         <CardTable>
             <CardTableHeader>
@@ -112,5 +112,18 @@ export default function PointThresholds({ pointThresholds }: Props) {
                 </div>
             </CardTableContent>
         </CardTable>
-    </AppLayout>)
+    </>)
+}
+
+PointThresholds.layout = {
+    breadcrumbs: [
+        {
+            title: "Dashboard",
+            href: dashboardIndex().url
+        },
+        {
+            title: "Batas Poin",
+            href: pointThresholdsIndex().url
+        }
+    ]
 }

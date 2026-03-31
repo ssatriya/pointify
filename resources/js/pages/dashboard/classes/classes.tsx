@@ -37,13 +37,13 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function Classes({ classes }: Props) {
     const { show } = useModal(CreateClass)
-    const { 
-        search, 
-        setSearch, 
-        resetFilters 
+    const {
+        search,
+        setSearch,
+        resetFilters
     } = useFilter(classesIndex().url);
 
-    return <AppLayout breadcrumbs={breadcrumbs}>
+    return <>
         <Head title="Data Kelas" />
         <CardTable>
             <CardTableHeader>
@@ -104,5 +104,18 @@ export default function Classes({ classes }: Props) {
                 </div>
             </CardTableContent>
         </CardTable>
-    </AppLayout>
-}
+    </>
+}
+
+Classes.layout = {
+    breadcrumbs: [
+        {
+            title: "Dashboard",
+            href: dashboardIndex().url
+        },
+        {
+            title: "Kelas",
+            href: classesIndex().url
+        }
+    ]
+}

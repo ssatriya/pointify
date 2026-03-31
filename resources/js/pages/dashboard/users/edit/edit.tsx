@@ -85,7 +85,7 @@ export default function UserEdit({ user, allPermissions, allRoles }: Props) {
     }, {} as Record<string, string[]>);
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <>
             <Head title={`Detail Pengguna - ${user.name}`} />
 
             <div className="flex flex-col gap-8">
@@ -189,7 +189,7 @@ export default function UserEdit({ user, allPermissions, allRoles }: Props) {
                                         {permissions.map((permission) => {
                                             const isRolePermission = !!user.role_permissions?.includes(permission);
                                             const isChecked = isRolePermission || data.permissions.includes(permission);
-                                            
+
                                             // Handle click carefully: if disabled, don't trigger map
                                             const handleClick = isRolePermission ? undefined : () => togglePermission(permission);
 
@@ -218,6 +218,14 @@ export default function UserEdit({ user, allPermissions, allRoles }: Props) {
                     </CardTableContent>
                 </CardTable>
             </div>
-        </AppLayout>
+        </>
     );
+}
+
+UserEdit.layout = {
+    breadcrumbs: [
+        { title: "Dashboard", href: "dashboard.index" },
+        { title: "Pengguna", href: "dashboard.users.index" },
+        { title: "Edit Pengguna", href: "dashboard.users.edit" },
+    ],
 }

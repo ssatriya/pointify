@@ -38,13 +38,13 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function ViolationTypes({ violationTypes }: Props) {
     const { show } = useModal(createViolationType)
-    const { 
-        search, 
-        setSearch, 
-        resetFilters 
+    const {
+        search,
+        setSearch,
+        resetFilters
     } = useFilter(violationTypesIndex().url);
 
-    return (<AppLayout breadcrumbs={breadcrumbs}>
+    return (<>
         <CardTable>
             <CardTableHeader>
                 <CardTableTitle title="Data Jenis Pelanggaran" />
@@ -110,5 +110,18 @@ export default function ViolationTypes({ violationTypes }: Props) {
                 </div>
             </CardTableContent>
         </CardTable>
-    </AppLayout>);
+    </>);
+}
+
+ViolationTypes.layout = {
+    breadcrumbs: [
+        {
+            title: "Dashboard",
+            href: dashboardIndex().url
+        },
+        {
+            title: "Jenis Pelanggaran",
+            href: violationTypesIndex().url
+        }
+    ]
 }

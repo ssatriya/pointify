@@ -43,7 +43,7 @@ export default function UserIndex({ users }: Props) {
     } = useFilter(usersIndex().url);
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <>
             <CardTable>
                 <CardTableHeader>
                     <CardTableTitle title="Data Pengguna" />
@@ -118,6 +118,19 @@ export default function UserIndex({ users }: Props) {
                     </div>
                 </CardTableContent>
             </CardTable>
-        </AppLayout>
+        </>
     );
+}
+
+UserIndex.layout = {
+    breadcrumbs: [
+        {
+            title: "Dashboard",
+            href: dashboardIndex().url
+        },
+        {
+            title: "Pengguna",
+            href: usersIndex().url
+        }
+    ]
 }

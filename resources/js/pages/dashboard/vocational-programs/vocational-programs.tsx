@@ -19,6 +19,7 @@ import VocationalProgramActions from "@/pages/dashboard/vocational-programs/part
 import { useFilter } from "@/hooks/use-filter";
 import { index as dashboardIndex } from "@/routes/dashboard";
 import { index as vocationalProgramsIndex } from "@/routes/dashboard/vocational-programs";
+import { ClientOnly } from "@/components/client-only";
 
 type Props = {
     vocationalPrograms: Paginated<VocationalProgram>;
@@ -37,13 +38,13 @@ const breadcrumbs: BreadcrumbItem[] = [
 
 export default function VocationalPrograms({ vocationalPrograms }: Props) {
     const { show } = useModal(CreateVocationalProgram)
-    const { 
-        search, 
-        setSearch, 
-        resetFilters 
+    const {
+        search,
+        setSearch,
+        resetFilters
     } = useFilter(vocationalProgramsIndex().url);
 
-    return (<AppLayout breadcrumbs={breadcrumbs}>
+    return (<>
         <CardTable>
             <CardTableHeader>
                 <CardTableTitle title="Data Program Kejuruan" />
@@ -99,5 +100,18 @@ export default function VocationalPrograms({ vocationalPrograms }: Props) {
                 </div>
             </CardTableContent>
         </CardTable>
-    </AppLayout>)
+    </>)
+}
+
+VocationalPrograms.layout = {
+    breadcrumbs: [
+        {
+            title: "Dashboard",
+            href: dashboardIndex().url
+        },
+        {
+            title: "Program Kejuruan",
+            href: vocationalProgramsIndex().url
+        }
+    ]
 }

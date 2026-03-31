@@ -33,7 +33,7 @@ function CardTableHeader({
 }: CardTableHeaderProps) {
     return (
         <div
-            data-slot="card-table-header"
+            // data-slot="card-table-header"
             className={cn(
                 "p-1.5 px-4 flex gap-2 min-h-[52px]",
                 !direction && "flex-col sm:flex-row",
@@ -91,7 +91,7 @@ function CardTableActions({
 }: CardTableActionsProps) {
     return (
         <div
-            data-slot="card-table-actions"
+            // data-slot="card-table-actions"
             className={cn("flex w-full items-center gap-2 justify-end", className)}
             {...props}
         >

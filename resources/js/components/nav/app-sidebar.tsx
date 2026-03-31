@@ -31,6 +31,7 @@ import { index as rewardTypesIndex } from "@/routes/dashboard/reward-types"
 import { index as usersIndex } from "@/routes/dashboard/users"
 import { index as violationApprovalsIndex } from "@/routes/dashboard/violations/approval"
 import { Auth, StudentClass, User } from "@/types";
+import { NavClasses } from "./nav-classes";
 
 const data = {
     nav: [
@@ -118,28 +119,8 @@ const data = {
 
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-    const { studentClasses } = usePage().props as { studentClasses?: StudentClass[] };
-
     const { auth } = usePage().props as unknown as { auth: Auth & { user: User } };
     const { hasPermission } = usePermission();
-
-    const filteredNav = data.nav.map(group => ({
-        ...group,
-        items: (group.items || []).filter(item => !item.permission || hasPermission(item.permission))
-    })).filter(group => group.items.length > 0);
-
-    const navData = [
-        ...filteredNav,
-        {
-            label: "Daftar Kelas",
-            items: studentClasses?.map((c) => ({
-                title: c.abbreviation ? c.abbreviation : c.name,
-                href: c.url,
-                icon: IconListDetails,
-                permission: "student-classes.view",
-            })).filter(item => !item.permission || hasPermission(item.permission)) || [],
-        }
-    ].filter(group => group.items.length > 0);
 
     return (
         <Sidebar collapsible="offcanvas" {...props}>
@@ -159,9 +140,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </SidebarMenu>
             </SidebarHeader>
             <SidebarContent>
-                {navData.map((n, i) => (
+                {data.nav.map((n, i) => (
                     <NavMain key={`${n.label}_${i}`} items={n.items} label={n.label} />
                 ))}
+                {/* {hasPermission('student-classes.view') && <NavClasses />} */}
             </SidebarContent>
             <SidebarFooter>
                 <NavUser user={{

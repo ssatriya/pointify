@@ -14,7 +14,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { ReactAsyncSelect } from "@/components/react-select";
 import { useForm } from "@inertiajs/react";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { OptionType } from "@/types";
 import SearchStudentEnrollmentController from "@/actions/App/Http/Controllers/SearchStudentEnrollmentController";
 import SearchViolationTypeController from "@/actions/App/Http/Controllers/SearchViolationTypeController";
@@ -26,6 +26,11 @@ import { reactSelectBorderStyle } from "@/lib/utils";
 
 
 export default function CreateViolations() {
+    const [mounted, setMounted] = useState(false)
+    useEffect(() => setMounted(true), [])
+
+
+
     const signatureRef = useRef<SignatureCanvas>(null);
     const [hasSignature, setHasSignature] = useState(false);
 
@@ -89,6 +94,9 @@ export default function CreateViolations() {
         });
     };
 
+    if (!mounted) return (
+        <div className="border w-full h-[158px] rounded" /> // placeholder same size
+    )
 
     return (
         <CardTable>
