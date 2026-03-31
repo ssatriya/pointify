@@ -33,7 +33,7 @@ export default function Profile({
     return (
         <>            <Head title="Profile settings" />
             <h1 className="sr-only">Profile settings</h1>
-            <SettingsLayout>
+            <>
                 <div className="space-y-6">
                     <Heading
                         variant="small"
@@ -120,12 +120,12 @@ export default function Profile({
                     </Form>
                 </div>
                 {!auth.user.roles.some((role) => role.name === 'super-admin') && <DeleteUser />}
-            </SettingsLayout>
+            </>
         </>
     );
 }
 
-Profile.layout = {
+Profile.layout = [AppLayout, SettingsLayout, {
     breadcrumbs: [
         {
             title: "Dashboard",
@@ -136,4 +136,4 @@ Profile.layout = {
             href: '/dashboard/settings/profile',
         },
     ],
-};
+}];

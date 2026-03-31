@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Resources\PointTransactionGroupResource;
 use App\Models\PointTransactionGroup;
 use App\Models\StudentEnrollment;
-use Illuminate\Http\Request;
 
 class PointController extends Controller
 {

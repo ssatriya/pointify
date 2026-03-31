@@ -18,9 +18,28 @@ type Props = {
 
 export default function Reports({ studentClass, classOverview }: Props) {
     return (
-        <ClassLayout studentClass={studentClass} activeTab="laporan">
+        <>
             <Head title={`Laporan Kelas ${studentClass.name}`} />
             <ClassOverviewChart studentClass={studentClass} classOverview={classOverview} />
-        </ClassLayout>
+        </>
     );
 }
+
+Reports.layout = ({ studentClass }: Props) => [ClassLayout, {
+    activeTab: "laporan",
+    breadcrumbs: [
+        {
+            title: "Dashboard",
+            href: ""
+        },
+        {
+            title: studentClass.name,
+            href: ""
+        },
+        {
+            title: "Laporan",
+            href: "#"
+        }
+    ]
+}
+]

@@ -42,6 +42,7 @@ const data = {
                     href: dashboardIndex().url,
                     icon: IconDashboard,
                     permission: "dashboard.view",
+                    exact: true,
                 },
                 {
                     title: "Persetujuan Pelanggaran",

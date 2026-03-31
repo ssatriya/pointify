@@ -1,24 +1,21 @@
-import type { InertiaLinkProps } from '@inertiajs/react';
-import { usePage } from '@inertiajs/react';
-import { toUrl } from '@/lib/utils';
+import type { InertiaLinkProps } from "@inertiajs/react";
+import { usePage } from "@inertiajs/react";
+import { toUrl } from "@/lib/utils";
 
 export type IsCurrentUrlFn = (
-    urlToCheck: NonNullable<InertiaLinkProps['href']>,
+    urlToCheck: NonNullable<InertiaLinkProps["href"]>,
     currentUrl?: string,
     startsWith?: boolean,
 ) => boolean;
-
 export type IsCurrentOrParentUrlFn = (
-    urlToCheck: NonNullable<InertiaLinkProps['href']>,
+    urlToCheck: NonNullable<InertiaLinkProps["href"]>,
     currentUrl?: string,
 ) => boolean;
-
 export type WhenCurrentUrlFn = <TIfTrue, TIfFalse = null>(
-    urlToCheck: NonNullable<InertiaLinkProps['href']>,
+    urlToCheck: NonNullable<InertiaLinkProps["href"]>,
     ifTrue: TIfTrue,
     ifFalse?: TIfFalse,
 ) => TIfTrue | TIfFalse;
-
 export type UseCurrentUrlReturn = {
     currentUrl: string;
     isCurrentUrl: IsCurrentUrlFn;
@@ -30,29 +27,41 @@ export function useCurrentUrl(): UseCurrentUrlReturn {
     const page = usePage();
     const currentUrlPath = new URL(
         page.url,
-        typeof window !== 'undefined'
+        typeof window !== "undefined"
             ? window.location.origin
-            : 'http://localhost',
+            : "http://localhost",
     ).pathname;
 
     const isCurrentUrl: IsCurrentUrlFn = (
-        urlToCheck: NonNullable<InertiaLinkProps['href']>,
+        urlToCheck: NonNullable<InertiaLinkProps["href"]>,
         currentUrl?: string,
         startsWith: boolean = false,
     ) => {
         const urlToCompare = currentUrl ?? currentUrlPath;
         const urlString = toUrl(urlToCheck);
 
-        const comparePath = (path: string): boolean =>
-            startsWith ? urlToCompare.startsWith(path) : path === urlToCompare;
+        const comparePath = (path: string): boolean => {
+            if (startsWith) {
+                // Ensure we match on segment boundaries, not just string prefix
+                // /dashboard should NOT match /dashboard/settings
+                // /dashboard/settings SHOULD match /dashboard/settings/profile
+                const normalizedPath = path.endsWith("/") ? path : `${path}/`;
+                const normalizedCurrent = urlToCompare.endsWith("/")
+                    ? urlToCompare
+                    : `${urlToCompare}/`;
+                return normalizedCurrent.startsWith(normalizedPath);
+            }
+            return path === urlToCompare;
+        };
 
-        if (!urlString.startsWith('http')) {
-            return comparePath(urlString);
+        if (!urlString.startsWith("http")) {
+            // Extract pathname if urlString includes query or hash
+            const pathPathname = urlString.split(/[?#]/)[0];
+            return comparePath(pathPathname);
         }
 
         try {
             const absoluteUrl = new URL(urlString);
-
             return comparePath(absoluteUrl.pathname);
         } catch {
             return false;
@@ -60,14 +69,14 @@ export function useCurrentUrl(): UseCurrentUrlReturn {
     };
 
     const isCurrentOrParentUrl: IsCurrentOrParentUrlFn = (
-        urlToCheck: NonNullable<InertiaLinkProps['href']>,
+        urlToCheck: NonNullable<InertiaLinkProps["href"]>,
         currentUrl?: string,
     ) => {
         return isCurrentUrl(urlToCheck, currentUrl, true);
     };
 
     const whenCurrentUrl: WhenCurrentUrlFn = <TIfTrue, TIfFalse = null>(
-        urlToCheck: NonNullable<InertiaLinkProps['href']>,
+        urlToCheck: NonNullable<InertiaLinkProps["href"]>,
         ifTrue: TIfTrue,
         ifFalse: TIfFalse = null as TIfFalse,
     ): TIfTrue | TIfFalse => {

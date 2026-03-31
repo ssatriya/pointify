@@ -25,17 +25,6 @@ type Props = {
     rewardTypes: Paginated<RewardType>;
 };
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: "Dashboard",
-        href: dashboardIndex().url
-    },
-    {
-        title: "Jenis Prestasi",
-        href: rewardTypesIndex().url
-    }
-]
-
 export default function RewardTypes({ rewardTypes }: Props) {
     const { show } = useModal(createRewardType)
     const {
@@ -99,7 +88,7 @@ export default function RewardTypes({ rewardTypes }: Props) {
                         ) : (
                             <TableRow>
                                 <TableCell colSpan={6} className="h-24 text-center text-muted-foreground">
-                                    Data tidak ditemukan.
+                                    Belum ada data
                                 </TableCell>
                             </TableRow>
                         )}
@@ -112,7 +101,7 @@ export default function RewardTypes({ rewardTypes }: Props) {
     );
 }
 
-RewardTypes.layout = {
+RewardTypes.layout = [AppLayout, {
     breadcrumbs: [
         {
             title: "Dashboard",
@@ -123,4 +112,4 @@ RewardTypes.layout = {
             href: rewardTypesIndex().url
         }
     ]
-}
+}]

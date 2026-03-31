@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->ulid('id')->primary();
-            $table->string('student_number', 20)->unique();
+            $table->string('student_number', 20)->unique()->nullable();
             $table->string('name', 100);
             $table->foreignUlid('vocational_program_id')->constrained('vocational_programs');
             $table->boolean('is_active')->default(true);

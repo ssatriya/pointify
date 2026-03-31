@@ -34,7 +34,7 @@ export default function StudentEnrollments({ studentClass, studentEnrollments }:
     } = useFilter(classIndex({ studentClass: studentClass.slug }).url);
 
     return (
-        <ClassLayout studentClass={studentClass} activeTab="daftar-siswa">
+        <>
             <Head title={studentClass.name} />
             <CardTable>
                 <CardTableHeader>
@@ -108,6 +108,16 @@ export default function StudentEnrollments({ studentClass, studentEnrollments }:
                     </div>
                 </CardTableContent>
             </CardTable>
-        </ClassLayout>
+        </>
     );
 }
+
+StudentEnrollments.layout = ({ studentClass }: Props) => [ClassLayout, {
+    activeTab: "daftar-siswa",
+    breadcrumbs: [
+        {
+            title: "Dashboard",
+            href: ""
+        },
+    ]
+}]

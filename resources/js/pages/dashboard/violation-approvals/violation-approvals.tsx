@@ -132,8 +132,8 @@ export default function ViolationApprovals({ violations }: Props) {
                                     ))
                                 ) : (
                                     <TableRow>
-                                        <TableCell colSpan={7} className="h-24 text-center">
-                                            Belum ada data persetujuan pelanggaran
+                                        <TableCell colSpan={7} className="h-24 text-center text-muted-foreground">
+                                            Belum ada data
                                         </TableCell>
                                     </TableRow>
                                 )}
@@ -147,7 +147,7 @@ export default function ViolationApprovals({ violations }: Props) {
     );
 }
 
-ViolationApprovals.layout = {
+ViolationApprovals.layout = [AppLayout, {
     breadcrumbs: [
         {
             title: "Dashboard",
@@ -158,4 +158,4 @@ ViolationApprovals.layout = {
             href: violationApprovalsIndex().url
         }
     ]
-}
+}]

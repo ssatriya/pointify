@@ -100,7 +100,7 @@ export default function ViolationTypes({ violationTypes }: Props) {
                             ) : (
                                 <TableRow>
                                     <TableCell colSpan={6} className="h-24 text-center text-muted-foreground">
-                                        Data tidak ditemukan.
+                                        Belum ada data
                                     </TableCell>
                                 </TableRow>
                             )}
@@ -113,7 +113,7 @@ export default function ViolationTypes({ violationTypes }: Props) {
     </>);
 }
 
-ViolationTypes.layout = {
+ViolationTypes.layout = [AppLayout, {
     breadcrumbs: [
         {
             title: "Dashboard",
@@ -124,4 +124,4 @@ ViolationTypes.layout = {
             href: violationTypesIndex().url
         }
     ]
-}
+}]

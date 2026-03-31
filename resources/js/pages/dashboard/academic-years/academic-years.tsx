@@ -109,7 +109,7 @@ export default function AcademicYears({ academicYears }: Props) {
                                 ))
                             ) : (
                                 <TableRow>
-                                    <TableCell colSpan={5} className="h-24 text-center">
+                                    <TableCell colSpan={6} className="h-24 text-center text-muted-foreground">
                                         Belum ada data
                                     </TableCell>
                                 </TableRow>
@@ -123,7 +123,7 @@ export default function AcademicYears({ academicYears }: Props) {
     </>
 }
 
-AcademicYears.layout = {
+AcademicYears.layout = [AppLayout, {
     breadcrumbs: [
         {
             title: "Dashboard",
@@ -134,4 +134,4 @@ AcademicYears.layout = {
             href: academicYearsIndex().url
         }
     ]
-}
+}]

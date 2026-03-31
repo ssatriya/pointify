@@ -93,7 +93,7 @@ export default function Classes({ classes }: Props) {
                                 ))
                             ) : (
                                 <TableRow>
-                                    <TableCell colSpan={6} className="h-24 text-center">
+                                    <TableCell colSpan={6} className="h-24 text-center text-muted-foreground">
                                         Belum ada data
                                     </TableCell>
                                 </TableRow>
@@ -107,7 +107,7 @@ export default function Classes({ classes }: Props) {
     </>
 }
 
-Classes.layout = {
+Classes.layout = [AppLayout, {
     breadcrumbs: [
         {
             title: "Dashboard",
@@ -118,4 +118,4 @@ Classes.layout = {
             href: classesIndex().url
         }
     ]
-}
+}]

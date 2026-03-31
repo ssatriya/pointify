@@ -23,21 +23,19 @@ export default function Appearance() {
 
             <h1 className="sr-only">Appearance settings</h1>
 
-            <SettingsLayout>
-                <div className="space-y-6">
-                    <Heading
-                        variant="small"
-                        title="Appearance settings"
-                        description="Update your account's appearance settings"
-                    />
-                    <AppearanceTabs />
-                </div>
-            </SettingsLayout>
+            <div className="space-y-6">
+                <Heading
+                    variant="small"
+                    title="Appearance settings"
+                    description="Update your account's appearance settings"
+                />
+                <AppearanceTabs />
+            </div>
         </>
     );
 }
 
-Appearance.layout = {
+Appearance.layout = [AppLayout, SettingsLayout, {
     breadcrumbs: [
         {
             title: "Dashboard",
@@ -48,4 +46,4 @@ Appearance.layout = {
             href: "/dashboard/settings/appearance",
         },
     ],
-};
+}];

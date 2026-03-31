@@ -115,7 +115,7 @@ export default function PointThresholds({ pointThresholds }: Props) {
     </>)
 }
 
-PointThresholds.layout = {
+PointThresholds.layout = [AppLayout, {
     breadcrumbs: [
         {
             title: "Dashboard",
@@ -126,4 +126,4 @@ PointThresholds.layout = {
             href: pointThresholdsIndex().url
         }
     ]
-}
+}]

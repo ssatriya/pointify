@@ -39,8 +39,7 @@ export default function Login({
                                 Create an account
                             </h1>
                             <p className="text-sm text-balance text-muted-foreground">
-                                Enter your details below to create your
-                                account.
+                                Enter your details below to create your account.
                             </p>
                         </div>
                         <Field>
@@ -99,3 +98,5 @@ export default function Login({
         </Form>
     );
 }
+
+Login.layout = AuthLayout;

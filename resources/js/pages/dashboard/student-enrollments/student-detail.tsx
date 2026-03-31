@@ -54,7 +54,7 @@ export default function StudentDetail({ studentEnrollment }: Props) {
     };
 
     return (
-        <AppLayout breadcrumbs={breadcrumbs}>
+        <>
             <Head title={`Profil: ${studentEnrollment.name}`} />
 
             <style dangerouslySetInnerHTML={{
@@ -293,6 +293,24 @@ export default function StudentDetail({ studentEnrollment }: Props) {
                     )}
                 </div>
             </div>
-        </AppLayout>
+        </>
     );
 }
+
+
+StudentDetail.layout = ({ studentEnrollment }: Props) => [AppLayout, {
+    breadcrumbs: [
+        {
+            title: "Dashboard",
+            href: dashboardIndex().url
+        },
+        {
+            title: studentEnrollment.student_class,
+            href: classIndex(studentEnrollment.student_class_slug).url
+        },
+        {
+            title: studentEnrollment.name,
+            href: "#"
+        }
+    ]
+}]

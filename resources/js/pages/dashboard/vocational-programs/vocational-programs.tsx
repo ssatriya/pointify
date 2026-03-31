@@ -103,7 +103,7 @@ export default function VocationalPrograms({ vocationalPrograms }: Props) {
     </>)
 }
 
-VocationalPrograms.layout = {
+VocationalPrograms.layout = [AppLayout, {
     breadcrumbs: [
         {
             title: "Dashboard",
@@ -114,4 +114,4 @@ VocationalPrograms.layout = {
             href: vocationalProgramsIndex().url
         }
     ]
-}
+}]

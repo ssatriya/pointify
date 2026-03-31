@@ -18,7 +18,7 @@ export function NavMain({
     items,
     label
 }: Props) {
-    const { isCurrentOrParentUrl } = useCurrentUrl();
+    const { isCurrentUrl } = useCurrentUrl();
     return (
         <SidebarGroup>
             <SidebarGroupContent className="flex flex-col gap-2">
@@ -29,7 +29,7 @@ export function NavMain({
                             <SidebarMenuButton
                                 className="tabular-nums data-[active=true]:bg-muted text-muted-foreground"
                                 tooltip={{ children: item.title }}
-                                isActive={isCurrentOrParentUrl(item.href)}
+                                isActive={isCurrentUrl(item.href, undefined, !item.exact)}
                                 render={<Link
                                     href={item.href}
                                     prefetch

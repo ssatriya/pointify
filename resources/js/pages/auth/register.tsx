@@ -14,7 +14,7 @@ import { store } from "@/routes/register";
 
 export default function Register() {
     return (
-        <AuthLayout>
+        <>
             <Form
                 {...store.form()}
                 resetOnSuccess={["password", "password_confirmation"]}
@@ -101,6 +101,8 @@ export default function Register() {
                     </>
                 )}
             </Form>
-        </AuthLayout>
+        </>
     );
 }
+
+Register.layout = AuthLayout;
