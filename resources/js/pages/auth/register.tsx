@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Form, Link } from "@inertiajs/react";
 import { login } from "@/routes";
 import { store } from "@/routes/register";
+import { Loader } from "lucide-react";
 
 export default function Register() {
     return (
@@ -83,7 +84,11 @@ export default function Register() {
                             </Field>
                             <Field>
                                 <Button type="submit" disabled={processing}>
-                                    Daftar
+                                    {processing ? (
+                                        <Loader className="h-4 w-4 animate-spin" />
+                                    ) : (
+                                        "Daftar"
+                                    )}
                                 </Button>
                             </Field>
                             <Field>

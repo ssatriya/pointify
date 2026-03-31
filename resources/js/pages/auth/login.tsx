@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { PasswordInput } from "@/components/ui/password-input";
+import { Loader } from "lucide-react";
 
 type Props = {
     status?: string;
@@ -76,7 +77,11 @@ export default function Login({
                         </Field>
                         <Field>
                             <Button type="submit" disabled={processing}>
-                                Masuk
+                                {processing ? (
+                                    <Loader className="h-4 w-4 animate-spin" />
+                                ) : (
+                                    "Masuk"
+                                )}
                             </Button>
                         </Field>
                         {canRegister && (
