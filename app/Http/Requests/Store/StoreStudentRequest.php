@@ -25,7 +25,7 @@ class StoreStudentRequest extends FormRequest
     {
         return [
             'student_number' => [
-                'required',
+                'nullable',
                 'unique:students,student_number',
             ],
             'name' => ['required', 'string'],

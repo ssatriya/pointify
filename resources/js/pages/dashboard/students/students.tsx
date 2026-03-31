@@ -75,7 +75,7 @@ export default function Students({ students }: Props) {
                                 students.data.map((item) => (
                                     <TableRow key={item.id} className="h-12">
                                         <TableCell>{item.name}</TableCell>
-                                        <TableCell>{item.student_number}</TableCell>
+                                        <TableCell>{item.student_number || "-"}</TableCell>
                                         <TableCell>{item.vocational_program.label}</TableCell>
                                         <TableCell>
                                             {item.is_active ? (
@@ -94,7 +94,7 @@ export default function Students({ students }: Props) {
                                 ))
                             ) : (
                                 <TableRow>
-                                    <TableCell colSpan={6} className="h-24 text-center">
+                                    <TableCell colSpan={6} className="h-24 text-center text-muted-foreground">
                                         Belum ada data
                                     </TableCell>
                                 </TableRow>
@@ -108,7 +108,7 @@ export default function Students({ students }: Props) {
     </>
 }
 
-Students.layout = {
+Students.layout = [AppLayout, {
     breadcrumbs: [
         {
             title: "Dashboard",
@@ -119,4 +119,4 @@ Students.layout = {
             href: studentsIndex().url
         }
     ]
-}
+}]
