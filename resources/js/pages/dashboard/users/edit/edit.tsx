@@ -33,7 +33,7 @@ export default function UserEdit({ user, allPermissions, allRoles }: Props) {
 
     const { data, setData } = useForm({
         permissions: user.direct_permissions ?? [],
-        roles: user.roles ?? [],
+        roles: user.roles?.map(r => r.name) ?? [],
     });
 
     // Ensure form state stays in sync when user props update from server
@@ -41,7 +41,7 @@ export default function UserEdit({ user, allPermissions, allRoles }: Props) {
         setData(prevData => ({
             ...prevData,
             permissions: user.direct_permissions ?? [],
-            roles: user.roles ?? [],
+            roles: user.roles?.map(r => r.name) ?? [],
         }));
     }, [user.direct_permissions, user.roles]);
 

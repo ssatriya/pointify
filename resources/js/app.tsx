@@ -1,41 +1,42 @@
 import { createInertiaApp } from "@inertiajs/react";
-import { resolvePageComponent } from "laravel-vite-plugin/inertia-helpers";
-import { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
+import { ReactElement } from "react";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import "../css/app.css";
 import { initializeTheme } from "@/hooks/use-appearance";
 import NiceModal from "@ebay/nice-modal-react";
 import ConfirmationDialog from "@/components/confirmation-dialog";
-import { renderApp } from '@inertiaui/modal-react'
+import { ModalRoot, ModalStackProvider } from '@inertiaui/modal-react'
 import { Toaster } from "@/components/ui/sonner"
 
 const appName = import.meta.env.VITE_APP_NAME || "Laravel";
 
+NiceModal.register("confirm-dialog", ConfirmationDialog);
+
+function ModalLayout({ children }: { children: ReactElement }) {
+    return (
+        <>
+            {children}
+            <ModalRoot />
+        </>
+    );
+}
+
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
-    resolve: (name) =>
-        resolvePageComponent(
-            `./pages/${name}.tsx`,
-            import.meta.glob("./pages/**/*.tsx"),
-        ),
-    setup({ el, App, props }) {
-        const root = createRoot(el);
-        NiceModal.register("confirm-dialog", ConfirmationDialog);
-        root.render(
-            <StrictMode>
-                <NiceModal.Provider>
-                    <TooltipProvider>
-                        {renderApp(App as any, props as any)}
-                        <Toaster richColors position="top-right" />
-                    </TooltipProvider>
-                </NiceModal.Provider>
-            </StrictMode>,
-        );
-    },
+    layout: () => ModalLayout,
+    strictMode: true,
+    withApp: (app) => (
+        <ModalStackProvider>
+            <NiceModal.Provider>
+                <TooltipProvider>
+                    {app}
+                    <Toaster richColors position="top-right" />
+                </TooltipProvider>
+            </NiceModal.Provider>
+        </ModalStackProvider>
+    ),
     progress: {
-        color: "#4B5563",
-        showSpinner: true
+        color: '#4B5563',
     },
 });
 
