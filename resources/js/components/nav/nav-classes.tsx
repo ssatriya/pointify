@@ -3,10 +3,12 @@ import { StudentClass } from "@/types"
 import { Link, usePage } from "@inertiajs/react"
 import { SidebarGroup, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarMenuSkeleton } from "../ui/sidebar"
 import { IconListDetails } from "@tabler/icons-react"
+import { useCurrentUrl } from "@/hooks/use-current-url"
 
 export function NavClasses() {
     const { studentClasses } = usePage().props as { studentClasses?: StudentClass[] }
     const { hasPermission } = usePermission()
+    const { isCurrentUrl } = useCurrentUrl();
 
     return (
         <SidebarGroup>
@@ -25,15 +27,18 @@ export function NavClasses() {
                 ) : (
                     studentClasses
                         .filter(() => hasPermission('student-classes.view'))
-                        .map((c) => (
-                            <SidebarMenuItem key={c.url}>
+                        .map((item) => (
+                            <SidebarMenuItem key={item.id}>
                                 <SidebarMenuButton
-                                    render={
-                                        <Link href={c.url}>
-                                            <IconListDetails />
-                                            <span>{c.abbreviation ?? c.name}</span>
-                                        </Link>
-                                    }
+                                    className="tabular-nums data-[active=true]:bg-muted text-muted-foreground text"
+                                    tooltip={{ children: item.abbreviation ?? item.name }}
+                                    isActive={isCurrentUrl(item.url, undefined, false)}
+                                    render={<Link
+                                        href={item.url}
+                                        prefetch
+                                    >
+                                        <span>{item.abbreviation ?? item.name}</span>
+                                    </Link>}
                                 />
                             </SidebarMenuItem>
                         ))

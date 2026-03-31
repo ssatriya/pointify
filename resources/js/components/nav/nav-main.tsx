@@ -8,6 +8,7 @@ import {
 import { NavItem } from "@/types";
 import { Link } from "@inertiajs/react";
 import { useCurrentUrl } from "@/hooks/use-current-url";
+import { usePermission } from "@/hooks/use-permission";
 
 type Props = {
     items: NavItem[]
@@ -19,12 +20,18 @@ export function NavMain({
     label
 }: Props) {
     const { isCurrentUrl } = useCurrentUrl();
+    const { hasPermission } = usePermission();
+
+    const visibleItems = items.filter(item => !item.permission || hasPermission(item.permission));
+
+    if (visibleItems.length === 0) return null;
+
     return (
         <SidebarGroup>
             <SidebarGroupContent className="flex flex-col gap-2">
                 {label && <SidebarGroupLabel>{label}</SidebarGroupLabel>}
                 <SidebarMenu>
-                    {items.map((item) => (
+                    {visibleItems.map((item) => (
                         <SidebarMenuItem key={item.title}>
                             <SidebarMenuButton
                                 className="tabular-nums data-[active=true]:bg-muted text-muted-foreground text"

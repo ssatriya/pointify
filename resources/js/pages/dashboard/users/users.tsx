@@ -102,19 +102,12 @@ export default function UserIndex({ users }: Props) {
                                                 </span>
                                             </TableCell>
                                             <TableCell>
-                                                <div className="flex flex-wrap gap-1">
-                                                    {user.role_labels?.map(
-                                                        (role: string) => (
-                                                            <Badge
-                                                                key={role}
-                                                                variant="outline"
-                                                                className="capitalize"
-                                                            >
-                                                                {role}
-                                                            </Badge>
-                                                        ),
-                                                    )}
-                                                </div>
+                                                <Badge
+                                                    variant="outline"
+                                                    className="capitalize"
+                                                >
+                                                    {user.role_label}
+                                                </Badge>
                                             </TableCell>
                                             <TableCell>
                                                 <span className="text-sm">
@@ -128,12 +121,9 @@ export default function UserIndex({ users }: Props) {
                                             </TableCell>
                                             <TableCell className="text-end">
                                                 <div className="flex justify-end gap-2">
-                                                    {user.id !==
-                                                        auth.user?.id && (
-                                                            <UserActions
-                                                                id={user.id}
-                                                            />
-                                                        )}
+                                                    <UserActions
+                                                        id={user.id}
+                                                    />
                                                 </div>
                                             </TableCell>
                                         </TableRow>
@@ -144,7 +134,7 @@ export default function UserIndex({ users }: Props) {
                                             colSpan={5}
                                             className="h-24 text-center text-muted-foreground"
                                         >
-                                            Belum ada data pengguna
+                                            Belum ada data
                                         </TableCell>
                                     </TableRow>
                                 )}

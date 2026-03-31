@@ -69,12 +69,14 @@ class RoleAndPermissionSeeder extends Seeder
             Role::PRINCIPAL->value => [
                 Permission::VIEW_DASHBOARD,
                 Permission::VIEW_VIOLATIONS,
+                Permission::APPROVE_VIOLATIONS,
                 Permission::GENERATE_VIOLATION_LETTERS,
             ],
 
             Role::VICE_PRINCIPAL->value => [
                 Permission::VIEW_DASHBOARD,
                 Permission::VIEW_VIOLATIONS,
+                Permission::APPROVE_VIOLATIONS,
                 Permission::GENERATE_VIOLATION_LETTERS,
                 Permission::VIEW_REWARDS,
                 Permission::CREATE_REWARDS,

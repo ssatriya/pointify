@@ -110,7 +110,7 @@ export default function Profile({
                         )}
                     </Form>
                 </div>
-                {!auth.user.roles.some((role) => role.name === 'super-admin') && <DeleteUser />}
+                {auth.user.role !== 'super-admin' && <DeleteUser />}
             </>
         </>
     );

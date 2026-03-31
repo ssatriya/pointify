@@ -33,15 +33,11 @@ type Props = {
 
 export default function UserEdit({ user, allPermissions, allRoles }: Props) {
     const { auth } = usePage().props;
-    const isSuperAdmin = auth.user?.roles?.some((role: any) =>
-        typeof role === "string"
-            ? role === "super-admin"
-            : role.name === "super-admin",
-    );
+    const isSuperAdmin = auth.user?.role === "super-admin";
 
     const { data, setData } = useForm({
         permissions: user.direct_permissions ?? [],
-        roles: user.roles?.map((r) => r.name) ?? [],
+        role: user.role ?? "",
     });
 
     // Ensure form state stays in sync when user props update from server
@@ -49,9 +45,9 @@ export default function UserEdit({ user, allPermissions, allRoles }: Props) {
         setData((prevData) => ({
             ...prevData,
             permissions: user.direct_permissions ?? [],
-            roles: user.roles?.map((r) => r.name) ?? [],
+            role: user.role ?? "",
         }));
-    }, [user.direct_permissions, user.roles]);
+    }, [user.direct_permissions, user.role]);
 
     const togglePermission = (permission: string) => {
         if (user.role_permissions?.includes(permission)) return;
@@ -67,7 +63,7 @@ export default function UserEdit({ user, allPermissions, allRoles }: Props) {
             updateRoute({ user: user.id }).url,
             {
                 permissions: newPermissions,
-                roles: data.roles,
+                role: data.role,
             },
             {
                 preserveScroll: true,
@@ -77,13 +73,12 @@ export default function UserEdit({ user, allPermissions, allRoles }: Props) {
 
     const updateRole = (role: string | null) => {
         if (!role) return;
-        const newRoles = [role];
-        setData("roles", newRoles);
+        setData("role", role);
 
         router.put(
             updateRoute({ user: user.id }).url,
             {
-                roles: newRoles,
+                role,
                 // Skip sending permissions so we don't accidentally save role permissions as direct permissions
             },
             {
@@ -155,14 +150,19 @@ export default function UserEdit({ user, allPermissions, allRoles }: Props) {
                                     Pilih Role / Peran
                                 </Label>
                                 <Select
-                                    value={data.roles[0] || ""}
+                                    value={data.role}
                                     onValueChange={updateRole}
                                 >
                                     <SelectTrigger
                                         id="role-select"
                                         className="w-full h-10"
                                     >
-                                        <SelectValue placeholder="Pilih Role" />
+                                        <SelectValue placeholder="Pilih Role">
+                                            {(allRoles.find(
+                                                (role) =>
+                                                    role.value === data.role,
+                                            )?.label as string) ?? undefined}
+                                        </SelectValue>
                                     </SelectTrigger>
                                     <SelectContent>
                                         <SelectGroup>
@@ -196,15 +196,9 @@ export default function UserEdit({ user, allPermissions, allRoles }: Props) {
                         </CardTableHeader>
                         <CardTableContent className="p-8">
                             <div className="flex flex-wrap gap-1">
-                                {user.role_labels?.map((label, index, arr) => (
-                                    <span
-                                        key={index}
-                                        className="capitalize text-base"
-                                    >
-                                        {label}
-                                        {index < arr.length - 1 && ","}
-                                    </span>
-                                ))}
+                                <span className="capitalize text-base">
+                                    {user.role_label}
+                                </span>
                             </div>
                         </CardTableContent>
                     </CardTable>

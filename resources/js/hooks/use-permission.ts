@@ -18,13 +18,13 @@ export function usePermission() {
     const hasRole = (role: string | string[]) => {
         if (!auth.user) return false;
         
-        const userRoles = auth.user.roles?.map(r => r.name) || [];
+        const userRole = auth.user.role;
         
         if (Array.isArray(role)) {
-            return role.some(r => userRoles.includes(r));
+            return role.some(r => userRole === r);
         }
         
-        return userRoles.includes(role);
+        return userRole === role;
     };
 
     return { hasPermission, hasRole };

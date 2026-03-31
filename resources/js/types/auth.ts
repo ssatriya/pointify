@@ -24,8 +24,8 @@ export type User = {
     two_factor_enabled?: boolean;
     created_at: string;
     updated_at: string;
-    roles: Role[];
-    role_labels: string[];
+    role: string | null;
+    role_label: string | null;
     permissions: string[];
     role_permissions?: string[];
     direct_permissions?: string[];

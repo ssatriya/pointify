@@ -58,6 +58,7 @@ enum Permission: string
     // Violations
     case VIEW_VIOLATIONS = 'violations.view';
     case CREATE_VIOLATIONS = 'violations.create';
+    case APPROVE_VIOLATIONS = 'violations.approve';
 
     // Rewards
     case VIEW_REWARDS = 'rewards.view';

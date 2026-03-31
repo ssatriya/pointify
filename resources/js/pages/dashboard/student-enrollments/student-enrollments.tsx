@@ -98,7 +98,7 @@ export default function StudentEnrollments({ studentClass, studentEnrollments }:
                                 ) : (
                                     <TableRow>
                                         <TableCell colSpan={6} className="h-24 text-center text-muted-foreground">
-                                            Data tidak ditemukan.
+                                            Belum ada data
                                         </TableCell>
                                     </TableRow>
                                 )}

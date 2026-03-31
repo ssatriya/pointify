@@ -4,7 +4,16 @@ import * as React from "react";
 import {
     IconDashboard,
     IconInnerShadowTop,
-    IconListDetails,
+    IconClipboardCheck,
+    IconSchool,
+    IconCalendarEvent,
+    IconLayoutGrid,
+    IconUsers,
+    IconBuildingCommunity,
+    IconAlertCircle,
+    IconMessageExclamation,
+    IconTrophy,
+    IconUserCog
 } from "@tabler/icons-react";
 
 import { NavMain } from "@/components/nav/nav-main";
@@ -30,7 +39,7 @@ import { index as violationTypesIndex } from "@/routes/dashboard/violation-types
 import { index as rewardTypesIndex } from "@/routes/dashboard/reward-types"
 import { index as usersIndex } from "@/routes/dashboard/users"
 import { index as violationApprovalsIndex } from "@/routes/dashboard/violations/approval"
-import { Auth, StudentClass, User } from "@/types";
+import { Auth, User } from "@/types";
 import { NavClasses } from "./nav-classes";
 
 const data = {
@@ -47,8 +56,8 @@ const data = {
                 {
                     title: "Persetujuan Pelanggaran",
                     href: violationApprovalsIndex({ query: { filter: "pending" } }).url,
-                    icon: IconListDetails,
-                    permission: "violations.view",
+                    icon: IconClipboardCheck,
+                    permission: "violations.approve",
                 }
             ],
         },
@@ -58,18 +67,18 @@ const data = {
                 {
                     title: "Program Kejuruan",
                     href: vocationalProgramsIndex().url,
-                    icon: IconListDetails,
+                    icon: IconSchool,
                     permission: "vocational-programs.view",
                 }
                 , {
                     title: "Tahun Ajaran",
                     href: academicYearsIndex().url,
-                    icon: IconListDetails,
+                    icon: IconCalendarEvent,
                     permission: "academic-years.view",
                 }, {
                     title: "Kelas",
                     href: classesIndex().url,
-                    icon: IconListDetails,
+                    icon: IconLayoutGrid,
                     permission: "student-classes.view",
                 }
             ],
@@ -80,25 +89,25 @@ const data = {
                 {
                     title: "Siswa",
                     href: studentsIndex().url,
-                    icon: IconListDetails,
+                    icon: IconUsers,
                     permission: "students.view",
                 },
                 {
                     title: "Batas Poin Pelanggaran",
                     href: pointThresholdsIndex().url,
-                    icon: IconListDetails,
+                    icon: IconAlertCircle,
                     permission: "point-thresholds.view",
                 },
                 {
                     title: "Jenis Pelanggaran",
                     href: violationTypesIndex().url,
-                    icon: IconListDetails,
+                    icon: IconMessageExclamation,
                     permission: "violation-types.view",
                 },
                 {
                     title: "Jenis Prestasi",
                     href: rewardTypesIndex().url,
-                    icon: IconListDetails,
+                    icon: IconTrophy,
                     permission: "reward-types.view",
                 },
             ],
@@ -109,7 +118,7 @@ const data = {
                 {
                     title: "Pengguna",
                     href: usersIndex().url,
-                    icon: IconListDetails,
+                    icon: IconUserCog,
                     permission: "permissions.view",
                 },
             ],
@@ -144,7 +153,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 {data.nav.map((n, i) => (
                     <NavMain key={`${n.label}_${i}`} items={n.items} label={n.label} />
                 ))}
-                {/* {hasPermission('student-classes.view') && <NavClasses />} */}
+                {hasPermission('student-classes.view') && <NavClasses />}
             </SidebarContent>
             <SidebarFooter>
                 <NavUser user={{
