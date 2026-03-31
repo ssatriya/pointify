@@ -8,6 +8,7 @@ import SearchVocationalProgramController from './SearchVocationalProgramControll
 import SearchStudentEnrollmentController from './SearchStudentEnrollmentController'
 import StudentEnrollmentController from './StudentEnrollmentController'
 import SearchUnenrolledStudentController from './SearchUnenrolledStudentController'
+import StudentImportController from './StudentImportController'
 import StudentController from './StudentController'
 import UserController from './UserController'
 import PointThresholdController from './PointThresholdController'
@@ -29,6 +30,7 @@ SearchVocationalProgramController: Object.assign(SearchVocationalProgramControll
 SearchStudentEnrollmentController: Object.assign(SearchStudentEnrollmentController, SearchStudentEnrollmentController),
 StudentEnrollmentController: Object.assign(StudentEnrollmentController, StudentEnrollmentController),
 SearchUnenrolledStudentController: Object.assign(SearchUnenrolledStudentController, SearchUnenrolledStudentController),
+StudentImportController: Object.assign(StudentImportController, StudentImportController),
 StudentController: Object.assign(StudentController, StudentController),
 UserController: Object.assign(UserController, UserController),
 PointThresholdController: Object.assign(PointThresholdController, PointThresholdController),

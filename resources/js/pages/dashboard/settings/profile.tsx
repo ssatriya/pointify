@@ -1,3 +1,4 @@
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -11,17 +12,6 @@ import type { BreadcrumbItem, Auth } from "@/types";
 import DeleteUser from "@/pages/dashboard/settings/partials/delete-user";
 import { Loader } from "lucide-react";
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: "Dashboard",
-        href: "/dashboard",
-    },
-    {
-        title: 'Profile settings',
-        href: '/dashboard/settings/profile',
-    },
-];
-
 export default function Profile({
     mustVerifyEmail,
     status,
@@ -31,7 +21,8 @@ export default function Profile({
 }) {
     const { auth } = usePage<{ auth: Auth }>().props;
     return (
-        <>            <Head title="Profile settings" />
+        <>
+            <Head title="Profile settings" />
             <h1 className="sr-only">Profile settings</h1>
             <>
                 <div className="space-y-6">
@@ -125,15 +116,18 @@ export default function Profile({
     );
 }
 
-Profile.layout = [AppLayout, SettingsLayout, {
-    breadcrumbs: [
-        {
-            title: "Dashboard",
-            href: "/dashboard",
-        },
-        {
-            title: 'Profile settings',
-            href: '/dashboard/settings/profile',
-        },
-    ],
-}];
+Profile.layout = [
+    [AppLayout, {
+        breadcrumbs: [
+            {
+                title: "Dashboard",
+                href: "/dashboard",
+            },
+            {
+                title: 'Profile settings',
+                href: '/dashboard/settings/profile',
+            },
+        ],
+    }],
+    [SettingsLayout]
+];

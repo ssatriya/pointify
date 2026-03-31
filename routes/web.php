@@ -13,7 +13,9 @@ use App\Http\Controllers\SearchVocationalProgramController;
 use App\Http\Controllers\SearchStudentEnrollmentController;
 use App\Http\Controllers\StudentClassController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StudentImportController;
 use App\Http\Controllers\StudentEnrollmentController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ViolationApprovalController;
 use App\Http\Controllers\ViolationController;
 use App\Http\Controllers\ViolationTypeController;
@@ -69,6 +71,8 @@ Route::middleware(['auth', 'verified'])
 
         Route::prefix('students')->name('students.')->group(function () {
             Route::get('/select-unenrolled/{vocational_program}', SearchUnenrolledStudentController::class)->name('selectUnenrolled');
+            Route::get('/download-template', [StudentImportController::class, 'downloadTemplate'])->name('download-template');
+            Route::post('/import', [StudentImportController::class, 'import'])->name('import');
 
             Route::get('/', [StudentController::class, 'index'])->name('index');
             Route::post('/', [StudentController::class, 'store'])->name('store');
@@ -78,10 +82,10 @@ Route::middleware(['auth', 'verified'])
         });
 
         Route::prefix('users')->name('users.')->group(function () {
-            Route::get('/', [\App\Http\Controllers\UserController::class, 'index'])->name('index');
-            Route::get('/{user}', [\App\Http\Controllers\UserController::class, 'show'])->name('show');
-            Route::get('/{user}/edit', [\App\Http\Controllers\UserController::class, 'edit'])->name('edit');
-            Route::put('/{user}', [\App\Http\Controllers\UserController::class, 'update'])->name('update');
+            Route::get('/', [UserController::class, 'index'])->name('index');
+            Route::get('/{user}', [UserController::class, 'show'])->name('show');
+            Route::get('/{user}/edit', [UserController::class, 'edit'])->name('edit');
+            Route::put('/{user}', [UserController::class, 'update'])->name('update');
         });
 
         Route::prefix('point-thresholds')->name('point-thresholds.')->group(function () {

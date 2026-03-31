@@ -97,7 +97,7 @@ export default function UserIndex({ users }: Props) {
                                                 </span>
                                             </TableCell>
                                             <TableCell>
-                                                <span className="text-muted-foreground">
+                                                <span>
                                                     {user.email}
                                                 </span>
                                             </TableCell>
@@ -130,10 +130,10 @@ export default function UserIndex({ users }: Props) {
                                                 <div className="flex justify-end gap-2">
                                                     {user.id !==
                                                         auth.user?.id && (
-                                                        <UserActions
-                                                            id={user.id}
-                                                        />
-                                                    )}
+                                                            <UserActions
+                                                                id={user.id}
+                                                            />
+                                                        )}
                                                 </div>
                                             </TableCell>
                                         </TableRow>

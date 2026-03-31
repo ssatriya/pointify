@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Traits\Filterable;
 use App\Traits\Searchable;
 use App\Traits\Sortable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Student extends Model
 {
-    use HasFactory, HasUlids, Sortable, Searchable;
+    use HasFactory, HasUlids, Sortable, Searchable, Filterable;
 
     public $incrementing = false;
     protected $keyType = 'string';
@@ -30,13 +32,20 @@ class Student extends Model
 
     protected array $searchable = [
         'name',
-        'vocationalProgram.name',
     ];
 
     protected array $sortable = [
         'name',
         'created_at',
     ];
+
+    protected array $filterable = [
+        'filter' => [
+            'column' => 'students.vocational_program_id',
+            'type' => 'in'
+        ]
+    ];
+
 
     /**
      * Get the vocationalProgram that owns the Student

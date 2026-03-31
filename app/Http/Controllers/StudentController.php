@@ -6,8 +6,10 @@ use App\Http\Requests\GetListRequestParams;
 use App\Http\Requests\Store\StoreStudentRequest;
 use App\Http\Requests\Update\UpdateStudentRequest;
 use App\Http\Resources\StudentResource;
+use App\Http\Resources\VocationalProgramResource;
 use App\Http\Services\StudentService;
 use App\Models\Student;
+use App\Models\VocationalProgram;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -34,7 +36,8 @@ class StudentController extends Controller
         $paginatedList = $this->studentService->index($request->validated());
 
         return Inertia::render('dashboard/students/students', [
-            'students' => StudentResource::collection($paginatedList)
+            'students' => StudentResource::collection($paginatedList),
+            'vocationalPrograms' => VocationalProgram::all(['id', 'name', 'abbreviation']),
         ]);
     }
 
@@ -64,6 +67,7 @@ class StudentController extends Controller
 
         return Inertia::flash(['message' => 'Data siswa berhasil diperbarui.'])->back();
     }
+
 
     /**
      * @throws Throwable

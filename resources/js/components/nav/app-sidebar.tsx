@@ -46,7 +46,7 @@ const data = {
                 },
                 {
                     title: "Persetujuan Pelanggaran",
-                    href: violationApprovalsIndex({ query: { status: "pending" } }).url,
+                    href: violationApprovalsIndex({ query: { filter: "pending" } }).url,
                     icon: IconListDetails,
                     permission: "violations.view",
                 }

@@ -3,7 +3,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 
 interface Filters {
     search?: string;
-    status?: string | string[];
+    filter?: string | string[];
     per_page?: string | number;
     sort_by?: string;
     sort_direction?: string;

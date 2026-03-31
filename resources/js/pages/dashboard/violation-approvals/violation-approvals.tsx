@@ -39,17 +39,6 @@ type Props = {
     violations: Paginated<Violation>;
 };
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: "Dashboard",
-        href: dashboardIndex().url
-    },
-    {
-        title: "Persetujuan Pelanggaran",
-        href: violationApprovalsIndex().url
-    }
-]
-
 export default function ViolationApprovals({ violations }: Props) {
     const {
         filters,
@@ -59,13 +48,13 @@ export default function ViolationApprovals({ violations }: Props) {
         resetFilters
     } = useFilter(violationApprovalsIndex().url);
 
-    const statusArray = typeof filters.status === 'string'
-        ? filters.status.split(',').filter(Boolean)
-        : (Array.isArray(filters.status) ? filters.status : []);
+    const filterArray = typeof filters.filter === 'string'
+        ? filters.filter.split(',').filter(Boolean)
+        : (Array.isArray(filters.filter) ? filters.filter : []);
 
-    const handleStatusChange = (values: string[]) => {
+    const handleFilterChangeCallback = (values: string[]) => {
         handleFilterChange({
-            status: values.join(',') || undefined,
+            filter: values.join(',') || undefined,
             page: 1
         });
     };
@@ -85,13 +74,13 @@ export default function ViolationApprovals({ violations }: Props) {
                                     { label: "Ditolak", value: "rejected" },
                                 ]}
                                 title="Status"
-                                selectedValues={statusArray}
-                                onFilterChange={handleStatusChange}
+                                selectedValues={filterArray}
+                                onFilterChange={handleFilterChangeCallback}
                             />
                             <SearchInput
                                 search={search}
                                 setSearch={setSearch}
-                                hasSearch={!!search || statusArray.length > 0}
+                                hasSearch={!!search || filterArray.length > 0}
                                 resetSearch={resetFilters}
                             />
                         </TableToolbar>

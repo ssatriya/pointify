@@ -1,3 +1,4 @@
+import React from "react";
 import AppLayout from "@/components/layout/app-layout";
 import SettingsLayout from "@/components/layout/settings-layout";
 import { Heading } from "@/pages/dashboard/settings/partials/heading";
@@ -5,16 +6,6 @@ import AppearanceTabs from "@/pages/dashboard/settings/partials/appearance-tabs"
 import { Head } from "@inertiajs/react";
 import type { BreadcrumbItem } from "@/types";
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: "Dashboard",
-        href: "/dashboard",
-    },
-    {
-        title: "Appearance settings",
-        href: "/dashboard/settings/appearance",
-    },
-];
 
 export default function Appearance() {
     return (
@@ -35,15 +26,18 @@ export default function Appearance() {
     );
 }
 
-Appearance.layout = [AppLayout, SettingsLayout, {
-    breadcrumbs: [
-        {
-            title: "Dashboard",
-            href: "/dashboard",
-        },
-        {
-            title: "Appearance settings",
-            href: "/dashboard/settings/appearance",
-        },
-    ],
-}];
+Appearance.layout = [
+    [AppLayout, {
+        breadcrumbs: [
+            {
+                title: "Dashboard",
+                href: "/dashboard",
+            },
+            {
+                title: "Appearance settings",
+                href: "/dashboard/settings/appearance",
+            },
+        ]
+    }],
+    [SettingsLayout]
+];

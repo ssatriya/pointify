@@ -42,7 +42,7 @@ class Violation extends Model
         'created_at',
     ];
     protected array $filterable = [
-        'status' => [
+        'filter' => [
             'column' => 'approval_status',
             'type' => 'in'
         ]

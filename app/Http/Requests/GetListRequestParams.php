@@ -27,7 +27,7 @@ class GetListRequestParams extends FormRequest
             'page' => ['sometimes', 'integer', 'min:1'],
             'sort_by' => ['sometimes', 'string'],
             'sort_direction' => ['sometimes', 'string', 'in:asc,desc'],
-            'status' => ['sometimes', 'nullable', 'string'],
+            'filter' => ['sometimes', 'nullable', 'string'],
             'search' => ['sometimes', 'nullable', 'string'],
         ];
     }
@@ -42,10 +42,10 @@ class GetListRequestParams extends FormRequest
         $validated['sort_direction'] ??= 'asc';
         $validated['search'] ??= '';
 
-        if (isset($validated['status']) && $validated['status'] !== '') {
-            $validated['status'] = explode(',', $validated['status']);
+        if (isset($validated['filter']) && $validated['filter'] !== '') {
+            $validated['filter'] = explode(',', $validated['filter']);
         } else {
-            unset($validated['status']);
+            unset($validated['filter']);
         }
 
         return $validated;

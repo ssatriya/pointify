@@ -18,10 +18,6 @@ class ViolationApprovalController extends Controller
 
     public function index(GetListRequestParams $request)
     {
-        if (!$request->has('status')) {
-            return to_route('dashboard.violations.approval.index', ['status' => 'pending']);
-        }
-
         $validated = $request->validated();
 
         $query = Violation::with([

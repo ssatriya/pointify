@@ -50,7 +50,7 @@ class HandleInertiaRequests extends Middleware
             ],
             'filters' => [
                 'search' => $request->query('search'),
-                'status' => $request->query('status'),
+                'filter' => $request->query('filter'),
                 'per_page' => $request->query('per_page'),
                 'sort_by' => $request->query('sort_by'),
                 'sort_direction' => $request->query('sort_direction'),
