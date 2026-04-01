@@ -26,7 +26,10 @@ class StudentClassService
                 'created_at',
             ]);
 
-        return DataTable::make($query, $validated)->process();
+        return DataTable::make($query, $validated)
+            ->search($validated['search'])
+            ->order('order')
+            ->paginate(50);
     }
 
     /**
@@ -107,6 +110,21 @@ class StudentClassService
     {
         DB::transaction(function () use ($studentClass) {
             $studentClass->delete();
+        });
+    }
+
+    /**
+     * Reorder entries.
+     *
+     * @param array<string> $ids
+     * @throws Throwable
+     */
+    public function reorder(array $ids): void
+    {
+        DB::transaction(function () use ($ids) {
+            foreach ($ids as $index => $id) {
+                StudentClass::where('id', $id)->update(['order' => $index + 1]);
+            }
         });
     }
 }

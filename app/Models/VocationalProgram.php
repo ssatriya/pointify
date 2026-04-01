@@ -26,4 +26,12 @@ class VocationalProgram extends Model
     protected array $sortable = [
         'created_at',
     ];
+
+    /**
+     * Get the formatted label for selects
+     */
+    public function getLabelAttribute(): string
+    {
+        return $this->name;
+    }
 }

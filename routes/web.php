@@ -12,6 +12,7 @@ use App\Http\Controllers\SearchUnenrolledStudentController;
 use App\Http\Controllers\SearchRewardTypeController;
 use App\Http\Controllers\SearchViolationTypeController;
 use App\Http\Controllers\SearchVocationalProgramController;
+use App\Http\Controllers\ReorderStudentClassController;
 use App\Http\Controllers\SearchStudentEnrollmentController;
 use App\Http\Controllers\StudentClassController;
 use App\Http\Controllers\StudentController;
@@ -55,6 +56,7 @@ Route::middleware(['auth', 'verified'])
         Route::prefix('classes')->name('student-classes.')->group(function () {
             Route::get('/', [StudentClassController::class, 'index'])->name('index');
             Route::post('/', [StudentClassController::class, 'store'])->name('store');
+            Route::put('/reorder', ReorderStudentClassController::class)->name('reorder');
 
             Route::get('/search', SearchVocationalProgramController::class)->name('search');
 

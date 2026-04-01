@@ -4,6 +4,7 @@ import AcademicYear from './AcademicYear'
 import SearchAcademicYearController from './SearchAcademicYearController'
 import VocationalProgramController from './VocationalProgramController'
 import StudentClassController from './StudentClassController'
+import ReorderStudentClassController from './ReorderStudentClassController'
 import SearchVocationalProgramController from './SearchVocationalProgramController'
 import SearchStudentEnrollmentController from './SearchStudentEnrollmentController'
 import StudentEnrollmentController from './StudentEnrollmentController'
@@ -28,6 +29,7 @@ AcademicYear: Object.assign(AcademicYear, AcademicYear),
 SearchAcademicYearController: Object.assign(SearchAcademicYearController, SearchAcademicYearController),
 VocationalProgramController: Object.assign(VocationalProgramController, VocationalProgramController),
 StudentClassController: Object.assign(StudentClassController, StudentClassController),
+ReorderStudentClassController: Object.assign(ReorderStudentClassController, ReorderStudentClassController),
 SearchVocationalProgramController: Object.assign(SearchVocationalProgramController, SearchVocationalProgramController),
 SearchStudentEnrollmentController: Object.assign(SearchStudentEnrollmentController, SearchStudentEnrollmentController),
 StudentEnrollmentController: Object.assign(StudentEnrollmentController, StudentEnrollmentController),

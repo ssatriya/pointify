@@ -133,6 +133,71 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     
     store.form = storeForm
 /**
+* @see \App\Http\Controllers\ReorderStudentClassController::__invoke
+ * @see app/Http/Controllers/ReorderStudentClassController.php:23
+ * @route '/dashboard/classes/reorder'
+ */
+export const reorder = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+    url: reorder.url(options),
+    method: 'put',
+})
+
+reorder.definition = {
+    methods: ["put"],
+    url: '/dashboard/classes/reorder',
+} satisfies RouteDefinition<["put"]>
+
+/**
+* @see \App\Http\Controllers\ReorderStudentClassController::__invoke
+ * @see app/Http/Controllers/ReorderStudentClassController.php:23
+ * @route '/dashboard/classes/reorder'
+ */
+reorder.url = (options?: RouteQueryOptions) => {
+    return reorder.definition.url + queryParams(options)
+}
+
+/**
+* @see \App\Http\Controllers\ReorderStudentClassController::__invoke
+ * @see app/Http/Controllers/ReorderStudentClassController.php:23
+ * @route '/dashboard/classes/reorder'
+ */
+reorder.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+    url: reorder.url(options),
+    method: 'put',
+})
+
+    /**
+* @see \App\Http\Controllers\ReorderStudentClassController::__invoke
+ * @see app/Http/Controllers/ReorderStudentClassController.php:23
+ * @route '/dashboard/classes/reorder'
+ */
+    const reorderForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        action: reorder.url({
+                    [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                        _method: 'PUT',
+                        ...(options?.query ?? options?.mergeQuery ?? {}),
+                    }
+                }),
+        method: 'post',
+    })
+
+            /**
+* @see \App\Http\Controllers\ReorderStudentClassController::__invoke
+ * @see app/Http/Controllers/ReorderStudentClassController.php:23
+ * @route '/dashboard/classes/reorder'
+ */
+        reorderForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+            action: reorder.url({
+                        [options?.mergeQuery ? 'mergeQuery' : 'query']: {
+                            _method: 'PUT',
+                            ...(options?.query ?? options?.mergeQuery ?? {}),
+                        }
+                    }),
+            method: 'post',
+        })
+    
+    reorder.form = reorderForm
+/**
 * @see \App\Http\Controllers\SearchVocationalProgramController::__invoke
  * @see app/Http/Controllers/SearchVocationalProgramController.php:20
  * @route '/dashboard/classes/search'
@@ -493,6 +558,7 @@ destroy.delete = (args: { studentClass: string | { id: string } } | [studentClas
 const studentClasses = {
     index: Object.assign(index, index),
 store: Object.assign(store, store),
+reorder: Object.assign(reorder, reorder),
 search: Object.assign(search, search),
 show: Object.assign(show, show),
 update: Object.assign(update, update),

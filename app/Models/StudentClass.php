@@ -32,6 +32,7 @@ class StudentClass extends Model
     protected array $sortable = [
         'created_at',
         'grade_level',
+        'order',
     ];
 
     /**

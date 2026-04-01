@@ -57,14 +57,14 @@ export default function TablePagination({links, meta, onPageSizeChange}: Props) 
 
     return (
         <div
-            className="flex w-full flex-col-reverse items-center justify-between gap-4 overflow-auto border-t p-2 py-4 text-muted-foreground lg:flex-row lg:gap-8">
+            className="flex w-full flex-col-reverse items-center justify-between gap-4 border-t p-2 py-4 text-muted-foreground xl:flex-row xl:gap-8">
             <div className="shrink-0 text-sm">
                 {meta.from && meta.to
                     ? `Menampilkan ${meta.from}–${meta.to} dari ${meta.total} data`
                     : "Tidak ada data"}
             </div>
 
-            <div className="flex flex-col-reverse items-center justify-between gap-4 sm:flex-row lg:gap-6">
+            <div className="flex flex-col-reverse items-center justify-between gap-4 sm:flex-row xl:gap-6">
                 <div className="flex items-center space-x-2">
                     <p className="whitespace-nowrap text-sm">Baris per halaman</p>
                     <Select

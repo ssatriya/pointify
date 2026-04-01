@@ -72,7 +72,7 @@ class DataTable
      */
     public function paginate(?int $perPage = null, ?int $page = null): LengthAwarePaginator
     {
-        $perPage = $perPage ?? $this->params['per_page'] ?? 15;
+        $perPage = $perPage ?? $this->params['per_page'] ?? 10;
         $page = $page ?? $this->params['page'] ?? 1;
 
         return $this->query->paginate(perPage: $perPage, page: $page);

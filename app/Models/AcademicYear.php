@@ -33,4 +33,11 @@ class AcademicYear extends Model
         'is_active' => 'boolean',
     ];
 
+    /**
+     * Get the formatted label for selects
+     */
+    public function getLabelAttribute(): string
+    {
+        return $this->name;
+    }
 }
