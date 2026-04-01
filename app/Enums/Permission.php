@@ -4,78 +4,80 @@ namespace App\Enums;
 
 enum Permission: string
 {
-// Dashboard
-    case VIEW_DASHBOARD = 'dashboard.view';
+    // Dashboard
+    case DASHBOARD_VIEW = 'dashboard.view';
 
     // Academic years
-    case VIEW_ACADEMIC_YEARS = 'academic-years.view';
-    case CREATE_ACADEMIC_YEARS = 'academic-years.create';
-    case UPDATE_ACADEMIC_YEARS = 'academic-years.update';
-    case DELETE_ACADEMIC_YEARS = 'academic-years.delete';
+    case ACADEMIC_YEARS_VIEW = 'academic-years.view';
+    case ACADEMIC_YEARS_CREATE = 'academic-years.create';
+    case ACADEMIC_YEARS_UPDATE = 'academic-years.update';
+    case ACADEMIC_YEARS_DELETE = 'academic-years.delete';
 
     // Vocational programs
-    case VIEW_VOCATIONAL_PROGRAMS = 'vocational-programs.view';
-    case CREATE_VOCATIONAL_PROGRAMS = 'vocational-programs.create';
-    case UPDATE_VOCATIONAL_PROGRAMS = 'vocational-programs.update';
-    case DELETE_VOCATIONAL_PROGRAMS = 'vocational-programs.delete';
+    case VOCATIONAL_PROGRAMS_VIEW = 'vocational-programs.view';
+    case VOCATIONAL_PROGRAMS_CREATE = 'vocational-programs.create';
+    case VOCATIONAL_PROGRAMS_UPDATE = 'vocational-programs.update';
+    case VOCATIONAL_PROGRAMS_DELETE = 'vocational-programs.delete';
 
     // Student classes
-    case VIEW_STUDENT_CLASSES = 'student-classes.view';
-    case CREATE_STUDENT_CLASSES = 'student-classes.create';
-    case UPDATE_STUDENT_CLASSES = 'student-classes.update';
-    case DELETE_STUDENT_CLASSES = 'student-classes.delete';
+    case STUDENT_CLASSES_VIEW = 'student-classes.view';
+    case STUDENT_CLASSES_CREATE = 'student-classes.create';
+    case STUDENT_CLASSES_UPDATE = 'student-classes.update';
+    case STUDENT_CLASSES_DELETE = 'student-classes.delete';
 
     // Students
-    case VIEW_STUDENTS = 'students.view';
-    case CREATE_STUDENTS = 'students.create';
-    case UPDATE_STUDENTS = 'students.update';
-    case DELETE_STUDENTS = 'students.delete';
+    case STUDENTS_VIEW = 'students.view';
+    case STUDENTS_CREATE = 'students.create';
+    case STUDENTS_UPDATE = 'students.update';
+    case STUDENTS_DELETE = 'students.delete';
 
     // Student enrollments
-    case VIEW_STUDENT_ENROLLMENTS = 'student-enrollments.view';
-    case CREATE_STUDENT_ENROLLMENTS = 'student-enrollments.create';
-    case UPDATE_STUDENT_ENROLLMENTS = 'student-enrollments.update';
-    case DELETE_STUDENT_ENROLLMENTS = 'student-enrollments.delete';
+    case STUDENT_ENROLLMENTS_VIEW = 'student-enrollments.view';
+    case STUDENT_ENROLLMENTS_CREATE = 'student-enrollments.create';
+    case STUDENT_ENROLLMENTS_UPDATE = 'student-enrollments.update';
+    case STUDENT_ENROLLMENTS_DELETE = 'student-enrollments.delete';
 
     // Violation Types
-    case VIEW_VIOLATION_TYPES = 'violation-types.view';
-    case CREATE_VIOLATION_TYPES = 'violation-types.create';
-    case UPDATE_VIOLATION_TYPES = 'violation-types.update';
-    case DELETE_VIOLATION_TYPES = 'violation-types.delete';
+    case VIOLATION_TYPES_VIEW = 'violation-types.view';
+    case VIOLATION_TYPES_CREATE = 'violation-types.create';
+    case VIOLATION_TYPES_UPDATE = 'violation-types.update';
+    case VIOLATION_TYPES_DELETE = 'violation-types.delete';
 
     // Reward Types
-    case VIEW_REWARD_TYPES = 'reward-types.view';
-    case CREATE_REWARD_TYPES = 'reward-types.create';
-    case UPDATE_REWARD_TYPES = 'reward-types.update';
-    case DELETE_REWARD_TYPES = 'reward-types.delete';
+    case REWARD_TYPES_VIEW = 'reward-types.view';
+    case REWARD_TYPES_CREATE = 'reward-types.create';
+    case REWARD_TYPES_UPDATE = 'reward-types.update';
+    case REWARD_TYPES_DELETE = 'reward-types.delete';
 
     // Reward Types
-    case VIEW_POINT_THRESHOLDS = 'point-thresholds.view';
-    case CREATE_POINT_THRESHOLDS = 'point-thresholds.create';
-    case UPDATE_POINT_THRESHOLDS = 'point-thresholds.update';
-    case DELETE_POINT_THRESHOLDS = 'point-thresholds.delete';
+    case POINT_THRESHOLDS_VIEW = 'point-thresholds.view';
+    case POINT_THRESHOLDS_CREATE = 'point-thresholds.create';
+    case POINT_THRESHOLDS_UPDATE = 'point-thresholds.update';
+    case POINT_THRESHOLDS_DELETE = 'point-thresholds.delete';
 
     // Violations
-    case VIEW_VIOLATIONS = 'violations.view';
-    case CREATE_VIOLATIONS = 'violations.create';
-    case APPROVE_VIOLATIONS = 'violations.approve';
+    case VIOLATIONS_VIEW = 'violations.view';
+    case VIOLATIONS_CREATE = 'violations.create';
+
+    // Violation Approvals
+    case VIOLATION_APPROVALS_VIEW = 'violation-approvals.view';
 
     // Rewards
-    case VIEW_REWARDS = 'rewards.view';
-    case CREATE_REWARDS = 'rewards.create';
+    case REWARDS_VIEW = 'rewards.view';
+    case REWARDS_CREATE = 'rewards.create';
 
     // Violation letters
-    case GENERATE_VIOLATION_LETTERS = 'violation-letters.generate';
+    case VIOLATION_LETTERS_GENERATE = 'violation-letters.generate';
 
     // Role management
-    case VIEW_ROLES = 'roles.view';
-    case CREATE_ROLES = 'roles.create';
-    case UPDATE_ROLES = 'roles.update';
-    case DELETE_ROLES = 'roles.delete';
+    case ROLES_VIEW = 'roles.view';
+    case ROLES_CREATE = 'roles.create';
+    case ROLES_UPDATE = 'roles.update';
+    case ROLES_DELETE = 'roles.delete';
 
     // Permission management
-    case VIEW_PERMISSIONS = 'permissions.view';
-    case CREATE_PERMISSIONS = 'permissions.create';
-    case UPDATE_PERMISSIONS = 'permissions.update';
-    case DELETE_PERMISSIONS = 'permissions.delete';
+    case PERMISSIONS_VIEW = 'permissions.view';
+    case PERMISSIONS_CREATE = 'permissions.create';
+    case PERMISSIONS_UPDATE = 'permissions.update';
+    case PERMISSIONS_DELETE = 'permissions.delete';
 }

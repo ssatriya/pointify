@@ -14,7 +14,7 @@ class UpdateStudentEnrollmentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->can(Permission::UPDATE_STUDENT_ENROLLMENTS->value);
+        return $this->user()->can(Permission::STUDENT_ENROLLMENTS_UPDATE->value);
     }
 
     /**

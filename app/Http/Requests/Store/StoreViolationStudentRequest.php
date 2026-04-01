@@ -13,7 +13,7 @@ class StoreViolationStudentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->can(Permission::CREATE_VIOLATIONS->value);
+        return $this->user()->can(Permission::VIOLATIONS_CREATE->value);
         ;
     }
 

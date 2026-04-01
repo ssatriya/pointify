@@ -13,7 +13,7 @@ class StoreVocationalProgramRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->can(Permission::CREATE_VOCATIONAL_PROGRAMS->value);
+        return $this->user()->can(Permission::VOCATIONAL_PROGRAMS_CREATE->value);
     }
 
     /**

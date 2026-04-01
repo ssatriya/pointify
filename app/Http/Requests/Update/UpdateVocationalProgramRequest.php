@@ -14,7 +14,7 @@ class UpdateVocationalProgramRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->can(Permission::UPDATE_VOCATIONAL_PROGRAMS->value);
+        return $this->user()->can(Permission::VOCATIONAL_PROGRAMS_UPDATE->value);
     }
 
     /**

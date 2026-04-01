@@ -13,7 +13,7 @@ class StoreRewardTypeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->can(Permission::CREATE_REWARD_TYPES->value);
+        return $this->user()->can(Permission::REWARD_TYPES_CREATE->value);
     }
 
     /**

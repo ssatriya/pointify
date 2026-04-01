@@ -74,7 +74,7 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
-        // if (!Gate::allows(Permission::DELETE_STUDENTS->value, $student)) {
+        // if (!Gate::allows(Permission::STUDENTS_DELETE->value, $student)) {
         //     throw new AuthorizationException(ErrorMessage::UNAUTHORIZED_DELETE->value);
         // }
 

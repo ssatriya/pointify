@@ -14,7 +14,7 @@ class UpdateRewardTypeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->can(Permission::UPDATE_REWARD_TYPES->value);
+        return $this->user()->can(Permission::REWARD_TYPES_UPDATE->value);
     }
 
     /**

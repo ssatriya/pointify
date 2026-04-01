@@ -13,7 +13,7 @@ class UpdateStudentClassRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->can(Permission::UPDATE_STUDENT_CLASSES);
+        return $this->user()->can(Permission::STUDENT_CLASSES_UPDATE);
     }
 
     /**

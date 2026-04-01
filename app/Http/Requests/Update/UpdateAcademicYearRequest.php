@@ -13,7 +13,7 @@ class UpdateAcademicYearRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->can(Permission::UPDATE_ACADEMIC_YEARS->value);
+        return $this->user()->can(Permission::ACADEMIC_YEARS_UPDATE->value);
     }
 
     /**

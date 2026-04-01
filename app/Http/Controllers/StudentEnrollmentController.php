@@ -70,7 +70,7 @@ class StudentEnrollmentController extends Controller
      */
     public function store(StoreStudentEnrollmentRequest $request, StudentClass $studentClass)
     {
-        // if (!Gate::allows(Permission::CREATE_STUDENT_ENROLLMENTS->value)) {
+        // if (!Gate::allows(Permission::STUDENT_ENROLLMENTS_CREATE->value)) {
         //     throw new AuthorizationException(ErrorMessage::UNAUTHORIZED_CREATE->value);
         // }
         $this->studentEnrollmentService->create([
@@ -103,7 +103,7 @@ class StudentEnrollmentController extends Controller
      */
     public function destroy(StudentEnrollment $studentEnrollment)
     {
-        // if (!Gate::allows(Permission::DELETE_STUDENT_ENROLLMENTS->value)) {
+        // if (!Gate::allows(Permission::STUDENT_ENROLLMENTS_DELETE->value)) {
         //     throw new AuthorizationException(ErrorMessage::UNAUTHORIZED_DELETE->value);
         // }
 

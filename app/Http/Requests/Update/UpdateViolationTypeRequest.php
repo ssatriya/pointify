@@ -14,7 +14,7 @@ class UpdateViolationTypeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->can(Permission::UPDATE_VIOLATION_TYPES->value);
+        return $this->user()->can(Permission::VIOLATION_TYPES_UPDATE->value);
     }
 
     /**

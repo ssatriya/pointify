@@ -13,7 +13,7 @@ class StoreStudentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->can(Permission::CREATE_STUDENTS->value);
+        return $this->user()->can(Permission::STUDENTS_CREATE->value);
     }
 
     /**

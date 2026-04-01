@@ -13,7 +13,7 @@ class StoreAcademicYearRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->can(Permission::CREATE_ACADEMIC_YEARS->value);
+        return $this->user()->can(Permission::ACADEMIC_YEARS_CREATE->value);
     }
 
     /**

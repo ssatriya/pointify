@@ -13,7 +13,7 @@ class UpdateRolePermission extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->can(Permission::UPDATE_ROLES->value);
+        return $this->user()->can(Permission::ROLES_UPDATE->value);
     }
 
     /**
