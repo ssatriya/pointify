@@ -114,7 +114,7 @@ export type PointTransactionGroup = {
 export type PointTransaction = {
     id: string
     student_name: string
-    type: "violation" | "reward" | "reset" | "initial"
+    type: "violation" | "reward" | "reset" | "initial" | "revoked"
     code: string
     created_by: string
     notes: string

@@ -17,7 +17,9 @@ import ViolationTypeController from './ViolationTypeController'
 import SearchRewardTypeController from './SearchRewardTypeController'
 import RewardTypeController from './RewardTypeController'
 import ViolationApprovalController from './ViolationApprovalController'
+import RevokeViolationController from './RevokeViolationController'
 import ViolationController from './ViolationController'
+import RevokeRewardController from './RevokeRewardController'
 import RewardController from './RewardController'
 const Controllers = {
     Settings: Object.assign(Settings, Settings),
@@ -39,7 +41,9 @@ ViolationTypeController: Object.assign(ViolationTypeController, ViolationTypeCon
 SearchRewardTypeController: Object.assign(SearchRewardTypeController, SearchRewardTypeController),
 RewardTypeController: Object.assign(RewardTypeController, RewardTypeController),
 ViolationApprovalController: Object.assign(ViolationApprovalController, ViolationApprovalController),
+RevokeViolationController: Object.assign(RevokeViolationController, RevokeViolationController),
 ViolationController: Object.assign(ViolationController, ViolationController),
+RevokeRewardController: Object.assign(RevokeRewardController, RevokeRewardController),
 RewardController: Object.assign(RewardController, RewardController),
 }
 

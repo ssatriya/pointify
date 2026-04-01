@@ -58,6 +58,7 @@ enum Permission: string
     // Violations
     case VIOLATIONS_VIEW = 'violations.view';
     case VIOLATIONS_CREATE = 'violations.create';
+    case VIOLATIONS_REVOKE = 'violations.revoke';
 
     // Violation Approvals
     case VIOLATION_APPROVALS_VIEW = 'violation-approvals.view';
@@ -65,6 +66,7 @@ enum Permission: string
     // Rewards
     case REWARDS_VIEW = 'rewards.view';
     case REWARDS_CREATE = 'rewards.create';
+    case REWARDS_REVOKE = 'rewards.revoke';
 
     // Violation letters
     case VIOLATION_LETTERS_GENERATE = 'violation-letters.generate';

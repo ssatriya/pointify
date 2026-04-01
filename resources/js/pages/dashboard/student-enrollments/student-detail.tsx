@@ -7,7 +7,8 @@ import {
     CardTableTitle
 } from "@/components/ui/card-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import type { BreadcrumbItem, StudentEnrollmentSummary } from "@/types";
+import type { BreadcrumbItem } from "@/types";
+import { PointTransaction, StudentEnrollmentSummary } from "@/types/data-props";
 import { Badge } from "@/components/ui/badge";
 import { index as dashboardIndex } from "@/routes/dashboard";
 import { index as classIndex } from "@/routes/dashboard/class";
@@ -28,10 +29,13 @@ import {
     History as HistoryIcon
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { RotateCcw } from "lucide-react";
+import { RevokeTransactionAction } from "./partials/revoke-transaction-action";
 
 type Props = {
     studentEnrollment: StudentEnrollmentSummary;
 };
+
 
 export default function StudentDetail({ studentEnrollment }: Props) {
     const breadcrumbs: BreadcrumbItem[] = [
@@ -231,6 +235,7 @@ export default function StudentDetail({ studentEnrollment }: Props) {
                                                     <TableHead className="w-[15%] tracking-wider">Petugas</TableHead>
                                                     <TableHead className="w-[10%] text-center tracking-wider">Skor</TableHead>
                                                     <TableHead className="w-[10%] text-end tracking-wider pr-4">Saldo Akhir</TableHead>
+                                                    <TableHead className="w-[50px]"></TableHead>
                                                 </TableRow>
                                             </TableHeader>
                                             <TableBody>
@@ -248,6 +253,8 @@ export default function StudentDetail({ studentEnrollment }: Props) {
                                                                 <Badge variant="destructive" className="h-5 px-1.5 font-bold uppercase rounded">HUKUMAN</Badge>
                                                             ) : item.type === "reward" ? (
                                                                 <Badge variant="success" className="h-5 px-1.5 font-bold uppercase rounded">HADIAH</Badge>
+                                                            ) : item.type === "revoked" ? (
+                                                                <Badge variant="outline" className="h-5 px-1.5 font-bold uppercase rounded text-muted-foreground border-muted-foreground/30">BATAL</Badge>
                                                             ) : (
                                                                 <Badge variant="secondary" className="h-5 px-1.5 font-bold uppercase rounded">RESET</Badge>
                                                             )}
@@ -273,6 +280,11 @@ export default function StudentDetail({ studentEnrollment }: Props) {
                                                         </TableCell>
                                                         <TableCell className="text-end font-bold tabular-nums pr-4 text-xs">
                                                             {item.points_after}
+                                                        </TableCell>
+                                                        <TableCell className="p-0">
+                                                            <div className="flex justify-center opacity-0 group-hover:opacity-100 transition-opacity pr-2">
+                                                                <RevokeTransactionAction item={item} />
+                                                            </div>
                                                         </TableCell>
                                                     </TableRow>
                                                 ))}

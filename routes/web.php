@@ -3,6 +3,8 @@
 use App\Http\Controllers\AcademicYear\AcademicYearController;
 use App\Http\Controllers\ActiveAcademicYearController;
 use App\Http\Controllers\PointThresholdController;
+use App\Http\Controllers\RevokeRewardController;
+use App\Http\Controllers\RevokeViolationController;
 use App\Http\Controllers\RewardController;
 use App\Http\Controllers\RewardTypeController;
 use App\Http\Controllers\SearchAcademicYearController;
@@ -118,15 +120,17 @@ Route::middleware(['auth', 'verified'])
         Route::prefix('violations')->name('violations.')->group(function () {
             Route::get('/approval', [ViolationApprovalController::class, 'index'])->name('approval.index');
             Route::get('/approval/{violation}', [ViolationApprovalController::class, 'show'])->name('approval.show');
-            Route::patch('/approval/{violation}', [ViolationApprovalController::class, 'update'])->name('approval.update');
+            Route::put('/approval/{violation}', [ViolationApprovalController::class, 'update'])->name('approval.update');
+            Route::put('/revoke/{violation}', RevokeViolationController::class)->name('revoke');
 
             Route::post('/', ViolationController::class)->name('store');
         });
 
         Route::prefix('rewards')->name('rewards.')->group(function () {
+            Route::post('/revoke/{reward}', RevokeRewardController::class)->name('revoke');
+
             Route::post('/', RewardController::class)->name('store');
             // Route::post('/{student_enrollment}', [RewardStudentController::class, 'store']);
-            // Route::post('/{reward}/revoke', [RewardStudentController::class, 'revokeReward']);
         });
 
         Route::prefix('{studentClass:slug}')->name('class.')->group(function () {

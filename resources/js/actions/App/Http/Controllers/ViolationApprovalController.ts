@@ -184,15 +184,15 @@ show.head = (args: { violation: string | { id: string } } | [violation: string |
  * @see app/Http/Controllers/ViolationApprovalController.php:38
  * @route '/dashboard/violations/approval/{violation}'
  */
-export const update = (args: { violation: string | { id: string } } | [violation: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+export const update = (args: { violation: string | { id: string } } | [violation: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
-    method: 'patch',
+    method: 'put',
 })
 
 update.definition = {
-    methods: ["patch"],
+    methods: ["put"],
     url: '/dashboard/violations/approval/{violation}',
-} satisfies RouteDefinition<["patch"]>
+} satisfies RouteDefinition<["put"]>
 
 /**
 * @see \App\Http\Controllers\ViolationApprovalController::update
@@ -232,9 +232,9 @@ update.url = (args: { violation: string | { id: string } } | [violation: string 
  * @see app/Http/Controllers/ViolationApprovalController.php:38
  * @route '/dashboard/violations/approval/{violation}'
  */
-update.patch = (args: { violation: string | { id: string } } | [violation: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'patch'> => ({
+update.put = (args: { violation: string | { id: string } } | [violation: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
-    method: 'patch',
+    method: 'put',
 })
 
     /**
@@ -245,7 +245,7 @@ update.patch = (args: { violation: string | { id: string } } | [violation: strin
     const updateForm = (args: { violation: string | { id: string } } | [violation: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                        _method: 'PATCH',
+                        _method: 'PUT',
                         ...(options?.query ?? options?.mergeQuery ?? {}),
                     }
                 }),
@@ -257,10 +257,10 @@ update.patch = (args: { violation: string | { id: string } } | [violation: strin
  * @see app/Http/Controllers/ViolationApprovalController.php:38
  * @route '/dashboard/violations/approval/{violation}'
  */
-        updateForm.patch = (args: { violation: string | { id: string } } | [violation: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { violation: string | { id: string } } | [violation: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
-                            _method: 'PATCH',
+                            _method: 'PUT',
                             ...(options?.query ?? options?.mergeQuery ?? {}),
                         }
                     }),
