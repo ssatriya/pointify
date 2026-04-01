@@ -54,9 +54,8 @@ export default function StudentEnrollments({ studentClass, studentEnrollments }:
                     </CardTableActions>
                 </CardTableHeader>
                 <CardTableContent>
-                    <div className="overflow-x-auto">
-                        <Table className="table-fixed">
-                            <TableHeader>
+                    <Table className="table-fixed min-w-[900px]">
+                        <TableHeader>
                                 <TableRow className="h-12">
                                     <TableHead className="w-[30%] min-w-[200px]">Nama Siswa</TableHead>
                                     <TableHead className="w-[15%] min-w-[150px] text-center">Poin Saat Ini</TableHead>
@@ -70,7 +69,7 @@ export default function StudentEnrollments({ studentClass, studentEnrollments }:
                                 {studentEnrollments.data.length > 0 ? (
                                     studentEnrollments.data.map((item) => (
                                         <TableRow key={item.id} className="h-12">
-                                            <TableCell>
+                                            <TableCell className="truncate">
                                                 <Link
                                                     href={studentDetail({ studentClass: studentClass.slug, studentEnrollment: item.id }).url}
                                                     className="hover:underline"
@@ -105,7 +104,6 @@ export default function StudentEnrollments({ studentClass, studentEnrollments }:
                             </TableBody>
                         </Table>
                         <TablePagination links={studentEnrollments.links} meta={studentEnrollments.meta} />
-                    </div>
                 </CardTableContent>
             </CardTable>
         </>

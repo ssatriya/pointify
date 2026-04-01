@@ -224,8 +224,7 @@ export default function StudentDetail({ studentEnrollment }: Props) {
                                     </CardTableActions>
                                 </CardTableHeader>
                                 <CardTableContent>
-                                    <div className="overflow-x-auto">
-                                        <Table>
+                                    <Table className="min-w-[1000px]">
                                             <TableHeader>
                                                 <TableRow className="h-10 border-b-muted/40">
                                                     <TableHead className="w-[12%] tracking-wider">Tanggal</TableHead>
@@ -267,7 +266,7 @@ export default function StudentDetail({ studentEnrollment }: Props) {
                                                                 <span className="font-medium leading-tight line-clamp-1">{item.notes || "Keterangan sistem"}</span>
                                                             </div>
                                                         </TableCell>
-                                                        <TableCell>
+                                                        <TableCell className="truncate">
                                                             {item.created_by}
                                                         </TableCell>
                                                         <TableCell className="text-center">
@@ -289,8 +288,7 @@ export default function StudentDetail({ studentEnrollment }: Props) {
                                                     </TableRow>
                                                 ))}
                                             </TableBody>
-                                        </Table>
-                                    </div>
+                                    </Table>
                                 </CardTableContent>
                             </CardTable>
                         ))

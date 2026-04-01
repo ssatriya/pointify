@@ -90,9 +90,8 @@ export default function Students({ students, vocationalPrograms = [] }: Props) {
                 </CardTableActions>
             </CardTableHeader>
             <CardTableContent>
-                <div className="overflow-clip bg-transparent">
-                    <Table className="table-fixed">
-                        <TableHeader>
+                <Table className="table-fixed min-w-[900px]">
+                    <TableHeader>
                             <TableRow className="h-12">
                                 <TableHead className="w-[30%]">Nama</TableHead>
                                 <TableHead className="w-[20%]">NIS / NISN</TableHead>
@@ -120,7 +119,7 @@ export default function Students({ students, vocationalPrograms = [] }: Props) {
                                                     </TableRow>
                                                 )}
                                                 <TableRow className="h-12 border-b">
-                                                    <TableCell>{item.name}</TableCell>
+                                                    <TableCell className="truncate">{item.name}</TableCell>
                                                     <TableCell>{item.student_number || "-"}</TableCell>
                                                     <TableCell>{item.vocational_program.label}</TableCell>
                                                     <TableCell>
@@ -151,7 +150,6 @@ export default function Students({ students, vocationalPrograms = [] }: Props) {
                         </TableBody>
                     </Table>
                     <TablePagination links={students.links} meta={students.meta} />
-                </div>
             </CardTableContent>
         </CardTable>
     </>

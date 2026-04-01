@@ -24,6 +24,7 @@ class ViolationApprovalController extends Controller
             'studentEnrollment',
             'studentEnrollment.student',
             'studentEnrollment.studentClass',
+            'studentEnrollment.studentClass.vocationalProgram',
             'violationType',
             'createdBy',
         ]);
@@ -48,6 +49,7 @@ class ViolationApprovalController extends Controller
             'studentEnrollment',
             'studentEnrollment.student',
             'studentEnrollment.studentClass',
+            'studentEnrollment.studentClass.vocationalProgram',
             'violationType',
             'createdBy',
         ]);

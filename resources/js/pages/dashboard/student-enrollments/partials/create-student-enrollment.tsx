@@ -97,7 +97,7 @@ export default NiceModal.create(({ studentClassSlug, vocationalProgramId }: { st
             <DialogContent
                 initialFocus={visible ?? lastFocusedRef}
                 onFocusCapture={onFocusCapture}
-                className="sm:max-w-xl">
+                className="sm:max-w-2xl">
                 <DialogHeader>
                     <DialogTitle>Tambah Siswa ke Kelas</DialogTitle>
                     <DialogDescription>
@@ -123,7 +123,6 @@ export default NiceModal.create(({ studentClassSlug, vocationalProgramId }: { st
                             />
                             {errors.student_id && <FieldError>{errors.student_id}</FieldError>}
                         </Field>
-
                         <Field>
                             <FieldLabel>Tahun Akademik Aktif</FieldLabel>
                             <Input
@@ -134,8 +133,7 @@ export default NiceModal.create(({ studentClassSlug, vocationalProgramId }: { st
                             />
                             {errors.academic_year_id && <FieldError>{errors.academic_year_id}</FieldError>}
                         </Field>
-
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-2 gap-5">
                             <Field className="flex flex-col gap-1.5 [&>label]:font-semibold [&>label]:mb-0 border-none!">
                                 <FieldLabel className="mb-0">Status Kenaikan</FieldLabel>
                                 <CheckboxCard
@@ -147,7 +145,6 @@ export default NiceModal.create(({ studentClassSlug, vocationalProgramId }: { st
                                 />
                                 {errors.is_repeating && <FieldError>{errors.is_repeating}</FieldError>}
                             </Field>
-
                             <Field className="flex flex-col gap-1.5 [&>label]:font-semibold [&>label]:mb-0 border-none!">
                                 <FieldLabel className="mb-0">Status Pendaftaran</FieldLabel>
                                 <CheckboxCard

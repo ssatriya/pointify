@@ -38,7 +38,7 @@ export default function EditStudentEnrollment({
     }
 
     return (
-        <InertiaModal isDirty={isDirty} className="sm:max-w-xl">
+        <InertiaModal isDirty={isDirty} className="sm:max-w-2xl">
             {({ close }) => (
                 <>
                     <DialogHeader>
@@ -58,7 +58,6 @@ export default function EditStudentEnrollment({
                                     className="bg-muted text-muted-foreground"
                                 />
                             </Field>
-
                             <Field>
                                 <FieldLabel>Tahun Akademik</FieldLabel>
                                 <Input
@@ -68,11 +67,10 @@ export default function EditStudentEnrollment({
                                     className="bg-muted text-muted-foreground"
                                 />
                             </Field>
-
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-2 gap-5">
                                 <Field className="flex flex-col gap-1.5 [&>label]:font-semibold [&>label]:mb-0 border-none!">
                                     <FieldLabel className="mb-0">Status Kenaikan</FieldLabel>
-                                    <CheckboxCard 
+                                    <CheckboxCard
                                         title="Mengulang Kelas"
                                         detail="Centang jika siswa ini tinggal di kelas yang sama."
                                         checked={data.is_repeating}
@@ -81,10 +79,9 @@ export default function EditStudentEnrollment({
                                     />
                                     {errors.is_repeating && <FieldError>{errors.is_repeating}</FieldError>}
                                 </Field>
-
                                 <Field className="flex flex-col gap-1.5 [&>label]:font-semibold [&>label]:mb-0 border-none!">
                                     <FieldLabel className="mb-0">Status Pendaftaran</FieldLabel>
-                                    <CheckboxCard 
+                                    <CheckboxCard
                                         title="Siswa Aktif"
                                         detail="Centang jika siswa ini masih aktif di sekolah."
                                         checked={data.is_active}

@@ -62,9 +62,8 @@ export default function UserIndex({ users }: Props) {
                     </CardTableActions>
                 </CardTableHeader>
                 <CardTableContent>
-                    <div className="overflow-clip bg-transparent">
-                        <Table className="table-fixed">
-                            <TableHeader>
+                    <Table className="table-fixed min-w-[800px]">
+                        <TableHeader>
                                 <TableRow className="h-12">
                                     <TableHead className="w-[20%] min-w-[150px]">
                                         Nama
@@ -91,12 +90,12 @@ export default function UserIndex({ users }: Props) {
                                             key={user.id}
                                             className="h-12"
                                         >
-                                            <TableCell>
+                                            <TableCell className="truncate">
                                                 <span className="text-foreground">
                                                     {user.name}
                                                 </span>
                                             </TableCell>
-                                            <TableCell>
+                                            <TableCell className="truncate">
                                                 <span>
                                                     {user.email}
                                                 </span>
@@ -144,7 +143,6 @@ export default function UserIndex({ users }: Props) {
                             links={users.links}
                             meta={users.meta}
                         />
-                    </div>
                 </CardTableContent>
             </CardTable>
         </>

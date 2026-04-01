@@ -51,9 +51,8 @@ export default function RewardTypes({ rewardTypes }: Props) {
             </CardTableActions>
         </CardTableHeader>
         <CardTableContent>
-            <div className="overflow-x-auto">
-                <Table className="table-fixed">
-                    <TableHeader>
+            <Table className="table-fixed min-w-[800px]">
+                <TableHeader>
                         <TableRow className="h-12">
                             <TableHead className="w-[10%] min-w-[100px]">Kode</TableHead>
                             <TableHead className="w-[50%] min-w-[250px]">Keterangan</TableHead>
@@ -68,7 +67,7 @@ export default function RewardTypes({ rewardTypes }: Props) {
                             rewardTypes.data.map((item) => (
                                 <TableRow key={item.id} className="h-12">
                                     <TableCell>{item.code}</TableCell>
-                                    <TableCell>{item.description}</TableCell>
+                                    <TableCell className="truncate">{item.description}</TableCell>
                                     <TableCell className="text-center">{item.points}</TableCell>
                                     <TableCell className="text-center">
                                         {item.is_active ? (
@@ -95,7 +94,6 @@ export default function RewardTypes({ rewardTypes }: Props) {
                     </TableBody>
                 </Table>
                 <TablePagination links={rewardTypes.links} meta={rewardTypes.meta} />
-            </div>
         </CardTableContent>
     </CardTable>
     );

@@ -63,9 +63,8 @@ export default function VocationalPrograms({ vocationalPrograms }: Props) {
                 </CardTableActions>
             </CardTableHeader>
             <CardTableContent>
-                <div className="overflow-clip bg-transparent">
-                    <Table className="table-fixed">
-                        <TableHeader>
+                <Table className="table-fixed min-w-[700px]">
+                    <TableHeader>
                             <TableRow className="h-12">
                                 <TableHead className="w-[45%] min-w-[200px]">Nama Kejuruan</TableHead>
                                 <TableHead className="w-[25%] min-w-[150px]">Singkatan</TableHead>
@@ -77,7 +76,7 @@ export default function VocationalPrograms({ vocationalPrograms }: Props) {
                             {vocationalPrograms.data.length > 0 ? (
                                 vocationalPrograms.data.map((item) => (
                                     <TableRow key={item.id} className="h-12">
-                                        <TableCell>{item.name}</TableCell>
+                                        <TableCell className="truncate">{item.name}</TableCell>
                                         <TableCell>{item.abbreviation ?? "—"}</TableCell>
                                         <TableCell>{item.created_at}</TableCell>
                                         <TableCell className="text-end">
@@ -97,7 +96,6 @@ export default function VocationalPrograms({ vocationalPrograms }: Props) {
                         </TableBody>
                     </Table>
                     <TablePagination links={vocationalPrograms.links} meta={vocationalPrograms.meta} />
-                </div>
             </CardTableContent>
         </CardTable>
     </>)

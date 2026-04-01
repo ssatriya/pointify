@@ -16,7 +16,7 @@ class SelectOptionResource extends JsonResource
     {
         return [
             'value' => $this->id,
-            'label' => $this->name,
+            'label' => $this->label,
         ];
     }
 }

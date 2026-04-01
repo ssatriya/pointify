@@ -22,6 +22,7 @@ class ViolationResource extends JsonResource
             'student' => [
                 'name' => $this->studentEnrollment->student->name,
                 'class' => $this->studentEnrollment->studentClass->name,
+                'abbreviation' => $this->studentEnrollment->studentClass->abbreviation,
                 'signature_src' => asset($signaturePath)
             ],
             'violation' => [

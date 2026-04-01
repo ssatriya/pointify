@@ -73,51 +73,49 @@ export default function AcademicYears({ academicYears }: Props) {
                 </CardTableActions>
             </CardTableHeader>
             <CardTableContent>
-                <div className="overflow-clip bg-transparent">
-                    <Table className="table-fixed">
-                        <TableHeader>
-                            <TableRow className="h-12">
-                                <TableHead className="w-[40%]">Tahun Ajaran</TableHead>
-                                <TableHead className="w-[15%]">Awal</TableHead>
-                                <TableHead className="w-[15%]">Akhir</TableHead>
-                                <TableHead className="w-[10%] text-center">Status</TableHead>
-                                <TableHead className="w-[15%] min-w-[150px]">Tanggal Dibuat</TableHead>
-                                <TableHead className="w-[5%] whitespace-nowrap"></TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {academicYears.data.length > 0 ? (
-                                academicYears.data.map((item) => (
-                                    <TableRow key={item.id} className="h-12">
-                                        <TableCell>{item.name}</TableCell>
-                                        <TableCell>{item.start_date}</TableCell>
-                                        <TableCell>{item.end_date}</TableCell>
-                                        <TableCell className="text-center">
-                                            {item.is_active ? (
-                                                <Badge variant="success">Aktif</Badge>
-                                            ) : (
-                                                <Badge variant="secondary">Nonaktif</Badge>
-                                            )}
-                                        </TableCell>
-                                        <TableCell>{item.created_at}</TableCell>
-                                        <TableCell className="text-end">
-                                            <div className="flex justify-end gap-2">
-                                                <AcademicYearActions id={item.id} />
-                                            </div>
-                                        </TableCell>
-                                    </TableRow>
-                                ))
-                            ) : (
-                                <TableRow>
-                                    <TableCell colSpan={6} className="h-24 text-center text-muted-foreground">
-                                        Belum ada data
+                <Table className="table-fixed min-w-[700px]">
+                    <TableHeader>
+                        <TableRow className="h-12">
+                            <TableHead className="w-[15%]">Tahun Ajaran</TableHead>
+                            <TableHead className="w-[15%]">Awal</TableHead>
+                            <TableHead className="w-[15%]">Akhir</TableHead>
+                            <TableHead className="w-[10%] text-center">Status</TableHead>
+                            <TableHead className="w-[15%] min-w-[150px]">Tanggal Dibuat</TableHead>
+                            <TableHead className="w-[5%] whitespace-nowrap"></TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {academicYears.data.length > 0 ? (
+                            academicYears.data.map((item) => (
+                                <TableRow key={item.id} className="h-12">
+                                    <TableCell className="truncate">{item.name}</TableCell>
+                                    <TableCell>{item.start_date}</TableCell>
+                                    <TableCell>{item.end_date}</TableCell>
+                                    <TableCell className="text-center">
+                                        {item.is_active ? (
+                                            <Badge variant="success">Aktif</Badge>
+                                        ) : (
+                                            <Badge variant="secondary">Nonaktif</Badge>
+                                        )}
+                                    </TableCell>
+                                    <TableCell>{item.created_at}</TableCell>
+                                    <TableCell className="text-end">
+                                        <div className="flex justify-end gap-2">
+                                            <AcademicYearActions id={item.id} />
+                                        </div>
                                     </TableCell>
                                 </TableRow>
-                            )}
-                        </TableBody>
-                    </Table>
-                    <TablePagination links={academicYears.links} meta={academicYears.meta} />
-                </div>
+                            ))
+                        ) : (
+                            <TableRow>
+                                <TableCell colSpan={6} className="h-24 text-center text-muted-foreground">
+                                    Belum ada data
+                                </TableCell>
+                            </TableRow>
+                        )}
+                    </TableBody>
+                </Table>
+                <TablePagination links={academicYears.links} meta={academicYears.meta} />
             </CardTableContent>
         </CardTable>
     </>

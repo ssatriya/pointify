@@ -23,6 +23,7 @@ interface Violation {
     student: {
         name: string;
         class: string;
+        abbreviation?: string;
         signature_src: string;
     };
     violation: {
@@ -87,28 +88,27 @@ export default function ViolationApprovals({ violations }: Props) {
                     </CardTableActions>
                 </CardTableHeader>
                 <CardTableContent>
-                    <div className="overflow-clip bg-transparent">
-                        <Table className="table-fixed">
-                            <TableHeader>
-                                <TableRow className="h-12">
-                                    <TableHead className="w-[20%]">Nama Siswa</TableHead>
-                                    <TableHead className="w-[10%]">Kelas</TableHead>
-                                    <TableHead className="w-[25%]">Pelanggaran</TableHead>
-                                    <TableHead className="w-[10%]">Poin</TableHead>
-                                    <TableHead className="w-[12%]">Dibuat Oleh</TableHead>
-                                    <TableHead className="w-[18%] min-w-[150px]">Tanggal Dibuat</TableHead>
-                                    <TableHead className="w-[5%] whitespace-nowrap"></TableHead>
-                                </TableRow>
-                            </TableHeader>
+                    <Table className="min-w-[900px] table-fixed">
+                        <TableHeader>
+                            <TableRow className="h-12">
+                                <TableHead className="w-[20%]">Nama Siswa</TableHead>
+                                <TableHead className="w-[12%]">Kelas</TableHead>
+                                <TableHead className="w-[25%]">Pelanggaran</TableHead>
+                                <TableHead className="w-[8%] text-center">Poin</TableHead>
+                                <TableHead className="w-[15%]">Dibuat Oleh</TableHead>
+                                <TableHead className="w-[15%]">Tanggal Dibuat</TableHead>
+                                <TableHead className="w-[5%]"></TableHead>
+                            </TableRow>
+                        </TableHeader>
                             <TableBody>
                                 {violations.data.length > 0 ? (
                                     violations.data.map((item) => (
                                         <TableRow key={item.id} className="h-12">
-                                            <TableCell>{item.student.name}</TableCell>
-                                            <TableCell>{item.student.class}</TableCell>
-                                            <TableCell>{item.violation.name}</TableCell>
+                                            <TableCell className="truncate">{item.student.name}</TableCell>
+                                            <TableCell>{item.student.abbreviation || item.student.class}</TableCell>
+                                            <TableCell className="truncate">{item.violation.name}</TableCell>
                                             <TableCell>{item.violation.points}</TableCell>
-                                            <TableCell>{item.created_by}</TableCell>
+                                            <TableCell className="truncate">{item.created_by}</TableCell>
                                             <TableCell>{item.created_at}</TableCell>
                                             <TableCell className="text-end">
                                                 <div className="flex justify-end gap-2">
@@ -129,7 +129,6 @@ export default function ViolationApprovals({ violations }: Props) {
                             </TableBody>
                         </Table>
                         <TablePagination links={violations.links} meta={violations.meta} />
-                    </div>
                 </CardTableContent>
             </CardTable>
         </>

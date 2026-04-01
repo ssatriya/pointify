@@ -63,9 +63,8 @@ export default function Classes({ classes }: Props) {
                 </CardTableActions>
             </CardTableHeader>
             <CardTableContent>
-                <div className="overflow-clip bg-transparent">
-                    <Table className="table-fixed">
-                        <TableHeader>
+                <Table className="table-fixed min-w-[800px]">
+                    <TableHeader>
                             <TableRow className="h-12">
                                 <TableHead className="w-[30%]">Nama</TableHead>
                                 <TableHead className="w-[15%]">Tingkat</TableHead>
@@ -79,7 +78,7 @@ export default function Classes({ classes }: Props) {
                             {classes.data.length > 0 ? (
                                 classes.data.map((item) => (
                                     <TableRow key={item.id} className="h-12">
-                                        <TableCell>{item.name}</TableCell>
+                                        <TableCell className="truncate">{item.name}</TableCell>
                                         <TableCell>{item.grade_level.label}</TableCell>
                                         <TableCell>{item.section.label}</TableCell>
                                         <TableCell>{item.vocational_program.label}</TableCell>
@@ -101,7 +100,6 @@ export default function Classes({ classes }: Props) {
                         </TableBody>
                     </Table>
                     <TablePagination links={classes.links} meta={classes.meta} />
-                </div>
             </CardTableContent>
         </CardTable>
     </>

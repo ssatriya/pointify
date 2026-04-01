@@ -65,9 +65,8 @@ export default function PointThresholds({ pointThresholds }: Props) {
                 </CardTableActions>
             </CardTableHeader>
             <CardTableContent>
-                <div className="overflow-clip bg-transparent">
-                    <Table className="table-fixed">
-                        <TableHeader>
+                <Table className="table-fixed min-w-[800px]">
+                    <TableHeader>
                             <TableRow className="h-12">
                                 <TableHead className="w-[20%] min-w-[150px]">Tahun Akademik</TableHead>
                                 <TableHead className="w-[15%] min-w-[100px] text-center">Ambang Poin</TableHead>
@@ -109,7 +108,6 @@ export default function PointThresholds({ pointThresholds }: Props) {
                         </TableBody>
                     </Table>
                     <TablePagination links={pointThresholds.links} meta={pointThresholds.meta} />
-                </div>
             </CardTableContent>
         </CardTable>
     </>)

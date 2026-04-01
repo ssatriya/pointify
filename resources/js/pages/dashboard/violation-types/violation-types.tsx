@@ -63,9 +63,8 @@ export default function ViolationTypes({ violationTypes }: Props) {
                 </CardTableActions>
             </CardTableHeader>
             <CardTableContent>
-                <div className="overflow-x-auto">
-                    <Table className="table-fixed">
-                        <TableHeader>
+                <Table className="min-w-[800px] table-fixed">
+                    <TableHeader>
                             <TableRow className="h-12">
                                 <TableHead className="w-[10%] min-w-[100px]">Kode</TableHead>
                                 <TableHead className="w-[50%] min-w-[250px]">Keterangan</TableHead>
@@ -80,7 +79,7 @@ export default function ViolationTypes({ violationTypes }: Props) {
                                 violationTypes.data.map((item) => (
                                     <TableRow key={item.id} className="h-12">
                                         <TableCell>{item.code}</TableCell>
-                                        <TableCell>{item.description}</TableCell>
+                                        <TableCell className="truncate">{item.description}</TableCell>
                                         <TableCell className="text-center">{item.points}</TableCell>
                                         <TableCell className="text-center">
                                             {item.is_active ? (
@@ -107,7 +106,6 @@ export default function ViolationTypes({ violationTypes }: Props) {
                         </TableBody>
                     </Table>
                     <TablePagination links={violationTypes.links} meta={violationTypes.meta} />
-                </div>
             </CardTableContent>
         </CardTable>
     </>);

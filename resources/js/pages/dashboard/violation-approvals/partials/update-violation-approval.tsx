@@ -10,15 +10,15 @@ import { useForm } from "@inertiajs/react";
 import { toast } from "sonner";
 import ViolationApprovalController from "@/actions/App/Http/Controllers/ViolationApprovalController";
 import createRejectionReason from "./create-rejection-reason";
-import { 
-    User, 
-    GraduationCap, 
-    AlertCircle, 
-    Badge, 
-    UserCheck, 
-    Calendar, 
-    FileText, 
-    X, 
+import {
+    User,
+    GraduationCap,
+    AlertCircle,
+    Badge,
+    UserCheck,
+    Calendar,
+    FileText,
+    X,
     Check,
     Loader2
 } from "lucide-react";
@@ -49,7 +49,7 @@ interface Props {
 
 export default function UpdateViolationApproval({ violation }: Props) {
     const { show: showRejectionModal } = useModal(createRejectionReason);
-    const { patch, processing: isPending } = useForm({
+    const { put, processing: isPending } = useForm({
         status: "approved"
     });
 
@@ -57,8 +57,9 @@ export default function UpdateViolationApproval({ violation }: Props) {
     const [isImageError, setIsImageError] = useState(false);
 
     const handleApprove = () => {
-        patch(ViolationApprovalController.update.url(violation.id), {
-            onSuccess: () => {
+        put(ViolationApprovalController.update.url(violation.id), {
+            onSuccess: (data) => {
+                console.log(data)
                 toast.success("Pelanggaran Berhasil Disetujui");
             }
         });

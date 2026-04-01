@@ -36,4 +36,20 @@ class RewardType extends Model
     protected $casts = [
         'is_active' => 'boolean',
     ];
+
+    /**
+     * Get the description as name
+     */
+    public function getNameAttribute(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * Get the formatted label for selects
+     */
+    public function getLabelAttribute(): string
+    {
+        return "[{$this->code}] {$this->description} - {$this->points} poin";
+    }
 }
