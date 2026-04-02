@@ -13,13 +13,13 @@ import CheckboxCard from "@/components/ui/checkbox-card";
 import { ReactAsyncSelect } from "@/components/react-select";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import { useFocusRestore } from "@/hooks/use-restore-focus";
-import { useForm } from "@inertiajs/react";
+import { useForm, useHttp } from "@inertiajs/react";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { store } from "@/routes/dashboard/class";
 import { active } from "@/routes/dashboard/academic-years";
 import { selectUnenrolled } from "@/routes/dashboard/students";
 import { Loader } from "lucide-react";
-import axios from "axios";
+import type { OptionType } from "@/types";
 
 export default NiceModal.create(({ studentClassSlug, vocationalProgramId }: { studentClassSlug: string, vocationalProgramId: string }) => {
     const { visible, hide, show, remove } = useModal()
@@ -38,32 +38,28 @@ export default NiceModal.create(({ studentClassSlug, vocationalProgramId }: { st
 
     const [academicYearName, setAcademicYearName] = useState("Memuat...");
 
+    const { get: getAcademicYear } = useHttp<{}, { data: OptionType }>()
+    const { get: getStudents } = useHttp<{}, OptionType[]>()
+
     useEffect(() => {
         if (visible) {
-            axios.get(active().url)
-                .then(res => {
-                    const ac = res.data.data;
-                    setDefaults("academic_year_id", ac.value);
-                    setData("academic_year_id", ac.value);
-                    setAcademicYearName(ac.label);
+            getAcademicYear(active().url)
+                .then(response => {
+                    const ac = response.data;
+                    setDefaults("academic_year_id", ac.value as string);
+                    setData("academic_year_id", ac.value as string);
+                    setAcademicYearName(ac.label as string);
                 })
-                .catch(err => {
+                .catch(() => {
                     setAcademicYearName("Gagal memuat tahun ajaran aktif");
                 });
         }
     }, [visible]);
 
     const loadOptions = async (inputValue: string) => {
-        try {
-            const res = await axios.get(
-                selectUnenrolled({ vocational_program: vocationalProgramId }).url,
-                { params: { q: inputValue } }
-            );
-            return res.data.data;
-        } catch (error) {
-            console.error(error);
-            return [];
-        }
+        return await getStudents(
+            selectUnenrolled({ vocational_program: vocationalProgramId }).url + `?q=${encodeURIComponent(inputValue)}`
+        )
     };
 
     function submit(e: SyntheticEvent<HTMLFormElement>) {

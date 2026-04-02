@@ -8,7 +8,7 @@ import {
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useForm } from "@inertiajs/react";
+import { useForm, useHttp } from "@inertiajs/react";
 import { SyntheticEvent, useCallback, useState } from "react";
 import { update } from "@/actions/App/Http/Controllers/StudentController";
 import SearchVocationalProgramController from "@/actions/App/Http/Controllers/SearchVocationalProgramController";
@@ -30,15 +30,9 @@ export default function EditStudent({
 
     const [selectedOption, setSelectedOption] = useState<OptionType | null>(student.vocational_program);
 
+    const { get } = useHttp<{}, OptionType[]>()
     const loadOptions = useCallback(async (inputValue: string): Promise<OptionType[]> => {
-        const url = SearchVocationalProgramController.url({ query: { q: inputValue } });
-        const response = await fetch(url, {
-            headers: {
-                'Accept': 'application/json',
-            },
-        });
-        if (!response.ok) return [];
-        return await response.json();
+        return await get(SearchVocationalProgramController.url({ query: { q: inputValue } }))
     }, []);
 
     function submit(e: SyntheticEvent<HTMLFormElement>, close: () => void) {

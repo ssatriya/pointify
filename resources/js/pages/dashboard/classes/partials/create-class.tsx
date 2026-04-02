@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import { useFocusRestore } from "@/hooks/use-restore-focus";
-import { useForm } from "@inertiajs/react";
+import { useForm, useHttp } from "@inertiajs/react";
 import { SyntheticEvent, useCallback, useState } from "react";
 import { store } from "@/actions/App/Http/Controllers/StudentClassController";
 import SearchVocationalProgramController from "@/actions/App/Http/Controllers/SearchVocationalProgramController";
@@ -29,24 +29,16 @@ export default NiceModal.create(() => {
         visible,
         confirmVisible
     );
-
     const [selectedOption, setSelectedOption] = useState<OptionType | null>(null);
-
     const { data, setData, post, processing, errors, isDirty } = useForm({
         grade_level: "",
         vocational_program_id: "",
         section: "",
     });
 
+    const { get } = useHttp<{}, OptionType[]>()
     const loadOptions = useCallback(async (inputValue: string): Promise<OptionType[]> => {
-        const url = SearchVocationalProgramController.url({ query: { q: inputValue } });
-        const response = await fetch(url, {
-            headers: {
-                'Accept': 'application/json',
-            },
-        });
-        if (!response.ok) return [];
-        return await response.json();
+        return await get(SearchVocationalProgramController.url({ query: { q: inputValue } }))
     }, []);
 
     function submit(e: SyntheticEvent<HTMLFormElement>) {

@@ -4,7 +4,7 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFo
  * @see app/Http/Controllers/RevokeRewardController.php:18
  * @route '/dashboard/rewards/revoke/{reward}'
  */
-export const revoke = (args: { reward: string | { id: string } } | [reward: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+export const revoke = (args: { reward: string | number | { id: string | number } } | [reward: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: revoke.url(args, options),
     method: 'post',
 })
@@ -19,7 +19,7 @@ revoke.definition = {
  * @see app/Http/Controllers/RevokeRewardController.php:18
  * @route '/dashboard/rewards/revoke/{reward}'
  */
-revoke.url = (args: { reward: string | { id: string } } | [reward: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
+revoke.url = (args: { reward: string | number | { id: string | number } } | [reward: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { reward: args }
     }
@@ -52,7 +52,7 @@ revoke.url = (args: { reward: string | { id: string } } | [reward: string | { id
  * @see app/Http/Controllers/RevokeRewardController.php:18
  * @route '/dashboard/rewards/revoke/{reward}'
  */
-revoke.post = (args: { reward: string | { id: string } } | [reward: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+revoke.post = (args: { reward: string | number | { id: string | number } } | [reward: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: revoke.url(args, options),
     method: 'post',
 })
@@ -62,7 +62,7 @@ revoke.post = (args: { reward: string | { id: string } } | [reward: string | { i
  * @see app/Http/Controllers/RevokeRewardController.php:18
  * @route '/dashboard/rewards/revoke/{reward}'
  */
-    const revokeForm = (args: { reward: string | { id: string } } | [reward: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const revokeForm = (args: { reward: string | number | { id: string | number } } | [reward: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: revoke.url(args, options),
         method: 'post',
     })
@@ -72,7 +72,7 @@ revoke.post = (args: { reward: string | { id: string } } | [reward: string | { i
  * @see app/Http/Controllers/RevokeRewardController.php:18
  * @route '/dashboard/rewards/revoke/{reward}'
  */
-        revokeForm.post = (args: { reward: string | { id: string } } | [reward: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        revokeForm.post = (args: { reward: string | number | { id: string | number } } | [reward: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: revoke.url(args, options),
             method: 'post',
         })

@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/field";
 import { Textarea } from "@/components/ui/textarea";
 import { ReactAsyncSelect } from "@/components/react-select";
-import { useForm } from "@inertiajs/react";
+import { useForm, useHttp } from "@inertiajs/react";
 import { useCallback } from "react";
 import type { OptionType } from "@/types";
 import SearchStudentEnrollmentController from "@/actions/App/Http/Controllers/SearchStudentEnrollmentController";
@@ -28,22 +28,14 @@ export default function CreateRewards() {
         notes: "",
     });
 
+    const { get } = useHttp<{}, OptionType[]>()
+
     const loadStudentOptions = useCallback(async (inputValue: string): Promise<OptionType[]> => {
-        const url = SearchStudentEnrollmentController.url({ query: { q: inputValue } });
-        const response = await fetch(url, {
-            headers: { 'Accept': 'application/json' },
-        });
-        if (!response.ok) return [];
-        return await response.json();
+        return await get(SearchStudentEnrollmentController.url({ query: { q: inputValue } }))
     }, []);
 
     const loadRewardTypeOptions = useCallback(async (inputValue: string): Promise<OptionType[]> => {
-        const url = SearchRewardTypeController.url({ query: { q: inputValue } });
-        const response = await fetch(url, {
-            headers: { 'Accept': 'application/json' },
-        });
-        if (!response.ok) return [];
-        return await response.json();
+        return await get(SearchRewardTypeController.url({ query: { q: inputValue } }))
     }, []);
 
     const handleSubmit = (e: React.FormEvent) => {

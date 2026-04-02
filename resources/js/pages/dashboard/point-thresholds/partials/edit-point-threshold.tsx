@@ -9,7 +9,7 @@ import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/c
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { useForm } from "@inertiajs/react";
+import { useForm, useHttp } from "@inertiajs/react";
 import { SyntheticEvent, useCallback, useState } from "react";
 import { update } from "@/actions/App/Http/Controllers/PointThresholdController";
 import SearchAcademicYearController from "@/actions/App/Http/Controllers/SearchAcademicYearController";
@@ -33,15 +33,9 @@ export default function EditPointThreshold({
         is_active: pointThreshold.is_active,
     });
 
+    const { get } = useHttp<{}, OptionType[]>()
     const loadAcademicYears = useCallback(async (inputValue: string): Promise<OptionType[]> => {
-        const url = SearchAcademicYearController.url({ query: { q: inputValue } });
-        const response = await fetch(url, {
-            headers: {
-                'Accept': 'application/json',
-            },
-        });
-        if (!response.ok) return [];
-        return await response.json();
+        return await get(SearchAcademicYearController.url({ query: { q: inputValue } }))
     }, []);
 
     function submit(e: SyntheticEvent<HTMLFormElement>, close: () => void) {
