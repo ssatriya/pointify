@@ -35,8 +35,8 @@ export default NiceModal.create(() => {
         vocational_program_id: "",
         section: "",
     });
-
     const { get } = useHttp<{}, OptionType[]>()
+
     const loadOptions = useCallback(async (inputValue: string): Promise<OptionType[]> => {
         return await get(SearchVocationalProgramController.url({ query: { q: inputValue } }))
     }, []);

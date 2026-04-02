@@ -28,7 +28,8 @@ export default NiceModal.create(({ studentClassSlug, vocationalProgramId }: { st
         visible,
         confirmVisible
     );
-
+    const { get: getAcademicYear } = useHttp<{}, { data: OptionType }>()
+    const { get: getStudents } = useHttp<{}, OptionType[]>()
     const { data, setData, post, processing, errors, isDirty, setDefaults } = useForm({
         student_id: [] as string[],
         academic_year_id: "",
@@ -38,8 +39,6 @@ export default NiceModal.create(({ studentClassSlug, vocationalProgramId }: { st
 
     const [academicYearName, setAcademicYearName] = useState("Memuat...");
 
-    const { get: getAcademicYear } = useHttp<{}, { data: OptionType }>()
-    const { get: getStudents } = useHttp<{}, OptionType[]>()
 
     useEffect(() => {
         if (visible) {

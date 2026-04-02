@@ -27,10 +27,9 @@ export default function EditClass({
         vocational_program_id: studentClass.vocational_program.value.toString(),
         section: studentClass.section?.value.toString() ?? "",
     });
-
     const [selectedOption, setSelectedOption] = useState<OptionType | null>(studentClass.vocational_program);
-
     const { get } = useHttp<{}, OptionType[]>()
+
     const loadOptions = useCallback(async (inputValue: string): Promise<OptionType[]> => {
         return await get(SearchVocationalProgramController.url({ query: { q: inputValue } }))
     }, []);

@@ -28,17 +28,15 @@ export default NiceModal.create(() => {
         visible,
         confirmVisible
     );
-
     const [selectedAcademicYear, setSelectedAcademicYear] = useState<OptionType | null>(null);
-
     const { data, setData, post, processing, errors, isDirty } = useForm({
         academic_year_id: "",
         cumulative_points_threshold: "" as string | number,
         description: "",
         is_active: true,
     });
-
     const { get } = useHttp<{}, OptionType[]>()
+
     const loadAcademicYears = useCallback(async (inputValue: string): Promise<OptionType[]> => {
         return await get(SearchAcademicYearController.url({ query: { q: inputValue } }))
     }, []);

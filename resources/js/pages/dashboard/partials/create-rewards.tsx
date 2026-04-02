@@ -27,7 +27,6 @@ export default function CreateRewards() {
         reward_type: null as OptionType | null,
         notes: "",
     });
-
     const { get } = useHttp<{}, OptionType[]>()
 
     const loadStudentOptions = useCallback(async (inputValue: string): Promise<OptionType[]> => {
@@ -117,4 +116,4 @@ export default function CreateRewards() {
             </CardTableContent>
         </CardTable>
     );
-}
+}

@@ -28,9 +28,8 @@ export default NiceModal.create(() => {
         visible,
         confirmVisible
     );
-
+    const { get } = useHttp<{}, OptionType[]>()
     const [selectedOption, setSelectedOption] = useState<OptionType | null>(null);
-
     const { data, setData, post, processing, errors, isDirty } = useForm({
         student_number: "",
         name: "",
@@ -38,7 +37,6 @@ export default NiceModal.create(() => {
         is_active: true,
     });
 
-    const { get } = useHttp<{}, OptionType[]>()
     const loadOptions = useCallback(async (inputValue: string): Promise<OptionType[]> => {
         return await get(SearchVocationalProgramController.url({ query: { q: inputValue } }))
     }, []);

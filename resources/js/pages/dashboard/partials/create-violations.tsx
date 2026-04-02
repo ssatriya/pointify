@@ -28,21 +28,15 @@ import { reactSelectBorderStyle } from "@/lib/utils";
 export default function CreateViolations() {
     const [mounted, setMounted] = useState(false)
     useEffect(() => setMounted(true), [])
-
-
-
+    const { get } = useHttp<{}, OptionType[]>()
     const signatureRef = useRef<SignatureCanvas>(null);
     const [hasSignature, setHasSignature] = useState(false);
-
     const { data, setData, post, processing, errors, reset, transform } = useForm({
         student_enrollment: null as OptionType | null,
         violation_type: null as OptionType | null,
         notes: "",
         student_signature: "",
     });
-
-
-    const { get } = useHttp<{}, OptionType[]>()
 
     const loadStudentOptions = useCallback(async (inputValue: string): Promise<OptionType[]> => {
         return await get(SearchStudentEnrollmentController.url({ query: { q: inputValue } }))

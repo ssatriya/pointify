@@ -25,15 +25,14 @@ export default function EditPointThreshold({
     pointThreshold: PointThreshold;
 }) {
     const [selectedAcademicYear, setSelectedAcademicYear] = useState<OptionType | null>(pointThreshold.academic_year);
-
     const { data, setData, put, processing, errors, isDirty } = useForm({
         academic_year_id: pointThreshold.academic_year.value as string,
         cumulative_points_threshold: pointThreshold.cumulative_points_threshold,
         description: pointThreshold.description || "",
         is_active: pointThreshold.is_active,
     });
-
     const { get } = useHttp<{}, OptionType[]>()
+
     const loadAcademicYears = useCallback(async (inputValue: string): Promise<OptionType[]> => {
         return await get(SearchAcademicYearController.url({ query: { q: inputValue } }))
     }, []);
