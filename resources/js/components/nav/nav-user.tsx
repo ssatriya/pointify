@@ -55,7 +55,7 @@ export function NavUser({
                                 size="lg"
                                 className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                             >
-                                <Avatar className="h-8 w-8 rounded-lg grayscale">
+                                <Avatar className="h-8 w-8 rounded-lg">
                                     <AvatarImage
                                         src={user.avatar}
                                         alt={user.name}
@@ -110,7 +110,7 @@ export function NavUser({
                                 nativeButton={false}
                                 render={
                                     <Link
-                                        className="block w-full cursor-pointer"
+                                        className="block w-full cursor-pointer text-muted-foreground"
                                         href={edit()}
                                         prefetch
                                         onClick={cleanup}
@@ -120,11 +120,11 @@ export function NavUser({
                                     </Link>
                                 }
                             />
-                            <DropdownMenuItem>
+                            <DropdownMenuItem className="text-muted-foreground">
                                 <IconCreditCard />
                                 Billing
                             </DropdownMenuItem>
-                            <DropdownMenuItem>
+                            <DropdownMenuItem className="text-muted-foreground">
                                 <IconNotification />
                                 Notifications
                             </DropdownMenuItem>
@@ -133,7 +133,7 @@ export function NavUser({
                         <DropdownMenuItem
                             nativeButton={true}
                             render={<Link
-                                className="block w-full cursor-pointer"
+                                className="block w-full cursor-pointer text-muted-foreground"
                                 href={logout()}
                                 method="post"
                                 as="button"

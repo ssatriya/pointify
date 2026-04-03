@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import AppLayout from "./app-layout";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { router } from "@inertiajs/react";
-import { index, reports } from "@/routes/dashboard/class";
+import { index, reports } from "@/routes/dashboard/student-enrollments/class";
 import type { BreadcrumbItem, Class } from "@/types";
 
 type Props = {

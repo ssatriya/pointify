@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Role;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
@@ -44,8 +46,8 @@ class UserController extends Controller
 
         return Inertia::render('dashboard/users/edit/edit', [
             'user' => new UserResource($user),
-            'allPermissions' => \Spatie\Permission\Models\Permission::all()->pluck('name'),
-            'allRoles' => collect(\App\Enums\Role::cases())->map(fn($role) => [
+            'allPermissions' => Permission::all()->pluck('name'),
+            'allRoles' => collect(Role::cases())->map(fn($role) => [
                 'value' => $role->value,
                 'label' => $role->label(),
             ]),
@@ -68,7 +70,7 @@ class UserController extends Controller
             $user->syncPermissions($request->permissions);
         }
 
-        if ($request->has('roles') && $request->user()->hasRole(\App\Enums\Role::SUPER_ADMIN->value)) {
+        if ($request->has('roles') && $request->user()->hasRole(Role::SUPER_ADMIN->value)) {
             $user->syncRoles($request->roles);
         }
 

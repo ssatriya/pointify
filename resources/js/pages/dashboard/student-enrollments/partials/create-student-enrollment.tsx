@@ -15,7 +15,7 @@ import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import { useFocusRestore } from "@/hooks/use-restore-focus";
 import { useForm, useHttp } from "@inertiajs/react";
 import { SyntheticEvent, useEffect, useState } from "react";
-import { store } from "@/routes/dashboard/class";
+import { store } from "@/routes/dashboard/student-enrollments/class";
 import { active } from "@/routes/dashboard/academic-years";
 import { selectUnenrolled } from "@/routes/dashboard/students";
 import { Loader } from "lucide-react";
@@ -28,7 +28,7 @@ export default NiceModal.create(({ studentClassSlug, vocationalProgramId }: { st
         visible,
         confirmVisible
     );
-    const { get: getAcademicYear } = useHttp<{}, { data: OptionType }>()
+    const { get: getAcademicYear } = useHttp<{}, OptionType>()
     const { get: getStudents } = useHttp<{}, OptionType[]>()
     const { data, setData, post, processing, errors, isDirty, setDefaults } = useForm({
         student_id: [] as string[],
@@ -43,8 +43,7 @@ export default NiceModal.create(({ studentClassSlug, vocationalProgramId }: { st
     useEffect(() => {
         if (visible) {
             getAcademicYear(active().url)
-                .then(response => {
-                    const ac = response.data;
+                .then(ac => {
                     setDefaults("academic_year_id", ac.value as string);
                     setData("academic_year_id", ac.value as string);
                     setAcademicYearName(ac.label as string);

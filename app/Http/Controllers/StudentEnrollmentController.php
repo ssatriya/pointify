@@ -11,7 +11,6 @@ use App\Http\Resources\StudentEnrollmentSummaryResource;
 use App\Http\Services\StudentEnrollmentService;
 use App\Models\StudentClass;
 use App\Models\StudentEnrollment;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 use Throwable;
@@ -85,7 +84,7 @@ class StudentEnrollmentController extends Controller
         $studentEnrollment->loadMissing(['student', 'academicYear', 'studentClass:id,name,slug']);
         return Inertia::modal('dashboard/student-enrollments/partials/edit-student-enrollment', [
             'studentEnrollment' => new StudentEnrollmentResource($studentEnrollment),
-        ])->baseRoute('dashboard.class.index', $studentEnrollment->studentClass->slug);
+        ])->baseRoute('dashboard.student-enrollments.class.index', $studentEnrollment->studentClass->slug);
     }
 
     /**

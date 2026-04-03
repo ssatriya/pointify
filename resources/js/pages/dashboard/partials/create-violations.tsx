@@ -26,8 +26,6 @@ import { reactSelectBorderStyle } from "@/lib/utils";
 
 
 export default function CreateViolations() {
-    const [mounted, setMounted] = useState(false)
-    useEffect(() => setMounted(true), [])
     const { get } = useHttp<{}, OptionType[]>()
     const signatureRef = useRef<SignatureCanvas>(null);
     const [hasSignature, setHasSignature] = useState(false);
@@ -79,10 +77,6 @@ export default function CreateViolations() {
             }
         });
     };
-
-    if (!mounted) return (
-        <div className="border w-full h-[158px] rounded" /> // placeholder same size
-    )
 
     return (
         <CardTable>

@@ -30,21 +30,9 @@ type Props = {
     users: Paginated<User>;
 };
 
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: "Dashboard",
-        href: dashboardIndex().url,
-    },
-    {
-        title: "Pengguna",
-        href: usersIndex().url,
-    },
-];
-
 export default function UserIndex({ users }: Props) {
-    const { auth } = usePage<{ auth: Auth }>().props;
     const { search, setSearch, resetFilters } = useFilter(usersIndex().url);
-
+    console.log(users)
     return (
         <>
             <CardTable>
@@ -64,85 +52,85 @@ export default function UserIndex({ users }: Props) {
                 <CardTableContent>
                     <Table className="table-fixed min-w-[800px]">
                         <TableHeader>
-                                <TableRow className="h-12">
-                                    <TableHead className="w-[20%] min-w-[150px]">
-                                        Nama
-                                    </TableHead>
-                                    <TableHead className="w-[30%] min-w-[200px]">
-                                        Email
-                                    </TableHead>
-                                    <TableHead className="w-[15%] min-w-[120px]">
-                                        Role
-                                    </TableHead>
-                                    <TableHead className="w-[15%] min-w-[120px]">
-                                        Hak Akses
-                                    </TableHead>
-                                    <TableHead className="w-[15%] min-w-[150px]">
-                                        Terdaftar Pada
-                                    </TableHead>
-                                    <TableHead className="w-[5%] whitespace-nowrap"></TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {users.data.length > 0 ? (
-                                    users.data.map((user) => (
-                                        <TableRow
-                                            key={user.id}
-                                            className="h-12"
-                                        >
-                                            <TableCell className="truncate">
-                                                <span className="text-foreground">
-                                                    {user.name}
-                                                </span>
-                                            </TableCell>
-                                            <TableCell className="truncate">
-                                                <span>
-                                                    {user.email}
-                                                </span>
-                                            </TableCell>
-                                            <TableCell>
-                                                <Badge
-                                                    variant="outline"
-                                                    className="capitalize"
-                                                >
-                                                    {user.role_label}
-                                                </Badge>
-                                            </TableCell>
-                                            <TableCell>
-                                                <span className="text-sm">
-                                                    {user.permissions?.length ??
-                                                        0}{" "}
-                                                    Hak Akses
-                                                </span>
-                                            </TableCell>
-                                            <TableCell>
-                                                {user.created_at}
-                                            </TableCell>
-                                            <TableCell className="text-end">
-                                                <div className="flex justify-end gap-2">
-                                                    <UserActions
-                                                        id={user.id}
-                                                    />
-                                                </div>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))
-                                ) : (
-                                    <TableRow>
-                                        <TableCell
-                                            colSpan={5}
-                                            className="h-24 text-center text-muted-foreground"
-                                        >
-                                            Belum ada data
+                            <TableRow className="h-12">
+                                <TableHead className="w-[20%] min-w-[150px]">
+                                    Nama
+                                </TableHead>
+                                <TableHead className="w-[30%] min-w-[200px]">
+                                    Email
+                                </TableHead>
+                                <TableHead className="w-[15%] min-w-[120px]">
+                                    Role
+                                </TableHead>
+                                <TableHead className="w-[15%] min-w-[120px]">
+                                    Hak Akses
+                                </TableHead>
+                                <TableHead className="w-[15%] min-w-[150px]">
+                                    Terdaftar Pada
+                                </TableHead>
+                                <TableHead className="w-[5%] whitespace-nowrap"></TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {users.data.length > 0 ? (
+                                users.data.map((user) => (
+                                    <TableRow
+                                        key={user.id}
+                                        className="h-12"
+                                    >
+                                        <TableCell className="truncate">
+                                            <span className="text-foreground">
+                                                {user.name}
+                                            </span>
+                                        </TableCell>
+                                        <TableCell className="truncate">
+                                            <span>
+                                                {user.email}
+                                            </span>
+                                        </TableCell>
+                                        <TableCell>
+                                            <Badge
+                                                variant="outline"
+                                                className="capitalize"
+                                            >
+                                                {user.role_label}
+                                            </Badge>
+                                        </TableCell>
+                                        <TableCell>
+                                            <span className="text-sm">
+                                                {user.permissions?.length ??
+                                                    0}{" "}
+                                                Hak Akses
+                                            </span>
+                                        </TableCell>
+                                        <TableCell>
+                                            {user.created_at}
+                                        </TableCell>
+                                        <TableCell className="text-end">
+                                            <div className="flex justify-end gap-2">
+                                                <UserActions
+                                                    id={user.id}
+                                                />
+                                            </div>
                                         </TableCell>
                                     </TableRow>
-                                )}
-                            </TableBody>
-                        </Table>
-                        <TablePagination
-                            links={users.links}
-                            meta={users.meta}
-                        />
+                                ))
+                            ) : (
+                                <TableRow>
+                                    <TableCell
+                                        colSpan={5}
+                                        className="h-24 text-center text-muted-foreground"
+                                    >
+                                        Belum ada data
+                                    </TableCell>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                    <TablePagination
+                        links={users.links}
+                        meta={users.meta}
+                    />
                 </CardTableContent>
             </CardTable>
         </>

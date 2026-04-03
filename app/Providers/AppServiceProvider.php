@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
                     'id' => $c->id,
                     'name' => $c->name,
                     'abbreviation' => $c->abbreviation,
-                    'url' => route('dashboard.class.index', $c->slug),
+                    'url' => route('dashboard.student-enrollments.class.index', $c->slug),
                 ]);
         });
     }

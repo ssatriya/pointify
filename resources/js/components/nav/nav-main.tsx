@@ -34,7 +34,7 @@ export function NavMain({
                     {visibleItems.map((item) => (
                         <SidebarMenuItem key={item.title}>
                             <SidebarMenuButton
-                                className="tabular-nums text-muted-foreground text"
+                                className="tabular-nums text-muted-foreground"
                                 tooltip={{ children: item.title }}
                                 isActive={isCurrentUrl(item.href, undefined, !item.exact)}
                                 render={<Link

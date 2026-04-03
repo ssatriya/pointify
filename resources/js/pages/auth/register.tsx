@@ -12,6 +12,7 @@ import { Form, Link } from "@inertiajs/react";
 import { login } from "@/routes";
 import { store } from "@/routes/register";
 import { Loader } from "lucide-react";
+import { PasswordInput } from "@/components/ui/password-input";
 
 export default function Register() {
     return (
@@ -60,9 +61,8 @@ export default function Register() {
                                 <FieldLabel htmlFor="password">
                                     Password
                                 </FieldLabel>
-                                <Input
+                                <PasswordInput
                                     id="password"
-                                    type="password"
                                     name="password"
                                     autoComplete="new-password"
                                 />
@@ -72,9 +72,8 @@ export default function Register() {
                                 <FieldLabel htmlFor="password_confirmation">
                                     Konfirmasi password
                                 </FieldLabel>
-                                <Input
+                                <PasswordInput
                                     id="password_confirmation"
-                                    type="password"
                                     name="password_confirmation"
                                     autoComplete="new-password"
                                 />

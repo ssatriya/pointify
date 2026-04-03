@@ -5,7 +5,7 @@ import approval from './approval'
  * @see app/Http/Controllers/RevokeViolationController.php:18
  * @route '/dashboard/violations/revoke/{violation}'
  */
-export const revoke = (args: { violation: string | number | { id: string | number } } | [violation: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const revoke = (args: { violation: string | { id: string } } | [violation: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: revoke.url(args, options),
     method: 'put',
 })
@@ -20,7 +20,7 @@ revoke.definition = {
  * @see app/Http/Controllers/RevokeViolationController.php:18
  * @route '/dashboard/violations/revoke/{violation}'
  */
-revoke.url = (args: { violation: string | number | { id: string | number } } | [violation: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+revoke.url = (args: { violation: string | { id: string } } | [violation: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { violation: args }
     }
@@ -53,7 +53,7 @@ revoke.url = (args: { violation: string | number | { id: string | number } } | [
  * @see app/Http/Controllers/RevokeViolationController.php:18
  * @route '/dashboard/violations/revoke/{violation}'
  */
-revoke.put = (args: { violation: string | number | { id: string | number } } | [violation: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+revoke.put = (args: { violation: string | { id: string } } | [violation: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: revoke.url(args, options),
     method: 'put',
 })
@@ -63,7 +63,7 @@ revoke.put = (args: { violation: string | number | { id: string | number } } | [
  * @see app/Http/Controllers/RevokeViolationController.php:18
  * @route '/dashboard/violations/revoke/{violation}'
  */
-    const revokeForm = (args: { violation: string | number | { id: string | number } } | [violation: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const revokeForm = (args: { violation: string | { id: string } } | [violation: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: revoke.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -78,7 +78,7 @@ revoke.put = (args: { violation: string | number | { id: string | number } } | [
  * @see app/Http/Controllers/RevokeViolationController.php:18
  * @route '/dashboard/violations/revoke/{violation}'
  */
-        revokeForm.put = (args: { violation: string | number | { id: string | number } } | [violation: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        revokeForm.put = (args: { violation: string | { id: string } } | [violation: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: revoke.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',

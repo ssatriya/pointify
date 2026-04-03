@@ -33,7 +33,7 @@ export default function UserActions({ id }: { id: string }) {
                 <Loader className="hidden h-4 w-4 animate-spin group-data-loading:block" />
                 <IconEdit className="h-4 w-4 group-data-loading:hidden" />
             </Link>
-            <AlertDialog>
+            {/* <AlertDialog>
                 <AlertDialogTrigger render={<Button variant="destructive" />}>
                     <IconTrash className="size-4" />
                 </AlertDialogTrigger>
@@ -56,7 +56,7 @@ export default function UserActions({ id }: { id: string }) {
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </AlertDialogContent>
-            </AlertDialog>
+            </AlertDialog> */}
         </div>
     );
 }

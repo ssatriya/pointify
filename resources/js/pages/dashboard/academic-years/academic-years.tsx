@@ -81,7 +81,7 @@ export default function AcademicYears({ academicYears }: Props) {
                             <TableHead className="w-[15%]">Akhir</TableHead>
                             <TableHead className="w-[10%] text-center">Status</TableHead>
                             <TableHead className="w-[15%] min-w-[150px]">Tanggal Dibuat</TableHead>
-                            <TableHead className="w-[5%] whitespace-nowrap"></TableHead>
+                            <TableHead className="w-[5%] whitespace-nowrap text-center">Aksi</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>

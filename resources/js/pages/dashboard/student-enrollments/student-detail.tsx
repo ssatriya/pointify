@@ -11,7 +11,7 @@ import type { BreadcrumbItem } from "@/types";
 import { PointTransaction, StudentEnrollmentSummary } from "@/types/data-props";
 import { Badge } from "@/components/ui/badge";
 import { index as dashboardIndex } from "@/routes/dashboard";
-import { index as classIndex } from "@/routes/dashboard/class";
+import { index as classIndex } from "@/routes/dashboard/student-enrollments/class";
 import { cn } from "@/lib/utils";
 import { Head } from "@inertiajs/react";
 import {

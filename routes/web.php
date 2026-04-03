@@ -65,12 +65,21 @@ Route::middleware(['auth', 'verified'])
             Route::delete('/{studentClass}', [StudentClassController::class, 'destroy'])->name('destroy');
         });
 
-        Route::prefix('student-enrollments')->name('student-enrollments.')->group(function () {
+        Route::prefix('student-enrollments')->name('student-enrollments.')->controller(StudentEnrollmentController::class)->group(function () {
             Route::get('/search', SearchStudentEnrollmentController::class)->name('search');
 
-            Route::get('/{studentEnrollment}', [StudentEnrollmentController::class, 'show'])->name('show');
-            Route::put('/{studentEnrollment}', [StudentEnrollmentController::class, 'update'])->name('update');
-            Route::delete('/{studentEnrollment}', [StudentEnrollmentController::class, 'destroy'])->name('destroy');
+            Route::get('/{studentEnrollment}', 'show')->name('show')->whereNumber('studentEnrollment');
+            Route::put('/{studentEnrollment}', 'update')->name('update')->whereNumber('studentEnrollment');
+            Route::delete('/{studentEnrollment}', 'destroy')->name('destroy')->whereNumber('studentEnrollment');
+
+            Route::prefix('{studentClass:slug}')->name('class.')->group(function () {
+                Route::get('/', 'index')->name('index');
+                Route::post('/', 'store')->name('store');
+
+                Route::get('/reports', 'reports')->name('reports');
+
+                Route::get('/{studentEnrollment}', 'studentByEnrollment')->name('student-detail');
+            });
         });
 
         Route::prefix('students')->name('students.')->group(function () {
@@ -132,16 +141,7 @@ Route::middleware(['auth', 'verified'])
             Route::post('/revoke/{reward}', RevokeRewardController::class)->name('revoke');
 
             Route::post('/', RewardController::class)->name('store');
-            // Route::post('/{student_enrollment}', [RewardStudentController::class, 'store']);
         });
 
-        Route::prefix('{studentClass:slug}')->name('class.')->group(function () {
-            Route::get('/', [StudentEnrollmentController::class, 'index'])->name('index');
-            Route::post('/', [StudentEnrollmentController::class, 'store'])->name('store');
-
-            Route::get('/reports', [StudentEnrollmentController::class, 'reports'])->name('reports');
-
-            Route::get('/{studentEnrollment}', [StudentEnrollmentController::class, 'studentByEnrollment'])->name('student-detail');
-        });
 
     });

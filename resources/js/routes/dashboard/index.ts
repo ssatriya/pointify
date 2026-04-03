@@ -10,7 +10,6 @@ import violationTypes from './violation-types'
 import rewardTypes from './reward-types'
 import violations from './violations'
 import rewards from './rewards'
-import classMethod from './class'
 /**
 * @see \Inertia\Controller::__invoke
  * @see vendor/inertiajs/inertia-laravel/src/Controller.php:13
@@ -102,7 +101,6 @@ violationTypes: Object.assign(violationTypes, violationTypes),
 rewardTypes: Object.assign(rewardTypes, rewardTypes),
 violations: Object.assign(violations, violations),
 rewards: Object.assign(rewards, rewards),
-class: Object.assign(classMethod, classMethod),
 }
 
 export default dashboard

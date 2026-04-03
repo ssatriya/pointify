@@ -29,8 +29,6 @@ class SearchUnenrolledStudentController extends Controller
 
         $data = QueryFilter::make($query)->search($validated['q'])->get();
 
-        return response()->json([
-            'data' => SelectOptionResource::collection($data),
-        ]);
+        return response()->json(SelectOptionResource::collection($data));
     }
 }

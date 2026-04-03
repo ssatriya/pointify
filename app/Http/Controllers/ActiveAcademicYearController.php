@@ -22,10 +22,6 @@ class ActiveAcademicYearController extends Controller
 
         abort_if(!$data, 404, 'Tahun akademik aktif tidak ditemukan');
 
-        return response()->json(
-            [
-                'data' => new SelectOptionResource($data),
-            ]
-        );
+        return response()->json(new SelectOptionResource($data));
     }
 }

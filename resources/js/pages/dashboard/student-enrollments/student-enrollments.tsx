@@ -14,7 +14,7 @@ import ClassLayout from "@/components/layout/class-layout";
 import type { BreadcrumbItem, Class, Paginated, StudentEnrollment } from "@/types";
 import { Badge } from "@/components/ui/badge";
 import { Link, Head } from "@inertiajs/react";
-import { studentDetail, index as classIndex } from "@/routes/dashboard/class";
+import { studentDetail, index as classIndex } from "@/routes/dashboard/student-enrollments/class";
 import { useModal } from "@ebay/nice-modal-react";
 import createStudentEnrollment from "./partials/create-student-enrollment";
 import StudentEnrollmentActions from "./partials/student-enrollment-actions";

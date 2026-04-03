@@ -53,12 +53,12 @@ export default function Classes({ classes }: Props) {
     } = useFilter(classesIndex().url);
 
     const [items, setItems] = useState(classes.data);
-    const [isMounted, setIsMounted] = useState(false);
+    // const [isMounted, setIsMounted] = useState(false);
 
-    useEffect(() => {
-        setItems(classes.data);
-        setIsMounted(true);
-    }, [classes.data]);
+    // useEffect(() => {
+    //     setItems(classes.data);
+    //     setIsMounted(true);
+    // }, [classes.data]);
 
     const sensors = useSensors(
         useSensor(PointerSensor, {
@@ -109,47 +109,47 @@ export default function Classes({ classes }: Props) {
                 </CardTableActions>
             </CardTableHeader>
             <CardTableContent>
-                {isMounted ? (
-                    <DndContext
-                        id="student-classes-dnd"
-                        sensors={sensors}
-                        collisionDetection={closestCenter}
-                        modifiers={[restrictToVerticalAxis]}
-                        onDragEnd={handleDragEnd}
-                    >
-                        <Table className="table-fixed min-w-[800px]">
-                            <TableHeader>
-                                <TableRow className="h-12">
-                                    <TableHead className="w-[4%]"></TableHead>
-                                    <TableHead className="w-[30%]">Nama</TableHead>
-                                    <TableHead className="w-[10%]">Tingkat</TableHead>
-                                    <TableHead className="w-[10%]">Rombel</TableHead>
-                                    <TableHead className="w-[20%]">Kejuruan</TableHead>
-                                    <TableHead className="w-[15%] min-w-[150px]">Tanggal Dibuat</TableHead>
-                                    <TableHead className="w-[5%] whitespace-nowrap"></TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                <SortableContext
-                                    items={items.map(i => i.id)}
-                                    strategy={verticalListSortingStrategy}
-                                >
-                                    {items.length > 0 ? (
-                                        items.map((item) => (
-                                            <SortableRow key={item.id} item={item} />
-                                        ))
-                                    ) : (
-                                        <TableRow>
-                                            <TableCell colSpan={7} className="h-24 text-center text-muted-foreground">
-                                                Belum ada data
-                                            </TableCell>
-                                        </TableRow>
-                                    )}
-                                </SortableContext>
-                            </TableBody>
-                        </Table>
-                    </DndContext>
-                ) : (
+                {/* {isMounted ? ( */}
+                <DndContext
+                    id="student-classes-dnd"
+                    sensors={sensors}
+                    collisionDetection={closestCenter}
+                    modifiers={[restrictToVerticalAxis]}
+                    onDragEnd={handleDragEnd}
+                >
+                    <Table className="table-fixed min-w-[800px]">
+                        <TableHeader>
+                            <TableRow className="h-12">
+                                <TableHead className="w-[4%]"></TableHead>
+                                <TableHead className="w-[30%]">Nama</TableHead>
+                                <TableHead className="w-[10%]">Tingkat</TableHead>
+                                <TableHead className="w-[10%]">Rombel</TableHead>
+                                <TableHead className="w-[20%]">Kejuruan</TableHead>
+                                <TableHead className="w-[15%] min-w-[150px]">Tanggal Dibuat</TableHead>
+                                <TableHead className="w-[5%] whitespace-nowrap"></TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            <SortableContext
+                                items={items.map(i => i.id)}
+                                strategy={verticalListSortingStrategy}
+                            >
+                                {items.length > 0 ? (
+                                    items.map((item) => (
+                                        <SortableRow key={item.id} item={item} />
+                                    ))
+                                ) : (
+                                    <TableRow>
+                                        <TableCell colSpan={7} className="h-24 text-center text-muted-foreground">
+                                            Belum ada data
+                                        </TableCell>
+                                    </TableRow>
+                                )}
+                            </SortableContext>
+                        </TableBody>
+                    </Table>
+                </DndContext>
+                {/* ) : (
                     <Table className="table-fixed min-w-[800px]">
                         <TableHeader>
                             <TableRow className="h-12">
@@ -197,8 +197,8 @@ export default function Classes({ classes }: Props) {
                             )}
                         </TableBody>
                     </Table>
-                )}
-                <TablePagination links={classes.links} meta={classes.meta} />
+                )} */}
+                {/* <TablePagination links={classes.links} meta={classes.meta} /> */}
             </CardTableContent>
         </CardTable>
     </>
