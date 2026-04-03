@@ -12,6 +12,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, xml, curl, zip, pgsql, bcmath, intl, tokenizer, ctype, fileinfo
+
+      - name: Install Composer dependencies
+        run: composer install --no-dev --optimize-autoloader --no-interaction
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -22,15 +31,6 @@ jobs:
         run: |
           npm ci
           npm run build
-
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.3'
-          extensions: mbstring, xml, curl, zip, pgsql, bcmath, intl, tokenizer, ctype, fileinfo
-
-      - name: Install Composer dependencies
-        run: composer install --no-dev --optimize-autoloader --no-interaction
 
       - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v1
@@ -47,7 +47,7 @@ jobs:
               sudo chown -R ubuntu:ubuntu /var/www
               git clone https://github.com/your-username/pointify.git /var/www/pointify
               cd /var/www/pointify
-              cp .env.example .env
+              echo "${{ secrets.VPS_ENV_FILE }}" > .env
               php artisan key:generate
               php artisan storage:link
             fi
