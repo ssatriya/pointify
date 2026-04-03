@@ -55,10 +55,13 @@ export default function Classes({ classes }: Props) {
     const [items, setItems] = useState(classes.data);
     // const [isMounted, setIsMounted] = useState(false);
 
+    useEffect(() => {
+        setItems(classes.data);
+    }, [classes.data]);
+
     // useEffect(() => {
-    //     setItems(classes.data);
     //     setIsMounted(true);
-    // }, [classes.data]);
+    // }, []);
 
     const sensors = useSensors(
         useSensor(PointerSensor, {
