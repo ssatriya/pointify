@@ -45,7 +45,7 @@ jobs:
               echo ">>> First deploy: cloning repo..."
               sudo mkdir -p /var/www
               sudo chown -R ubuntu:ubuntu /var/www
-              git clone https://github.com/your-username/pointify.git /var/www/pointify
+              git clone https://github.com/ssatriya/pointify.git /var/www/pointify
               cd /var/www/pointify
               echo "${{ secrets.VPS_ENV_FILE }}" > .env
               php artisan key:generate
