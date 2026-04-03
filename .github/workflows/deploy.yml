@@ -1,0 +1,76 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install JS dependencies & build assets
+        run: |
+          npm ci
+          npm run build
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, xml, curl, zip, pgsql, bcmath, intl, tokenizer, ctype, fileinfo
+
+      - name: Install Composer dependencies
+        run: composer install --no-dev --optimize-autoloader --no-interaction
+
+      - name: Deploy to VPS via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+
+            # ── First time setup ──────────────────────────────
+            if [ ! -d "/var/www/pointify" ]; then
+              echo ">>> First deploy: cloning repo..."
+              sudo mkdir -p /var/www
+              sudo chown -R ubuntu:ubuntu /var/www
+              git clone https://github.com/your-username/pointify.git /var/www/pointify
+              cd /var/www/pointify
+              cp .env.example .env
+              php artisan key:generate
+              php artisan storage:link
+            fi
+
+            # ── Every deploy ──────────────────────────────────
+            cd /var/www/pointify
+
+            git pull origin main
+
+            composer install --no-dev --optimize-autoloader --no-interaction
+
+            npm ci
+            npm run build
+
+            php artisan migrate --force
+
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            php artisan event:cache
+
+            php artisan queue:restart
+
+            # Fix permissions
+            sudo chown -R www-data:www-data /var/www/pointify/storage
+            sudo chown -R www-data:www-data /var/www/pointify/bootstrap/cache
