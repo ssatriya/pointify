@@ -26,7 +26,7 @@ export type OptionType = {
 
 const selectStyles = {
     controlStyles: {
-        base: "flex !min-h-8 w-full rounded-lg border border-border bg-transparent dark:bg-input/30 pl-3 py-0 pr-1 gap-1 text-base md:text-sm shadow-xs transition-colors",
+        base: "flex !min-h-8 w-full rounded-lg border border-border bg-background dark:bg-input/30 pl-3 py-0 pr-1 gap-1 text-base md:text-sm shadow-xs transition-colors",
         focus: "border-ring ring-ring/50 ring-[3px]",
         disabled: "pointer-events-none cursor-not-allowed opacity-50",
     },

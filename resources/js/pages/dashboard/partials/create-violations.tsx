@@ -128,6 +128,7 @@ export default function CreateViolations() {
                                 id="notes"
                                 value={data.notes}
                                 onChange={(e) => setData("notes", e.target.value)}
+                                className="bg-background"
                                 placeholder="Tuliskan catatan pelanggaran di sini..."
                                 rows={4}
                                 aria-invalid={!!errors.notes}

@@ -101,6 +101,7 @@ export default function CreateRewards() {
                                 onChange={(e) => setData("notes", e.target.value)}
                                 placeholder="Tuliskan catatan prestasi di sini..."
                                 rows={4}
+                                className="bg-background"
                                 aria-invalid={!!errors.notes}
                             />
                             <FieldError>{errors.notes}</FieldError>
