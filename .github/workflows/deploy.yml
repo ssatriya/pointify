@@ -17,15 +17,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4.2.2
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.4'
-          extensions: mbstring, xml, curl, zip, pgsql, bcmath, intl, tokenizer, ctype, fileinfo, gd
-
-      - name: Install Composer dependencies
-        run: composer install --no-dev --optimize-autoloader --no-interaction
-
       - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v1
         with:
@@ -47,8 +38,6 @@ jobs:
             fi
 
             cd /var/www/pointify
-
-            # Give ubuntu full access before doing anything
             sudo chown -R ubuntu:ubuntu /var/www/pointify
 
             git fetch origin
@@ -68,7 +57,6 @@ jobs:
             php artisan queue:restart
             php artisan up
 
-            # Fix permissions back for web server LAST
             sudo chown -R www-data:www-data /var/www/pointify/storage
             sudo chown -R www-data:www-data /var/www/pointify/bootstrap/cache
 
