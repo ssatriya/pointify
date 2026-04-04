@@ -4,7 +4,7 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFo
  * @see app/Http/Controllers/StudentEnrollmentController.php:25
  * @route '/dashboard/student-enrollments/{studentClass}'
  */
-export const index = (args: { studentClass: string | number | { slug: string | number } } | [studentClass: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const index = (args: { studentClass: string | { slug: string } } | [studentClass: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: index.url(args, options),
     method: 'get',
 })
@@ -19,7 +19,7 @@ index.definition = {
  * @see app/Http/Controllers/StudentEnrollmentController.php:25
  * @route '/dashboard/student-enrollments/{studentClass}'
  */
-index.url = (args: { studentClass: string | number | { slug: string | number } } | [studentClass: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions) => {
+index.url = (args: { studentClass: string | { slug: string } } | [studentClass: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { studentClass: args }
     }
@@ -52,7 +52,7 @@ index.url = (args: { studentClass: string | number | { slug: string | number } }
  * @see app/Http/Controllers/StudentEnrollmentController.php:25
  * @route '/dashboard/student-enrollments/{studentClass}'
  */
-index.get = (args: { studentClass: string | number | { slug: string | number } } | [studentClass: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+index.get = (args: { studentClass: string | { slug: string } } | [studentClass: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: index.url(args, options),
     method: 'get',
 })
@@ -61,7 +61,7 @@ index.get = (args: { studentClass: string | number | { slug: string | number } }
  * @see app/Http/Controllers/StudentEnrollmentController.php:25
  * @route '/dashboard/student-enrollments/{studentClass}'
  */
-index.head = (args: { studentClass: string | number | { slug: string | number } } | [studentClass: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+index.head = (args: { studentClass: string | { slug: string } } | [studentClass: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: index.url(args, options),
     method: 'head',
 })
@@ -71,7 +71,7 @@ index.head = (args: { studentClass: string | number | { slug: string | number } 
  * @see app/Http/Controllers/StudentEnrollmentController.php:25
  * @route '/dashboard/student-enrollments/{studentClass}'
  */
-    const indexForm = (args: { studentClass: string | number | { slug: string | number } } | [studentClass: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const indexForm = (args: { studentClass: string | { slug: string } } | [studentClass: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: index.url(args, options),
         method: 'get',
     })
@@ -81,7 +81,7 @@ index.head = (args: { studentClass: string | number | { slug: string | number } 
  * @see app/Http/Controllers/StudentEnrollmentController.php:25
  * @route '/dashboard/student-enrollments/{studentClass}'
  */
-        indexForm.get = (args: { studentClass: string | number | { slug: string | number } } | [studentClass: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        indexForm.get = (args: { studentClass: string | { slug: string } } | [studentClass: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: index.url(args, options),
             method: 'get',
         })
@@ -90,7 +90,7 @@ index.head = (args: { studentClass: string | number | { slug: string | number } 
  * @see app/Http/Controllers/StudentEnrollmentController.php:25
  * @route '/dashboard/student-enrollments/{studentClass}'
  */
-        indexForm.head = (args: { studentClass: string | number | { slug: string | number } } | [studentClass: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        indexForm.head = (args: { studentClass: string | { slug: string } } | [studentClass: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: index.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -106,7 +106,7 @@ index.head = (args: { studentClass: string | number | { slug: string | number } 
  * @see app/Http/Controllers/StudentEnrollmentController.php:70
  * @route '/dashboard/student-enrollments/{studentClass}'
  */
-export const store = (args: { studentClass: string | number | { slug: string | number } } | [studentClass: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+export const store = (args: { studentClass: string | { slug: string } } | [studentClass: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
@@ -121,7 +121,7 @@ store.definition = {
  * @see app/Http/Controllers/StudentEnrollmentController.php:70
  * @route '/dashboard/student-enrollments/{studentClass}'
  */
-store.url = (args: { studentClass: string | number | { slug: string | number } } | [studentClass: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions) => {
+store.url = (args: { studentClass: string | { slug: string } } | [studentClass: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { studentClass: args }
     }
@@ -154,7 +154,7 @@ store.url = (args: { studentClass: string | number | { slug: string | number } }
  * @see app/Http/Controllers/StudentEnrollmentController.php:70
  * @route '/dashboard/student-enrollments/{studentClass}'
  */
-store.post = (args: { studentClass: string | number | { slug: string | number } } | [studentClass: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+store.post = (args: { studentClass: string | { slug: string } } | [studentClass: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: store.url(args, options),
     method: 'post',
 })
@@ -164,7 +164,7 @@ store.post = (args: { studentClass: string | number | { slug: string | number } 
  * @see app/Http/Controllers/StudentEnrollmentController.php:70
  * @route '/dashboard/student-enrollments/{studentClass}'
  */
-    const storeForm = (args: { studentClass: string | number | { slug: string | number } } | [studentClass: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const storeForm = (args: { studentClass: string | { slug: string } } | [studentClass: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: store.url(args, options),
         method: 'post',
     })
@@ -174,7 +174,7 @@ store.post = (args: { studentClass: string | number | { slug: string | number } 
  * @see app/Http/Controllers/StudentEnrollmentController.php:70
  * @route '/dashboard/student-enrollments/{studentClass}'
  */
-        storeForm.post = (args: { studentClass: string | number | { slug: string | number } } | [studentClass: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        storeForm.post = (args: { studentClass: string | { slug: string } } | [studentClass: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: store.url(args, options),
             method: 'post',
         })
@@ -185,7 +185,7 @@ store.post = (args: { studentClass: string | number | { slug: string | number } 
  * @see app/Http/Controllers/StudentEnrollmentController.php:57
  * @route '/dashboard/student-enrollments/{studentClass}/reports'
  */
-export const reports = (args: { studentClass: string | number | { slug: string | number } } | [studentClass: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const reports = (args: { studentClass: string | { slug: string } } | [studentClass: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: reports.url(args, options),
     method: 'get',
 })
@@ -200,7 +200,7 @@ reports.definition = {
  * @see app/Http/Controllers/StudentEnrollmentController.php:57
  * @route '/dashboard/student-enrollments/{studentClass}/reports'
  */
-reports.url = (args: { studentClass: string | number | { slug: string | number } } | [studentClass: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions) => {
+reports.url = (args: { studentClass: string | { slug: string } } | [studentClass: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { studentClass: args }
     }
@@ -233,7 +233,7 @@ reports.url = (args: { studentClass: string | number | { slug: string | number }
  * @see app/Http/Controllers/StudentEnrollmentController.php:57
  * @route '/dashboard/student-enrollments/{studentClass}/reports'
  */
-reports.get = (args: { studentClass: string | number | { slug: string | number } } | [studentClass: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+reports.get = (args: { studentClass: string | { slug: string } } | [studentClass: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: reports.url(args, options),
     method: 'get',
 })
@@ -242,7 +242,7 @@ reports.get = (args: { studentClass: string | number | { slug: string | number }
  * @see app/Http/Controllers/StudentEnrollmentController.php:57
  * @route '/dashboard/student-enrollments/{studentClass}/reports'
  */
-reports.head = (args: { studentClass: string | number | { slug: string | number } } | [studentClass: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+reports.head = (args: { studentClass: string | { slug: string } } | [studentClass: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: reports.url(args, options),
     method: 'head',
 })
@@ -252,7 +252,7 @@ reports.head = (args: { studentClass: string | number | { slug: string | number 
  * @see app/Http/Controllers/StudentEnrollmentController.php:57
  * @route '/dashboard/student-enrollments/{studentClass}/reports'
  */
-    const reportsForm = (args: { studentClass: string | number | { slug: string | number } } | [studentClass: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const reportsForm = (args: { studentClass: string | { slug: string } } | [studentClass: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: reports.url(args, options),
         method: 'get',
     })
@@ -262,7 +262,7 @@ reports.head = (args: { studentClass: string | number | { slug: string | number 
  * @see app/Http/Controllers/StudentEnrollmentController.php:57
  * @route '/dashboard/student-enrollments/{studentClass}/reports'
  */
-        reportsForm.get = (args: { studentClass: string | number | { slug: string | number } } | [studentClass: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        reportsForm.get = (args: { studentClass: string | { slug: string } } | [studentClass: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: reports.url(args, options),
             method: 'get',
         })
@@ -271,7 +271,7 @@ reports.head = (args: { studentClass: string | number | { slug: string | number 
  * @see app/Http/Controllers/StudentEnrollmentController.php:57
  * @route '/dashboard/student-enrollments/{studentClass}/reports'
  */
-        reportsForm.head = (args: { studentClass: string | number | { slug: string | number } } | [studentClass: string | number | { slug: string | number } ] | string | number | { slug: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        reportsForm.head = (args: { studentClass: string | { slug: string } } | [studentClass: string | { slug: string } ] | string | { slug: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: reports.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -287,7 +287,7 @@ reports.head = (args: { studentClass: string | number | { slug: string | number 
  * @see app/Http/Controllers/StudentEnrollmentController.php:114
  * @route '/dashboard/student-enrollments/{studentClass}/{studentEnrollment}'
  */
-export const studentDetail = (args: { studentClass: string | number | { slug: string | number }, studentEnrollment: string | number | { id: string | number } } | [studentClass: string | number | { slug: string | number }, studentEnrollment: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const studentDetail = (args: { studentClass: string | { slug: string }, studentEnrollment: string | { id: string } } | [studentClass: string | { slug: string }, studentEnrollment: string | { id: string } ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: studentDetail.url(args, options),
     method: 'get',
 })
@@ -302,7 +302,7 @@ studentDetail.definition = {
  * @see app/Http/Controllers/StudentEnrollmentController.php:114
  * @route '/dashboard/student-enrollments/{studentClass}/{studentEnrollment}'
  */
-studentDetail.url = (args: { studentClass: string | number | { slug: string | number }, studentEnrollment: string | number | { id: string | number } } | [studentClass: string | number | { slug: string | number }, studentEnrollment: string | number | { id: string | number } ], options?: RouteQueryOptions) => {
+studentDetail.url = (args: { studentClass: string | { slug: string }, studentEnrollment: string | { id: string } } | [studentClass: string | { slug: string }, studentEnrollment: string | { id: string } ], options?: RouteQueryOptions) => {
     if (Array.isArray(args)) {
         args = {
                     studentClass: args[0],
@@ -332,7 +332,7 @@ studentDetail.url = (args: { studentClass: string | number | { slug: string | nu
  * @see app/Http/Controllers/StudentEnrollmentController.php:114
  * @route '/dashboard/student-enrollments/{studentClass}/{studentEnrollment}'
  */
-studentDetail.get = (args: { studentClass: string | number | { slug: string | number }, studentEnrollment: string | number | { id: string | number } } | [studentClass: string | number | { slug: string | number }, studentEnrollment: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+studentDetail.get = (args: { studentClass: string | { slug: string }, studentEnrollment: string | { id: string } } | [studentClass: string | { slug: string }, studentEnrollment: string | { id: string } ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: studentDetail.url(args, options),
     method: 'get',
 })
@@ -341,7 +341,7 @@ studentDetail.get = (args: { studentClass: string | number | { slug: string | nu
  * @see app/Http/Controllers/StudentEnrollmentController.php:114
  * @route '/dashboard/student-enrollments/{studentClass}/{studentEnrollment}'
  */
-studentDetail.head = (args: { studentClass: string | number | { slug: string | number }, studentEnrollment: string | number | { id: string | number } } | [studentClass: string | number | { slug: string | number }, studentEnrollment: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+studentDetail.head = (args: { studentClass: string | { slug: string }, studentEnrollment: string | { id: string } } | [studentClass: string | { slug: string }, studentEnrollment: string | { id: string } ], options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: studentDetail.url(args, options),
     method: 'head',
 })
@@ -351,7 +351,7 @@ studentDetail.head = (args: { studentClass: string | number | { slug: string | n
  * @see app/Http/Controllers/StudentEnrollmentController.php:114
  * @route '/dashboard/student-enrollments/{studentClass}/{studentEnrollment}'
  */
-    const studentDetailForm = (args: { studentClass: string | number | { slug: string | number }, studentEnrollment: string | number | { id: string | number } } | [studentClass: string | number | { slug: string | number }, studentEnrollment: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const studentDetailForm = (args: { studentClass: string | { slug: string }, studentEnrollment: string | { id: string } } | [studentClass: string | { slug: string }, studentEnrollment: string | { id: string } ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: studentDetail.url(args, options),
         method: 'get',
     })
@@ -361,7 +361,7 @@ studentDetail.head = (args: { studentClass: string | number | { slug: string | n
  * @see app/Http/Controllers/StudentEnrollmentController.php:114
  * @route '/dashboard/student-enrollments/{studentClass}/{studentEnrollment}'
  */
-        studentDetailForm.get = (args: { studentClass: string | number | { slug: string | number }, studentEnrollment: string | number | { id: string | number } } | [studentClass: string | number | { slug: string | number }, studentEnrollment: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        studentDetailForm.get = (args: { studentClass: string | { slug: string }, studentEnrollment: string | { id: string } } | [studentClass: string | { slug: string }, studentEnrollment: string | { id: string } ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: studentDetail.url(args, options),
             method: 'get',
         })
@@ -370,7 +370,7 @@ studentDetail.head = (args: { studentClass: string | number | { slug: string | n
  * @see app/Http/Controllers/StudentEnrollmentController.php:114
  * @route '/dashboard/student-enrollments/{studentClass}/{studentEnrollment}'
  */
-        studentDetailForm.head = (args: { studentClass: string | number | { slug: string | number }, studentEnrollment: string | number | { id: string | number } } | [studentClass: string | number | { slug: string | number }, studentEnrollment: string | number | { id: string | number } ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        studentDetailForm.head = (args: { studentClass: string | { slug: string }, studentEnrollment: string | { id: string } } | [studentClass: string | { slug: string }, studentEnrollment: string | { id: string } ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: studentDetail.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',

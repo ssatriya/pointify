@@ -18,6 +18,7 @@ import type { OptionType, Class } from "@/types";
 import { ReactAsyncSelect } from "@/components/react-select";
 import { InertiaModal } from "@/components/inertia-modal";
 import { reactSelectBorderStyle } from "@/lib/utils";
+import { toast } from "sonner";
 
 export default function EditClass({
     class: studentClass
@@ -39,6 +40,13 @@ export default function EditClass({
         put(update({ studentClass: studentClass.id }).url, {
             onSuccess: () => {
                 close()
+            },
+            onError: (errors) => {
+                if (errors.grade_level) {
+                    toast.warning(errors.grade_level);
+                } else {
+                    toast.error("Gagal memperbarui data kelas.");
+                }
             }
         })
     }

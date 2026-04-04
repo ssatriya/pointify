@@ -6,6 +6,7 @@ import { SiteHeader } from "../nav/site-header";
 import { usePage } from "@inertiajs/react";
 import { ModalRoot, ModalStackProvider } from "@inertiaui/modal-react";
 import NiceModal from "@ebay/nice-modal-react";
+import ToastListener from "../toast-listener";
 
 type Props = {
     children: ReactNode,
@@ -24,6 +25,7 @@ export default function AppLayout({ children, breadcrumbs }: Props) {
                 } as React.CSSProperties
             }
         >
+            <ToastListener />
             <AppSidebar variant="inset" />
             <SidebarInset>
                 <SiteHeader breadcrumbs={breadcrumbs} />

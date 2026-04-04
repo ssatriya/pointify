@@ -21,6 +21,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import type { OptionType } from "@/types";
 import { ReactAsyncSelect } from "@/components/react-select";
 import { reactSelectBorderStyle } from "@/lib/utils";
+import { toast } from "sonner";
 
 export default NiceModal.create(() => {
     const { visible, hide, show, remove } = useModal()
@@ -46,6 +47,13 @@ export default NiceModal.create(() => {
         post(store().url, {
             onSuccess: () => {
                 hide()
+            },
+            onError: (errors) => {
+                if (errors.grade_level) {
+                    toast.warning(errors.grade_level);
+                } else {
+                    toast.error("Gagal menyimpan data kelas.");
+                }
             }
         })
     }

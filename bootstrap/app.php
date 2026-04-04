@@ -23,5 +23,11 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        $exceptions->respond(function ($response, \Throwable $e, \Illuminate\Http\Request $request) {
+            if ($e instanceof \Symfony\Component\Mailer\Exception\TransportExceptionInterface) {
+                return back()->with('error', 'Kami tidak dapat mengirimkan email saat ini. Silakan coba lagi dalam beberapa saat atau hubungi bantuan jika masalah berlanjut.');
+            }
+
+            return $response;
+        });
     })->create();

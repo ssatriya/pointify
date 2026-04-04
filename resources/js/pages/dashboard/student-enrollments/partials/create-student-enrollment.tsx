@@ -20,6 +20,7 @@ import { active } from "@/routes/dashboard/academic-years";
 import { selectUnenrolled } from "@/routes/dashboard/students";
 import { Loader } from "lucide-react";
 import type { OptionType } from "@/types";
+import { toast } from "sonner";
 
 export default NiceModal.create(({ studentClassSlug, vocationalProgramId }: { studentClassSlug: string, vocationalProgramId: string }) => {
     const { visible, hide, show, remove } = useModal()
@@ -66,6 +67,15 @@ export default NiceModal.create(({ studentClassSlug, vocationalProgramId }: { st
         post(store({ studentClass: studentClassSlug }).url, {
             onSuccess: () => {
                 hide()
+            },
+            onError: (errors) => {
+                if (errors.student_id) {
+                    toast.warning(errors.student_id);
+                } else if (errors.academic_year_id) {
+                    toast.warning(errors.academic_year_id);
+                } else {
+                    toast.error("Gagal mendaftarkan siswa ke kelas.");
+                }
             }
         })
     }

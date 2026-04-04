@@ -18,6 +18,7 @@ import { useFocusRestore } from "@/hooks/use-restore-focus";
 import { SyntheticEvent } from "react";
 import { store } from "@/actions/App/Http/Controllers/AcademicYear/AcademicYearController"
 import { Loader } from "lucide-react";
+import { toast } from "sonner";
 
 export default NiceModal.create(() => {
     const { visible, hide, show, remove } = useModal()
@@ -37,6 +38,13 @@ export default NiceModal.create(() => {
         post(store().url, {
             onSuccess: () => {
                 hide()
+            },
+            onError: (errors) => {
+                if (errors.academic_year) {
+                    toast.warning(errors.academic_year);
+                } else {
+                    toast.error("Gagal menyimpan tahun ajaran.");
+                }
             }
         })
     }

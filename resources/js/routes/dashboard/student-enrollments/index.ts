@@ -83,7 +83,7 @@ search.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
  * @see app/Http/Controllers/StudentEnrollmentController.php:82
  * @route '/dashboard/student-enrollments/{studentEnrollment}'
  */
-export const show = (args: { studentEnrollment: string | number | { id: string | number } } | [studentEnrollment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const show = (args: { studentEnrollment: string | { id: string } } | [studentEnrollment: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -98,7 +98,7 @@ show.definition = {
  * @see app/Http/Controllers/StudentEnrollmentController.php:82
  * @route '/dashboard/student-enrollments/{studentEnrollment}'
  */
-show.url = (args: { studentEnrollment: string | number | { id: string | number } } | [studentEnrollment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+show.url = (args: { studentEnrollment: string | { id: string } } | [studentEnrollment: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { studentEnrollment: args }
     }
@@ -131,7 +131,7 @@ show.url = (args: { studentEnrollment: string | number | { id: string | number }
  * @see app/Http/Controllers/StudentEnrollmentController.php:82
  * @route '/dashboard/student-enrollments/{studentEnrollment}'
  */
-show.get = (args: { studentEnrollment: string | number | { id: string | number } } | [studentEnrollment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+show.get = (args: { studentEnrollment: string | { id: string } } | [studentEnrollment: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -140,7 +140,7 @@ show.get = (args: { studentEnrollment: string | number | { id: string | number }
  * @see app/Http/Controllers/StudentEnrollmentController.php:82
  * @route '/dashboard/student-enrollments/{studentEnrollment}'
  */
-show.head = (args: { studentEnrollment: string | number | { id: string | number } } | [studentEnrollment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+show.head = (args: { studentEnrollment: string | { id: string } } | [studentEnrollment: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: show.url(args, options),
     method: 'head',
 })
@@ -150,7 +150,7 @@ show.head = (args: { studentEnrollment: string | number | { id: string | number 
  * @see app/Http/Controllers/StudentEnrollmentController.php:82
  * @route '/dashboard/student-enrollments/{studentEnrollment}'
  */
-    const showForm = (args: { studentEnrollment: string | number | { id: string | number } } | [studentEnrollment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const showForm = (args: { studentEnrollment: string | { id: string } } | [studentEnrollment: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: show.url(args, options),
         method: 'get',
     })
@@ -160,7 +160,7 @@ show.head = (args: { studentEnrollment: string | number | { id: string | number 
  * @see app/Http/Controllers/StudentEnrollmentController.php:82
  * @route '/dashboard/student-enrollments/{studentEnrollment}'
  */
-        showForm.get = (args: { studentEnrollment: string | number | { id: string | number } } | [studentEnrollment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.get = (args: { studentEnrollment: string | { id: string } } | [studentEnrollment: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, options),
             method: 'get',
         })
@@ -169,7 +169,7 @@ show.head = (args: { studentEnrollment: string | number | { id: string | number 
  * @see app/Http/Controllers/StudentEnrollmentController.php:82
  * @route '/dashboard/student-enrollments/{studentEnrollment}'
  */
-        showForm.head = (args: { studentEnrollment: string | number | { id: string | number } } | [studentEnrollment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.head = (args: { studentEnrollment: string | { id: string } } | [studentEnrollment: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -185,7 +185,7 @@ show.head = (args: { studentEnrollment: string | number | { id: string | number 
  * @see app/Http/Controllers/StudentEnrollmentController.php:93
  * @route '/dashboard/student-enrollments/{studentEnrollment}'
  */
-export const update = (args: { studentEnrollment: string | number | { id: string | number } } | [studentEnrollment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { studentEnrollment: string | { id: string } } | [studentEnrollment: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -200,7 +200,7 @@ update.definition = {
  * @see app/Http/Controllers/StudentEnrollmentController.php:93
  * @route '/dashboard/student-enrollments/{studentEnrollment}'
  */
-update.url = (args: { studentEnrollment: string | number | { id: string | number } } | [studentEnrollment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+update.url = (args: { studentEnrollment: string | { id: string } } | [studentEnrollment: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { studentEnrollment: args }
     }
@@ -233,7 +233,7 @@ update.url = (args: { studentEnrollment: string | number | { id: string | number
  * @see app/Http/Controllers/StudentEnrollmentController.php:93
  * @route '/dashboard/student-enrollments/{studentEnrollment}'
  */
-update.put = (args: { studentEnrollment: string | number | { id: string | number } } | [studentEnrollment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { studentEnrollment: string | { id: string } } | [studentEnrollment: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -243,7 +243,7 @@ update.put = (args: { studentEnrollment: string | number | { id: string | number
  * @see app/Http/Controllers/StudentEnrollmentController.php:93
  * @route '/dashboard/student-enrollments/{studentEnrollment}'
  */
-    const updateForm = (args: { studentEnrollment: string | number | { id: string | number } } | [studentEnrollment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateForm = (args: { studentEnrollment: string | { id: string } } | [studentEnrollment: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -258,7 +258,7 @@ update.put = (args: { studentEnrollment: string | number | { id: string | number
  * @see app/Http/Controllers/StudentEnrollmentController.php:93
  * @route '/dashboard/student-enrollments/{studentEnrollment}'
  */
-        updateForm.put = (args: { studentEnrollment: string | number | { id: string | number } } | [studentEnrollment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { studentEnrollment: string | { id: string } } | [studentEnrollment: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
@@ -274,7 +274,7 @@ update.put = (args: { studentEnrollment: string | number | { id: string | number
  * @see app/Http/Controllers/StudentEnrollmentController.php:103
  * @route '/dashboard/student-enrollments/{studentEnrollment}'
  */
-export const destroy = (args: { studentEnrollment: string | number | { id: string | number } } | [studentEnrollment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { studentEnrollment: string | { id: string } } | [studentEnrollment: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -289,7 +289,7 @@ destroy.definition = {
  * @see app/Http/Controllers/StudentEnrollmentController.php:103
  * @route '/dashboard/student-enrollments/{studentEnrollment}'
  */
-destroy.url = (args: { studentEnrollment: string | number | { id: string | number } } | [studentEnrollment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
+destroy.url = (args: { studentEnrollment: string | { id: string } } | [studentEnrollment: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { studentEnrollment: args }
     }
@@ -322,7 +322,7 @@ destroy.url = (args: { studentEnrollment: string | number | { id: string | numbe
  * @see app/Http/Controllers/StudentEnrollmentController.php:103
  * @route '/dashboard/student-enrollments/{studentEnrollment}'
  */
-destroy.delete = (args: { studentEnrollment: string | number | { id: string | number } } | [studentEnrollment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { studentEnrollment: string | { id: string } } | [studentEnrollment: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -332,7 +332,7 @@ destroy.delete = (args: { studentEnrollment: string | number | { id: string | nu
  * @see app/Http/Controllers/StudentEnrollmentController.php:103
  * @route '/dashboard/student-enrollments/{studentEnrollment}'
  */
-    const destroyForm = (args: { studentEnrollment: string | number | { id: string | number } } | [studentEnrollment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { studentEnrollment: string | { id: string } } | [studentEnrollment: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -347,7 +347,7 @@ destroy.delete = (args: { studentEnrollment: string | number | { id: string | nu
  * @see app/Http/Controllers/StudentEnrollmentController.php:103
  * @route '/dashboard/student-enrollments/{studentEnrollment}'
  */
-        destroyForm.delete = (args: { studentEnrollment: string | number | { id: string | number } } | [studentEnrollment: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { studentEnrollment: string | { id: string } } | [studentEnrollment: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',

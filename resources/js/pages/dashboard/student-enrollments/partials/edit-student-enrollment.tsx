@@ -15,6 +15,7 @@ import { update } from "@/routes/dashboard/student-enrollments";
 import { InertiaModal } from "@/components/inertia-modal";
 import { Loader } from "lucide-react";
 import type { StudentEnrollment } from "@/types";
+import { toast } from "sonner";
 
 export default function EditStudentEnrollment({
     studentEnrollment,
@@ -33,6 +34,9 @@ export default function EditStudentEnrollment({
         put(update({ studentEnrollment: studentEnrollment.id }).url, {
             onSuccess: () => {
                 close()
+            },
+            onError: () => {
+                toast.error("Gagal memperbarui data pendaftaran.");
             }
         })
     }

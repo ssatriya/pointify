@@ -4,6 +4,7 @@ import { Form, Link } from "@inertiajs/react";
 import { logout } from "@/routes";
 import { send } from "@/routes/verification";
 import { Button } from "@/components/ui/button";
+import { Loader } from "lucide-react";
 
 export default function VerifyEmail() {
     return (
@@ -31,7 +32,11 @@ export default function VerifyEmail() {
                                     disabled={processing}
                                     variant="secondary"
                                 >
-                                    Kirim ulang verifikasi email
+                                    {processing ? (
+                                        <Loader className="h-4 w-4 animate-spin" />
+                                    ) : (
+                                        "Kirim ulang verifikasi email"
+                                    )}
                                 </Button>
                             </Field>
                             <Field>

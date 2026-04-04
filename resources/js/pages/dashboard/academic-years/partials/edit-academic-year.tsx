@@ -14,6 +14,7 @@ import CheckboxCard from "@/components/ui/checkbox-card";
 import { Button } from "@/components/ui/button";
 import { Loader } from "lucide-react";
 import { update } from "@/actions/App/Http/Controllers/AcademicYear/AcademicYearController"
+import { toast } from "sonner";
 
 export default function EditAcademicYear({
     academicYear
@@ -30,6 +31,13 @@ export default function EditAcademicYear({
         put(update({ academicYear: academicYear.id }).url, {
             onSuccess: () => {
                 close()
+            },
+            onError: (errors) => {
+                if (errors.academic_year) {
+                    toast.warning(errors.academic_year);
+                } else {
+                    toast.error("Gagal memperbarui tahun ajaran.");
+                }
             }
         })
     }
