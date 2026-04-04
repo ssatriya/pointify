@@ -47,12 +47,17 @@ jobs:
             fi
 
             cd /var/www/pointify
+
+            # Give ubuntu full access before doing anything
             sudo chown -R ubuntu:ubuntu /var/www/pointify
+
             git fetch origin
             git reset --hard origin/main
+
             composer install --no-dev --optimize-autoloader --no-interaction
             npm ci
             npm run build
+
             php artisan down --retry=5
             php artisan migrate --force
             php artisan optimize:clear
@@ -61,7 +66,10 @@ jobs:
             php artisan view:cache
             php artisan event:cache
             php artisan queue:restart
+            php artisan up
+
+            # Fix permissions back for web server LAST
             sudo chown -R www-data:www-data /var/www/pointify/storage
             sudo chown -R www-data:www-data /var/www/pointify/bootstrap/cache
-            php artisan up
+
             echo ">>> Deploy completed successfully!"
