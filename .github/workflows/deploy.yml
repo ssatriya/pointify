@@ -55,6 +55,9 @@ jobs:
             # ── Every deploy ──────────────────────────────────
             cd /var/www/pointify
 
+            # Fix permissions so we can pull
+            sudo chown -R ubuntu:ubuntu /var/www/pointify
+            
             git pull origin main
 
             composer install --no-dev --optimize-autoloader --no-interaction
@@ -72,6 +75,6 @@ jobs:
 
             php artisan queue:restart
 
-            # Fix permissions
+            # Fix permissions back for web server
             sudo chown -R www-data:www-data /var/www/pointify/storage
             sudo chown -R www-data:www-data /var/www/pointify/bootstrap/cache
