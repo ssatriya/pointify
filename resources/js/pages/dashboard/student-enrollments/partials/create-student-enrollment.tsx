@@ -10,11 +10,11 @@ import { FieldGroup, Field, FieldLabel, FieldError } from "@/components/ui/field
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import CheckboxCard from "@/components/ui/checkbox-card";
-import { ReactAsyncSelect } from "@/components/react-select";
+import { AsyncCombobox } from "@/components/async-combobox";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
 import { useFocusRestore } from "@/hooks/use-restore-focus";
 import { useForm, useHttp } from "@inertiajs/react";
-import { SyntheticEvent, useEffect, useState } from "react";
+import { SyntheticEvent, useEffect, useState, useCallback, useMemo } from "react";
 import { store } from "@/routes/dashboard/student-enrollments/class";
 import { active } from "@/routes/dashboard/academic-years";
 import { selectUnenrolled } from "@/routes/dashboard/students";
@@ -55,11 +55,15 @@ export default NiceModal.create(({ studentClassSlug, vocationalProgramId }: { st
         }
     }, [visible]);
 
-    const loadOptions = async (inputValue: string) => {
+    const loadOptions = useCallback(async (inputValue: string) => {
         return await getStudents(
             selectUnenrolled({ vocational_program: vocationalProgramId }).url + `?q=${encodeURIComponent(inputValue)}`
         )
-    };
+    }, [vocationalProgramId]);
+
+    const selectedStudentOptions = useMemo(() => 
+        data.student_id ? data.student_id.map(id => ({ label: "", value: id })) : []
+    , [data.student_id]);
 
     function submit(e: SyntheticEvent<HTMLFormElement>) {
         e.preventDefault()
@@ -112,11 +116,12 @@ export default NiceModal.create(({ studentClassSlug, vocationalProgramId }: { st
                     <FieldGroup>
                         <Field>
                             <FieldLabel>Siswa</FieldLabel>
-                            <ReactAsyncSelect
+                            <AsyncCombobox
                                 isMulti
                                 loadOptions={loadOptions}
-                                defaultOptions
+                                defaultOptions={true}
                                 placeholder="Cari Siswa..."
+                                value={selectedStudentOptions}
                                 onChange={(selected: any) => {
                                     if (selected) {
                                         setData("student_id", selected.map((s: any) => s.value.toString()));
@@ -124,6 +129,7 @@ export default NiceModal.create(({ studentClassSlug, vocationalProgramId }: { st
                                         setData("student_id", []);
                                     }
                                 }}
+                                isInvalid={!!errors.student_id}
                             />
                             {errors.student_id && <FieldError>{errors.student_id}</FieldError>}
                         </Field>

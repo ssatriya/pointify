@@ -29,7 +29,7 @@ export function NavMain({
     return (
         <SidebarGroup>
             <SidebarGroupContent className="flex flex-col gap-2">
-                {label && <SidebarGroupLabel>{label}</SidebarGroupLabel>}
+                {label && <SidebarGroupLabel className="tracking-wider">{label}</SidebarGroupLabel>}
                 <SidebarMenu>
                     {visibleItems.map((item) => (
                         <SidebarMenuItem key={item.title}>

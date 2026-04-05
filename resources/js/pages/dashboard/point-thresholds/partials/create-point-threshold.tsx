@@ -17,7 +17,7 @@ import { SyntheticEvent, useCallback, useState } from "react";
 import { store } from "@/actions/App/Http/Controllers/PointThresholdController";
 import SearchAcademicYearController from "@/actions/App/Http/Controllers/SearchAcademicYearController";
 import { Loader } from "lucide-react";
-import { ReactAsyncSelect } from "@/components/react-select";
+import { AsyncCombobox } from "@/components/async-combobox";
 import type { OptionType } from "@/types";
 import CheckboxCard from "@/components/ui/checkbox-card";
 
@@ -83,19 +83,16 @@ export default NiceModal.create(() => {
                     <FieldGroup>
                         <Field>
                             <FieldLabel htmlFor="academic_year_id">Tahun Akademik</FieldLabel>
-                            <ReactAsyncSelect
-                                inputId="academic_year_id"
+                            <AsyncCombobox
                                 loadOptions={loadAcademicYears}
-                                defaultOptions
-                                cacheOptions
+                                defaultOptions={true}
                                 placeholder="Pilih tahun akademik"
                                 value={selectedAcademicYear}
                                 onChange={(selected) => {
-                                    if (selected) {
-                                        setSelectedAcademicYear(selected);
-                                        setData("academic_year_id", selected.value as string);
-                                    }
+                                    setSelectedAcademicYear(selected);
+                                    setData("academic_year_id", selected?.value?.toString() ?? "");
                                 }}
+                                isInvalid={!!errors.academic_year_id}
                             />
                             <FieldError>{errors.academic_year_id}</FieldError>
                         </Field>

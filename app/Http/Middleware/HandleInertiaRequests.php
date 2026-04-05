@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -31,7 +32,11 @@ class HandleInertiaRequests extends Middleware
      *
      * @var array<int, string>
      */
-    protected $withoutSsr = [];
+    protected $withoutSsr = [
+        'dashboard',
+        'dashboard/*',
+        'settings/*',
+    ];
 
     /**
      * Define the props that are shared by default.
@@ -45,7 +50,7 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => $request->user() ? new \App\Http\Resources\UserResource($request->user()) : null,
+                'user' => $request->user() ? new UserResource($request->user()) : null,
                 'permissions' => $request->user()?->getAllPermissions()->pluck('name')->toArray() ?? [],
             ],
             'filters' => [

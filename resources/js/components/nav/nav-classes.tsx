@@ -12,7 +12,7 @@ export function NavClasses() {
 
     return (
         <SidebarGroup>
-            <SidebarGroupLabel>Daftar Kelas</SidebarGroupLabel>
+            <SidebarGroupLabel className="tracking-wider">Daftar Kelas</SidebarGroupLabel>
             <SidebarMenu>
                 {studentClasses === undefined ? (
                     <>

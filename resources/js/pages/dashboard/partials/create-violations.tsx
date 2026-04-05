@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import {
     CardTable,
     CardTableContent,
@@ -12,7 +13,7 @@ import {
     FieldLabel,
 } from "@/components/ui/field";
 import { Textarea } from "@/components/ui/textarea";
-import { ReactAsyncSelect } from "@/components/react-select";
+import { AsyncCombobox } from "@/components/async-combobox";
 import { useForm, useHttp } from "@inertiajs/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { OptionType } from "@/types";
@@ -21,7 +22,6 @@ import SearchViolationTypeController from "@/actions/App/Http/Controllers/Search
 import ViolationController from "@/actions/App/Http/Controllers/ViolationController";
 import SignatureCanvas from "react-signature-canvas";
 import { toast } from "sonner";
-import { reactSelectBorderStyle } from "@/lib/utils";
 
 
 
@@ -88,16 +88,14 @@ export default function CreateViolations() {
                     <FieldGroup>
                         <Field>
                             <FieldLabel>Pilih Siswa</FieldLabel>
-                            <ReactAsyncSelect
-                                cacheOptions
-                                defaultOptions
-                                openMenuOnFocus
+                            <AsyncCombobox
                                 loadOptions={loadStudentOptions}
                                 value={data.student_enrollment}
                                 onChange={(option: any) => setData("student_enrollment", option)}
                                 placeholder="Cari nama siswa..."
                                 isClearable
-                                styles={reactSelectBorderStyle(!!(errors as any).student_enrollment_id)}
+                                isMulti={false}
+                                isInvalid={!!(errors as any).student_enrollment_id}
                             />
                             <FieldError>{(errors as any).student_enrollment_id}</FieldError>
 
@@ -106,16 +104,15 @@ export default function CreateViolations() {
 
                         <Field>
                             <FieldLabel>Jenis Pelanggaran</FieldLabel>
-                            <ReactAsyncSelect
-                                cacheOptions
-                                defaultOptions
-                                openMenuOnFocus
+                            <AsyncCombobox
                                 loadOptions={loadViolationTypeOptions}
                                 value={data.violation_type}
                                 onChange={(option: any) => setData("violation_type", option)}
                                 placeholder="Cari jenis pelanggaran..."
                                 isClearable
-                                styles={reactSelectBorderStyle(!!(errors as any).violation_type_id)}
+                                isMulti={false}
+                                defaultOptions={true}
+                                isInvalid={!!(errors as any).violation_type_id}
                             />
                             <FieldError>{(errors as any).violation_type_id}</FieldError>
 
@@ -138,7 +135,12 @@ export default function CreateViolations() {
 
                         <Field>
                             <FieldLabel>Tanda Tangan Siswa</FieldLabel>
-                            <div className="border border-border rounded-md overflow-hidden bg-white dark:bg-white relative h-40">
+                            <div className={cn(
+                                "border rounded-md overflow-hidden bg-white dark:bg-white relative h-40 transition-colors",
+                                errors.student_signature
+                                    ? "border-destructive ring-3 ring-destructive/20 dark:border-destructive/50 dark:ring-destructive/40"
+                                    : "border-border"
+                            )}>
                                 <SignatureCanvas
                                     ref={signatureRef}
                                     penColor="black"

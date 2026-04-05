@@ -12,14 +12,13 @@ import {
     FieldLabel,
 } from "@/components/ui/field";
 import { Textarea } from "@/components/ui/textarea";
-import { ReactAsyncSelect } from "@/components/react-select";
+import { AsyncCombobox } from "@/components/async-combobox";
 import { useForm, useHttp } from "@inertiajs/react";
 import { useCallback } from "react";
 import type { OptionType } from "@/types";
 import SearchStudentEnrollmentController from "@/actions/App/Http/Controllers/SearchStudentEnrollmentController";
 import SearchRewardTypeController from "@/actions/App/Http/Controllers/SearchRewardTypeController";
 import RewardController from "@/actions/App/Http/Controllers/RewardController";
-import { reactSelectBorderStyle } from "@/lib/utils";
 
 export default function CreateRewards() {
     const { data, setData, post, processing, errors, reset, transform } = useForm({
@@ -63,32 +62,29 @@ export default function CreateRewards() {
                     <FieldGroup>
                         <Field>
                             <FieldLabel>Pilih Siswa</FieldLabel>
-                            <ReactAsyncSelect
-                                cacheOptions
-                                defaultOptions
-                                openMenuOnFocus
+                            <AsyncCombobox
                                 loadOptions={loadStudentOptions}
                                 value={data.student_enrollment}
                                 onChange={(option: any) => setData("student_enrollment", option)}
                                 placeholder="Cari nama siswa..."
                                 isClearable
-                                styles={reactSelectBorderStyle(!!(errors as any).student_enrollment_id)}
+                                isMulti={false}
+                                isInvalid={!!(errors as any).student_enrollment_id}
                             />
                             <FieldError>{(errors as any).student_enrollment_id}</FieldError>
                         </Field>
 
                         <Field>
                             <FieldLabel>Jenis Prestasi</FieldLabel>
-                            <ReactAsyncSelect
-                                cacheOptions
-                                defaultOptions
-                                openMenuOnFocus
+                            <AsyncCombobox
                                 loadOptions={loadRewardTypeOptions}
                                 value={data.reward_type}
                                 onChange={(option: any) => setData("reward_type", option)}
                                 placeholder="Cari jenis prestasi..."
                                 isClearable
-                                styles={reactSelectBorderStyle(!!(errors as any).reward_type_id)}
+                                isMulti={false}
+                                defaultOptions={true}
+                                isInvalid={!!(errors as any).reward_type_id}
                             />
                             <FieldError>{(errors as any).reward_type_id}</FieldError>
                         </Field>

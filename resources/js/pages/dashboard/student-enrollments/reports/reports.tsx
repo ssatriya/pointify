@@ -1,8 +1,8 @@
-import React from "react";
 import { Head } from "@inertiajs/react";
 import ClassLayout from "@/components/layout/class-layout";
 import type { Class } from "@/types";
-import ClassOverviewChart from "../partials/class-overview-chart";
+
+// const ClassOverviewChart = lazy(() => import('../partials/class-overview-chart'))
 
 type Props = {
     studentClass: Class;
@@ -20,7 +20,9 @@ export default function Reports({ studentClass, classOverview }: Props) {
     return (
         <>
             <Head title={`Laporan Kelas ${studentClass.name}`} />
-            <ClassOverviewChart studentClass={studentClass} classOverview={classOverview} />
+            {/* <Suspense fallback={<div><Loader className="h-6 w-6 animate-spin" /> </div>}>
+                <ClassOverviewChart studentClass={studentClass} classOverview={classOverview} />
+            </Suspense> */}
         </>
     );
 }

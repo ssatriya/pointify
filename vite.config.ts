@@ -4,14 +4,26 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import laravel from 'laravel-vite-plugin';
 import { defineConfig } from 'vite';
+// import { visualizer } from "rollup-plugin-visualizer";
 
 export default defineConfig({
+    optimizeDeps: {
+        include: ['lucide-react', '@tabler/icons-react'],
+    },
+    // ssr: {
+    //     optimizeDeps: {
+    //         include: ['lucide-react', '@tabler/icons-react'],
+    //     },
+    // },
     plugins: [
         laravel({
             input: ['resources/css/app.css', 'resources/js/app.tsx'],
             refresh: true,
         }),
-        inertia(),
+        inertia({
+            ssr: false
+            ,
+        }),
         react({
             babel: {
                 plugins: ['babel-plugin-react-compiler'],
@@ -21,5 +33,11 @@ export default defineConfig({
         wayfinder({
             formVariants: true,
         }),
+        // visualizer({
+        //     open: true,       // auto opens in browser after build
+        //     gzipSize: true,
+        //     brotliSize: true,
+        //     filename: 'dist/stats.html',
+        // })
     ],
 });

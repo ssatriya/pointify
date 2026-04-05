@@ -39,12 +39,37 @@ class ProfileController extends Controller
         }
 
         if ($request->hasFile('avatar')) {
+            $file = $request->file('avatar');
+
             // Delete old photo if exists
             if ($user->avatar_path) {
                 Storage::disk('public')->delete($user->avatar_path);
             }
 
-            $user->avatar_path = $request->file('avatar')->store('avatars', 'public');
+            $imageContent = file_get_contents($file->getRealPath());
+            $image = imagecreatefromstring($imageContent);
+
+            if ($image !== false) {
+                // Handle alpha transparency for PNGs
+                imagepalettetotruecolor($image);
+                imagealphablending($image, true);
+                imagesavealpha($image, true);
+
+                $filename = 'avatars/' . uniqid() . '.webp';
+                
+                // Capture the WebP output buffer
+                ob_start();
+                imagewebp($image, null, 80); // 80 is the quality
+                $webpData = ob_get_clean();
+                imagedestroy($image);
+
+                // Save to the public storage
+                Storage::disk('public')->put($filename, $webpData);
+                $user->avatar_path = $filename;
+            } else {
+                // Fallback if conversion fails
+                $user->avatar_path = $file->store('avatars', 'public');
+            }
         }
 
         $user->save();

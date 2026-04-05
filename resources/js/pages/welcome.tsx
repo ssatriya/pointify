@@ -22,6 +22,7 @@ export default function Welcome() {
                     <div className="flex items-center gap-4">
                         {auth.user ? (
                             <Link
+                                prefetch
                                 href="/dashboard"
                                 className={cn(buttonVariants({ variant: "default" }))}
                             >
@@ -30,12 +31,14 @@ export default function Welcome() {
                         ) : (
                             <>
                                 <Link
+                                    prefetch
                                     href="/login"
                                     className={cn(buttonVariants({ variant: "outline" }))}
                                 >
                                     Login
                                 </Link>
                                 <Link
+                                    prefetch
                                     href="/register"
                                     className={cn(buttonVariants({ variant: "default" }))}
                                 >

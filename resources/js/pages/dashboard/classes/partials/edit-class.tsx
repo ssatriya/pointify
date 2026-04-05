@@ -15,9 +15,8 @@ import SearchVocationalProgramController from "@/actions/App/Http/Controllers/Se
 import { Loader } from "lucide-react";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import type { OptionType, Class } from "@/types";
-import { ReactAsyncSelect } from "@/components/react-select";
+import { AsyncCombobox } from "@/components/async-combobox";
 import { InertiaModal } from "@/components/inertia-modal";
-import { reactSelectBorderStyle } from "@/lib/utils";
 import { toast } from "sonner";
 
 export default function EditClass({
@@ -85,20 +84,16 @@ export default function EditClass({
 
                                 <Field className="flex-1" data-invalid={!!errors.vocational_program_id}>
                                     <FieldLabel htmlFor="vocational_program_id">Kejuruan</FieldLabel>
-                                    <ReactAsyncSelect
-                                        inputId="vocational_program_id"
+                                    <AsyncCombobox
                                         loadOptions={loadOptions}
-                                        defaultOptions
-                                        cacheOptions
+                                        defaultOptions={true}
                                         placeholder="Pilih kejuruan"
                                         value={selectedOption}
                                         onChange={(selected) => {
-                                            if (selected) {
-                                                setSelectedOption(selected);
-                                                setData("vocational_program_id", selected.value as string);
-                                            }
+                                            setSelectedOption(selected);
+                                            setData("vocational_program_id", selected?.value?.toString() ?? "");
                                         }}
-                                        styles={reactSelectBorderStyle(!!errors.vocational_program_id)}
+                                        isInvalid={!!errors.vocational_program_id}
                                     />
                                 </Field>
                             </div>

@@ -9,9 +9,9 @@ import NiceModal from "@ebay/nice-modal-react";
 import ToastListener from "../toast-listener";
 
 type Props = {
-    children: ReactNode,
-    breadcrumbs: BreadcrumbItem[]
-}
+    children: ReactNode;
+    breadcrumbs: BreadcrumbItem[];
+};
 
 export default function AppLayout({ children, breadcrumbs }: Props) {
     const { sidebarOpen } = usePage().props as { sidebarOpen: boolean };

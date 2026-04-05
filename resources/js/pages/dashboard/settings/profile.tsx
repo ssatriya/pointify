@@ -8,11 +8,13 @@ import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field
 import { Input } from "@/components/ui/input";
 import { Heading } from "@/pages/dashboard/settings/partials/heading";
 import DeleteUser from "@/pages/dashboard/settings/partials/delete-user";
-import { Form, Link, usePage, Head, useForm } from "@inertiajs/react";
+import { Link, usePage, Head, useForm } from "@inertiajs/react";
 import { Loader, Camera } from "lucide-react";
 import { useRef, useState } from "react";
 import type { Auth } from "@/types";
 import React from "react";
+
+// const AvatarCropper = lazy(() => import('@/components/avatar-cropper'))
 
 export default function Profile({
     mustVerifyEmail,

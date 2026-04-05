@@ -14,7 +14,7 @@ import { update } from "@/actions/App/Http/Controllers/StudentController";
 import SearchVocationalProgramController from "@/actions/App/Http/Controllers/SearchVocationalProgramController";
 import { Loader } from "lucide-react";
 import type { OptionType, Student } from "@/types";
-import { ReactAsyncSelect } from "@/components/react-select";
+import { AsyncCombobox } from "@/components/async-combobox";
 import { InertiaModal } from "@/components/inertia-modal";
 import CheckboxCard from "@/components/ui/checkbox-card";
 
@@ -80,19 +80,16 @@ export default function EditStudent({
 
                             <Field>
                                 <FieldLabel htmlFor="vocational_program_id">Kejuruan</FieldLabel>
-                                <ReactAsyncSelect
-                                    inputId="vocational_program_id"
+                                <AsyncCombobox
                                     loadOptions={loadOptions}
-                                    defaultOptions
-                                    cacheOptions
+                                    defaultOptions={true}
                                     placeholder="Pilih kejuruan"
                                     value={selectedOption}
                                     onChange={(selected) => {
-                                        if (selected) {
-                                            setSelectedOption(selected);
-                                            setData("vocational_program_id", selected.value as string);
-                                        }
+                                        setSelectedOption(selected);
+                                        setData("vocational_program_id", selected?.value?.toString() ?? "");
                                     }}
+                                    isInvalid={!!errors.vocational_program_id}
                                 />
                                 <FieldError>{errors.vocational_program_id}</FieldError>
                             </Field>
