@@ -70,14 +70,14 @@ export default function Profile({
 
     return (
         <>
-            <Head title="Profile settings" />
-            <h1 className="sr-only">Profile settings</h1>
+            <Head title="Pengaturan profil" />
+            <h1 className="sr-only">Pengaturan profil</h1>
             <>
                 <div className="space-y-6">
                     <Heading
                         variant="small"
-                        title="Profile information"
-                        description="Update your account's profile information and email address."
+                        title="Pengaturan profil"
+                        description="Perbarui informasi profil dan alamat email akun Anda."
                     />
                     <form onSubmit={submit} className="space-y-6">
                         <div className="flex flex-col gap-4">

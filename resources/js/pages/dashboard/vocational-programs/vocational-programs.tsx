@@ -19,7 +19,7 @@ import VocationalProgramActions from "@/pages/dashboard/vocational-programs/part
 import { useFilter } from "@/hooks/use-filter";
 import { index as dashboardIndex } from "@/routes/dashboard";
 import { index as vocationalProgramsIndex } from "@/routes/dashboard/vocational-programs";
-import { ClientOnly } from "@/components/client-only";
+import { Head } from "@inertiajs/react";
 
 type Props = {
     vocationalPrograms: Paginated<VocationalProgram>;
@@ -45,6 +45,7 @@ export default function VocationalPrograms({ vocationalPrograms }: Props) {
     } = useFilter(vocationalProgramsIndex().url);
 
     return (<>
+        <Head title="Program Kejuruan" />
         <CardTable>
             <CardTableHeader>
                 <CardTableTitle title="Data Program Kejuruan" />
@@ -65,37 +66,37 @@ export default function VocationalPrograms({ vocationalPrograms }: Props) {
             <CardTableContent>
                 <Table className="table-fixed min-w-[700px]">
                     <TableHeader>
-                            <TableRow className="h-12">
-                                <TableHead className="w-[45%] min-w-[200px]">Nama Kejuruan</TableHead>
-                                <TableHead className="w-[25%] min-w-[150px]">Singkatan</TableHead>
-                                <TableHead className="w-[25%] min-w-[150px]">Tanggal Dibuat</TableHead>
-                                <TableHead className="w-[5%] whitespace-nowrap"></TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {vocationalPrograms.data.length > 0 ? (
-                                vocationalPrograms.data.map((item) => (
-                                    <TableRow key={item.id} className="h-12">
-                                        <TableCell className="truncate">{item.name}</TableCell>
-                                        <TableCell>{item.abbreviation ?? "—"}</TableCell>
-                                        <TableCell>{item.created_at}</TableCell>
-                                        <TableCell className="text-end">
-                                            <div className="flex justify-end gap-2">
-                                                <VocationalProgramActions id={item.id} />
-                                            </div>
-                                        </TableCell>
-                                    </TableRow>
-                                ))
-                            ) : (
-                                <TableRow>
-                                    <TableCell colSpan={4} className="h-24 text-center text-muted-foreground">
-                                        Belum ada data
+                        <TableRow className="h-12">
+                            <TableHead className="w-[45%] min-w-[200px]">Nama Kejuruan</TableHead>
+                            <TableHead className="w-[25%] min-w-[150px]">Singkatan</TableHead>
+                            <TableHead className="w-[25%] min-w-[150px]">Tanggal Dibuat</TableHead>
+                            <TableHead className="w-[5%] whitespace-nowrap"></TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {vocationalPrograms.data.length > 0 ? (
+                            vocationalPrograms.data.map((item) => (
+                                <TableRow key={item.id} className="h-12">
+                                    <TableCell className="truncate">{item.name}</TableCell>
+                                    <TableCell>{item.abbreviation ?? "—"}</TableCell>
+                                    <TableCell>{item.created_at}</TableCell>
+                                    <TableCell className="text-end">
+                                        <div className="flex justify-end gap-2">
+                                            <VocationalProgramActions id={item.id} />
+                                        </div>
                                     </TableCell>
                                 </TableRow>
-                            )}
-                        </TableBody>
-                    </Table>
-                    <TablePagination links={vocationalPrograms.links} meta={vocationalPrograms.meta} />
+                            ))
+                        ) : (
+                            <TableRow>
+                                <TableCell colSpan={4} className="h-24 text-center text-muted-foreground">
+                                    Belum ada data
+                                </TableCell>
+                            </TableRow>
+                        )}
+                    </TableBody>
+                </Table>
+                <TablePagination links={vocationalPrograms.links} meta={vocationalPrograms.meta} />
             </CardTableContent>
         </CardTable>
     </>)

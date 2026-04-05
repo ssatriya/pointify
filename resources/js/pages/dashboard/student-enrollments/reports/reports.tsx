@@ -27,21 +27,23 @@ export default function Reports({ studentClass, classOverview }: Props) {
     );
 }
 
-Reports.layout = ({ studentClass }: Props) => [ClassLayout, {
-    activeTab: "laporan",
-    breadcrumbs: [
-        {
-            title: "Dashboard",
-            href: ""
-        },
-        {
-            title: studentClass.name,
-            href: ""
-        },
-        {
-            title: "Laporan",
-            href: "#"
-        }
-    ]
-}
-]
+Reports.layout = ({ studentClass }: Props) => [
+    ClassLayout,
+    {
+        activeTab: "laporan",
+        breadcrumbs: [
+            {
+                title: "Dashboard",
+                href: "",
+            },
+            {
+                title: studentClass.name,
+                href: "",
+            },
+            {
+                title: "Laporan",
+                href: "#",
+            },
+        ],
+    },
+];

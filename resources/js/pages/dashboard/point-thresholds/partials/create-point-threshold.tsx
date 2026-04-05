@@ -106,6 +106,7 @@ export default NiceModal.create(() => {
                                 value={data.cumulative_points_threshold}
                                 onChange={(e) => setData("cumulative_points_threshold", e.target.value)}
                                 placeholder="Misal: 25, 50, 75"
+                                aria-invalid={!!errors.cumulative_points_threshold}
                             />
                             <FieldDescription>
                                 Input harus lebih tinggi dari ambang batas sebelumnya yang sudah ada.

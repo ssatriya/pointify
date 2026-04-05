@@ -89,6 +89,7 @@ export default NiceModal.create(() => {
                                 value={data.name}
                                 onChange={(e) => setData("name", e.target.value)}
                                 placeholder="Masukkan nama lengkap siswa"
+                                aria-invalid={!!errors.name}
                             />
                             <FieldError>{errors.name}</FieldError>
                         </Field>

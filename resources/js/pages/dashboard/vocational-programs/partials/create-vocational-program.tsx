@@ -86,6 +86,7 @@ export default NiceModal.create(() => {
                                 type="text"
                                 value={data.abbreviation}
                                 onChange={(e) => setData("abbreviation", e.target.value)}
+                                disabled={data.name.trim().split(/\s+/).filter(Boolean).length <= 1}
                             />
                             <FieldDescription>Hanya gunakan singkatan untuk nama program kejuruan yang panjang, misalnya
                                 memiliki lebih dari dua kata.</FieldDescription>

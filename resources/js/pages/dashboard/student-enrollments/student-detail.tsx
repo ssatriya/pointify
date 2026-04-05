@@ -7,8 +7,7 @@ import {
     CardTableTitle
 } from "@/components/ui/card-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import type { BreadcrumbItem } from "@/types";
-import { PointTransaction, StudentEnrollmentSummary } from "@/types/data-props";
+import { StudentEnrollmentSummary } from "@/types/data-props";
 import { Badge } from "@/components/ui/badge";
 import { index as dashboardIndex } from "@/routes/dashboard";
 import { index as classIndex } from "@/routes/dashboard/student-enrollments/class";
@@ -29,7 +28,6 @@ import {
     History as HistoryIcon
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { RotateCcw } from "lucide-react";
 import { RevokeTransactionAction } from "./partials/revoke-transaction-action";
 
 type Props = {
@@ -38,20 +36,6 @@ type Props = {
 
 
 export default function StudentDetail({ studentEnrollment }: Props) {
-    const breadcrumbs: BreadcrumbItem[] = [
-        {
-            title: "Dashboard",
-            href: dashboardIndex().url
-        },
-        {
-            title: studentEnrollment.student_class,
-            href: classIndex(studentEnrollment.student_class_slug).url
-        },
-        {
-            title: studentEnrollment.name,
-            href: "#"
-        }
-    ];
 
     const handlePrint = () => {
         window.print();
@@ -60,7 +44,6 @@ export default function StudentDetail({ studentEnrollment }: Props) {
     return (
         <>
             <Head title={`Profil: ${studentEnrollment.name}`} />
-
             <style dangerouslySetInnerHTML={{
                 __html: `
                 @media print {
@@ -225,69 +208,69 @@ export default function StudentDetail({ studentEnrollment }: Props) {
                                 </CardTableHeader>
                                 <CardTableContent>
                                     <Table className="min-w-[1000px]">
-                                            <TableHeader>
-                                                <TableRow className="h-10 border-b-muted/40">
-                                                    <TableHead className="w-[12%] tracking-wider">Tanggal</TableHead>
-                                                    <TableHead className="w-[10%] text-center tracking-wider">Tipe</TableHead>
-                                                    <TableHead className="w-[8%] tracking-wider">Kode</TableHead>
-                                                    <TableHead className="tracking-wider">Uraian / Catatan</TableHead>
-                                                    <TableHead className="w-[15%] tracking-wider">Petugas</TableHead>
-                                                    <TableHead className="w-[10%] text-center tracking-wider">Skor</TableHead>
-                                                    <TableHead className="w-[10%] text-end tracking-wider pr-4">Saldo Akhir</TableHead>
-                                                    <TableHead className="w-[50px]"></TableHead>
+                                        <TableHeader>
+                                            <TableRow className="h-10 border-b-muted/40">
+                                                <TableHead className="w-[12%] tracking-wider">Tanggal</TableHead>
+                                                <TableHead className="w-[10%] text-center tracking-wider">Tipe</TableHead>
+                                                <TableHead className="w-[8%] tracking-wider">Kode</TableHead>
+                                                <TableHead className="tracking-wider">Uraian / Catatan</TableHead>
+                                                <TableHead className="w-[15%] tracking-wider">Petugas</TableHead>
+                                                <TableHead className="w-[10%] text-center tracking-wider">Skor</TableHead>
+                                                <TableHead className="w-[10%] text-end tracking-wider pr-4">Saldo Akhir</TableHead>
+                                                <TableHead className="w-[50px]"></TableHead>
+                                            </TableRow>
+                                        </TableHeader>
+                                        <TableBody>
+                                            {group.transactions.map((item) => (
+                                                <TableRow key={item.id} className="h-12 border-b-muted/20 hover:bg-muted/5 group">
+                                                    <TableCell>
+                                                        {new Intl.DateTimeFormat("id-ID", {
+                                                            day: "2-digit",
+                                                            month: "short",
+                                                            year: "numeric",
+                                                        }).format(new Date(item.created_at))}
+                                                    </TableCell>
+                                                    <TableCell className="text-center">
+                                                        {item.type === "violation" ? (
+                                                            <Badge variant="destructive" className="h-5 px-1.5 font-bold uppercase rounded">HUKUMAN</Badge>
+                                                        ) : item.type === "reward" ? (
+                                                            <Badge variant="success" className="h-5 px-1.5 font-bold uppercase rounded">HADIAH</Badge>
+                                                        ) : item.type === "revoked" ? (
+                                                            <Badge variant="outline" className="h-5 px-1.5 font-bold uppercase rounded text-muted-foreground border-muted-foreground/30">BATAL</Badge>
+                                                        ) : (
+                                                            <Badge variant="secondary" className="h-5 px-1.5 font-bold uppercase rounded">RESET</Badge>
+                                                        )}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {item.code || "—"}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <div className="flex flex-col gap-0.5">
+                                                            <span className="font-medium leading-tight line-clamp-1">{item.notes || "Keterangan sistem"}</span>
+                                                        </div>
+                                                    </TableCell>
+                                                    <TableCell className="truncate">
+                                                        {item.created_by}
+                                                    </TableCell>
+                                                    <TableCell className="text-center">
+                                                        <span className={cn(
+                                                            "font-bold tabular-nums",
+                                                            item.type === "violation" ? "text-destructive" : (item.type === "reward" ? "text-success" : "text-primary")
+                                                        )}>
+                                                            {item.points_change > 0 ? `+${item.points_change}` : item.points_change}
+                                                        </span>
+                                                    </TableCell>
+                                                    <TableCell className="text-end font-bold tabular-nums pr-4 text-xs">
+                                                        {item.points_after}
+                                                    </TableCell>
+                                                    <TableCell className="p-0">
+                                                        <div className="flex justify-center opacity-0 group-hover:opacity-100 transition-opacity pr-2">
+                                                            <RevokeTransactionAction item={item} />
+                                                        </div>
+                                                    </TableCell>
                                                 </TableRow>
-                                            </TableHeader>
-                                            <TableBody>
-                                                {group.transactions.map((item) => (
-                                                    <TableRow key={item.id} className="h-12 border-b-muted/20 hover:bg-muted/5 group">
-                                                        <TableCell>
-                                                            {new Intl.DateTimeFormat("id-ID", {
-                                                                day: "2-digit",
-                                                                month: "short",
-                                                                year: "numeric",
-                                                            }).format(new Date(item.created_at))}
-                                                        </TableCell>
-                                                        <TableCell className="text-center">
-                                                            {item.type === "violation" ? (
-                                                                <Badge variant="destructive" className="h-5 px-1.5 font-bold uppercase rounded">HUKUMAN</Badge>
-                                                            ) : item.type === "reward" ? (
-                                                                <Badge variant="success" className="h-5 px-1.5 font-bold uppercase rounded">HADIAH</Badge>
-                                                            ) : item.type === "revoked" ? (
-                                                                <Badge variant="outline" className="h-5 px-1.5 font-bold uppercase rounded text-muted-foreground border-muted-foreground/30">BATAL</Badge>
-                                                            ) : (
-                                                                <Badge variant="secondary" className="h-5 px-1.5 font-bold uppercase rounded">RESET</Badge>
-                                                            )}
-                                                        </TableCell>
-                                                        <TableCell>
-                                                            {item.code || "—"}
-                                                        </TableCell>
-                                                        <TableCell>
-                                                            <div className="flex flex-col gap-0.5">
-                                                                <span className="font-medium leading-tight line-clamp-1">{item.notes || "Keterangan sistem"}</span>
-                                                            </div>
-                                                        </TableCell>
-                                                        <TableCell className="truncate">
-                                                            {item.created_by}
-                                                        </TableCell>
-                                                        <TableCell className="text-center">
-                                                            <span className={cn(
-                                                                "font-bold tabular-nums",
-                                                                item.type === "violation" ? "text-destructive" : (item.type === "reward" ? "text-success" : "text-primary")
-                                                            )}>
-                                                                {item.points_change > 0 ? `+${item.points_change}` : item.points_change}
-                                                            </span>
-                                                        </TableCell>
-                                                        <TableCell className="text-end font-bold tabular-nums pr-4 text-xs">
-                                                            {item.points_after}
-                                                        </TableCell>
-                                                        <TableCell className="p-0">
-                                                            <div className="flex justify-center opacity-0 group-hover:opacity-100 transition-opacity pr-2">
-                                                                <RevokeTransactionAction item={item} />
-                                                            </div>
-                                                        </TableCell>
-                                                    </TableRow>
-                                                ))}
-                                            </TableBody>
+                                            ))}
+                                        </TableBody>
                                     </Table>
                                 </CardTableContent>
                             </CardTable>

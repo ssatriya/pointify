@@ -20,6 +20,7 @@ import ViolationTypeActions from "./partials/violation-type-actions";
 import { useFilter } from "@/hooks/use-filter";
 import { index as dashboardIndex } from "@/routes/dashboard";
 import { index as violationTypesIndex } from "@/routes/dashboard/violation-types";
+import { Head } from "@inertiajs/react";
 
 type Props = {
     violationTypes: Paginated<ViolationType>;
@@ -45,6 +46,7 @@ export default function ViolationTypes({ violationTypes }: Props) {
     } = useFilter(violationTypesIndex().url);
 
     return (<>
+        <Head title="Jenis Pelanggaran" />
         <CardTable>
             <CardTableHeader>
                 <CardTableTitle title="Data Jenis Pelanggaran" />
@@ -65,47 +67,47 @@ export default function ViolationTypes({ violationTypes }: Props) {
             <CardTableContent>
                 <Table className="min-w-[800px] table-fixed">
                     <TableHeader>
-                            <TableRow className="h-12">
-                                <TableHead className="w-[10%] min-w-[100px]">Kode</TableHead>
-                                <TableHead className="w-[50%] min-w-[250px]">Keterangan</TableHead>
-                                <TableHead className="w-[10%] min-w-[100px] text-center">Poin</TableHead>
-                                <TableHead className="w-[10%] min-w-[100px] text-center">Status</TableHead>
-                                <TableHead className="w-[15%] min-w-[150px]">Tanggal Dibuat</TableHead>
-                                <TableHead className="w-[5%] whitespace-nowrap"></TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {violationTypes.data.length > 0 ? (
-                                violationTypes.data.map((item) => (
-                                    <TableRow key={item.id} className="h-12">
-                                        <TableCell>{item.code}</TableCell>
-                                        <TableCell className="truncate">{item.description}</TableCell>
-                                        <TableCell className="text-center">{item.points}</TableCell>
-                                        <TableCell className="text-center">
-                                            {item.is_active ? (
-                                                <Badge variant="success">Aktif</Badge>
-                                            ) : (
-                                                <Badge variant="secondary">Nonaktif</Badge>
-                                            )}
-                                        </TableCell>
-                                        <TableCell>{item.created_at}</TableCell>
-                                        <TableCell className="text-end">
-                                            <div className="flex justify-end gap-2">
-                                                <ViolationTypeActions id={item.id} />
-                                            </div>
-                                        </TableCell>
-                                    </TableRow>
-                                ))
-                            ) : (
-                                <TableRow>
-                                    <TableCell colSpan={6} className="h-24 text-center text-muted-foreground">
-                                        Belum ada data
+                        <TableRow className="h-12">
+                            <TableHead className="w-[10%] min-w-[100px]">Kode</TableHead>
+                            <TableHead className="w-[50%] min-w-[250px]">Keterangan</TableHead>
+                            <TableHead className="w-[10%] min-w-[100px] text-center">Poin</TableHead>
+                            <TableHead className="w-[10%] min-w-[100px] text-center">Status</TableHead>
+                            <TableHead className="w-[15%] min-w-[150px]">Tanggal Dibuat</TableHead>
+                            <TableHead className="w-[5%] whitespace-nowrap"></TableHead>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {violationTypes.data.length > 0 ? (
+                            violationTypes.data.map((item) => (
+                                <TableRow key={item.id} className="h-12">
+                                    <TableCell>{item.code}</TableCell>
+                                    <TableCell className="truncate">{item.description}</TableCell>
+                                    <TableCell className="text-center">{item.points}</TableCell>
+                                    <TableCell className="text-center">
+                                        {item.is_active ? (
+                                            <Badge variant="success">Aktif</Badge>
+                                        ) : (
+                                            <Badge variant="secondary">Nonaktif</Badge>
+                                        )}
+                                    </TableCell>
+                                    <TableCell>{item.created_at}</TableCell>
+                                    <TableCell className="text-end">
+                                        <div className="flex justify-end gap-2">
+                                            <ViolationTypeActions id={item.id} />
+                                        </div>
                                     </TableCell>
                                 </TableRow>
-                            )}
-                        </TableBody>
-                    </Table>
-                    <TablePagination links={violationTypes.links} meta={violationTypes.meta} />
+                            ))
+                        ) : (
+                            <TableRow>
+                                <TableCell colSpan={6} className="h-24 text-center text-muted-foreground">
+                                    Belum ada data
+                                </TableCell>
+                            </TableRow>
+                        )}
+                    </TableBody>
+                </Table>
+                <TablePagination links={violationTypes.links} meta={violationTypes.meta} />
             </CardTableContent>
         </CardTable>
     </>);

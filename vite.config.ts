@@ -1,43 +1,33 @@
-import inertia from '@inertiajs/vite';
-import { wayfinder } from '@laravel/vite-plugin-wayfinder';
-import tailwindcss from '@tailwindcss/vite';
-import react from '@vitejs/plugin-react';
-import laravel from 'laravel-vite-plugin';
-import { defineConfig } from 'vite';
-// import { visualizer } from "rollup-plugin-visualizer";
+import inertia from "@inertiajs/vite";
+import { wayfinder } from "@laravel/vite-plugin-wayfinder";
+import tailwindcss from "@tailwindcss/vite";
+import react from "@vitejs/plugin-react";
+import laravel from "laravel-vite-plugin";
+import { defineConfig } from "vite";
 
 export default defineConfig({
     optimizeDeps: {
-        include: ['lucide-react', '@tabler/icons-react'],
+        include: ["lucide-react", "@tabler/icons-react"],
     },
-    // ssr: {
-    //     optimizeDeps: {
-    //         include: ['lucide-react', '@tabler/icons-react'],
-    //     },
-    // },
+    ssr: {
+        optimizeDeps: {
+            include: ["lucide-react", "@tabler/icons-react"],
+        },
+    },
     plugins: [
         laravel({
-            input: ['resources/css/app.css', 'resources/js/app.tsx'],
+            input: ["resources/css/app.css", "resources/js/app.tsx"],
             refresh: true,
         }),
-        inertia({
-            ssr: false
-            ,
-        }),
+        inertia(),
         react({
             babel: {
-                plugins: ['babel-plugin-react-compiler'],
+                plugins: ["babel-plugin-react-compiler"],
             },
         }),
         tailwindcss(),
         wayfinder({
             formVariants: true,
         }),
-        // visualizer({
-        //     open: true,       // auto opens in browser after build
-        //     gzipSize: true,
-        //     brotliSize: true,
-        //     filename: 'dist/stats.html',
-        // })
     ],
 });

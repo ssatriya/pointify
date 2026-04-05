@@ -56,6 +56,7 @@ export default function EditViolationType({
                                     id="code"
                                     value={data.code}
                                     onChange={(e) => setData("code", e.target.value.toUpperCase())}
+                                    aria-invalid={!!errors.code}
                                 />
                                 <FieldError>{errors.code}</FieldError>
                             </Field>
@@ -67,6 +68,7 @@ export default function EditViolationType({
                                     type="number"
                                     value={data.points}
                                     onChange={(e) => setData("points", parseInt(e.target.value))}
+                                    aria-invalid={!!errors.points}
                                 />
                                 <FieldError>{errors.points}</FieldError>
                             </Field>
@@ -77,6 +79,7 @@ export default function EditViolationType({
                                     id="description"
                                     value={data.description}
                                     onChange={(e) => setData("description", e.target.value)}
+                                    aria-invalid={!!errors.description}
                                 />
                                 <FieldError>{errors.description}</FieldError>
                             </Field>

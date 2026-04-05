@@ -32,11 +32,7 @@ class HandleInertiaRequests extends Middleware
      *
      * @var array<int, string>
      */
-    protected $withoutSsr = [
-        'dashboard',
-        'dashboard/*',
-        'settings/*',
-    ];
+    protected $withoutSsr = [];
 
     /**
      * Define the props that are shared by default.

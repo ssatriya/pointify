@@ -93,7 +93,7 @@ export default function Classes({ classes }: Props) {
     }
 
     return <>
-        <Head title="Data Kelas" />
+        <Head title="Kelas" />
         <CardTable>
             <CardTableHeader>
                 <CardTableTitle title="Data Kelas" />

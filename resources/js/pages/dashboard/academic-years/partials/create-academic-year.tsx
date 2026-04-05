@@ -89,6 +89,7 @@ export default NiceModal.create(() => {
                                         type="date"
                                         value={data.start_date}
                                         onChange={(e) => setData("start_date", e.target.value)}
+                                        aria-invalid={!!errors.start_date}
                                     />
                                     <FieldError>{errors.start_date}</FieldError>
                                 </Field>
@@ -99,6 +100,7 @@ export default NiceModal.create(() => {
                                         type="date"
                                         value={data.end_date}
                                         onChange={(e) => setData("end_date", e.target.value)}
+                                        aria-invalid={!!errors.end_date}
                                     />
                                     <FieldError>{errors.end_date}</FieldError>
                                 </Field>

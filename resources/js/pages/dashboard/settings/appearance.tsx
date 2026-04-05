@@ -10,15 +10,15 @@ import type { BreadcrumbItem } from "@/types";
 export default function Appearance() {
     return (
         <>
-            <Head title="Appearance settings" />
+            <Head title="Pengaturan tampilan" />
 
-            <h1 className="sr-only">Appearance settings</h1>
+            <h1 className="sr-only">Pengaturan tampilan</h1>
 
             <div className="space-y-6">
                 <Heading
                     variant="small"
-                    title="Appearance settings"
-                    description="Update your account's appearance settings"
+                    title="Pengaturan tampilan"
+                    description="Perbarui pengaturan tampilan akun Anda."
                 />
                 <AppearanceTabs />
             </div>

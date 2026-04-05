@@ -82,6 +82,7 @@ export default function EditPointThreshold({
                                     min="1"
                                     value={data.cumulative_points_threshold}
                                     onChange={(e) => setData("cumulative_points_threshold", Number(e.target.value))}
+                                    aria-invalid={!!errors.cumulative_points_threshold}
                                 />
                                 <FieldError>{errors.cumulative_points_threshold}</FieldError>
                             </Field>

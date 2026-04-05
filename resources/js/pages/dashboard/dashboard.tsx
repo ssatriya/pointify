@@ -4,14 +4,6 @@ import CreateViolations from "./partials/create-violations";
 import CreateRewards from "./partials/create-rewards";
 import { index as dashboardIndex } from "@/routes/dashboard";
 
-import {
-    Combobox,
-    ComboboxContent,
-    ComboboxEmpty,
-    ComboboxInput,
-    ComboboxItem,
-    ComboboxList,
-} from "@/components/ui/combobox";
 type Framework = {
     label: string;
     value: string;

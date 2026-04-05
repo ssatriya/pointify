@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import TablePagination from "@/components/table/table-pagination";
 import AppLayout from "@/components/layout/app-layout";
-import type { BreadcrumbItem, Paginated, RewardType } from "@/types";
+import type { Paginated, RewardType } from "@/types";
 import { useModal } from "@ebay/nice-modal-react";
 import { Badge } from "@/components/ui/badge";
 import createRewardType from "./partials/create-reward-type";
@@ -20,6 +20,7 @@ import RewardTypeActions from "./partials/reward-type-actions";
 import { useFilter } from "@/hooks/use-filter";
 import { index as dashboardIndex } from "@/routes/dashboard";
 import { index as rewardTypesIndex } from "@/routes/dashboard/reward-types";
+import { Head } from "@inertiajs/react";
 
 type Props = {
     rewardTypes: Paginated<RewardType>;
@@ -33,26 +34,28 @@ export default function RewardTypes({ rewardTypes }: Props) {
         resetFilters
     } = useFilter(rewardTypesIndex().url);
 
-    return (<CardTable>
-        <CardTableHeader>
-            <CardTableTitle title="Data Jenis Prestasi" />
-            <CardTableActions>
-                <TableToolbar>
-                    <SearchInput
-                        search={search}
-                        setSearch={setSearch}
-                        hasSearch={!!search}
-                        resetSearch={resetFilters}
-                    />
-                    <Button variant="outline" onClick={() => show()}>
-                        Tambah
-                    </Button>
-                </TableToolbar>
-            </CardTableActions>
-        </CardTableHeader>
-        <CardTableContent>
-            <Table className="table-fixed min-w-[800px]">
-                <TableHeader>
+    return (<>
+        <Head title="Jenis Prestasi" />
+        <CardTable>
+            <CardTableHeader>
+                <CardTableTitle title="Data Jenis Prestasi" />
+                <CardTableActions>
+                    <TableToolbar>
+                        <SearchInput
+                            search={search}
+                            setSearch={setSearch}
+                            hasSearch={!!search}
+                            resetSearch={resetFilters}
+                        />
+                        <Button variant="outline" onClick={() => show()}>
+                            Tambah
+                        </Button>
+                    </TableToolbar>
+                </CardTableActions>
+            </CardTableHeader>
+            <CardTableContent>
+                <Table className="table-fixed min-w-[800px]">
+                    <TableHeader>
                         <TableRow className="h-12">
                             <TableHead className="w-[10%] min-w-[100px]">Kode</TableHead>
                             <TableHead className="w-[50%] min-w-[250px]">Keterangan</TableHead>
@@ -94,8 +97,9 @@ export default function RewardTypes({ rewardTypes }: Props) {
                     </TableBody>
                 </Table>
                 <TablePagination links={rewardTypes.links} meta={rewardTypes.meta} />
-        </CardTableContent>
-    </CardTable>
+            </CardTableContent>
+        </CardTable>
+    </>
     );
 }
 

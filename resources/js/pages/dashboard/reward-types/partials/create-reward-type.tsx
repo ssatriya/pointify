@@ -80,10 +80,10 @@ export default NiceModal.create(() => {
                                 value={data.code}
                                 onChange={(e) => setData("code", e.target.value.toUpperCase())}
                                 placeholder="Misal: PR001"
+                                aria-invalid={!!errors.code}
                             />
                             <FieldError>{errors.code}</FieldError>
                         </Field>
-
                         <Field>
                             <FieldLabel htmlFor="points">Poin</FieldLabel>
                             <Input
@@ -92,10 +92,10 @@ export default NiceModal.create(() => {
                                 value={data.points}
                                 onChange={(e) => setData("points", e.target.value)}
                                 placeholder="Misal: 5, 10, 25"
+                                aria-invalid={!!errors.points}
                             />
                             <FieldError>{errors.points}</FieldError>
                         </Field>
-
                         <Field>
                             <FieldLabel htmlFor="description">Keterangan</FieldLabel>
                             <Textarea
@@ -103,6 +103,7 @@ export default NiceModal.create(() => {
                                 value={data.description}
                                 onChange={(e) => setData("description", e.target.value)}
                                 placeholder="Jelaskan detail prestasi"
+                                aria-invalid={!!errors.description}
                             />
                             <FieldError>{errors.description}</FieldError>
                         </Field>

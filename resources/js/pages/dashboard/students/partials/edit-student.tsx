@@ -62,6 +62,7 @@ export default function EditStudent({
                                     value={data.name}
                                     onChange={(e) => setData("name", e.target.value)}
                                     placeholder="Masukkan nama lengkap siswa"
+                                    aria-invalid={!!errors.name}
                                 />
                                 <FieldError>{errors.name}</FieldError>
                             </Field>

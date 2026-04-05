@@ -18,9 +18,8 @@ import {
 import TablePagination from "@/components/table/table-pagination";
 import AppLayout from "@/components/layout/app-layout";
 import { Badge } from "@/components/ui/badge";
-import type { BreadcrumbItem, Paginated, User, Auth } from "@/types";
-import { router, usePage } from "@inertiajs/react";
-import { useState } from "react";
+import type { Paginated, User } from "@/types";
+import { Head } from "@inertiajs/react";
 import UserActions from "@/pages/dashboard/users/partials/user-actions";
 import { useFilter } from "@/hooks/use-filter";
 import { index as dashboardIndex } from "@/routes/dashboard";
@@ -32,9 +31,9 @@ type Props = {
 
 export default function UserIndex({ users }: Props) {
     const { search, setSearch, resetFilters } = useFilter(usersIndex().url);
-    console.log(users)
     return (
         <>
+            <Head title="Manajemen Pengguna" />
             <CardTable>
                 <CardTableHeader>
                     <CardTableTitle title="Data Pengguna" />
