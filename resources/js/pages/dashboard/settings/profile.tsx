@@ -4,13 +4,18 @@ import ProfileController from "@/actions/App/Http/Controllers/Settings/ProfileCo
 import { AvatarCropper } from "@/components/avatar-cropper";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
+import {
+    Field,
+    FieldError,
+    FieldGroup,
+    FieldLabel,
+} from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Heading } from "@/pages/dashboard/settings/partials/heading";
 import DeleteUser from "@/pages/dashboard/settings/partials/delete-user";
 import { Link, usePage, Head, useForm } from "@inertiajs/react";
 import { Loader, Camera } from "lucide-react";
-import { useRef, useState } from "react";
+import { SyntheticEvent, useRef, useState } from "react";
 import type { Auth } from "@/types";
 import React from "react";
 
@@ -28,12 +33,13 @@ export default function Profile({
     const [croppingImage, setCroppingImage] = useState<string | null>(null);
     const photoInput = useRef<HTMLInputElement>(null);
 
-    const { data, setData, post, processing, errors, recentlySuccessful } = useForm({
-        name: auth.user.name,
-        email: auth.user.email,
-        avatar: null as File | null,
-        _method: 'PATCH',
-    });
+    const { data, setData, post, processing, errors, recentlySuccessful } =
+        useForm({
+            name: auth.user.name,
+            email: auth.user.email,
+            avatar: null as File | null,
+            _method: "PATCH",
+        });
 
     const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -52,7 +58,7 @@ export default function Profile({
     };
 
     const handleCrop = (file: File) => {
-        setData('avatar', file);
+        setData("avatar", file);
         const reader = new FileReader();
         reader.onload = (e) => {
             setPhotoPreview(e.target?.result as string);
@@ -61,7 +67,7 @@ export default function Profile({
         reader.readAsDataURL(file);
     };
 
-    const submit = (e: React.FormEvent) => {
+    const submit = (e: SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
         post(ProfileController.update.url(), {
             preserveScroll: true,
@@ -85,21 +91,36 @@ export default function Profile({
                             <div className="flex flex-col gap-3">
                                 <div className="relative group h-32 w-32">
                                     <Avatar className="h-full w-full border-4 border-background shadow-md transition-all duration-300 group-hover:ring-4 group-hover:ring-primary/10">
-                                        <AvatarImage src={photoPreview || auth.user.avatar || undefined} className="object-cover" />
+                                        <AvatarImage
+                                            src={
+                                                photoPreview ||
+                                                auth.user.avatar ||
+                                                undefined
+                                            }
+                                            className="object-cover"
+                                        />
                                         <AvatarFallback className="text-2xl font-bold bg-muted text-muted-foreground uppercase">
-                                            {auth.user.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+                                            {auth.user.name
+                                                .split(" ")
+                                                .map((n) => n[0])
+                                                .join("")
+                                                .toUpperCase()}
                                         </AvatarFallback>
                                     </Avatar>
 
                                     {/* Overlay button */}
                                     <button
                                         type="button"
-                                        onClick={() => photoInput.current?.click()}
+                                        onClick={() =>
+                                            photoInput.current?.click()
+                                        }
                                         className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 rounded-full bg-black/60 text-white opacity-0 transition-all duration-300 backdrop-blur-[2px] group-hover:opacity-100"
                                         title="Ubah Avatar"
                                     >
                                         <Camera className="h-6 w-6 animate-in fade-in zoom-in duration-300" />
-                                        <span className="text-[10px] font-semibold uppercase tracking-wider">Ubah</span>
+                                        <span className="text-[10px] font-semibold uppercase tracking-wider">
+                                            Ubah
+                                        </span>
                                     </button>
 
                                     <input
@@ -131,20 +152,26 @@ export default function Profile({
                                     name="name"
                                     type="text"
                                     value={data.name}
-                                    onChange={e => setData('name', e.target.value)}
+                                    onChange={(e) =>
+                                        setData("name", e.target.value)
+                                    }
                                     required
                                     autoComplete="name"
                                 />
                                 <FieldError>{errors.name}</FieldError>
                             </Field>
                             <Field>
-                                <FieldLabel htmlFor="email">Email address</FieldLabel>
+                                <FieldLabel htmlFor="email">
+                                    Email address
+                                </FieldLabel>
                                 <Input
                                     id="email"
                                     name="email"
                                     type="email"
                                     value={data.email}
-                                    onChange={e => setData('email', e.target.value)}
+                                    onChange={(e) =>
+                                        setData("email", e.target.value)
+                                    }
                                     required
                                     autoComplete="username"
                                 />
@@ -162,19 +189,25 @@ export default function Profile({
                                             as="button"
                                             className="underline text-neutral-900 dark:text-neutral-100 hover:text-neutral-600 dark:hover:text-neutral-300"
                                         >
-                                            Click here to re-send the verification email.
+                                            Click here to re-send the
+                                            verification email.
                                         </Link>
                                     </p>
 
                                     {status === "verification-link-sent" && (
                                         <div className="mt-2 text-sm font-medium text-green-600">
-                                            A new verification link has been sent to your email address.
+                                            A new verification link has been
+                                            sent to your email address.
                                         </div>
                                     )}
                                 </div>
                             )}
                         <div className="flex items-center gap-4">
-                            <Button type="submit" disabled={processing} className="min-w-20">
+                            <Button
+                                type="submit"
+                                disabled={processing}
+                                className="min-w-20"
+                            >
                                 {processing ? (
                                     <Loader className="h-4 w-4 animate-spin" />
                                 ) : (
@@ -189,7 +222,7 @@ export default function Profile({
                         </div>
                     </form>
                 </div>
-                {auth.user.role !== 'super-admin' && <DeleteUser />}
+                {auth.user.role !== "super-admin" && <DeleteUser />}
             </>
 
             <AvatarCropper
@@ -203,17 +236,20 @@ export default function Profile({
 }
 
 Profile.layout = [
-    [AppLayout, {
-        breadcrumbs: [
-            {
-                title: "Dashboard",
-                href: "/dashboard",
-            },
-            {
-                title: 'Profile settings',
-                href: '/dashboard/settings/profile',
-            },
-        ],
-    }],
-    [SettingsLayout]
+    [
+        AppLayout,
+        {
+            breadcrumbs: [
+                {
+                    title: "Dashboard",
+                    href: "/dashboard",
+                },
+                {
+                    title: "Profile settings",
+                    href: "/dashboard/settings/profile",
+                },
+            ],
+        },
+    ],
+    [SettingsLayout],
 ];

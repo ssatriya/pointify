@@ -14,29 +14,42 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { AsyncCombobox } from "@/components/async-combobox";
 import { useForm, useHttp } from "@inertiajs/react";
-import { useCallback } from "react";
+import { SyntheticEvent, useCallback } from "react";
 import type { OptionType } from "@/types";
 import SearchStudentEnrollmentController from "@/actions/App/Http/Controllers/SearchStudentEnrollmentController";
 import SearchRewardTypeController from "@/actions/App/Http/Controllers/SearchRewardTypeController";
 import RewardController from "@/actions/App/Http/Controllers/RewardController";
 
 export default function CreateRewards() {
-    const { data, setData, post, processing, errors, reset, transform } = useForm({
-        student_enrollment: null as OptionType | null,
-        reward_type: null as OptionType | null,
-        notes: "",
-    });
-    const { get } = useHttp<{}, OptionType[]>()
+    const { data, setData, post, processing, errors, reset, transform } =
+        useForm({
+            student_enrollment: null as OptionType | null,
+            reward_type: null as OptionType | null,
+            notes: "",
+        });
+    const { get } = useHttp<{}, OptionType[]>();
 
-    const loadStudentOptions = useCallback(async (inputValue: string): Promise<OptionType[]> => {
-        return await get(SearchStudentEnrollmentController.url({ query: { q: inputValue } }))
-    }, []);
+    const loadStudentOptions = useCallback(
+        async (inputValue: string): Promise<OptionType[]> => {
+            return await get(
+                SearchStudentEnrollmentController.url({
+                    query: { q: inputValue },
+                }),
+            );
+        },
+        [],
+    );
 
-    const loadRewardTypeOptions = useCallback(async (inputValue: string): Promise<OptionType[]> => {
-        return await get(SearchRewardTypeController.url({ query: { q: inputValue } }))
-    }, []);
+    const loadRewardTypeOptions = useCallback(
+        async (inputValue: string): Promise<OptionType[]> => {
+            return await get(
+                SearchRewardTypeController.url({ query: { q: inputValue } }),
+            );
+        },
+        [],
+    );
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         transform((data) => ({
@@ -65,13 +78,19 @@ export default function CreateRewards() {
                             <AsyncCombobox
                                 loadOptions={loadStudentOptions}
                                 value={data.student_enrollment}
-                                onChange={(option: any) => setData("student_enrollment", option)}
+                                onChange={(option: any) =>
+                                    setData("student_enrollment", option)
+                                }
                                 placeholder="Cari nama siswa..."
                                 isClearable
                                 isMulti={false}
-                                isInvalid={!!(errors as any).student_enrollment_id}
+                                isInvalid={
+                                    !!(errors as any).student_enrollment_id
+                                }
                             />
-                            <FieldError>{(errors as any).student_enrollment_id}</FieldError>
+                            <FieldError>
+                                {(errors as any).student_enrollment_id}
+                            </FieldError>
                         </Field>
 
                         <Field>
@@ -79,14 +98,18 @@ export default function CreateRewards() {
                             <AsyncCombobox
                                 loadOptions={loadRewardTypeOptions}
                                 value={data.reward_type}
-                                onChange={(option: any) => setData("reward_type", option)}
+                                onChange={(option: any) =>
+                                    setData("reward_type", option)
+                                }
                                 placeholder="Cari jenis prestasi..."
                                 isClearable
                                 isMulti={false}
                                 defaultOptions={true}
                                 isInvalid={!!(errors as any).reward_type_id}
                             />
-                            <FieldError>{(errors as any).reward_type_id}</FieldError>
+                            <FieldError>
+                                {(errors as any).reward_type_id}
+                            </FieldError>
                         </Field>
 
                         <Field>
@@ -94,7 +117,9 @@ export default function CreateRewards() {
                             <Textarea
                                 id="notes"
                                 value={data.notes}
-                                onChange={(e) => setData("notes", e.target.value)}
+                                onChange={(e) =>
+                                    setData("notes", e.target.value)
+                                }
                                 placeholder="Tuliskan catatan prestasi di sini..."
                                 rows={4}
                                 className="bg-background"
@@ -105,7 +130,11 @@ export default function CreateRewards() {
                     </FieldGroup>
 
                     <div className="flex justify-end">
-                        <Button type="submit" disabled={processing} className="w-full md:w-auto">
+                        <Button
+                            type="submit"
+                            disabled={processing}
+                            className="w-full md:w-auto"
+                        >
                             Simpan Prestasi
                         </Button>
                     </div>

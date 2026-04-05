@@ -15,7 +15,13 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { AsyncCombobox } from "@/components/async-combobox";
 import { useForm, useHttp } from "@inertiajs/react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+    SyntheticEvent,
+    useCallback,
+    useEffect,
+    useRef,
+    useState,
+} from "react";
 import type { OptionType } from "@/types";
 import SearchStudentEnrollmentController from "@/actions/App/Http/Controllers/SearchStudentEnrollmentController";
 import SearchViolationTypeController from "@/actions/App/Http/Controllers/SearchViolationTypeController";
@@ -23,26 +29,37 @@ import ViolationController from "@/actions/App/Http/Controllers/ViolationControl
 import SignatureCanvas from "react-signature-canvas";
 import { toast } from "sonner";
 
-
-
 export default function CreateViolations() {
-    const { get } = useHttp<{}, OptionType[]>()
+    const { get } = useHttp<{}, OptionType[]>();
     const signatureRef = useRef<SignatureCanvas>(null);
     const [hasSignature, setHasSignature] = useState(false);
-    const { data, setData, post, processing, errors, reset, transform } = useForm({
-        student_enrollment: null as OptionType | null,
-        violation_type: null as OptionType | null,
-        notes: "",
-        student_signature: "",
-    });
+    const { data, setData, post, processing, errors, reset, transform } =
+        useForm({
+            student_enrollment: null as OptionType | null,
+            violation_type: null as OptionType | null,
+            notes: "",
+            student_signature: "",
+        });
 
-    const loadStudentOptions = useCallback(async (inputValue: string): Promise<OptionType[]> => {
-        return await get(SearchStudentEnrollmentController.url({ query: { q: inputValue } }))
-    }, []);
+    const loadStudentOptions = useCallback(
+        async (inputValue: string): Promise<OptionType[]> => {
+            return await get(
+                SearchStudentEnrollmentController.url({
+                    query: { q: inputValue },
+                }),
+            );
+        },
+        [],
+    );
 
-    const loadViolationTypeOptions = useCallback(async (inputValue: string): Promise<OptionType[]> => {
-        return await get(SearchViolationTypeController.url({ query: { q: inputValue } }))
-    }, []);
+    const loadViolationTypeOptions = useCallback(
+        async (inputValue: string): Promise<OptionType[]> => {
+            return await get(
+                SearchViolationTypeController.url({ query: { q: inputValue } }),
+            );
+        },
+        [],
+    );
 
     const handleResetSignature = () => {
         signatureRef.current?.clear();
@@ -50,12 +67,13 @@ export default function CreateViolations() {
         setHasSignature(false);
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
         // Use transform to ensure the latest signature is included
-        const signatureData = signatureRef.current && !signatureRef.current.isEmpty()
-            ? signatureRef.current.toDataURL("image/png")
-            : "";
+        const signatureData =
+            signatureRef.current && !signatureRef.current.isEmpty()
+                ? signatureRef.current.toDataURL("image/png")
+                : "";
 
         transform((data) => ({
             ...data,
@@ -72,9 +90,9 @@ export default function CreateViolations() {
             },
             onError: (error) => {
                 if (error.point_threshold) {
-                    toast.warning(error.point_threshold)
+                    toast.warning(error.point_threshold);
                 }
-            }
+            },
         });
     };
 
@@ -91,15 +109,19 @@ export default function CreateViolations() {
                             <AsyncCombobox
                                 loadOptions={loadStudentOptions}
                                 value={data.student_enrollment}
-                                onChange={(option: any) => setData("student_enrollment", option)}
+                                onChange={(option: any) =>
+                                    setData("student_enrollment", option)
+                                }
                                 placeholder="Cari nama siswa..."
                                 isClearable
                                 isMulti={false}
-                                isInvalid={!!(errors as any).student_enrollment_id}
+                                isInvalid={
+                                    !!(errors as any).student_enrollment_id
+                                }
                             />
-                            <FieldError>{(errors as any).student_enrollment_id}</FieldError>
-
-
+                            <FieldError>
+                                {(errors as any).student_enrollment_id}
+                            </FieldError>
                         </Field>
 
                         <Field>
@@ -107,16 +129,18 @@ export default function CreateViolations() {
                             <AsyncCombobox
                                 loadOptions={loadViolationTypeOptions}
                                 value={data.violation_type}
-                                onChange={(option: any) => setData("violation_type", option)}
+                                onChange={(option: any) =>
+                                    setData("violation_type", option)
+                                }
                                 placeholder="Cari jenis pelanggaran..."
                                 isClearable
                                 isMulti={false}
                                 defaultOptions={true}
                                 isInvalid={!!(errors as any).violation_type_id}
                             />
-                            <FieldError>{(errors as any).violation_type_id}</FieldError>
-
-
+                            <FieldError>
+                                {(errors as any).violation_type_id}
+                            </FieldError>
                         </Field>
 
                         <Field>
@@ -124,7 +148,9 @@ export default function CreateViolations() {
                             <Textarea
                                 id="notes"
                                 value={data.notes}
-                                onChange={(e) => setData("notes", e.target.value)}
+                                onChange={(e) =>
+                                    setData("notes", e.target.value)
+                                }
                                 className="bg-background"
                                 placeholder="Tuliskan catatan pelanggaran di sini..."
                                 rows={4}
@@ -135,18 +161,21 @@ export default function CreateViolations() {
 
                         <Field>
                             <FieldLabel>Tanda Tangan Siswa</FieldLabel>
-                            <div className={cn(
-                                "border rounded-md overflow-hidden bg-white dark:bg-white relative h-40 transition-colors",
-                                errors.student_signature
-                                    ? "border-destructive ring-3 ring-destructive/20 dark:border-destructive/50 dark:ring-destructive/40"
-                                    : "border-border"
-                            )}>
+                            <div
+                                className={cn(
+                                    "border rounded-md overflow-hidden bg-white dark:bg-white relative h-40 transition-colors",
+                                    errors.student_signature
+                                        ? "border-destructive ring-3 ring-destructive/20 dark:border-destructive/50 dark:ring-destructive/40"
+                                        : "border-border",
+                                )}
+                            >
                                 <SignatureCanvas
                                     ref={signatureRef}
                                     penColor="black"
                                     backgroundColor="rgba(0,0,0,0)"
                                     canvasProps={{
-                                        className: "w-full h-full cursor-crosshair",
+                                        className:
+                                            "w-full h-full cursor-crosshair",
                                     }}
                                     onEnd={() => setHasSignature(true)}
                                 />
@@ -170,7 +199,11 @@ export default function CreateViolations() {
                     </FieldGroup>
 
                     <div className="flex justify-end">
-                        <Button type="submit" disabled={processing} className="w-full md:w-auto">
+                        <Button
+                            type="submit"
+                            disabled={processing}
+                            className="w-full md:w-auto"
+                        >
                             Simpan Pelanggaran
                         </Button>
                     </div>
@@ -179,5 +212,3 @@ export default function CreateViolations() {
         </CardTable>
     );
 }
-
-
