@@ -31,4 +31,31 @@ class UpdateVocationalProgramRequest extends FormRequest
             'abbreviation' => ['sometimes', 'nullable', 'string']
         ];
     }
+
+    /**
+     * Get the validation messages for the defined rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'required' => ':attribute wajib diisi.',
+            'string' => ':attribute harus berupa teks.',
+            'unique' => ':attribute sudah terdaftar.',
+        ];
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array<string, string>
+     */
+    public function attributes(): array
+    {
+        return [
+            'name' => 'Nama kejuruan',
+            'abbreviation' => 'Singkatan',
+        ];
+    }
 }

@@ -40,4 +40,32 @@ class StoreRewardRequest extends FormRequest
             ],
         ];
     }
+
+    /**
+     * Get the validation messages for the defined rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'required' => ':attribute wajib diisi.',
+            'string' => ':attribute harus berupa teks.',
+            'exists' => ':attribute tidak valid.',
+        ];
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array<string, string>
+     */
+    public function attributes(): array
+    {
+        return [
+            'student_enrollment_id' => 'Pendaftaran siswa',
+            'reward_type_id' => 'Jenis penghargaan',
+            'notes' => 'Catatan',
+        ];
+    }
 }

@@ -1,6 +1,6 @@
 import AuthLayout from "@/components/layout/auth-layout";
 import { Field, FieldGroup } from "@/components/ui/field";
-import { Form, Link } from "@inertiajs/react";
+import { Form, Head, Link } from "@inertiajs/react";
 import { logout } from "@/routes";
 import { send } from "@/routes/verification";
 import { Button } from "@/components/ui/button";
@@ -8,24 +8,16 @@ import { Loader } from "lucide-react";
 
 export default function VerifyEmail() {
     return (
-        <AuthLayout>
+        <>
+            <Head title="Email verification" />
             <Form
                 {...send.form()}
                 resetOnSuccess={["password"]}
                 className="flex flex-col gap-6"
             >
-                {({ processing, errors }) => (
+                {({ processing }) => (
                     <>
                         <FieldGroup>
-                            <div className="flex flex-col items-center gap-1 text-center">
-                                <h1 className="text-2xl font-bold">
-                                    Create an account
-                                </h1>
-                                <p className="text-sm text-balance text-muted-foreground">
-                                    Enter your details below to create your
-                                    account.
-                                </p>
-                            </div>
                             <Field>
                                 <Button
                                     type="submit"
@@ -35,7 +27,7 @@ export default function VerifyEmail() {
                                     {processing ? (
                                         <Loader className="h-4 w-4 animate-spin" />
                                     ) : (
-                                        "Kirim ulang verifikasi email"
+                                        "Kirim ulang email verifikasi"
                                     )}
                                 </Button>
                             </Field>
@@ -51,6 +43,8 @@ export default function VerifyEmail() {
                     </>
                 )}
             </Form>
-        </AuthLayout>
+        </>
     );
 }
+
+VerifyEmail.layout = AuthLayout;

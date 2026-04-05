@@ -1,4 +1,4 @@
-import { Form, Link } from "@inertiajs/react";
+import { Form, Head, Link } from "@inertiajs/react";
 import { store } from "@/routes/login";
 import { request } from "@/routes/password";
 import { register } from "@/routes";
@@ -27,80 +27,84 @@ export default function Login({
     canResetPassword,
 }: Props) {
     return (
-        <Form
-            {...store.form()}
-            resetOnSuccess={["password"]}
-            className="flex flex-col gap-6"
-        >
-            {({ processing, errors }) => (
-                <>
-                    <FieldGroup>
-                        <div className="flex flex-col items-center gap-1 text-center">
-                            <h1 className="text-2xl font-bold">
-                                Create an account
-                            </h1>
-                            <p className="text-sm text-balance text-muted-foreground">
-                                Enter your details below to create your account.
-                            </p>
-                        </div>
-                        <Field>
-                            <FieldLabel htmlFor="email">Email</FieldLabel>
-                            <Input
-                                id="email"
-                                type="email"
-                                name="email"
-                                autoComplete="email"
-                                placeholder="m@example.com"
-                            />
-                            <FieldError>{errors.email}</FieldError>
-                        </Field>
-                        <Field>
-                            <div className="flex items-center">
-                                <FieldLabel htmlFor="password">
-                                    Password
-                                </FieldLabel>
-                                {canResetPassword && (
-                                    <Link
-                                        href={request()}
-                                        className="ml-auto text-sm underline-offset-4 hover:underline"
-                                    >
-                                        Lupa password?
-                                    </Link>
-                                )}
+        <>
+            <Head title="Masuk" />
+            <Form
+                {...store.form()}
+                resetOnSuccess={["password"]}
+                className="flex flex-col gap-6"
+            >
+                {({ processing, errors }) => (
+                    <>
+                        <FieldGroup>
+                            <div className="flex flex-col items-center gap-1 text-center">
+                                <h1 className="text-2xl font-bold">
+                                    Masuk ke akun
+                                </h1>
+                                <p className="text-sm text-pretty text-muted-foreground">
+                                    Masukkan email dan kata sandi Anda untuk
+                                    masuk.
+                                </p>
                             </div>
-                            <PasswordInput
-                                id="password"
-                                name="password"
-                                autoComplete="new-password"
-                            />
-                            <FieldError>{errors.password}</FieldError>
-                        </Field>
-                        <Field>
-                            <Button type="submit" disabled={processing}>
-                                {processing ? (
-                                    <Loader className="h-4 w-4 animate-spin" />
-                                ) : (
-                                    "Masuk"
-                                )}
-                            </Button>
-                        </Field>
-                        {canRegister && (
                             <Field>
-                                <FieldDescription className="text-center">
-                                    Don't have an account?{" "}
-                                    <Link
-                                        href={register()}
-                                        className="underline underline-offset-4"
-                                    >
-                                        Sign up
-                                    </Link>
-                                </FieldDescription>
+                                <FieldLabel htmlFor="email">Email</FieldLabel>
+                                <Input
+                                    id="email"
+                                    type="email"
+                                    name="email"
+                                    autoComplete="email"
+                                    placeholder="m@example.com"
+                                />
+                                <FieldError>{errors.email}</FieldError>
                             </Field>
-                        )}
-                    </FieldGroup>
-                </>
-            )}
-        </Form>
+                            <Field>
+                                <div className="flex items-center">
+                                    <FieldLabel htmlFor="password">
+                                        Kata sandi
+                                    </FieldLabel>
+                                    {canResetPassword && (
+                                        <Link
+                                            href={request()}
+                                            className="ml-auto text-sm underline-offset-4 hover:underline"
+                                        >
+                                            Lupa password?
+                                        </Link>
+                                    )}
+                                </div>
+                                <PasswordInput
+                                    id="password"
+                                    name="password"
+                                    autoComplete="new-password"
+                                />
+                                <FieldError>{errors.password}</FieldError>
+                            </Field>
+                            <Field>
+                                <Button type="submit" disabled={processing}>
+                                    {processing ? (
+                                        <Loader className="h-4 w-4 animate-spin" />
+                                    ) : (
+                                        "Masuk"
+                                    )}
+                                </Button>
+                            </Field>
+                            {canRegister && (
+                                <Field>
+                                    <FieldDescription className="text-center">
+                                        Belum punya akun?{" "}
+                                        <Link
+                                            href={register()}
+                                            className="underline underline-offset-4"
+                                        >
+                                            Daftar
+                                        </Link>
+                                    </FieldDescription>
+                                </Field>
+                            )}
+                        </FieldGroup>
+                    </>
+                )}
+            </Form>
+        </>
     );
 }
 

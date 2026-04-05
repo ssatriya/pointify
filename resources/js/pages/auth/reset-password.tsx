@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { update } from "@/routes/password";
-import { Form } from "@inertiajs/react";
+import { Form, Head } from "@inertiajs/react";
 
 type Props = {
     token: string;
@@ -17,7 +17,8 @@ type Props = {
 
 export default function ResetPassword({ token, email }: Props) {
     return (
-        <AuthLayout>
+        <>
+            <Head title="Atur ulang kata sandi" />
             <Form
                 {...update.form()}
                 resetOnSuccess={["password"]}
@@ -28,10 +29,11 @@ export default function ResetPassword({ token, email }: Props) {
                         <FieldGroup>
                             <div className="flex flex-col items-center gap-1 text-center">
                                 <h1 className="text-2xl font-bold">
-                                    Reset password
+                                    Atur ulang kata sandi
                                 </h1>
-                                <p className="text-sm text-balance text-muted-foreground">
-                                    Please enter your new password below.
+                                <p className="text-sm text-pretty text-muted-foreground">
+                                    Silakan masukkan kata sandi baru Anda di
+                                    bawah ini.
                                 </p>
                             </div>
                             <Field>
@@ -49,7 +51,7 @@ export default function ResetPassword({ token, email }: Props) {
                             </Field>
                             <Field>
                                 <FieldLabel htmlFor="password">
-                                    Password
+                                    Kata sandi
                                 </FieldLabel>
                                 <Input
                                     id="password"
@@ -61,7 +63,7 @@ export default function ResetPassword({ token, email }: Props) {
                             </Field>
                             <Field>
                                 <FieldLabel htmlFor="password_confirmation">
-                                    Konfirmasi password
+                                    Konfirmasi kata sandi
                                 </FieldLabel>
                                 <Input
                                     id="password_confirmation"
@@ -75,13 +77,15 @@ export default function ResetPassword({ token, email }: Props) {
                             </Field>
                             <Field>
                                 <Button type="submit" disabled={processing}>
-                                    Masuk
+                                    Atur ulang kata sandi
                                 </Button>
                             </Field>
                         </FieldGroup>
                     </>
                 )}
             </Form>
-        </AuthLayout>
+        </>
     );
 }
+
+ResetPassword.layout = AuthLayout;

@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Form, Link } from "@inertiajs/react";
+import { Form, Head, Link } from "@inertiajs/react";
 import { login } from "@/routes";
 import { store } from "@/routes/register";
 import { Loader } from "lucide-react";
@@ -17,6 +17,7 @@ import { PasswordInput } from "@/components/ui/password-input";
 export default function Register() {
     return (
         <>
+            <Head title="Daftar akun" />
             <Form
                 {...store.form()}
                 resetOnSuccess={["password", "password_confirmation"]}
@@ -28,11 +29,11 @@ export default function Register() {
                         <FieldGroup>
                             <div className="flex flex-col items-center gap-1 text-center">
                                 <h1 className="text-2xl font-bold">
-                                    Create an account
+                                    Buat akun baru
                                 </h1>
-                                <p className="text-sm text-balance text-muted-foreground">
-                                    Enter your details below to create your
-                                    account.
+                                <p className="text-sm text-pretty text-muted-foreground">
+                                    Lengkapi data di bawah ini untuk membuat
+                                    akun.
                                 </p>
                             </div>
                             <Field>
@@ -59,7 +60,7 @@ export default function Register() {
                             </Field>
                             <Field>
                                 <FieldLabel htmlFor="password">
-                                    Password
+                                    Kata sandi
                                 </FieldLabel>
                                 <PasswordInput
                                     id="password"
@@ -70,7 +71,7 @@ export default function Register() {
                             </Field>
                             <Field>
                                 <FieldLabel htmlFor="password_confirmation">
-                                    Konfirmasi password
+                                    Konfirmasi kata sandi
                                 </FieldLabel>
                                 <PasswordInput
                                     id="password_confirmation"
@@ -92,12 +93,12 @@ export default function Register() {
                             </Field>
                             <Field>
                                 <FieldDescription className="text-center">
-                                    Already have an account?{" "}
+                                    Sudah punya akun?{" "}
                                     <Link
                                         href={login()}
                                         className="underline underline-offset-4"
                                     >
-                                        Log in
+                                        Masuk
                                     </Link>
                                 </FieldDescription>
                             </Field>

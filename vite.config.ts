@@ -9,11 +9,6 @@ export default defineConfig({
     optimizeDeps: {
         include: ["lucide-react", "@tabler/icons-react"],
     },
-    ssr: {
-        optimizeDeps: {
-            include: ["lucide-react", "@tabler/icons-react"],
-        },
-    },
     plugins: [
         laravel({
             input: ["resources/css/app.css", "resources/js/app.tsx"],

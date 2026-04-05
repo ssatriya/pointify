@@ -44,4 +44,34 @@ class UpdateStudentEnrollmentRequest extends FormRequest
             'is_active' => ['required', 'boolean'],
         ];
     }
+
+    /**
+     * Get the validation messages for the defined rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'required' => ':attribute wajib diisi.',
+            'exists' => ':attribute tidak valid.',
+            'unique' => ':attribute sudah terdaftar untuk tahun akademik ini.',
+            'boolean' => ':attribute harus berupa status aktif/nonaktif.',
+        ];
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array<string, string>
+     */
+    public function attributes(): array
+    {
+        return [
+            'student_id' => 'Siswa',
+            'academic_year_id' => 'Tahun akademik',
+            'is_repeating' => 'Status mengulang',
+            'is_active' => 'Status aktif/nonaktif',
+        ];
+    }
 }

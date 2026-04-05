@@ -8,11 +8,12 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { store } from "@/routes/password/confirm";
-import { Form } from "@inertiajs/react";
+import { Form, Head } from "@inertiajs/react";
 
 export default function ConfirmPassword() {
     return (
-        <AuthLayout>
+        <>
+            <Head title="Konfirmasi Kata Sandi" />
             <Form
                 {...store.form()}
                 resetOnSuccess={["password"]}
@@ -23,38 +24,39 @@ export default function ConfirmPassword() {
                         <FieldGroup>
                             <div className="flex flex-col items-center gap-1 text-center">
                                 <h1 className="text-2xl font-bold">
-                                    Confirm your password
+                                    Konfirmasi kata sandi
                                 </h1>
-                                <p className="text-sm text-balance text-muted-foreground">
-                                    This is a secure area of the application.
-                                    Please confirm your password before
-                                    continuing.
+                                <p className="text-sm text-pretty text-muted-foreground">
+                                    Demi keamanan, silakan masukkan kata sandi
+                                    Anda sebelum melanjutkan ke halaman ini.
                                 </p>
                             </div>
                             <Field>
                                 <FieldLabel htmlFor="password">
-                                    Password
+                                    Kata Sandi
                                 </FieldLabel>
                                 <Input
                                     id="password"
                                     name="password"
                                     type="password"
-                                    placeholder="Password"
+                                    placeholder="Masukkan kata sandi Anda"
                                     autoComplete="current-password"
                                     autoFocus
                                 />
-                                <FieldError>{errors.email}</FieldError>
+                                <FieldError>{errors.password}</FieldError>
                             </Field>
 
                             <Field>
                                 <Button type="submit" disabled={processing}>
-                                    Konfirmasi password
+                                    Lanjutkan
                                 </Button>
                             </Field>
                         </FieldGroup>
                     </>
                 )}
             </Form>
-        </AuthLayout>
+        </>
     );
 }
+
+ConfirmPassword.layout = AuthLayout;

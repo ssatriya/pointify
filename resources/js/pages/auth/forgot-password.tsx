@@ -8,11 +8,12 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { store } from "@/routes/password/confirm";
-import { Form } from "@inertiajs/react";
+import { Form, Head } from "@inertiajs/react";
 
 export default function ForgotPassword() {
     return (
-        <AuthLayout>
+        <>
+            <Head title="Lupa kata sandi" />
             <Form
                 {...store.form()}
                 resetOnSuccess={["password"]}
@@ -23,11 +24,11 @@ export default function ForgotPassword() {
                         <FieldGroup>
                             <div className="flex flex-col items-center gap-1 text-center">
                                 <h1 className="text-2xl font-bold">
-                                    Forgot password
+                                    Lupa kata sandi
                                 </h1>
-                                <p className="text-sm text-balance text-muted-foreground">
-                                    Enter your email to receive a password reset
-                                    link
+                                <p className="text-sm text-pretty text-muted-foreground">
+                                    Masukkan email Anda untuk mengatur ulang kata
+                                    sandi.
                                 </p>
                             </div>
                             <Field>
@@ -46,13 +47,15 @@ export default function ForgotPassword() {
                             </Field>
                             <Field>
                                 <Button type="submit" disabled={processing}>
-                                    Kirim email reset password
+                                    Kirim tautan pemulihan
                                 </Button>
                             </Field>
                         </FieldGroup>
                     </>
                 )}
             </Form>
-        </AuthLayout>
+        </>
     );
 }
+
+ForgotPassword.layout = AuthLayout;
