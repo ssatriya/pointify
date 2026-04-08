@@ -19,6 +19,7 @@ import type { OptionType } from "@/types";
 import SearchStudentEnrollmentController from "@/actions/App/Http/Controllers/SearchStudentEnrollmentController";
 import SearchRewardTypeController from "@/actions/App/Http/Controllers/SearchRewardTypeController";
 import RewardController from "@/actions/App/Http/Controllers/RewardController";
+import { Loader } from "lucide-react";
 
 export default function CreateRewards() {
     const { data, setData, post, processing, errors, reset, transform } =
@@ -68,7 +69,7 @@ export default function CreateRewards() {
     return (
         <CardTable>
             <CardTableHeader>
-                <CardTableTitle title="Submit Poin Prestasi Siswa" />
+                <CardTableTitle title="Buat Poin Prestasi Siswa" />
             </CardTableHeader>
             <CardTableContent className="p-6">
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -135,7 +136,11 @@ export default function CreateRewards() {
                             disabled={processing}
                             className="w-full md:w-auto"
                         >
-                            Simpan Prestasi
+                            {processing ? (
+                                <Loader className="h-4 w-4 animate-spin" />
+                            ) : (
+                                "Simpan"
+                            )}
                         </Button>
                     </div>
                 </form>

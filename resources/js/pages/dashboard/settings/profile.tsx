@@ -1,25 +1,26 @@
 import AppLayout from "@/components/layout/app-layout";
 import SettingsLayout from "@/components/layout/settings-layout";
 import ProfileController from "@/actions/App/Http/Controllers/Settings/ProfileController";
-import { AvatarCropper } from "@/components/avatar-cropper";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
     Field,
+    FieldDescription,
     FieldError,
     FieldGroup,
     FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
 import { Heading } from "@/pages/dashboard/settings/partials/heading";
 import DeleteUser from "@/pages/dashboard/settings/partials/delete-user";
 import { Link, usePage, Head, useForm } from "@inertiajs/react";
 import { Loader, Camera } from "lucide-react";
-import { SyntheticEvent, useRef, useState } from "react";
+import { lazy, Suspense, SyntheticEvent, useRef, useState } from "react";
 import type { Auth } from "@/types";
 import React from "react";
 
-// const AvatarCropper = lazy(() => import('@/components/avatar-cropper'))
+const AvatarCropper = lazy(() => import("@/components/avatar-cropper"));
 
 export default function Profile({
     mustVerifyEmail,
@@ -80,11 +81,16 @@ export default function Profile({
             <h1 className="sr-only">Pengaturan profil</h1>
             <>
                 <div className="space-y-6">
-                    <Heading
-                        variant="small"
-                        title="Pengaturan profil"
-                        description="Perbarui informasi profil dan alamat email akun Anda."
-                    />
+                    <div className="flex items-center justify-between gap-4">
+                        <Heading
+                            variant="small"
+                            title="Pengaturan profil"
+                            description="Perbarui informasi profil dan alamat email akun Anda."
+                        />
+                        <Badge variant="outline" className="px-3 py-1 h-auto text-xs font-semibold capitalize bg-muted/50 border-muted-foreground/20">
+                            {auth.user.role_label}
+                        </Badge>
+                    </div>
                     <form onSubmit={submit} className="space-y-6">
                         <div className="flex flex-col gap-4">
                             <FieldLabel>Avatar</FieldLabel>
@@ -146,7 +152,22 @@ export default function Profile({
 
                         <FieldGroup>
                             <Field>
-                                <FieldLabel htmlFor="name">Name</FieldLabel>
+                                <FieldLabel>Peran</FieldLabel>
+                                <Input
+                                    value={auth.user.role_label || "-"}
+                                    readOnly
+                                    disabled
+                                    className="bg-muted/30 cursor-not-allowed border-dashed"
+                                />
+                                <FieldDescription>
+                                    Peran Anda ditentukan oleh administrator dan tidak dapat diubah di sini.
+                                </FieldDescription>
+                            </Field>
+                        </FieldGroup>
+
+                        <FieldGroup>
+                            <Field>
+                                <FieldLabel htmlFor="name">Nama</FieldLabel>
                                 <Input
                                     id="name"
                                     name="name"
@@ -162,7 +183,7 @@ export default function Profile({
                             </Field>
                             <Field>
                                 <FieldLabel htmlFor="email">
-                                    Email address
+                                    Email
                                 </FieldLabel>
                                 <Input
                                     id="email"
@@ -182,15 +203,15 @@ export default function Profile({
                             auth.user?.email_verified_at === null && (
                                 <div>
                                     <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                                        Your email address is unverified.{" "}
+                                        Email Anda belum terverifikasi.{" "}
                                         <Link
                                             href="/email/verification-notification"
                                             method="post"
                                             as="button"
                                             className="underline text-neutral-900 dark:text-neutral-100 hover:text-neutral-600 dark:hover:text-neutral-300"
                                         >
-                                            Click here to re-send the
-                                            verification email.
+                                            Klik disini untuk mengirim ulang
+                                            email verifikasi.
                                         </Link>
                                     </p>
 
@@ -225,12 +246,14 @@ export default function Profile({
                 {auth.user.role !== "super-admin" && <DeleteUser />}
             </>
 
-            <AvatarCropper
-                image={croppingImage}
-                open={!!croppingImage}
-                onClose={() => setCroppingImage(null)}
-                onCrop={handleCrop}
-            />
+            <Suspense fallback={null}>
+                <AvatarCropper
+                    image={croppingImage}
+                    open={!!croppingImage}
+                    onClose={() => setCroppingImage(null)}
+                    onCrop={handleCrop}
+                />
+            </Suspense>
         </>
     );
 }
@@ -245,7 +268,7 @@ Profile.layout = [
                     href: "/dashboard",
                 },
                 {
-                    title: "Profile settings",
+                    title: "Pengaturan profil",
                     href: "/dashboard/settings/profile",
                 },
             ],

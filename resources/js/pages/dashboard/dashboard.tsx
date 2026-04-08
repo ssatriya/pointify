@@ -4,17 +4,6 @@ import CreateViolations from "./partials/create-violations";
 import CreateRewards from "./partials/create-rewards";
 import { index as dashboardIndex } from "@/routes/dashboard";
 
-type Framework = {
-    label: string;
-    value: string;
-};
-
-const frameworks: Framework[] = [
-    { label: "Next.js", value: "next" },
-    { label: "SvelteKit", value: "sveltekit" },
-    { label: "Nuxt", value: "nuxt" },
-];
-
 export default function Dashboard() {
     return (
         <>

@@ -14,7 +14,7 @@ interface NavItem {
 
 const sidebarNavItems: NavItem[] = [
     {
-        title: 'Profile',
+        title: 'Profil',
         href: '/dashboard/settings/profile',
     },
     // {
@@ -22,7 +22,7 @@ const sidebarNavItems: NavItem[] = [
     //     href: '/dashboard/settings/security',
     // },
     {
-        title: 'Appearance',
+        title: 'Tampilan',
         href: '/dashboard/settings/appearance',
     },
 ];
@@ -31,17 +31,16 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
     const { isCurrentOrParentUrl } = useCurrentUrl();
 
     return (
-        <div className="px-4 py-6">
+        <>
             <Heading
-                title="Settings"
-                description="Manage your profile and account settings"
+                title="Pengaturan"
+                description="Kelola profil dan pengaturan akun Anda"
             />
-
             <div className="flex flex-col lg:flex-row lg:space-x-12 mt-6">
                 <aside className="w-full max-w-xl lg:w-48">
                     <nav
                         className="flex flex-col space-y-1"
-                        aria-label="Settings"
+                        aria-label="Pengaturan"
                     >
                         {sidebarNavItems.map((item, index) => (
                             <Button
@@ -62,15 +61,13 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
                         ))}
                     </nav>
                 </aside>
-
                 <Separator className="my-6 lg:hidden" />
-
                 <div className="flex-1 md:max-w-2xl">
                     <section className="max-w-xl space-y-12">
                         {children}
                     </section>
                 </div>
             </div>
-        </div>
+        </>
     );
 }

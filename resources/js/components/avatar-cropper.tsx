@@ -64,3 +64,5 @@ export function AvatarCropper({ image, open, onClose, onCrop }: Props) {
         </Dialog>
     );
 }
+
+export default AvatarCropper;

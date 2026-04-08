@@ -4,16 +4,13 @@ import SettingsLayout from "@/components/layout/settings-layout";
 import { Heading } from "@/pages/dashboard/settings/partials/heading";
 import AppearanceTabs from "@/pages/dashboard/settings/partials/appearance-tabs";
 import { Head } from "@inertiajs/react";
-import type { BreadcrumbItem } from "@/types";
 
 
 export default function Appearance() {
     return (
         <>
             <Head title="Pengaturan tampilan" />
-
             <h1 className="sr-only">Pengaturan tampilan</h1>
-
             <div className="space-y-6">
                 <Heading
                     variant="small"
@@ -34,7 +31,7 @@ Appearance.layout = [
                 href: "/dashboard",
             },
             {
-                title: "Appearance settings",
+                title: "Pengaturan tampilan",
                 href: "/dashboard/settings/appearance",
             },
         ]

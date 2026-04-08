@@ -23,8 +23,10 @@ import {
 } from "@/components/ui/sidebar";
 import { Link, router } from "@inertiajs/react";
 import { useMobileNavigation } from "@/hooks/use-mobile-navigation";
-import { Settings } from "lucide-react";
+import { ScreenShare, Settings, User2 } from "lucide-react";
+import { formatName } from "@/lib/utils";
 import { edit } from '@/routes/profile';
+import { edit as editAppearance } from '@/routes/appearance';
 import { logout } from '@/routes';
 
 export function NavUser({
@@ -66,7 +68,7 @@ export function NavUser({
                                 </Avatar>
                                 <div className="grid flex-1 text-left text-sm leading-tight">
                                     <span className="truncate font-medium">
-                                        {user.name}
+                                        {formatName(user.name)}
                                     </span>
                                     <span className="truncate text-xs text-muted-foreground">
                                         {user.email}
@@ -76,7 +78,7 @@ export function NavUser({
                             </SidebarMenuButton>
                         } />
                     <DropdownMenuContent
-                        className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
+                        className="min-w-56 rounded-lg"
                         side={isMobile ? "bottom" : "right"}
                         align="end"
                         sideOffset={4}
@@ -94,10 +96,10 @@ export function NavUser({
                                         </AvatarFallback>
                                     </Avatar>
                                     <div className="grid flex-1 text-left text-sm leading-tight">
-                                        <span className="truncate font-medium">
-                                            {user.name}
+                                        <span className="truncate font-medium text-primary">
+                                            {formatName(user.name)}
                                         </span>
-                                        <span className="truncate text-xs text-muted-foreground">
+                                        <span className="truncate text-xs">
                                             {user.email}
                                         </span>
                                     </div>
@@ -116,18 +118,36 @@ export function NavUser({
                                         onClick={cleanup}
                                     >
                                         <Settings />
-                                        Settings
+                                        Pengaturan
                                     </Link>
                                 }
                             />
-                            <DropdownMenuItem>
-                                <IconCreditCard />
-                                Billing
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                                <IconNotification />
-                                Notifications
-                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                                render={
+                                    <Link
+                                        className="block w-full cursor-pointer"
+                                        href={edit()}
+                                        prefetch
+                                        onClick={cleanup}
+                                    >
+                                        <User2 />
+                                        Profil
+                                    </Link>
+                                }
+                            />
+                            <DropdownMenuItem
+                                render={
+                                    <Link
+                                        className="block w-full cursor-pointer"
+                                        href={editAppearance()}
+                                        prefetch
+                                        onClick={cleanup}
+                                    >
+                                        <ScreenShare />
+                                        Tampilan
+                                    </Link>
+                                }
+                            />
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem

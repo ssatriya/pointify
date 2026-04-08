@@ -239,9 +239,9 @@ export default function UserEdit({ user, allPermissions, allRoles }: Props) {
                                                     isRolePermission
                                                         ? undefined
                                                         : () =>
-                                                              togglePermission(
-                                                                  permission,
-                                                              );
+                                                            togglePermission(
+                                                                permission,
+                                                            );
 
                                                 return (
                                                     <div

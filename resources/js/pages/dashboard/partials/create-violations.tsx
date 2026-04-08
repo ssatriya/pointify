@@ -28,6 +28,7 @@ import SearchViolationTypeController from "@/actions/App/Http/Controllers/Search
 import ViolationController from "@/actions/App/Http/Controllers/ViolationController";
 import SignatureCanvas from "react-signature-canvas";
 import { toast } from "sonner";
+import { Loader } from "lucide-react";
 
 export default function CreateViolations() {
     const { get } = useHttp<{}, OptionType[]>();
@@ -99,7 +100,7 @@ export default function CreateViolations() {
     return (
         <CardTable>
             <CardTableHeader>
-                <CardTableTitle title="Submit Pelanggaran Siswa" />
+                <CardTableTitle title="Buat Pelanggaran Siswa" />
             </CardTableHeader>
             <CardTableContent className="p-6">
                 <form onSubmit={handleSubmit} className="space-y-6">
@@ -204,7 +205,11 @@ export default function CreateViolations() {
                             disabled={processing}
                             className="w-full md:w-auto"
                         >
-                            Simpan Pelanggaran
+                            {processing ? (
+                                <Loader className="h-4 w-4 animate-spin" />
+                            ) : (
+                                "Simpan"
+                            )}
                         </Button>
                     </div>
                 </form>

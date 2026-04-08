@@ -24,7 +24,7 @@ export default function Register() {
                 disableWhileProcessing
                 className="flex flex-col gap-6"
             >
-                {({ processing, errors }) => (
+                {({ processing, errors, clearErrors }) => (
                     <>
                         <FieldGroup>
                             <div className="flex flex-col items-center gap-1 text-center">
@@ -83,7 +83,7 @@ export default function Register() {
                                 </FieldError>
                             </Field>
                             <Field>
-                                <Button type="submit" disabled={processing}>
+                                <Button onClick={() => clearErrors()} type="submit" disabled={processing}>
                                     {processing ? (
                                         <Loader className="h-4 w-4 animate-spin" />
                                     ) : (
