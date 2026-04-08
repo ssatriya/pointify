@@ -110,7 +110,7 @@ export function NavUser({
                                 nativeButton={false}
                                 render={
                                     <Link
-                                        className="block w-full cursor-pointer text-muted-foreground"
+                                        className="block w-full cursor-pointer"
                                         href={edit()}
                                         prefetch
                                         onClick={cleanup}
@@ -120,11 +120,11 @@ export function NavUser({
                                     </Link>
                                 }
                             />
-                            <DropdownMenuItem className="text-muted-foreground">
+                            <DropdownMenuItem>
                                 <IconCreditCard />
                                 Billing
                             </DropdownMenuItem>
-                            <DropdownMenuItem className="text-muted-foreground">
+                            <DropdownMenuItem>
                                 <IconNotification />
                                 Notifications
                             </DropdownMenuItem>
@@ -133,7 +133,7 @@ export function NavUser({
                         <DropdownMenuItem
                             nativeButton={true}
                             render={<Link
-                                className="block w-full cursor-pointer text-muted-foreground"
+                                className="block w-full cursor-pointer"
                                 href={logout()}
                                 method="post"
                                 as="button"

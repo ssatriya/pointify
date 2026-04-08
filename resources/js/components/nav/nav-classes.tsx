@@ -30,7 +30,7 @@ export function NavClasses() {
                         .map((item) => (
                             <SidebarMenuItem key={item.id}>
                                 <SidebarMenuButton
-                                    className="tabular-nums data-[active=true]:bg-muted text-muted-foreground text"
+                                    className="tabular-nums"
                                     tooltip={{ children: item.abbreviation ?? item.name }}
                                     isActive={isCurrentUrl(item.url, undefined, false)}
                                     render={<Link

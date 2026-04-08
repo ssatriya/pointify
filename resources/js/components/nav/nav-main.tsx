@@ -28,13 +28,13 @@ export function NavMain({
 
     return (
         <SidebarGroup>
-            <SidebarGroupContent className="flex flex-col gap-2">
+            <SidebarGroupContent className="flex flex-col">
                 {label && <SidebarGroupLabel className="tracking-wider">{label}</SidebarGroupLabel>}
                 <SidebarMenu>
                     {visibleItems.map((item) => (
                         <SidebarMenuItem key={item.title}>
                             <SidebarMenuButton
-                                className="tabular-nums text-muted-foreground"
+                                className="tabular-nums"
                                 tooltip={{ children: item.title }}
                                 isActive={isCurrentUrl(item.href, undefined, !item.exact)}
                                 render={<Link
