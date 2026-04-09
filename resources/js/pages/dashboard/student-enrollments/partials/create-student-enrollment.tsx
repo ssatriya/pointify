@@ -115,16 +115,18 @@ export default NiceModal.create(({ studentClassSlug, vocationalProgramId }: { st
                 <form onSubmit={submit} id="create-student-enrollment">
                     <FieldGroup>
                         <Field>
-                            <FieldLabel>Siswa</FieldLabel>
+                            <FieldLabel>
+                                Siswa {data.student_id.length > 0 && `(${data.student_id.length})`}
+                            </FieldLabel>
                             <AsyncCombobox
                                 isMulti
                                 loadOptions={loadOptions}
                                 defaultOptions={true}
                                 placeholder="Cari Siswa..."
                                 value={selectedStudentOptions}
-                                onChange={(selected: any) => {
+                                onChange={(selected: OptionType[] | null) => {
                                     if (selected) {
-                                        setData("student_id", selected.map((s: any) => s.value.toString()));
+                                        setData("student_id", selected.map((s: OptionType) => s.value.toString()));
                                     } else {
                                         setData("student_id", []);
                                     }
