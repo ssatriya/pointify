@@ -141,6 +141,23 @@ export default NiceModal.create(() => {
                         {errors.file && (
                             <p className="text-xs text-destructive font-medium">{errors.file}</p>
                         )}
+
+                        {/* Row Level Errors */}
+                        {Object.keys(errors).filter(key => key !== 'file').length > 0 && (
+                            <div className="rounded-lg border border-destructive/20 bg-destructive/5 p-3">
+                                <h5 className="mb-2 text-xs font-semibold text-destructive uppercase tracking-wider">Terjadi Kesalahan pada Data:</h5>
+                                <div className="max-h-32 overflow-y-auto space-y-1 pr-1 custom-scrollbar">
+                                    {Object.entries(errors).map(([key, error]) => (
+                                        key !== 'file' && (
+                                            <p key={key} className="text-sm text-destructive leading-tight flex gap-2">
+                                                <span className="shrink-0">•</span>
+                                                <span>{error as string}</span>
+                                            </p>
+                                        )
+                                    ))}
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
                 <DialogFooter>
