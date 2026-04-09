@@ -25,9 +25,14 @@ class StudentImportController extends Controller
             'file' => ['required', 'file', 'mimes:xlsx,xls,csv', 'max:2048'],
         ]);
 
-        $this->studentService->import($request->file('file'));
-
-        return Inertia::flash(['message' => 'Data siswa berhasil diimpor.'])->back();
+        try {
+            $this->studentService->import($request->file('file'));
+            return Inertia::flash(['message' => 'Data siswa berhasil diimpor.'])->back();
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            return back()->withErrors($e->failures());
+        } catch (Throwable $e) {
+            return Inertia::flash(['error' => 'Gagal mengimpor data: ' . $e->getMessage()])->back();
+        }
     }
 
     public function downloadTemplate()

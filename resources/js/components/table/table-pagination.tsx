@@ -1,4 +1,4 @@
-import {Link} from "@inertiajs/react";
+import {Link, router, usePage} from "@inertiajs/react";
 import {ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight} from "lucide-react";
 import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {buttonVariants} from "@/components/ui/button";
@@ -55,6 +55,25 @@ export default function TablePagination({links, meta, onPageSizeChange}: Props) 
     const isFirstPage = meta.current_page <= 1;
     const isLastPage = meta.current_page >= meta.last_page;
 
+    const {filters} = usePage().props as any;
+
+    const handlePageSizeChange = (value: number) => {
+        if (onPageSizeChange) {
+            onPageSizeChange(value);
+            return;
+        }
+
+        router.get(window.location.pathname, {
+            ...filters,
+            per_page: value,
+            page: 1,
+        }, {
+            preserveState: true,
+            preserveScroll: true,
+            replace: true,
+        });
+    };
+
     return (
         <div
             className="flex w-full flex-col-reverse items-center justify-between gap-4 border-t p-2 py-4 text-muted-foreground xl:flex-row xl:gap-8">
@@ -69,7 +88,7 @@ export default function TablePagination({links, meta, onPageSizeChange}: Props) 
                     <p className="whitespace-nowrap text-sm">Baris per halaman</p>
                     <Select
                         value={`${meta.per_page}`}
-                        onValueChange={(value) => onPageSizeChange?.(Number(value))}
+                        onValueChange={(value) => handlePageSizeChange(Number(value))}
                         disabled={meta.last_page === 1 && meta.total <= 10}
                     >
                         <SelectTrigger className="w-18">

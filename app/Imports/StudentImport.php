@@ -27,11 +27,18 @@ class StudentImport implements ToCollection, WithHeadingRow, SkipsEmptyRows, Wit
         $userId = Auth::id();
         
         foreach ($rows as $row) {
+            // Maatwebsite Excel slugs headers with hyphens by default: Nama Lengkap -> nama-lengkap
+            $namaLengkap = trim($row['nama-lengkap'] ?? $row['nama_lengkap'] ?? '');
+            $nisNisn = trim((string)($row['nis-nisn'] ?? $row['nis_nisn'] ?? '')) ?: null;
             $kejuruanName = trim($row['kejuruan'] ?? '');
             
+            if (empty($namaLengkap) || empty($kejuruanName)) {
+                continue;
+            }
+
             // Case-insensitive mapping for vocational programs by name
             $programId = $this->vocationalPrograms->filter(function ($id, $name) use ($kejuruanName) {
-                return strtolower((string) $name) === strtolower((string) $kejuruanName);
+                return strtolower(trim((string) $name)) === strtolower(trim((string) $kejuruanName));
             })->first();
 
             if (!$programId) {
@@ -39,8 +46,8 @@ class StudentImport implements ToCollection, WithHeadingRow, SkipsEmptyRows, Wit
             }
 
             Student::create([
-                'name' => trim($row['nama_lengkap'] ?? ''),
-                'student_number' => trim((string)($row['nis_nisn'] ?? '')) ?: null,
+                'name' => $namaLengkap,
+                'student_number' => $nisNisn,
                 'vocational_program_id' => $programId,
                 'created_by' => $userId,
                 'is_active' => true,
@@ -50,7 +57,9 @@ class StudentImport implements ToCollection, WithHeadingRow, SkipsEmptyRows, Wit
 
     public function prepareForValidation($data, $index)
     {
-        $data['nis_nisn'] = isset($data['nis_nisn']) ? (string) $data['nis_nisn'] : null;
+        // Handle both hyphenated and underscored keys for validation
+        $data['nama-lengkap'] = $data['nama-lengkap'] ?? $data['nama_lengkap'] ?? null;
+        $data['nis-nisn'] = isset($data['nis-nisn']) ? (string) $data['nis-nisn'] : (isset($data['nis_nisn']) ? (string) $data['nis_nisn'] : null);
 
         return $data;
     }
@@ -58,8 +67,8 @@ class StudentImport implements ToCollection, WithHeadingRow, SkipsEmptyRows, Wit
     public function rules(): array
     {
         return [
-            'nama_lengkap' => ['required', 'string', 'max:100'],
-            'nis_nisn' => [
+            'nama-lengkap' => ['required', 'string', 'max:100'],
+            'nis-nisn' => [
                 'nullable', 
                 'string', 
                 'max:20', 
@@ -84,9 +93,9 @@ class StudentImport implements ToCollection, WithHeadingRow, SkipsEmptyRows, Wit
     public function customValidationMessages()
     {
         return [
-            'nama_lengkap.required' => 'Nama lengkap wajib diisi.',
+            'nama-lengkap.required' => 'Nama lengkap wajib diisi.',
             'kejuruan.required' => 'Kejuruan wajib diisi.',
-            'nis_nisn.unique' => 'NIS/NISN :input sudah terdaftar.',
+            'nis-nisn.unique' => 'NIS/NISN :input sudah terdaftar.',
         ];
     }
 }
