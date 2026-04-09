@@ -14,12 +14,14 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $role = $this->roles->first();
+
         return [
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'role' => $this->roles->first()?->name,
-            'role_label' => \App\Enums\Role::tryFrom($this->roles->first()?->name)?->label() ?? $this->roles->first()?->name,
+            'role' => $role?->name,
+            'role_label' => \App\Enums\Role::tryFrom($role?->name)?->label() ?? $role?->name,
             'permissions' => $this->getAllPermissions()->pluck('name'),
             'role_permissions' => $this->getPermissionsViaRoles()->pluck('name'),
             'direct_permissions' => $this->getDirectPermissions()->pluck('name'),

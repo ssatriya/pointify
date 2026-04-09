@@ -43,11 +43,17 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $user = $request->user();
+
+        if ($user) {
+            $user->loadMissing(['roles', 'permissions']);
+        }
+
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => $request->user() ? new UserResource($request->user()) : null,
-                'permissions' => $request->user()?->getAllPermissions()->pluck('name')->toArray() ?? [],
+                'user' => $user ? new UserResource($user) : null,
+                'permissions' => $user ? $user->getAllPermissions()->pluck('name')->toArray() : [],
             ],
             'filters' => [
                 'search' => $request->query('search'),
