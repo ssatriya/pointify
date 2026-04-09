@@ -22,15 +22,29 @@ class StudentImport implements ToCollection, WithHeadingRow, SkipsEmptyRows, Wit
         $this->vocationalPrograms = VocationalProgram::all()->pluck('id', 'name');
     }
 
+    /**
+     * Normalize keys to be alphanumeric only for robust matching
+     */
+    protected function normalizeRow($row): array
+    {
+        $normalized = [];
+        foreach ($row as $key => $value) {
+            $cleanKey = preg_replace('/[^a-z0-9]/', '', strtolower((string)$key));
+            $normalized[$cleanKey] = $value;
+        }
+        return $normalized;
+    }
+
     public function collection(Collection $rows)
     {
         $userId = Auth::id();
         
         foreach ($rows as $row) {
-            // Maatwebsite Excel slugs headers with hyphens by default: Nama Lengkap -> nama-lengkap
-            $namaLengkap = trim($row['nama-lengkap'] ?? $row['nama_lengkap'] ?? '');
-            $nisNisn = trim((string)($row['nis-nisn'] ?? $row['nis_nisn'] ?? '')) ?: null;
-            $kejuruanName = trim($row['kejuruan'] ?? '');
+            $data = $this->normalizeRow($row);
+            
+            $namaLengkap = trim($data['namalengkap'] ?? '');
+            $nisNisn = trim((string)($data['nisnisn'] ?? '')) ?: null;
+            $kejuruanName = trim($data['kejuruan'] ?? '');
             
             if (empty($namaLengkap) || empty($kejuruanName)) {
                 continue;
@@ -57,11 +71,14 @@ class StudentImport implements ToCollection, WithHeadingRow, SkipsEmptyRows, Wit
 
     public function prepareForValidation($data, $index)
     {
-        // Handle both hyphenated and underscored keys for validation
-        $data['nama-lengkap'] = $data['nama-lengkap'] ?? $data['nama_lengkap'] ?? null;
-        $data['nis-nisn'] = isset($data['nis-nisn']) ? (string) $data['nis-nisn'] : (isset($data['nis_nisn']) ? (string) $data['nis_nisn'] : null);
-
-        return $data;
+        $normalized = $this->normalizeRow($data);
+        
+        // Re-map normalized data back to standard keys for validation rules
+        return [
+            'nama-lengkap' => $normalized['namalengkap'] ?? null,
+            'nis-nisn' => isset($normalized['nisnisn']) ? (string) $normalized['nisnisn'] : null,
+            'kejuruan' => $normalized['kejuruan'] ?? null,
+        ];
     }
 
     public function rules(): array

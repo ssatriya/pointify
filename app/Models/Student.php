@@ -32,6 +32,7 @@ class Student extends Model
 
     protected array $searchable = [
         'name',
+        'student_number'
     ];
 
     protected array $sortable = [
