@@ -139,10 +139,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     <SidebarMenuItem>
                         <SidebarMenuButton
                             className="data-[slot=sidebar-menu-button]:p-1.5!"
-                            render={<Link href="#">
-                                <IconInnerShadowTop className="size-5!" />
+                            render={<Link href={dashboardIndex().url}>
+                                <img src="/logo.webp" alt="Pointify" className="size-6" />
                                 <span className="text-base font-semibold">
-                                    Acme Inc.
+                                    Pointify
                                 </span>
                             </Link>}
                         />

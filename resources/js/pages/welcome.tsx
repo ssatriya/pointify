@@ -13,9 +13,7 @@ export default function Welcome() {
             <div className="flex min-h-screen flex-col items-center justify-center bg-background px-6 text-center text-foreground selection:bg-primary selection:text-primary-foreground">
                 <div className="absolute top-0 right-0 left-0 flex items-center justify-between p-6">
                     <div className="flex items-center gap-2 font-medium">
-                        <div className="flex size-7 items-center justify-center rounded-md bg-primary text-primary-foreground">
-                            <GalleryVerticalEnd className="size-4" />
-                        </div>
+                        <img src="/logo.webp" alt="Pointify" className="size-10" />
                         <span className="text-xl font-bold tracking-tight">Pointify</span>
                     </div>
 
