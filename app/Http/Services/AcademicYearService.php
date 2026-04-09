@@ -7,8 +7,8 @@ use App\Models\AcademicYear;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 use Illuminate\Validation\ValidationException;
-use Throwable;
 
 class AcademicYearService
 {
@@ -23,14 +23,14 @@ class AcademicYearService
      * Create a new academic year, if it is a first make is_current true.
      * If it is not first and is_current set to true,
      * make other is_current to false
-     * @throws ValidationException|Throwable
+     * @throws ValidationException
      */
     public function create(array $data): void
     {
         DB::transaction(function () use ($data) {
             $isActive = $data['is_active'];
-            $startYear = explode('-', $data['start_date'])[0];
-            $endYear = explode('-', $data['end_date'])[0];
+            $startYear = Carbon::parse($data['start_date'])->format('Y');
+            $endYear = Carbon::parse($data['end_date'])->format('Y');
             $academicYearName = "$startYear/$endYear";
 
             $isAcademicYearExists = AcademicYear::where('name', "$academicYearName")->exists();
@@ -57,14 +57,12 @@ class AcademicYearService
         });
     }
 
-    /**
-     * @throws Throwable
-     */
+    /** @throws ValidationException */
     public function update(array $data, AcademicYear $academicYear): void
     {
         DB::transaction(function () use ($data, $academicYear) {
-            $startYear = explode('-', $data['start_date'])[0];
-            $endYear = explode('-', $data['end_date'])[0];
+            $startYear = Carbon::parse($data['start_date'])->format('Y');
+            $endYear = Carbon::parse($data['end_date'])->format('Y');
             $academicYearName = "$startYear/$endYear";
 
             $isAcademicYearExists = AcademicYear::where('name', $academicYearName)
@@ -91,7 +89,7 @@ class AcademicYearService
         });
     }
 
-    /** @throws ValidationException|Throwable */
+    /** @throws ValidationException */
     public function delete(AcademicYear $academicYear): void
     {
         DB::transaction(function () use ($academicYear) {
