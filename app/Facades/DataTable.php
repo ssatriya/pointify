@@ -75,7 +75,7 @@ class DataTable
         $perPage = $perPage ?? $this->params['per_page'] ?? 10;
         $page = $page ?? $this->params['page'] ?? 1;
 
-        return $this->query->paginate(perPage: $perPage, page: $page);
+        return $this->query->paginate(perPage: $perPage, page: $page)->withQueryString();
     }
 
     /**

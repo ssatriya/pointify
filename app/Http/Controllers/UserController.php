@@ -18,7 +18,8 @@ class UserController extends Controller
     {
         $users = User::with('roles.permissions', 'permissions')
             ->orderBy('name')
-            ->paginate();
+            ->paginate()
+            ->withQueryString();
 
         return Inertia::render('dashboard/users/users', [
             'users' => UserResource::collection($users),
