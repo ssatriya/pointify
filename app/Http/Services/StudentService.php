@@ -35,12 +35,12 @@ class StudentService
             'vocational_programs.name as vocational_program_name',
         ]);
 
-        // Apply filter and custom grouping order
         return $dataTable->filter()
             ->getQuery()
             ->orderBy('vocational_program_name', 'asc')
             ->orderBy('students.name', 'asc')
-            ->paginate($validated['per_page'] ?? 15);
+            ->paginate($validated['per_page'] ?? 15)
+            ->withQueryString();
     }
 
     /**

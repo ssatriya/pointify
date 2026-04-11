@@ -8,6 +8,7 @@ use App\Models\VocationalProgram;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Throwable;
@@ -126,5 +127,7 @@ class StudentClassService
                 StudentClass::where('id', $id)->update(['order' => $index + 1]);
             }
         });
+
+        Cache::forget('student_classes_shared');
     }
 }

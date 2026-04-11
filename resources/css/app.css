@@ -207,9 +207,6 @@
         @apply bg-background text-foreground;
     }
 
-    /* html {
-        @apply font-sans;
-    } */
     html {
         @apply font-sans;
     }

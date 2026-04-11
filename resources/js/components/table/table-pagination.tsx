@@ -1,9 +1,9 @@
-import {Link, router, usePage} from "@inertiajs/react";
-import {ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight} from "lucide-react";
-import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
-import {buttonVariants} from "@/components/ui/button";
-import {cn} from "@/lib/utils";
-import type {PaginatedLinks, PaginatedMeta} from "@/types";
+import { Link, router, usePage } from "@inertiajs/react";
+import { ChevronsLeft, ChevronLeft, ChevronRight, ChevronsRight } from "lucide-react";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import type { PaginatedLinks, PaginatedMeta } from "@/types";
 
 const PAGE_SIZE_OPTIONS = [10, 25, 50, 100];
 
@@ -20,9 +20,9 @@ type PaginationButtonProps = {
     children: React.ReactNode;
 };
 
-function PaginationButton({href, ariaLabel, className, children}: PaginationButtonProps) {
+function PaginationButton({ href, ariaLabel, className, children }: PaginationButtonProps) {
     const baseClass = cn(
-        buttonVariants({variant: "outline", size: "icon"}),
+        buttonVariants({ variant: "outline", size: "icon" }),
         className,
     );
 
@@ -51,11 +51,11 @@ function PaginationButton({href, ariaLabel, className, children}: PaginationButt
     );
 }
 
-export default function TablePagination({links, meta, onPageSizeChange}: Props) {
+export default function TablePagination({ links, meta, onPageSizeChange }: Props) {
     const isFirstPage = meta.current_page <= 1;
     const isLastPage = meta.current_page >= meta.last_page;
 
-    const {filters} = usePage().props as any;
+    const { filters } = usePage().props as any;
 
     const handlePageSizeChange = (value: number) => {
         if (onPageSizeChange) {
@@ -92,7 +92,7 @@ export default function TablePagination({links, meta, onPageSizeChange}: Props) 
                         disabled={meta.last_page === 1 && meta.total <= 10}
                     >
                         <SelectTrigger className="w-18">
-                            <SelectValue placeholder={meta.per_page}/>
+                            <SelectValue placeholder={meta.per_page} />
                         </SelectTrigger>
                         <SelectContent side="top">
                             <SelectGroup>
@@ -117,21 +117,21 @@ export default function TablePagination({links, meta, onPageSizeChange}: Props) 
                             ariaLabel="Go to first page"
                             className="hidden lg:flex"
                         >
-                            <ChevronsLeft className="size-4"/>
+                            <ChevronsLeft className="size-4" />
                         </PaginationButton>
 
                         <PaginationButton
                             href={isFirstPage ? null : links.prev}
                             ariaLabel="Go to previous page"
                         >
-                            <ChevronLeft className="size-4"/>
+                            <ChevronLeft className="size-4" />
                         </PaginationButton>
 
                         <PaginationButton
                             href={isLastPage ? null : links.next}
                             ariaLabel="Go to next page"
                         >
-                            <ChevronRight className="size-4"/>
+                            <ChevronRight className="size-4" />
                         </PaginationButton>
 
                         <PaginationButton
@@ -139,7 +139,7 @@ export default function TablePagination({links, meta, onPageSizeChange}: Props) 
                             ariaLabel="Go to last page"
                             className="hidden lg:flex"
                         >
-                            <ChevronsRight className="size-4"/>
+                            <ChevronsRight className="size-4" />
                         </PaginationButton>
                     </div>
                 </div>

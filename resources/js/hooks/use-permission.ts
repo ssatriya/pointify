@@ -9,10 +9,10 @@ export function usePermission() {
         
         // If it's an array, check if user has ANY of the permissions
         if (Array.isArray(permission)) {
-            return permission.some(p => auth.permissions.includes(p));
+            return permission.some(p => auth.user.permissions.includes(p));
         }
         
-        return auth.permissions.includes(permission);
+        return auth.user.permissions.includes(permission);
     };
 
     const hasRole = (role: string | string[]) => {

@@ -27,13 +27,11 @@ export type User = {
     role: string | null;
     role_label: string | null;
     permissions: string[];
-    role_permissions?: string[];
     direct_permissions?: string[];
 };
 
 export type Auth = {
     user: User;
-    permissions: string[];
 };
 
 export type TwoFactorSetupData = {

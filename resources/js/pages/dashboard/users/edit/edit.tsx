@@ -49,8 +49,13 @@ export default function UserEdit({ user, allPermissions, allRoles }: Props) {
         }));
     }, [user.direct_permissions, user.role]);
 
+    // Derive role permissions locally: all permissions that are NOT direct grants
+    const rolePermissions = (user.permissions ?? []).filter(
+        (p) => !(user.direct_permissions ?? []).includes(p)
+    );
+
     const togglePermission = (permission: string) => {
-        if (user.role_permissions?.includes(permission)) return;
+        if (rolePermissions.includes(permission)) return;
 
         const newPermissions = data.permissions.includes(permission)
             ? data.permissions.filter((p) => p !== permission)
@@ -78,7 +83,7 @@ export default function UserEdit({ user, allPermissions, allRoles }: Props) {
         router.put(
             updateRoute({ user: user.id }).url,
             {
-                role,
+                roles: [role],
                 // Skip sending permissions so we don't accidentally save role permissions as direct permissions
             },
             {
@@ -225,7 +230,7 @@ export default function UserEdit({ user, allPermissions, allRoles }: Props) {
                                         <div className="grid gap-3.5">
                                             {permissions.map((permission) => {
                                                 const isRolePermission =
-                                                    !!user.role_permissions?.includes(
+                                                    rolePermissions.includes(
                                                         permission,
                                                     );
                                                 const isChecked =

@@ -26,16 +26,5 @@ class AppServiceProvider extends ServiceProvider
         JsonResource::withoutWrapping();
 
         Model::preventLazyLoading();
-
-        Inertia::share('studentClasses', function () {
-            return StudentClass::with(['vocationalProgram'])->orderBy('order')
-                ->get()
-                ->map(fn($c) => [
-                    'id' => $c->id,
-                    'name' => $c->name,
-                    'abbreviation' => $c->abbreviation,
-                    'url' => route('dashboard.student-enrollments.class.index', $c->slug),
-                ]);
-        });
     }
 }

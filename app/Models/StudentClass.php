@@ -9,10 +9,17 @@ use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Cache;
 
 class StudentClass extends Model
 {
     use HasUlids, Sortable, Searchable;
+
+    protected static function booted(): void
+    {
+        static::saved(fn() => Cache::forget('student_classes_shared'));
+        static::deleted(fn() => Cache::forget('student_classes_shared'));
+    }
 
     public $incrementing = false;
     protected $keyType = 'string';

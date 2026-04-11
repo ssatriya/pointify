@@ -10,7 +10,12 @@ interface Filters {
     [key: string]: any;
 }
 
-export function useFilter(route: string) {
+interface UseFilterOptions {
+    only?: string[];
+}
+
+export function useFilter(route: string, options: UseFilterOptions = {}) {
+    const { only } = options;
     const { filters: initialFilters } = usePage().props as unknown as { filters: Filters };
 
     // Manage search locally for debouncing
@@ -54,6 +59,7 @@ export function useFilter(route: string) {
             preserveScroll: true,
             replace: true,
             queryStringArrayFormat: 'indices',
+            only: only,
         });
     }, [initialFilters, route]);
 
@@ -63,6 +69,7 @@ export function useFilter(route: string) {
             preserveState: true,
             preserveScroll: true,
             replace: true,
+            only: only,
         });
     }, [route]);
 

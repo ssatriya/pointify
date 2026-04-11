@@ -33,7 +33,7 @@ export default function Students({ students, vocationalPrograms = [] }: Props) {
         setSearch,
         handleFilterChange,
         resetFilters
-    } = useFilter(studentsIndex().url);
+    } = useFilter(studentsIndex().url, { only: ['students', 'filters'] });
 
     const filterArray = typeof filters.filter === 'string'
         ? filters.filter.split(',').filter(Boolean)

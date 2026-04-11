@@ -4,6 +4,8 @@ namespace App\Http\Middleware;
 
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
+use App\Models\StudentClass;
+use Illuminate\Support\Facades\Cache;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -53,8 +55,21 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $user ? new UserResource($user) : null,
-                'permissions' => $user ? $user->getAllPermissions()->pluck('name')->toArray() : [],
             ],
+            'studentClasses' => function () {
+                return Cache::rememberForever('student_classes_shared', function () {
+                    return StudentClass::with(['vocationalProgram'])->orderBy('order')
+                        ->get()
+                        ->map(fn($c) => [
+                            'id' => $c->id,
+                            'name' => $c->name,
+                            'abbreviation' => $c->abbreviation,
+                            'url' => route('dashboard.student-enrollments.class.index', $c->slug),
+                        ])
+                        ->values()
+                        ->toArray();
+                });
+            },
             'filters' => [
                 'search' => $request->query('search'),
                 'filter' => $request->query('filter'),
