@@ -153,7 +153,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 {data.nav.map((n, i) => (
                     <NavMain key={`${n.label}_${i}`} items={n.items} label={n.label} />
                 ))}
-                {hasPermission('student-classes.view') && <NavClasses />}
+                {hasPermission('student-enrollment.view') && <NavClasses />}
             </SidebarContent>
             <SidebarFooter>
                 <NavUser user={{
