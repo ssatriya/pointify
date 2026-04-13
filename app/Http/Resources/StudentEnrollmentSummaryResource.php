@@ -30,7 +30,8 @@ class StudentEnrollmentSummaryResource extends JsonResource
             'total_rewards_points' => $this->total_rewards_points,
             'is_active' => $this->is_active,
             'is_repeating' => $this->is_repeating,
-            'point_transaction_groups' => PointTransactionGroupResource::collection($this->whenLoaded('pointTransactionGroups')),
+            'point_transaction_groups' => $this->whenLoaded('pointTransactionGroups'),
+            // 'point_transaction_groups' => PointTransactionGroupResource::collection($this->whenLoaded('pointTransactionGroups')),
         ];
     }
 }

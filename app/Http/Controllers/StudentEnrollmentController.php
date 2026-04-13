@@ -117,6 +117,7 @@ class StudentEnrollmentController extends Controller
             'student',
             'academicYear',
             'studentClass',
+            'pointTransactions',
             'pointTransactionGroups' => fn($q) => $q->with([
                 'violations.pointTransaction.violation.violationType',
                 'violations.pointTransaction.violation.createdBy',
