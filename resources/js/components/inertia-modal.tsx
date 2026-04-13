@@ -4,10 +4,18 @@ import { useModal } from "@ebay/nice-modal-react";
 import { useFocusRestore } from "@/hooks/use-restore-focus";
 import { ReactNode } from "react";
 
+interface HeadlessModalRef {
+    open: () => void;
+    close: () => void;
+}
+
 interface InertiaModalProps {
     isDirty?: boolean;
-    children: ReactNode | ((props: { isOpen: boolean; close: () => void }) => ReactNode);
+    children:
+        | ReactNode
+        | ((props: { isOpen: boolean; close: () => void }) => ReactNode);
     className?: string;
+    ref?: any;
 }
 
 function InnerInertiaModal({
@@ -15,23 +23,28 @@ function InnerInertiaModal({
     close,
     isDirty = false,
     children,
-    className
+    className,
 }: {
     isOpen: boolean;
     close: () => void;
     isDirty?: boolean;
-    children: ReactNode | ((props: { isOpen: boolean; close: () => void }) => ReactNode);
+    children:
+        | ReactNode
+        | ((props: { isOpen: boolean; close: () => void }) => ReactNode);
     className?: string;
 }) {
-    const { visible: confirmVisible, show: confirmShow } = useModal("confirm-dialog");
-    const { lastFocusedRef, onFocusCapture } = useFocusRestore(isOpen, confirmVisible);
+    const { visible: confirmVisible, show: confirmShow } =
+        useModal("confirm-dialog");
+    const { lastFocusedRef, onFocusCapture } = useFocusRestore(
+        isOpen,
+        confirmVisible,
+    );
 
     return (
         <Dialog
             onOpenChange={(open) => {
                 if (!open && isDirty) {
-                    confirmShow()
-                        .then(() => close())
+                    confirmShow().then(() => close());
                 } else if (!open) {
                     close();
                 }
@@ -48,17 +61,29 @@ function InnerInertiaModal({
                 onFocusCapture={onFocusCapture}
                 className={className}
             >
-                {typeof children === "function" ? children({ isOpen, close }) : children}
+                {typeof children === "function"
+                    ? children({ isOpen, close })
+                    : children}
             </DialogContent>
         </Dialog>
     );
 }
 
-export function InertiaModal({ isDirty = false, children, className }: InertiaModalProps) {
+export function InertiaModal({
+    isDirty = false,
+    children,
+    className,
+    ref,
+}: InertiaModalProps) {
     return (
-        <HeadlessModal>
+        <HeadlessModal ref={ref}>
             {({ isOpen, close }: { isOpen: boolean; close: () => void }) => (
-                <InnerInertiaModal isOpen={isOpen} close={close} isDirty={isDirty} className={className}>
+                <InnerInertiaModal
+                    isOpen={isOpen}
+                    close={close}
+                    isDirty={isDirty}
+                    className={className}
+                >
                     {children}
                 </InnerInertiaModal>
             )}

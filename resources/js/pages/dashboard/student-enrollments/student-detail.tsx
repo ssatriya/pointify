@@ -41,16 +41,10 @@ type Props = {
     studentEnrollment: StudentEnrollmentSummary;
 };
 
-// export default function StudentDetail({ studentEnrollment }: Props) {
-//     console.log(studentEnrollment)
-//     return <h1>Hello</h1>
-// }
-
 export default function StudentDetail({ studentEnrollment }: Props) {
     const handlePrint = () => {
         window.print();
     };
-    console.log(studentEnrollment);
 
     return (
         <>
@@ -439,14 +433,14 @@ StudentDetail.layout = ({ studentEnrollment }: Props) => [
                 title: "Dashboard",
                 href: dashboardIndex().url,
             },
-            // {
-            //     title: studentEnrollment.student_class,
-            //     href: classIndex(studentEnrollment.student_class_slug).url,
-            // },
-            // {
-            //     title: studentEnrollment.name,
-            //     href: "#",
-            // },
+            {
+                title: studentEnrollment.student_class,
+                href: classIndex(studentEnrollment.student_class_slug).url,
+            },
+            {
+                title: studentEnrollment.name,
+                href: "#",
+            },
         ],
     },
 ];

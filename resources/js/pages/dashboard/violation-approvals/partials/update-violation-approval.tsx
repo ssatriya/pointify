@@ -2,7 +2,7 @@ import { InertiaModal } from "@/components/inertia-modal";
 import {
     DialogDescription,
     DialogHeader,
-    DialogTitle
+    DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@ebay/nice-modal-react";
@@ -20,9 +20,9 @@ import {
     FileText,
     X,
     Check,
-    Loader2
+    Loader2,
 } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -49,9 +49,14 @@ interface Props {
 
 export default function UpdateViolationApproval({ violation }: Props) {
     const { show: showRejectionModal } = useModal(createRejectionReason);
-    const { put, processing: isPending } = useForm({
-        status: "approved"
+    const {
+        put,
+        processing: isPending,
+        wasSuccessful,
+    } = useForm({
+        status: "approved",
     });
+    const modalRef = useRef(null);
 
     const [isImageLoading, setIsImageLoading] = useState(true);
     const [isImageError, setIsImageError] = useState(false);
@@ -59,19 +64,21 @@ export default function UpdateViolationApproval({ violation }: Props) {
     const handleApprove = () => {
         put(ViolationApprovalController.update.url(violation.id), {
             onSuccess: (data) => {
-                console.log(data)
+                console.log(data);
                 toast.success("Pelanggaran Berhasil Disetujui");
-            }
+                // @ts-ignore
+                modalRef.current.close();
+            },
         });
-    }
+    };
 
     return (
-        <InertiaModal className="sm:max-w-3xl">
+        <InertiaModal className="sm:max-w-3xl" ref={modalRef}>
             <DialogHeader>
                 <DialogTitle>Persetujuan Pelanggaran</DialogTitle>
                 <DialogDescription>
-                    Verifikasi pelanggaran siswa dengan data yang tersedia melalui
-                    form di bawah.
+                    Verifikasi pelanggaran siswa dengan data yang tersedia
+                    melalui form di bawah.
                 </DialogDescription>
             </DialogHeader>
 
@@ -85,15 +92,23 @@ export default function UpdateViolationApproval({ violation }: Props) {
                         <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1">
                             <User className="size-4 text-muted-foreground mt-0.5" />
                             <div className="min-w-0">
-                                <p className="text-xs text-muted-foreground">Nama</p>
-                                <p className="font-medium">{violation.student.name}</p>
+                                <p className="text-xs text-muted-foreground">
+                                    Nama
+                                </p>
+                                <p className="font-medium">
+                                    {violation.student.name}
+                                </p>
                             </div>
                         </div>
                         <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1">
                             <GraduationCap className="size-4 text-muted-foreground mt-0.5" />
                             <div className="min-w-0">
-                                <p className="text-xs text-muted-foreground">Kelas</p>
-                                <p className="font-medium">{violation.student.class}</p>
+                                <p className="text-xs text-muted-foreground">
+                                    Kelas
+                                </p>
+                                <p className="font-medium">
+                                    {violation.student.class}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -112,15 +127,21 @@ export default function UpdateViolationApproval({ violation }: Props) {
                                     <p className="text-xs text-muted-foreground">
                                         Pelanggaran
                                     </p>
-                                    <p className="font-medium">{violation.violation.name}</p>
+                                    <p className="font-medium">
+                                        {violation.violation.name}
+                                    </p>
                                 </div>
                             </div>
 
                             <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1">
                                 <Badge className="size-4 text-muted-foreground mt-0.5" />
                                 <div className="min-w-0">
-                                    <p className="text-xs text-muted-foreground">Poin</p>
-                                    <p className="font-medium">{violation.violation.points} poin</p>
+                                    <p className="text-xs text-muted-foreground">
+                                        Poin
+                                    </p>
+                                    <p className="font-medium">
+                                        {violation.violation.points} poin
+                                    </p>
                                 </div>
                             </div>
 
@@ -130,7 +151,9 @@ export default function UpdateViolationApproval({ violation }: Props) {
                                     <p className="text-xs text-muted-foreground">
                                         Dibuat oleh
                                     </p>
-                                    <p className="font-medium">{violation.created_by}</p>
+                                    <p className="font-medium">
+                                        {violation.created_by}
+                                    </p>
                                 </div>
                             </div>
 
@@ -140,7 +163,9 @@ export default function UpdateViolationApproval({ violation }: Props) {
                                     <p className="text-xs text-muted-foreground">
                                         Dibuat pada
                                     </p>
-                                    <p className="font-medium">{violation.created_at}</p>
+                                    <p className="font-medium">
+                                        {violation.created_at}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -156,7 +181,8 @@ export default function UpdateViolationApproval({ violation }: Props) {
                             </div>
                             <div className="rounded-md bg-background border p-3">
                                 <p className="text-sm leading-relaxed text-foreground">
-                                    {violation.notes || "Tidak ada catatan tambahan."}
+                                    {violation.notes ||
+                                        "Tidak ada catatan tambahan."}
                                 </p>
                             </div>
                         </div>
@@ -173,7 +199,7 @@ export default function UpdateViolationApproval({ violation }: Props) {
                             <Skeleton
                                 className={cn(
                                     "w-full h-[130px] rounded transition-opacity duration-300",
-                                    !isImageLoading && "hidden"
+                                    !isImageLoading && "hidden",
                                 )}
                             />
                             <div
@@ -181,7 +207,7 @@ export default function UpdateViolationApproval({ violation }: Props) {
                                     "flex items-center justify-center bg-white rounded-md border p-4 min-h-[130px] transition-opacity duration-300",
                                     isImageLoading
                                         ? "opacity-0 absolute inset-0"
-                                        : "opacity-100"
+                                        : "opacity-100",
                                 )}
                             >
                                 {isImageError ? (
@@ -194,7 +220,9 @@ export default function UpdateViolationApproval({ violation }: Props) {
                                         alt="Tanda tangan siswa"
                                         className={cn(
                                             "max-w-60 h-auto object-contain",
-                                            !isImageError ? "opacity-100" : "opacity-0"
+                                            !isImageError
+                                                ? "opacity-100"
+                                                : "opacity-0",
                                         )}
                                         onLoad={() => setIsImageLoading(false)}
                                         onError={() => {
@@ -214,7 +242,9 @@ export default function UpdateViolationApproval({ violation }: Props) {
                         type="button"
                         variant="outline"
                         className="flex-1 sm:flex-initial"
-                        onClick={() => showRejectionModal({ violationId: violation.id })}
+                        onClick={() =>
+                            showRejectionModal({ violationId: violation.id })
+                        }
                         disabled={isPending}
                     >
                         <X className="size-4 mr-2" />
@@ -224,7 +254,7 @@ export default function UpdateViolationApproval({ violation }: Props) {
                         type="button"
                         className="flex-1"
                         onClick={handleApprove}
-                        disabled={isPending}
+                        disabled={isPending || wasSuccessful}
                     >
                         {isPending ? (
                             <Loader2 className="size-4 animate-spin mr-2" />
