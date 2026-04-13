@@ -15,11 +15,14 @@ class PointTransactionResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            // Use the transaction's own ID as the primary key for the frontend.
+            // violation/reward ID is kept for revoke actions.
             'id' => $this->violation?->id ?? $this->reward?->id,
-            'student_name' => $this->studentEnrollment->student->name,
             'type' => $this->transaction_type,
-            'code' => $this->violation?->violationType->code ?? $this->reward?->rewardType->code,
-            'created_by' => $this->violation?->createdBy->name ?? $this->reward?->createdBy->name,
+            // Use full null-safe chains — violationType/rewardType are eager-loaded
+            // on the parent violation/reward in the controller.
+            'code' => $this->violation?->violationType?->code ?? $this->reward?->rewardType?->code,
+            'created_by' => $this->violation?->createdBy?->name ?? $this->reward?->createdBy?->name,
             'notes' => $this->violation?->notes ?? $this->reward?->notes,
             'approval_status' => $this->violation?->approval_status ?? $this->reward?->approval_status,
             'points_change' => $this->points_change,

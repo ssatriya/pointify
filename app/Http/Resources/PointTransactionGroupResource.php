@@ -14,13 +14,13 @@ class PointTransactionGroupResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $violations = $this->violations->map(function ($violation) {
-            return $violation->pointTransaction;
-        });
+        $violations = $this->violations
+            ->map(fn($violation) => $violation->pointTransaction)
+            ->filter();
 
-        $rewards = $this->rewards->map(function ($reward) {
-            return $reward->pointTransaction;
-        });
+        $rewards = $this->rewards
+            ->map(fn($reward) => $reward->pointTransaction)
+            ->filter();
 
         $transactions = $violations
             ->merge($rewards)

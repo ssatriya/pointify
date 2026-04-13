@@ -129,6 +129,7 @@ class StudentEnrollmentController extends Controller
             ])->withExists(['violationLetters as has_letter'])->orderBy('sequence'),
         ]);
 
+
         return Inertia::render('dashboard/student-enrollments/student-detail', [
             'studentEnrollment' => new StudentEnrollmentSummaryResource($studentEnrollment),
         ]);
