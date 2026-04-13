@@ -17,6 +17,10 @@ class ViolationApprovalService
         $approvalStatus = $data['status'];
 
         if ($approvalStatus === ApprovalStatus::APPROVED->value) {
+            $violation = Violation::lockForUpdate()->find($violation->id);
+            if ($violation->approval_status === ApprovalStatus::APPROVED->value) {
+                return;
+            }
             $studentEnrollment = $violation->studentEnrollment;
             $currentPoints = $violation->studentEnrollment->currentPoints;
 

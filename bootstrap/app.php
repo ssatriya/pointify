@@ -27,17 +27,17 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        // $exceptions->respond(function (Response $response, \Throwable $e, \Illuminate\Http\Request $request) {
-        //     if ($e instanceof TransportExceptionInterface) {
-        //         return back()->with('error', 'Kami tidak dapat mengirimkan email saat ini. Silakan coba lagi dalam beberapa saat atau hubungi bantuan jika masalah berlanjut.');
-        //     }
+        $exceptions->respond(function (Response $response, \Throwable $e, \Illuminate\Http\Request $request) {
+            if ($e instanceof TransportExceptionInterface) {
+                return back()->with('error', 'Kami tidak dapat mengirimkan email saat ini. Silakan coba lagi dalam beberapa saat atau hubungi bantuan jika masalah berlanjut.');
+            }
 
-        //     if (!in_array($response->getStatusCode(), [500, 503, 404, 403])) {
-        //         return $response;
-        //     }
+            if (!in_array($response->getStatusCode(), [500, 503, 404, 403])) {
+                return $response;
+            }
     
-        //     return Inertia::render('error', ['status' => $response->getStatusCode()])
-        //         ->toResponse($request)
-        //         ->setStatusCode($response->getStatusCode());
-        // });
+            return Inertia::render('error', ['status' => $response->getStatusCode()])
+                ->toResponse($request)
+                ->setStatusCode($response->getStatusCode());
+        });
     })->create();

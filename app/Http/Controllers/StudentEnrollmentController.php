@@ -11,6 +11,7 @@ use App\Http\Resources\StudentEnrollmentSummaryResource;
 use App\Http\Services\StudentEnrollmentService;
 use App\Models\StudentClass;
 use App\Models\StudentEnrollment;
+use Exception;
 use Inertia\Inertia;
 use Inertia\Response;
 use Throwable;
@@ -125,7 +126,6 @@ class StudentEnrollmentController extends Controller
                 'rewards.pointTransaction.reward.createdBy',
             ])->withExists(['violationLetters as has_letter'])->orderBy('sequence'),
         ]);
-
 
         return Inertia::render('dashboard/student-enrollments/student-detail', [
             'studentEnrollment' => new StudentEnrollmentSummaryResource($studentEnrollment),

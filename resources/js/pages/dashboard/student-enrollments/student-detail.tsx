@@ -211,7 +211,7 @@ export default function StudentDetail({ studentEnrollment }: Props) {
                         <div className="h-px flex-1 bg-muted/60" />
                     </div>
 
-                    {/* {studentEnrollment.point_transaction_groups &&
+                    {studentEnrollment.point_transaction_groups &&
                     studentEnrollment.point_transaction_groups.length > 0 ? (
                         [...studentEnrollment.point_transaction_groups]
                             .reverse()
@@ -424,7 +424,7 @@ export default function StudentDetail({ studentEnrollment }: Props) {
                                 </p>
                             </div>
                         </CardTable>
-                    )} */}
+                    )}
                 </div>
             </div>
         </>
