@@ -117,16 +117,12 @@ class StudentEnrollmentController extends Controller
             'student',
             'academicYear',
             'studentClass',
-            // 'pointTransactionGroups' => fn($q) => $q->with([
-            //     'violations.pointTransaction' => fn($q) => $q->with([
-            //         'violation.violationType',
-            //         'violation.createdBy',
-            //     ]),
-            //     'rewards.pointTransaction' => fn($q) => $q->with([
-            //         'reward.rewardType',
-            //         'reward.createdBy',
-            //     ]),
-            // ])->withExists(['violationLetters as has_letter'])->orderBy('sequence'),
+            'pointTransactionGroups' => fn($q) => $q->with([
+                'violations.pointTransaction.violation.violationType',
+                'violations.pointTransaction.violation.createdBy',
+                'rewards.pointTransaction.reward.rewardType',
+                'rewards.pointTransaction.reward.createdBy',
+            ])->withExists(['violationLetters as has_letter'])->orderBy('sequence'),
         ]);
 
 
