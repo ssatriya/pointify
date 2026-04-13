@@ -17,7 +17,7 @@ class PointTransactionResource extends JsonResource
         return [
             // Use the transaction's own ID as the primary key for the frontend.
             // violation/reward ID is kept for revoke actions.
-            'id' => $this->violation?->id ?? $this->reward?->id,
+            'id' => $this->id,
             'type' => $this->transaction_type,
             // Use full null-safe chains — violationType/rewardType are eager-loaded
             // on the parent violation/reward in the controller.

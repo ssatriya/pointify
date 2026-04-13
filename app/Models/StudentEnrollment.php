@@ -137,13 +137,13 @@ class StudentEnrollment extends Model
 
     public function getResetCountAttribute(): int
     {
-        return $this->pointTransactions->where('transaction_type', 'reset')->sum('points_change');
+        return $this->pointTransactions->where('transaction_type', 'reset')->count();
     }
 
     public function getRecentViolationsAttribute(): Collection
     {
         return $this->pointTransactions()
-            ->with('violationType')
+            ->with('violation.violationType')
             ->where('transaction_type', 'violation')
             ->latest()
             ->take(5)
