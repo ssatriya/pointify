@@ -31,7 +31,7 @@ export default function StudentEnrollments({ studentClass, studentEnrollments }:
         search,
         setSearch,
         resetFilters
-    } = useFilter(classIndex({ studentClass: studentClass.slug }).url);
+    } = useFilter(classIndex({ studentClass: studentClass.slug }).url, { only: ['studentEnrollments', 'filters'] });
 
     return (
         <>
@@ -56,54 +56,55 @@ export default function StudentEnrollments({ studentClass, studentEnrollments }:
                 <CardTableContent>
                     <Table className="table-fixed min-w-[900px]">
                         <TableHeader>
-                                <TableRow className="h-12">
-                                    <TableHead className="w-[30%] min-w-[200px]">Nama Siswa</TableHead>
-                                    <TableHead className="w-[15%] min-w-[150px] text-center">Poin Saat Ini</TableHead>
-                                    <TableHead className="w-[15%] min-w-[150px] text-center">Poin Pelanggaran</TableHead>
-                                    <TableHead className="w-[15%] min-w-[150px] text-center">Poin Prestasi</TableHead>
-                                    <TableHead className="w-[15%] min-w-[150px] text-center">Status</TableHead>
-                                    <TableHead className="w-[10%] whitespace-nowrap"></TableHead>
-                                </TableRow>
-                            </TableHeader>
-                            <TableBody>
-                                {studentEnrollments.data.length > 0 ? (
-                                    studentEnrollments.data.map((item) => (
-                                        <TableRow key={item.id} className="h-12">
-                                            <TableCell className="truncate">
-                                                <Link
-                                                    href={studentDetail({ studentClass: studentClass.slug, studentEnrollment: item.id }).url}
-                                                    className="hover:underline"
-                                                >
-                                                    {item.student.name}
-                                                </Link>
-                                            </TableCell>
-                                            <TableCell className="text-center">{item.current_points}</TableCell>
-                                            <TableCell className="text-center">{item.total_violations_points}</TableCell>
-                                            <TableCell className="text-center">{item.total_rewards_points}</TableCell>
-                                            <TableCell className="text-center">
-                                                {item.is_active ? (
-                                                    <Badge variant="success">Aktif</Badge>
-                                                ) : (
-                                                    <Badge variant="secondary">Nonaktif</Badge>
-                                                )}
-                                            </TableCell>
-                                            <TableCell className="text-end">
-                                                <div className="flex justify-end gap-2">
-                                                    <StudentEnrollmentActions id={item.id} />
-                                                </div>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))
-                                ) : (
-                                    <TableRow>
-                                        <TableCell colSpan={6} className="h-24 text-center text-muted-foreground">
-                                            Belum ada data
+                            <TableRow className="h-12">
+                                <TableHead className="w-[30%] min-w-[200px]">Nama Siswa</TableHead>
+                                <TableHead className="w-[15%] min-w-[150px] text-center">Poin Saat Ini</TableHead>
+                                <TableHead className="w-[15%] min-w-[150px] text-center">Poin Pelanggaran</TableHead>
+                                <TableHead className="w-[15%] min-w-[150px] text-center">Poin Prestasi</TableHead>
+                                <TableHead className="w-[15%] min-w-[150px] text-center">Status</TableHead>
+                                <TableHead className="w-[10%] whitespace-nowrap"></TableHead>
+                            </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                            {studentEnrollments.data.length > 0 ? (
+                                studentEnrollments.data.map((item) => (
+                                    <TableRow key={item.id} className="h-12">
+                                        <TableCell className="truncate">
+                                            <Link
+                                                href={studentDetail({ studentClass: studentClass.slug, studentEnrollment: item.id }).url}
+                                                className="hover:underline"
+                                                prefetch
+                                            >
+                                                {item.student.name}
+                                            </Link>
+                                        </TableCell>
+                                        <TableCell className="text-center">{item.current_points}</TableCell>
+                                        <TableCell className="text-center">{item.total_violations_points}</TableCell>
+                                        <TableCell className="text-center">{item.total_rewards_points}</TableCell>
+                                        <TableCell className="text-center">
+                                            {item.is_active ? (
+                                                <Badge variant="success">Aktif</Badge>
+                                            ) : (
+                                                <Badge variant="secondary">Nonaktif</Badge>
+                                            )}
+                                        </TableCell>
+                                        <TableCell className="text-end">
+                                            <div className="flex justify-end gap-2">
+                                                <StudentEnrollmentActions id={item.id} />
+                                            </div>
                                         </TableCell>
                                     </TableRow>
-                                )}
-                            </TableBody>
-                        </Table>
-                        <TablePagination links={studentEnrollments.links} meta={studentEnrollments.meta} />
+                                ))
+                            ) : (
+                                <TableRow>
+                                    <TableCell colSpan={6} className="h-24 text-center text-muted-foreground">
+                                        Belum ada data
+                                    </TableCell>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                    <TablePagination links={studentEnrollments.links} meta={studentEnrollments.meta} />
                 </CardTableContent>
             </CardTable>
         </>

@@ -55,23 +55,25 @@ export default function TablePagination({ links, meta, onPageSizeChange }: Props
     const isFirstPage = meta.current_page <= 1;
     const isLastPage = meta.current_page >= meta.last_page;
 
-    const { filters } = usePage().props as any;
-
     const handlePageSizeChange = (value: number) => {
         if (onPageSizeChange) {
             onPageSizeChange(value);
             return;
         }
 
-        router.get(window.location.pathname, {
-            ...filters,
-            per_page: value,
-            page: 1,
-        }, {
-            preserveState: true,
-            preserveScroll: true,
-            replace: true,
-        });
+        const url = new URL(window.location.href);
+        url.searchParams.set("per_page", value.toString());
+        url.searchParams.set("page", "1");
+
+        router.get(
+            url.pathname + url.search,
+            {},
+            {
+                preserveState: true,
+                preserveScroll: true,
+                replace: true,
+            },
+        );
     };
 
     return (

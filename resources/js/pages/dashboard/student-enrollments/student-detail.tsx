@@ -206,7 +206,7 @@ export default function StudentDetail({ studentEnrollment }: Props) {
                     </div>
 
                     {studentEnrollment.point_transaction_groups &&
-                    studentEnrollment.point_transaction_groups.length > 0 ? (
+                        studentEnrollment.point_transaction_groups.length > 0 ? (
                         [...studentEnrollment.point_transaction_groups]
                             .reverse()
                             .map((group) => (
@@ -315,23 +315,23 @@ export default function StudentDetail({ studentEnrollment }: Props) {
                                                             </TableCell>
                                                             <TableCell className="text-center">
                                                                 {item.type ===
-                                                                "violation" ? (
+                                                                    "violation" ? (
                                                                     <Badge
                                                                         variant="destructive"
                                                                         className="h-5 px-1.5 font-bold uppercase rounded"
                                                                     >
-                                                                        HUKUMAN
+                                                                        Pelanggaran
                                                                     </Badge>
                                                                 ) : item.type ===
-                                                                  "reward" ? (
+                                                                    "reward" ? (
                                                                     <Badge
                                                                         variant="success"
                                                                         className="h-5 px-1.5 font-bold uppercase rounded"
                                                                     >
-                                                                        HADIAH
+                                                                        Penghargaan
                                                                     </Badge>
                                                                 ) : item.type ===
-                                                                  "revoked" ? (
+                                                                    "revoked" ? (
                                                                     <Badge
                                                                         variant="outline"
                                                                         className="h-5 px-1.5 font-bold uppercase rounded text-muted-foreground border-muted-foreground/30"
@@ -373,12 +373,12 @@ export default function StudentDetail({ studentEnrollment }: Props) {
                                                                             ? "text-destructive"
                                                                             : item.type ===
                                                                                 "reward"
-                                                                              ? "text-success"
-                                                                              : "text-primary",
+                                                                                ? "text-success"
+                                                                                : "text-primary",
                                                                     )}
                                                                 >
                                                                     {item.points_change >
-                                                                    0
+                                                                        0
                                                                         ? `+${item.points_change}`
                                                                         : item.points_change}
                                                                 </span>

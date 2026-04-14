@@ -23,7 +23,7 @@ class GetListRequestParams extends FormRequest
     public function rules(): array
     {
         return [
-            'per_page' => ['sometimes', 'integer', 'min:10', 'max:50'],
+            'per_page' => ['sometimes', 'integer', 'min:10', 'max:100'],
             'page' => ['sometimes', 'integer', 'min:1'],
             'sort_by' => ['sometimes', 'string'],
             'sort_direction' => ['sometimes', 'string', 'in:asc,desc'],
@@ -36,8 +36,8 @@ class GetListRequestParams extends FormRequest
     {
         $validated = parent::validated($key, $default);
 
-        $validated['per_page'] = (int)($validated['per_page'] ?? 10);
-        $validated['page'] = (int)($validated['page'] ?? 1);
+        $validated['per_page'] = (int) ($validated['per_page'] ?? 10);
+        $validated['page'] = (int) ($validated['page'] ?? 1);
         $validated['sort_by'] ??= 'created_at';
         $validated['sort_direction'] ??= 'asc';
         $validated['search'] ??= '';
