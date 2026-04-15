@@ -8,6 +8,7 @@ use App\Http\Requests\ViolationApprovalRequest;
 use App\Http\Resources\ViolationResource;
 use App\Http\Services\ViolationApprovalService;
 use App\Models\Violation;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class ViolationApprovalController extends Controller
@@ -38,7 +39,7 @@ class ViolationApprovalController extends Controller
 
     public function update(Violation $violation, ViolationApprovalRequest $request)
     {
-        $this->violationApprovalService->update($request->validated(), $violation);
+        $this->violationApprovalService->update($request->validated(), $violation, Auth::id());
 
         return Inertia::flash(['message' => 'Status persetujuan pelanggaran berhasil diperbarui.'])->back();
     }

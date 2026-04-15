@@ -35,7 +35,7 @@ return Application::configure(basePath: dirname(__DIR__))
             if (!in_array($response->getStatusCode(), [500, 503, 404, 403])) {
                 return $response;
             }
-    
+
             return Inertia::render('error', ['status' => $response->getStatusCode()])
                 ->toResponse($request)
                 ->setStatusCode($response->getStatusCode());

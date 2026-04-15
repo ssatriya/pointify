@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\ViolationApprovalController::index
- * @see app/Http/Controllers/ViolationApprovalController.php:19
+ * @see app/Http/Controllers/ViolationApprovalController.php:20
  * @route '/dashboard/violations/approval'
  */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\ViolationApprovalController::index
- * @see app/Http/Controllers/ViolationApprovalController.php:19
+ * @see app/Http/Controllers/ViolationApprovalController.php:20
  * @route '/dashboard/violations/approval'
  */
 index.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ index.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\ViolationApprovalController::index
- * @see app/Http/Controllers/ViolationApprovalController.php:19
+ * @see app/Http/Controllers/ViolationApprovalController.php:20
  * @route '/dashboard/violations/approval'
  */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,7 +34,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\ViolationApprovalController::index
- * @see app/Http/Controllers/ViolationApprovalController.php:19
+ * @see app/Http/Controllers/ViolationApprovalController.php:20
  * @route '/dashboard/violations/approval'
  */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,7 +44,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\ViolationApprovalController::index
- * @see app/Http/Controllers/ViolationApprovalController.php:19
+ * @see app/Http/Controllers/ViolationApprovalController.php:20
  * @route '/dashboard/violations/approval'
  */
     const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -54,7 +54,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\ViolationApprovalController::index
- * @see app/Http/Controllers/ViolationApprovalController.php:19
+ * @see app/Http/Controllers/ViolationApprovalController.php:20
  * @route '/dashboard/violations/approval'
  */
         indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -63,7 +63,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\ViolationApprovalController::index
- * @see app/Http/Controllers/ViolationApprovalController.php:19
+ * @see app/Http/Controllers/ViolationApprovalController.php:20
  * @route '/dashboard/violations/approval'
  */
         indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -79,7 +79,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     index.form = indexForm
 /**
 * @see \App\Http\Controllers\ViolationApprovalController::show
- * @see app/Http/Controllers/ViolationApprovalController.php:46
+ * @see app/Http/Controllers/ViolationApprovalController.php:47
  * @route '/dashboard/violations/approval/{violation}'
  */
 export const show = (args: { violation: string | { id: string } } | [violation: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -94,7 +94,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\ViolationApprovalController::show
- * @see app/Http/Controllers/ViolationApprovalController.php:46
+ * @see app/Http/Controllers/ViolationApprovalController.php:47
  * @route '/dashboard/violations/approval/{violation}'
  */
 show.url = (args: { violation: string | { id: string } } | [violation: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
@@ -127,7 +127,7 @@ show.url = (args: { violation: string | { id: string } } | [violation: string | 
 
 /**
 * @see \App\Http\Controllers\ViolationApprovalController::show
- * @see app/Http/Controllers/ViolationApprovalController.php:46
+ * @see app/Http/Controllers/ViolationApprovalController.php:47
  * @route '/dashboard/violations/approval/{violation}'
  */
 show.get = (args: { violation: string | { id: string } } | [violation: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -136,7 +136,7 @@ show.get = (args: { violation: string | { id: string } } | [violation: string | 
 })
 /**
 * @see \App\Http\Controllers\ViolationApprovalController::show
- * @see app/Http/Controllers/ViolationApprovalController.php:46
+ * @see app/Http/Controllers/ViolationApprovalController.php:47
  * @route '/dashboard/violations/approval/{violation}'
  */
 show.head = (args: { violation: string | { id: string } } | [violation: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -146,7 +146,7 @@ show.head = (args: { violation: string | { id: string } } | [violation: string |
 
     /**
 * @see \App\Http\Controllers\ViolationApprovalController::show
- * @see app/Http/Controllers/ViolationApprovalController.php:46
+ * @see app/Http/Controllers/ViolationApprovalController.php:47
  * @route '/dashboard/violations/approval/{violation}'
  */
     const showForm = (args: { violation: string | { id: string } } | [violation: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -156,7 +156,7 @@ show.head = (args: { violation: string | { id: string } } | [violation: string |
 
             /**
 * @see \App\Http\Controllers\ViolationApprovalController::show
- * @see app/Http/Controllers/ViolationApprovalController.php:46
+ * @see app/Http/Controllers/ViolationApprovalController.php:47
  * @route '/dashboard/violations/approval/{violation}'
  */
         showForm.get = (args: { violation: string | { id: string } } | [violation: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -165,7 +165,7 @@ show.head = (args: { violation: string | { id: string } } | [violation: string |
         })
             /**
 * @see \App\Http\Controllers\ViolationApprovalController::show
- * @see app/Http/Controllers/ViolationApprovalController.php:46
+ * @see app/Http/Controllers/ViolationApprovalController.php:47
  * @route '/dashboard/violations/approval/{violation}'
  */
         showForm.head = (args: { violation: string | { id: string } } | [violation: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -181,7 +181,7 @@ show.head = (args: { violation: string | { id: string } } | [violation: string |
     show.form = showForm
 /**
 * @see \App\Http\Controllers\ViolationApprovalController::update
- * @see app/Http/Controllers/ViolationApprovalController.php:39
+ * @see app/Http/Controllers/ViolationApprovalController.php:40
  * @route '/dashboard/violations/approval/{violation}'
  */
 export const update = (args: { violation: string | { id: string } } | [violation: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -196,7 +196,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\ViolationApprovalController::update
- * @see app/Http/Controllers/ViolationApprovalController.php:39
+ * @see app/Http/Controllers/ViolationApprovalController.php:40
  * @route '/dashboard/violations/approval/{violation}'
  */
 update.url = (args: { violation: string | { id: string } } | [violation: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
@@ -229,7 +229,7 @@ update.url = (args: { violation: string | { id: string } } | [violation: string 
 
 /**
 * @see \App\Http\Controllers\ViolationApprovalController::update
- * @see app/Http/Controllers/ViolationApprovalController.php:39
+ * @see app/Http/Controllers/ViolationApprovalController.php:40
  * @route '/dashboard/violations/approval/{violation}'
  */
 update.put = (args: { violation: string | { id: string } } | [violation: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -239,7 +239,7 @@ update.put = (args: { violation: string | { id: string } } | [violation: string 
 
     /**
 * @see \App\Http\Controllers\ViolationApprovalController::update
- * @see app/Http/Controllers/ViolationApprovalController.php:39
+ * @see app/Http/Controllers/ViolationApprovalController.php:40
  * @route '/dashboard/violations/approval/{violation}'
  */
     const updateForm = (args: { violation: string | { id: string } } | [violation: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -254,7 +254,7 @@ update.put = (args: { violation: string | { id: string } } | [violation: string 
 
             /**
 * @see \App\Http\Controllers\ViolationApprovalController::update
- * @see app/Http/Controllers/ViolationApprovalController.php:39
+ * @see app/Http/Controllers/ViolationApprovalController.php:40
  * @route '/dashboard/violations/approval/{violation}'
  */
         updateForm.put = (args: { violation: string | { id: string } } | [violation: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

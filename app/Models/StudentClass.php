@@ -6,6 +6,7 @@ use App\Traits\Searchable;
 use App\Traits\Sortable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Cache;
 
 class StudentClass extends Model
 {
-    use HasUlids, Sortable, Searchable;
+    use HasUlids, Sortable, Searchable, HasFactory;
 
     protected static function booted(): void
     {

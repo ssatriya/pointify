@@ -16,22 +16,21 @@ import { toast } from "sonner";
 import { Loader } from "lucide-react";
 import ViolationApprovalController from "@/actions/App/Http/Controllers/ViolationApprovalController";
 
-export default NiceModal.create(({ violationId }: { violationId: string }) => {
+export default NiceModal.create(({ violationId, parentModalRef }: { violationId: string, parentModalRef: any }) => {
     const { visible, hide, remove } = useModal();
-    const { data, setData, patch, processing, errors } = useForm({
+    const { data, setData, put, processing, errors } = useForm({
         status: "rejected",
         rejection_reason: "",
     });
 
     function submit(e: SyntheticEvent<HTMLFormElement>) {
         e.preventDefault();
-        patch(ViolationApprovalController.update.url(violationId), {
+        put(ViolationApprovalController.update.url(violationId), {
             onSuccess: () => {
-                toast.success("Pelanggaran Berhasil Ditolak");
+                toast.success("Pelanggaran berhasil ditolak.");
                 hide();
-                // We might need to handle closing the parent Inertia modal 
-                // but since this is a separate NiceModal, usually Inertia's onSuccess 
-                // will refresh the page/component which is fine.
+                // @ts-ignore
+                parentModalRef.current.close();
             },
         });
     }

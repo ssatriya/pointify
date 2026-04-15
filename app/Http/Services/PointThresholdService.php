@@ -45,14 +45,17 @@ class PointThresholdService
     {
         $totalPointsUsed = $this->getTotalPointsUsedInGroup($transactionGroupId);
 
-        $violationLetter = ViolationLetter::where('student_enrollment_id', $studentEnrollmentId)
+        // Find the maximum threshold points the student HAS already received a letter for in this group
+        $highestReceivedThresholdPoints = ViolationLetter::where('student_enrollment_id', $studentEnrollmentId)
             ->where('point_transaction_group_id', $transactionGroupId)
-            ->pluck('point_threshold_id')
-            ->toArray();
+            ->join('point_thresholds', 'violation_letters.point_threshold_id', '=', 'point_thresholds.id')
+            ->max('point_thresholds.cumulative_points_threshold') ?? 0;
 
+        // Find the next eligible threshold that is HIGHER than what they already received
+        // and LESS THAN OR EQUAL TO their total points used.
         $nextPointThreshold = PointThreshold::where('is_active', true)
             ->where('cumulative_points_threshold', '<=', $totalPointsUsed)
-            ->whereNotIn('id', $violationLetter)
+            ->where('cumulative_points_threshold', '>', $highestReceivedThresholdPoints)
             ->orderBy('cumulative_points_threshold', 'desc')
             ->first();
 
@@ -61,14 +64,15 @@ class PointThresholdService
         }
     }
 
-    private function getTotalPointsUsedInGroup($transactionGroupId): int
+    private function getTotalPointsUsedInGroup(string $transactionGroupId): int
     {
+        // We sum 'intended_points' to capture the actual violation cost, 
+        // even if the student didn't have enough points left to deduct the full amount.
         $totalPointsUsed = PointTransaction::whereHas('violation', function ($query) use ($transactionGroupId) {
             $query->where('point_transaction_group_id', $transactionGroupId);
         })
             ->where('transaction_type', 'violation')
-            ->where('points_change', '<', 0)
-            ->sum('points_change');
+            ->sum('intended_points');
 
         return abs($totalPointsUsed);
     }
@@ -80,14 +84,13 @@ class PointThresholdService
         int            $totalPointsUsed
     ): void
     {
-        // Check if letter already exists
-        $existingLetter = ViolationLetter::where('student_enrollment_id', $studentEnrollmentId)
+        // Only create letter if it doesn't exist (added safety measure)
+        $exists = ViolationLetter::where('student_enrollment_id', $studentEnrollmentId)
             ->where('point_transaction_group_id', $transactionGroupId)
             ->where('point_threshold_id', $pointThreshold->id)
-            ->first(); // Use first() to check existence
+            ->exists();
 
-        // Only create letter if it doesn't exist
-        if (!$existingLetter) {
+        if (!$exists) {
             $currentPoints = $this->getCurrentPoints($studentEnrollmentId);
 
             ViolationLetter::create([

@@ -32,7 +32,7 @@ export function NavClasses() {
                                 <SidebarMenuButton
                                     className="tabular-nums"
                                     tooltip={{ children: item.abbreviation ?? item.name }}
-                                    isActive={isCurrentUrl(item.url, undefined, false)}
+                                    isActive={isCurrentUrl(item.url, undefined, true)}
                                     render={<Link
                                         href={item.url}
                                         prefetch

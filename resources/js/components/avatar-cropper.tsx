@@ -1,6 +1,5 @@
-import { useRef } from 'react';
-import { Cropper, CropperRef } from 'react-advanced-cropper';
-import 'react-advanced-cropper/dist/style.css';
+import { useState, useCallback } from 'react';
+import Cropper, { Area } from 'react-easy-crop';
 import {
     Dialog,
     DialogContent,
@@ -9,6 +8,7 @@ import {
     DialogTitle,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import getCroppedImg from '@/lib/crop-image';
 
 interface Props {
     image: string | null;
@@ -18,19 +18,25 @@ interface Props {
 }
 
 export function AvatarCropper({ image, open, onClose, onCrop }: Props) {
-    const cropperRef = useRef<CropperRef>(null);
+    const [crop, setCrop] = useState({ x: 0, y: 0 });
+    const [zoom, setZoom] = useState(1);
+    const [pixelCrop, setPixelCrop] = useState<Area | null>(null);
 
-    const handleCrop = () => {
-        if (cropperRef.current) {
-            const canvas = cropperRef.current.getCanvas();
-            if (canvas) {
-                canvas.toBlob((blob) => {
-                    if (blob) {
-                        const file = new File([blob], 'avatar.png', { type: 'image/png' });
-                        onCrop(file);
-                    }
-                }, 'image/png');
+    const onCropComplete = useCallback((_croppedArea: Area, croppedAreaPixels: Area) => {
+        setPixelCrop(croppedAreaPixels);
+    }, []);
+
+    const handleCrop = async () => {
+        if (!image || !pixelCrop) return;
+
+        try {
+            const blob = await getCroppedImg(image, pixelCrop);
+            if (blob) {
+                const file = new File([blob], 'avatar.png', { type: 'image/png' });
+                onCrop(file);
             }
+        } catch (e) {
+            console.error(e);
         }
     };
 
@@ -42,16 +48,33 @@ export function AvatarCropper({ image, open, onClose, onCrop }: Props) {
                 <DialogHeader>
                     <DialogTitle>Potong Avatar</DialogTitle>
                 </DialogHeader>
-                <div className="mt-4 overflow-hidden rounded-lg border bg-neutral-950/50">
+                
+                <div className="relative mt-4 h-[350px] w-full overflow-hidden rounded-lg border bg-neutral-950/50">
                     <Cropper
-                        ref={cropperRef}
-                        src={image}
-                        stencilProps={{
-                            aspectRatio: 1,
-                        }}
-                        className="h-[350px] w-full"
+                        image={image}
+                        crop={crop}
+                        zoom={zoom}
+                        aspect={1}
+                        onCropChange={setCrop}
+                        onZoomChange={setZoom}
+                        onCropComplete={onCropComplete}
                     />
                 </div>
+
+                <div className="mt-4 px-2">
+                    <label className="text-sm font-medium text-neutral-500">Zoom</label>
+                    <input
+                        type="range"
+                        value={zoom}
+                        min={1}
+                        max={3}
+                        step={0.1}
+                        aria-labelledby="Zoom"
+                        onChange={(e) => setZoom(Number(e.target.value))}
+                        className="h-2 w-full cursor-pointer appearance-none rounded-lg bg-neutral-200 accent-neutral-900 dark:bg-neutral-800 dark:accent-neutral-50"
+                    />
+                </div>
+
                 <DialogFooter className="mt-4">
                     <Button variant="outline" onClick={onClose} type="button">
                         Batal

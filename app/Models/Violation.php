@@ -6,13 +6,14 @@ use App\Traits\Filterable;
 use App\Traits\Searchable;
 use App\Traits\Sortable;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Violation extends Model
 {
-    use HasUlids, Sortable, Searchable, Filterable;
+    use HasUlids, Sortable, Searchable, Filterable, HasFactory;
 
     public $incrementing = false;
     protected $keyType = 'string';

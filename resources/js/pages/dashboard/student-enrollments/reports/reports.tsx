@@ -4,7 +4,7 @@ import type { Class } from "@/types";
 import { lazy, Suspense } from "react";
 import { Loader } from "lucide-react";
 
-// const ClassOverviewChart = lazy(() => import('../partials/class-overview-chart'))
+const ClassOverviewChart = lazy(() => import('../partials/class-overview-chart'))
 
 type Props = {
     studentClass: Class;
@@ -29,7 +29,7 @@ export default function Reports({ studentClass, classOverview }: Props) {
                     </div>
                 }
             >
-                {/* <ClassOverviewChart studentClass={studentClass} classOverview={classOverview} /> */}
+                <ClassOverviewChart studentClass={studentClass} classOverview={classOverview} />
             </Suspense>
         </>
     );

@@ -284,10 +284,10 @@ export default function StudentDetail({ studentEnrollment }: Props) {
                                                         Petugas
                                                     </TableHead>
                                                     <TableHead className="w-[10%] text-center tracking-wider">
-                                                        Skor
+                                                        Poin
                                                     </TableHead>
                                                     <TableHead className="w-[10%] text-end tracking-wider pr-4">
-                                                        Saldo Akhir
+                                                        Sisa Poin
                                                     </TableHead>
                                                     <TableHead className="w-[50px]"></TableHead>
                                                 </TableRow>

@@ -64,8 +64,7 @@ export default function UpdateViolationApproval({ violation }: Props) {
     const handleApprove = () => {
         put(ViolationApprovalController.update.url(violation.id), {
             onSuccess: (data) => {
-                console.log(data);
-                toast.success("Pelanggaran Berhasil Disetujui");
+                toast.success("Pelanggaran berhasil disetujui.");
                 // @ts-ignore
                 modalRef.current.close();
             },
@@ -243,7 +242,7 @@ export default function UpdateViolationApproval({ violation }: Props) {
                         variant="outline"
                         className="flex-1 sm:flex-initial"
                         onClick={() =>
-                            showRejectionModal({ violationId: violation.id })
+                            showRejectionModal({ violationId: violation.id, parentModalRef: modalRef })
                         }
                         disabled={isPending}
                     >
