@@ -350,7 +350,7 @@
             </div>
             <div class="signature-title">Kepala Sekolah,</div>
             <div class="signature-name">Dra. Yuliana Prabawati, M.Pd.</div>
-            <div>NIP. 19690615 199303 2 006</div>
+            <div>NIP. 19690715 199303 2 013</div>
         </div>
     </div>
 
