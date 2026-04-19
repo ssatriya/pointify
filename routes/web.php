@@ -22,6 +22,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ViolationApprovalController;
 use App\Http\Controllers\ViolationController;
 use App\Http\Controllers\ViolationTypeController;
+use App\Http\Controllers\ViolationLetterController;
 use App\Http\Controllers\VocationalProgramController;
 use Illuminate\Support\Facades\Route;
 
@@ -71,6 +72,7 @@ Route::middleware(['auth', 'verified'])
             Route::get('/{studentEnrollment}', 'show')->name('show')->whereNumber('studentEnrollment');
             Route::put('/{studentEnrollment}', 'update')->name('update')->whereNumber('studentEnrollment');
             Route::delete('/{studentEnrollment}', 'destroy')->name('destroy')->whereNumber('studentEnrollment');
+            Route::get('/{studentEnrollment}/sequence/{sequence}', ViolationLetterController::class)->name('generateLetter');
 
             Route::prefix('{studentClass:slug}')->name('class.')->group(function () {
                 Route::get('/', 'index')->name('index');
@@ -82,6 +84,10 @@ Route::middleware(['auth', 'verified'])
             });
         });
 
+        //         Route::prefix('letter')->group(function () {
+        //     Route::get('/{student_enrollment}/{sequence}', [ViolationLetterController::class, 'generate']);
+        // });
+    
         Route::prefix('students')->name('students.')->group(function () {
             Route::get('/select-unenrolled/{vocational_program}', SearchUnenrolledStudentController::class)->name('selectUnenrolled');
             Route::get('/download-template', [StudentImportController::class, 'downloadTemplate'])->name('download-template');

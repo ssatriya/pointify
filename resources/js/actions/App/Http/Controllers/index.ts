@@ -8,6 +8,7 @@ import ReorderStudentClassController from './ReorderStudentClassController'
 import SearchVocationalProgramController from './SearchVocationalProgramController'
 import SearchStudentEnrollmentController from './SearchStudentEnrollmentController'
 import StudentEnrollmentController from './StudentEnrollmentController'
+import ViolationLetterController from './ViolationLetterController'
 import SearchUnenrolledStudentController from './SearchUnenrolledStudentController'
 import StudentImportController from './StudentImportController'
 import StudentController from './StudentController'
@@ -33,6 +34,7 @@ ReorderStudentClassController: Object.assign(ReorderStudentClassController, Reor
 SearchVocationalProgramController: Object.assign(SearchVocationalProgramController, SearchVocationalProgramController),
 SearchStudentEnrollmentController: Object.assign(SearchStudentEnrollmentController, SearchStudentEnrollmentController),
 StudentEnrollmentController: Object.assign(StudentEnrollmentController, StudentEnrollmentController),
+ViolationLetterController: Object.assign(ViolationLetterController, ViolationLetterController),
 SearchUnenrolledStudentController: Object.assign(SearchUnenrolledStudentController, SearchUnenrolledStudentController),
 StudentImportController: Object.assign(StudentImportController, StudentImportController),
 StudentController: Object.assign(StudentController, StudentController),

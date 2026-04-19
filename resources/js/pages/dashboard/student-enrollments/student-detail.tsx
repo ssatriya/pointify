@@ -214,52 +214,77 @@ export default function StudentDetail({ studentEnrollment }: Props) {
                                     key={group.id}
                                     className="transition-all hover:ring-1 ring-primary/20"
                                 >
-                                    <CardTableHeader className="py-3">
+                                    <CardTableHeader className="py-4 border-b bg-muted/20">
                                         <CardTableTitle
                                             title={
-                                                <div className="flex items-center gap-2">
-                                                    <span className="font-bold bg-muted py-0.5 rounded text-muted-foreground">
-                                                        #{group.sequence}
-                                                    </span>
-                                                    <span className="font-semibold text-base">
-                                                        Periode Penanganan #
-                                                        {group.sequence}
+                                                <div className="flex items-center gap-3">
+                                                    <Badge
+                                                        variant="outline"
+                                                        className="font-bold rounded-md bg-background border-muted-foreground/20 px-2 h-7 text-xs text-muted-foreground shadow-sm"
+                                                    >
+                                                        Siklus #{group.sequence}
+                                                    </Badge>
+                                                    <span className="font-bold text-lg tracking-tight">
+                                                        Riwayat Penanganan
                                                     </span>
                                                 </div>
                                             }
                                             description={
-                                                <div className="flex items-center gap-3 mt-1">
-                                                    <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                                                        {group.is_closed ? (
-                                                            <CheckCircle2 className="h-3.5 w-3.5 text-success" />
-                                                        ) : (
-                                                            <Clock className="h-3.5 w-3.5 animate-pulse text-amber-500" />
-                                                        )}
-                                                        <span>
-                                                            {group.is_closed
-                                                                ? "Transaksi Ditutup"
-                                                                : "Sesi Aktif"}
-                                                        </span>
-                                                    </div>
+                                                <div className="flex flex-wrap items-center gap-3 mt-2">
+                                                    {group.is_closed ? (
+                                                        <Badge
+                                                            variant="success"
+                                                            className="gap-1.5 pl-1.5 h-6"
+                                                        >
+                                                            <CheckCircle2 className="h-3.5 w-3.5" />
+                                                            Siklus Selesai
+                                                        </Badge>
+                                                    ) : (
+                                                        <Badge
+                                                            variant="secondary"
+                                                            className="gap-1.5 pl-1.5 h-6 bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/20 dark:text-amber-400 dark:border-amber-900/50"
+                                                        >
+                                                            <Clock className="h-3.5 w-3.5 animate-pulse" />
+                                                            Siklus Aktif
+                                                        </Badge>
+                                                    )}
                                                     {group.has_letter && (
-                                                        <div className="flex items-center gap-1.5 text-xs text-primary font-medium">
+                                                        <Badge
+                                                            variant="outline"
+                                                            className="gap-1.5 pl-1.5 h-6 border-primary/30 text-primary bg-primary/5"
+                                                        >
                                                             <FileText className="h-3.5 w-3.5" />
-                                                            <span>
-                                                                Surat Peringatan
-                                                                Terbit
-                                                            </span>
-                                                        </div>
+                                                            Surat Peringatan Terbit
+                                                        </Badge>
                                                     )}
                                                 </div>
                                             }
                                         />
-                                        <CardTableActions>
+                                        <CardTableActions className="gap-3">
+                                            {group.has_letter && (
+                                                <a
+                                                    href={`/dashboard/student-enrollments/${studentEnrollment.id}/sequence/${group.sequence}`}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    <Button
+                                                        size="sm"
+                                                        variant="outline"
+                                                        className="h-9 gap-2 px-4 border-primary/20 hover:bg-primary/5 text-primary hover:text-primary transition-all shadow-sm"
+                                                    >
+                                                        <Printer className="h-4 w-4" />
+                                                        <span className="font-semibold">
+                                                            Cetak Surat
+                                                        </span>
+                                                    </Button>
+                                                </a>
+                                            )}
                                             {!group.is_closed && (
                                                 <Badge
                                                     variant="success"
-                                                    className="animate-in fade-in"
+                                                    className="animate-in fade-in zoom-in duration-500 bg-success text-success-foreground border-none font-bold shadow-sm"
                                                 >
-                                                    Terbaru
+                                                    TERBARU
                                                 </Badge>
                                             )}
                                         </CardTableActions>

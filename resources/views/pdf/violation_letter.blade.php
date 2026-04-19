@@ -259,8 +259,7 @@
 
 <body>
     <div class="letterhead">
-        <img src="kop-surat.png" />
-        {{-- <img src="test-kop-surat.png" class="kop-img" /> --}}
+        <img src="{{ public_path('kop-surat.png') }}" style="width: 100%; height: auto;" />
     </div>
 
     <div class="letter-number">
