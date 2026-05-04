@@ -36,6 +36,8 @@ export default function ResetPassword({ token, email }: Props) {
                                     bawah ini.
                                 </p>
                             </div>
+                            <input type="hidden" name="token" value={token} />
+                            <input type="hidden" name="email" value={email} />
                             <Field>
                                 <FieldLabel htmlFor="email">Email</FieldLabel>
                                 <Input

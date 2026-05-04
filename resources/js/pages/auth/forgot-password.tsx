@@ -7,16 +7,16 @@ import {
     FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { store } from "@/routes/password/confirm";
+import { email } from "@/routes/password";
 import { Form, Head } from "@inertiajs/react";
 
-export default function ForgotPassword() {
+export default function ForgotPassword({ status }: { status?: string }) {
     return (
         <>
             <Head title="Lupa kata sandi" />
             <Form
-                {...store.form()}
-                resetOnSuccess={["password"]}
+                {...email.form()}
+                resetOnSuccess={["email"]}
                 className="flex flex-col gap-6"
             >
                 {({ processing, errors }) => (
@@ -30,6 +30,12 @@ export default function ForgotPassword() {
                                     Masukkan email Anda untuk mengatur ulang kata
                                     sandi.
                                 </p>
+
+                            {status && (
+                                <div className="my-4 text-sm font-medium text-green-600">
+                                    {status}
+                                </div>
+                            )}
                             </div>
                             <Field>
                                 <FieldLabel htmlFor="email">
