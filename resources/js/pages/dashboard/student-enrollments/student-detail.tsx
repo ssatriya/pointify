@@ -67,7 +67,7 @@ export default function StudentDetail({ studentEnrollment }: Props) {
             <div className="space-y-6">
                 {/* Profile Information */}
                 <CardTable>
-                    <CardTableHeader className="border-b bg-muted/30">
+                    <CardTableHeader>
                         <CardTableTitle
                             title={
                                 <div className="flex items-center gap-3">
@@ -206,7 +206,7 @@ export default function StudentDetail({ studentEnrollment }: Props) {
                     </div>
 
                     {studentEnrollment.point_transaction_groups &&
-                        studentEnrollment.point_transaction_groups.length > 0 ? (
+                    studentEnrollment.point_transaction_groups.length > 0 ? (
                         [...studentEnrollment.point_transaction_groups]
                             .reverse()
                             .map((group) => (
@@ -214,7 +214,7 @@ export default function StudentDetail({ studentEnrollment }: Props) {
                                     key={group.id}
                                     className="transition-all hover:ring-1 ring-primary/20"
                                 >
-                                    <CardTableHeader className="py-4 border-b bg-muted/20">
+                                    <CardTableHeader className="py-4">
                                         <CardTableTitle
                                             title={
                                                 <div className="flex items-center gap-3">
@@ -231,32 +231,25 @@ export default function StudentDetail({ studentEnrollment }: Props) {
                                             }
                                             description={
                                                 <div className="flex flex-wrap items-center gap-3 mt-2">
-                                                    {group.is_closed ? (
+                                                    {group.is_closed && (
                                                         <Badge
                                                             variant="success"
-                                                            className="gap-1.5 pl-1.5 h-6"
+                                                            className="gap-1.5 pl-1.5"
                                                         >
-                                                            <CheckCircle2 className="h-3.5 w-3.5" />
+                                                            <CheckCircle2 />
                                                             Siklus Selesai
                                                         </Badge>
-                                                    ) : (
-                                                        <Badge
-                                                            variant="secondary"
-                                                            className="gap-1.5 pl-1.5 h-6 bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/20 dark:text-amber-400 dark:border-amber-900/50"
-                                                        >
-                                                            <Clock className="h-3.5 w-3.5 animate-pulse" />
-                                                            Siklus Aktif
-                                                        </Badge>
                                                     )}
-                                                    {group.has_letter && (
+                                                    {/* {group.has_letter && (
                                                         <Badge
                                                             variant="outline"
                                                             className="gap-1.5 pl-1.5 h-6 border-primary/30 text-primary bg-primary/5"
                                                         >
                                                             <FileText className="h-3.5 w-3.5" />
-                                                            Surat Peringatan Terbit
+                                                            Surat Peringatan
+                                                            Terbit
                                                         </Badge>
-                                                    )}
+                                                    )} */}
                                                 </div>
                                             }
                                         />
@@ -270,7 +263,6 @@ export default function StudentDetail({ studentEnrollment }: Props) {
                                                     <Button
                                                         size="sm"
                                                         variant="outline"
-                                                        className="h-9 gap-2 px-4 border-primary/20 hover:bg-primary/5 text-primary hover:text-primary transition-all shadow-sm"
                                                     >
                                                         <Printer className="h-4 w-4" />
                                                         <span className="font-semibold">
@@ -279,18 +271,15 @@ export default function StudentDetail({ studentEnrollment }: Props) {
                                                     </Button>
                                                 </a>
                                             )}
-                                            {!group.is_closed && (
-                                                <Badge
-                                                    variant="success"
-                                                    className="animate-in fade-in zoom-in duration-500 bg-success text-success-foreground border-none font-bold shadow-sm"
-                                                >
+                                            {/* {!group.is_closed && (
+                                                <Badge variant="success">
                                                     TERBARU
                                                 </Badge>
-                                            )}
+                                            )} */}
                                         </CardTableActions>
                                     </CardTableHeader>
                                     <CardTableContent>
-                                        <Table className="min-w-[1000px]">
+                                        <Table className="min-w-250">
                                             <TableHeader>
                                                 <TableRow className="h-10 border-b-muted/40">
                                                     <TableHead className="w-[12%] tracking-wider">
@@ -340,7 +329,7 @@ export default function StudentDetail({ studentEnrollment }: Props) {
                                                             </TableCell>
                                                             <TableCell className="text-center">
                                                                 {item.type ===
-                                                                    "violation" ? (
+                                                                "violation" ? (
                                                                     <Badge
                                                                         variant="destructive"
                                                                         className="h-5 px-1.5 font-bold uppercase rounded"
@@ -348,7 +337,7 @@ export default function StudentDetail({ studentEnrollment }: Props) {
                                                                         Pelanggaran
                                                                     </Badge>
                                                                 ) : item.type ===
-                                                                    "reward" ? (
+                                                                  "reward" ? (
                                                                     <Badge
                                                                         variant="success"
                                                                         className="h-5 px-1.5 font-bold uppercase rounded"
@@ -356,7 +345,7 @@ export default function StudentDetail({ studentEnrollment }: Props) {
                                                                         Penghargaan
                                                                     </Badge>
                                                                 ) : item.type ===
-                                                                    "revoked" ? (
+                                                                  "revoked" ? (
                                                                     <Badge
                                                                         variant="outline"
                                                                         className="h-5 px-1.5 font-bold uppercase rounded text-muted-foreground border-muted-foreground/30"
@@ -398,12 +387,12 @@ export default function StudentDetail({ studentEnrollment }: Props) {
                                                                             ? "text-destructive"
                                                                             : item.type ===
                                                                                 "reward"
-                                                                                ? "text-success"
-                                                                                : "text-primary",
+                                                                              ? "text-success"
+                                                                              : "text-primary",
                                                                     )}
                                                                 >
                                                                     {item.points_change >
-                                                                        0
+                                                                    0
                                                                         ? `+${item.points_change}`
                                                                         : item.points_change}
                                                                 </span>

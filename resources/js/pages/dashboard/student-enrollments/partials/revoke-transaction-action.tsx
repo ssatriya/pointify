@@ -75,7 +75,7 @@ export function RevokeTransactionAction({
                     </Button>
                 }
             />
-            <AlertDialogContent>
+            <AlertDialogContent className="sm:min-w-xl">
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <AlertDialogHeader>
                         <AlertDialogTitle>
@@ -116,8 +116,8 @@ export function RevokeTransactionAction({
                         </AlertDialogCancel>
                         <AlertDialogAction
                             type="submit"
+                            variant="destructive"
                             disabled={processing || !data.revoke_reason}
-                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                         >
                             {processing
                                 ? "Memproses..."

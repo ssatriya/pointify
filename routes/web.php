@@ -69,9 +69,9 @@ Route::middleware(['auth', 'verified'])
         Route::prefix('student-enrollments')->name('student-enrollments.')->controller(StudentEnrollmentController::class)->group(function () {
             Route::get('/search', SearchStudentEnrollmentController::class)->name('search');
 
-            Route::get('/{studentEnrollment}', 'show')->name('show')->whereNumber('studentEnrollment');
-            Route::put('/{studentEnrollment}', 'update')->name('update')->whereNumber('studentEnrollment');
-            Route::delete('/{studentEnrollment}', 'destroy')->name('destroy')->whereNumber('studentEnrollment');
+            Route::get('/{studentEnrollment}', 'show')->name('show')->whereUlid('studentEnrollment');
+            Route::put('/{studentEnrollment}', 'update')->name('update')->whereUlid('studentEnrollment');
+            Route::delete('/{studentEnrollment}', 'destroy')->name('destroy')->whereUlid('studentEnrollment');
             Route::get('/{studentEnrollment}/sequence/{sequence}', ViolationLetterController::class)->name('generateLetter');
 
             Route::prefix('{studentClass:slug}')->name('class.')->group(function () {
