@@ -6,7 +6,7 @@ use App\Facades\DataTable;
 use App\Http\Requests\GetListRequestParams;
 use App\Http\Requests\ViolationApprovalRequest;
 use App\Http\Resources\ViolationResource;
-use App\Http\Services\ViolationApprovalService;
+use App\Services\ViolationApprovalService;
 use App\Models\Violation;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;

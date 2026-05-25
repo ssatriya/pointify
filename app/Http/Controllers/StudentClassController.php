@@ -7,7 +7,7 @@ use App\Http\Requests\Store\StoreStudentClassRequest;
 use App\Http\Requests\Update\UpdateStudentClassRequest;
 use App\Http\Resources\SelectOptionResource;
 use App\Http\Resources\StudentClassResource;
-use App\Http\Services\StudentClassService;
+use App\Services\StudentClassService;
 use App\Models\StudentClass;
 use App\Models\VocationalProgram;
 use App\Http\Resources\VocationalProgramResource;

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Store\StoreRewardRequest;
-use App\Http\Services\RewardService;
+use App\Services\RewardService;
 use App\Models\StudentEnrollment;
 use Illuminate\Http\Request;
 use Inertia\Inertia;

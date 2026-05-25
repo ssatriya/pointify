@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Services\PointThresholdService;
+use App\Services\PointThresholdService;
 use App\Models\AcademicYear;
 use App\Models\PointThreshold;
 use App\Models\PointTransaction;

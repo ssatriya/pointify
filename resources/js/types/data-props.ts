@@ -113,6 +113,8 @@ export type PointTransactionGroup = {
 
 export type PointTransaction = {
     id: string
+    violation_id: string | null
+    reward_id: string | null
     student_name: string
     type: "violation" | "reward" | "reset" | "initial" | "revoked"
     code: string

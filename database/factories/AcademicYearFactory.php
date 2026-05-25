@@ -17,7 +17,7 @@ class AcademicYearFactory extends Factory
      */
     public function definition(): array
     {
-        $year = date('Y');
+        $year = $this->faker->unique()->numberBetween(2030, 2099);
         return [
             'name' => "$year/" . ($year + 1),
             'start_date' => "$year-07-01",

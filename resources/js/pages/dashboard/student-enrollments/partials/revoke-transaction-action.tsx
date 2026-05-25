@@ -55,9 +55,9 @@ export function RevokeTransactionAction({
         };
 
         if (isViolation) {
-            put(RevokeViolationController.url(item.id), options as any);
+            put(RevokeViolationController.url(item.violation_id!), options as any);
         } else {
-            post(RevokeRewardController.url(item.id), options as any);
+            post(RevokeRewardController.url(item.reward_id!), options as any);
         }
     };
 

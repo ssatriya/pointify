@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RevokeReasonRequest;
-use App\Http\Services\ViolationService;
+use App\Services\ViolationService;
 use App\Models\Violation;
 use Illuminate\Http\Request;
 use Inertia\Inertia;

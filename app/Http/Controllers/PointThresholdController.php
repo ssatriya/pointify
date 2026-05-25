@@ -6,7 +6,7 @@ use App\Http\Requests\GetListRequestParams;
 use App\Http\Requests\Store\StorePointThresholdRequest;
 use App\Http\Requests\Update\UpdatePointThresholdRequest;
 use App\Http\Resources\PointThresholdResource;
-use App\Http\Services\PointThresholdService;
+use App\Services\PointThresholdService;
 use App\Models\PointThreshold;
 use Inertia\Inertia;
 use Throwable;

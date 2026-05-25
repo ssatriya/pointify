@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Services;
 
 use App\Enums\ApprovalStatus;
 use App\Enums\TransactionType;
@@ -23,17 +23,19 @@ class ViolationService
     public function revokeViolation(Violation $violation, array $data): void
     {
         DB::transaction(function () use ($violation, $data) {
+            $violation = Violation::lockForUpdate()->find($violation->id);
+            $studentEnrollment = StudentEnrollment::lockForUpdate()->find($violation->student_enrollment_id);
+            $studentEnrollment->load('pointTransactions');
+
             $originalTransaction = PointTransaction::where('violation_id', $violation->id)
                 ->where('transaction_type', 'violation')
                 ->firstOrFail();
 
             $actualPointsDeducted = abs($originalTransaction->points_change);
-            $studentEnrollmentId = $violation->student_enrollment_id;
-
-            $currentPoints = $violation->studentEnrollment->current_points;
+            $currentPoints = $studentEnrollment->currentPoints;
 
             PointTransaction::create([
-                'student_enrollment_id' => $studentEnrollmentId,
+                'student_enrollment_id' => $studentEnrollment->id,
                 'violation_id' => $violation->id,
                 'transaction_type' => TransactionType::REVOKED->value,
                 'processed_by' => Auth::id(),
@@ -47,15 +49,16 @@ class ViolationService
             $currentPoints += $actualPointsDeducted;
 
             if ($this->violationTriggeredReset($violation)) {
+                $initialPoints = $studentEnrollment->initial_points;
                 PointTransaction::create([
-                    'student_enrollment_id' => $studentEnrollmentId,
+                    'student_enrollment_id' => $studentEnrollment->id,
                     'transaction_type' => TransactionType::REVOKED->value,
                     'processed_by' => Auth::id(),
                     'description' => "Reversal of automatic reset triggered by incorrect violation: $violation->id",
-                    'points_change' => -100,
-                    'intended_points' => $currentPoints - 100,
+                    'points_change' => -$initialPoints,
+                    'intended_points' => $currentPoints - $initialPoints,
                     'points_before' => $currentPoints,
-                    'points_after' => $currentPoints - 100,
+                    'points_after' => $currentPoints - $initialPoints,
                 ]);
             }
 
@@ -114,7 +117,7 @@ class ViolationService
     {
         return PointTransaction::where('student_enrollment_id', $violation->student_enrollment_id)
             ->where('transaction_type', 'reset')
-            ->where('created_at', '>', $violation->created_at)
+            ->where('created_at', '>=', $violation->created_at)
             ->exists();
     }
 

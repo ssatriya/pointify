@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Services;
 
 use App\Facades\DataTable;
 use App\Models\AcademicYear;

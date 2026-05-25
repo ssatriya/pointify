@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\StudentTemplateExport;
-use App\Http\Services\StudentService;
+use App\Services\StudentService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Maatwebsite\Excel\Facades\Excel;

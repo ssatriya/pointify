@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\AcademicYear;
 
 use App\Http\Controllers\Controller;
-use App\Http\Services\AcademicYearService;
+use App\Services\AcademicYearService;
 use App\Http\Requests\GetListRequestParams;
 use App\Http\Requests\Store\StoreAcademicYearRequest;
 use App\Http\Requests\Update\UpdateAcademicYearRequest;

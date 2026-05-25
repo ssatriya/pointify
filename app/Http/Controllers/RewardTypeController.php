@@ -6,7 +6,7 @@ use App\Http\Requests\GetListRequestParams;
 use App\Http\Requests\Store\StoreRewardTypeRequest;
 use App\Http\Requests\Update\UpdateRewardTypeRequest;
 use App\Http\Resources\RewardTypeResource;
-use App\Http\Services\RewardTypeService;
+use App\Services\RewardTypeService;
 use App\Models\RewardType;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

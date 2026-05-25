@@ -8,7 +8,7 @@ use App\Http\Requests\Store\StoreStudentEnrollmentRequest;
 use App\Http\Requests\Update\UpdateStudentEnrollmentRequest;
 use App\Http\Resources\StudentEnrollmentResource;
 use App\Http\Resources\StudentEnrollmentSummaryResource;
-use App\Http\Services\StudentEnrollmentService;
+use App\Services\StudentEnrollmentService;
 use App\Models\StudentClass;
 use App\Models\StudentEnrollment;
 use Exception;
@@ -32,7 +32,7 @@ class StudentEnrollmentController extends Controller
                 'student:id,name',
                 'studentClass:id,name',
                 'academicYear:id,name',
-                'pointTransactions:id,student_enrollment_id,transaction_type,points_change',
+                'pointTransactions:id,student_enrollment_id,transaction_type,points_change,violation_id,reward_id',
             ])
             ->whereHas('studentClass', fn($q) => $q->where('id', $studentClass->id))
             ->whereHas('academicYear', fn($q) => $q->where('is_active', true))

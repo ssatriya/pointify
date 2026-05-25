@@ -6,7 +6,7 @@ use App\Http\Requests\GetListRequestParams;
 use App\Http\Requests\Store\StoreViolationTypeRequest;
 use App\Http\Requests\Update\UpdateViolationTypeRequest;
 use App\Http\Resources\ViolationTypeResource;
-use App\Http\Services\ViolationTypeService;
+use App\Services\ViolationTypeService;
 use App\Models\ViolationType;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

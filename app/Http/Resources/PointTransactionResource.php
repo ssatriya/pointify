@@ -14,21 +14,22 @@ class PointTransactionResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $violation = $this->relationLoaded('violation') ? $this->violation : null;
+        $reward = $this->relationLoaded('reward') ? $this->reward : null;
+
         return [
-            // Use the transaction's own ID as the primary key for the frontend.
-            // violation/reward ID is kept for revoke actions.
             'id' => $this->id,
+            'violation_id' => $this->violation_id,
+            'reward_id' => $this->reward_id,
             'type' => $this->transaction_type,
-            // Use full null-safe chains — violationType/rewardType are eager-loaded
-            // on the parent violation/reward in the controller.
-            'code' => $this->violation?->violationType?->code ?? $this->reward?->rewardType?->code,
-            'created_by' => $this->violation?->createdBy?->name ?? $this->reward?->createdBy?->name,
-            'notes' => $this->violation?->notes ?? $this->reward?->notes,
-            'approval_status' => $this->violation?->approval_status ?? $this->reward?->approval_status,
+            'code' => $violation?->violationType?->code ?? $reward?->rewardType?->code,
+            'created_by' => $violation?->createdBy?->name ?? $reward?->createdBy?->name,
+            'notes' => $violation?->notes ?? $reward?->notes,
+            'approval_status' => $violation?->approval_status ?? $reward?->approval_status,
             'points_change' => $this->points_change,
             'intended_points' => $this->intended_points,
             'points_after' => $this->points_after ?? null,
-            'created_at' => $this->violation?->created_at ?? $this->reward?->created_at,
+            'created_at' => $violation?->created_at ?? $reward?->created_at,
         ];
     }
 }

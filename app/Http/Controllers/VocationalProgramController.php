@@ -6,7 +6,7 @@ use App\Http\Requests\GetListRequestParams;
 use App\Http\Requests\Store\StoreVocationalProgramRequest;
 use App\Http\Requests\Update\UpdateVocationalProgramRequest;
 use App\Http\Resources\VocationalProgramResource;
-use App\Http\Services\VocationalProgramService;
+use App\Services\VocationalProgramService;
 use App\Models\VocationalProgram;
 use Inertia\Inertia;
 use Inertia\Response;

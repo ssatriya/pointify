@@ -123,7 +123,10 @@ class StudentEnrollment extends Model
      */
     public function getTotalViolationsPointsAttribute(): int
     {
-        return $this->pointTransactions->where('transaction_type', TransactionType::VIOLATION->value)->sum('points_change');
+        return $this->pointTransactions
+            ->filter(fn($t) => $t->transaction_type === TransactionType::VIOLATION->value
+                || ($t->transaction_type === TransactionType::REVOKED->value && $t->violation_id !== null))
+            ->sum('points_change');
     }
 
     /**
@@ -133,7 +136,10 @@ class StudentEnrollment extends Model
      */
     public function getTotalRewardsPointsAttribute(): int
     {
-        return $this->pointTransactions->where('transaction_type', TransactionType::REWARD->value)->sum('points_change');
+        return $this->pointTransactions
+            ->filter(fn($t) => $t->transaction_type === TransactionType::REWARD->value
+                || ($t->transaction_type === TransactionType::REVOKED->value && $t->reward_id !== null))
+            ->sum('points_change');
     }
 
     public function getResetCountAttribute(): int

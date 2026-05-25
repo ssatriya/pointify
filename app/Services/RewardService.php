@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services;
+namespace App\Services;
 
 use App\Enums\ApprovalStatus;
 use App\Enums\TransactionType;
@@ -21,25 +21,27 @@ class RewardService
     public function revokeReward(Reward $reward, array $data)
     {
         return DB::transaction(function () use ($reward, $data) {
+            $reward = Reward::lockForUpdate()->find($reward->id);
+            $studentEnrollment = StudentEnrollment::lockForUpdate()->find($reward->student_enrollment_id);
+            $studentEnrollment->load('pointTransactions');
+
             $originalTransaction = PointTransaction::where('reward_id', $reward->id)
                 ->where('transaction_type', 'reward')
                 ->firstOrFail();
 
-            $PointsAdded = $originalTransaction->points_change;
-            $studentEnrollmentId = $reward->student_enrollment_id;
-
-            $currentPoints = $reward->studentEnrollment->current_points;
+            $pointsAdded = $originalTransaction->points_change;
+            $currentPoints = $studentEnrollment->currentPoints;
 
             PointTransaction::create([
-                'student_enrollment_id' => $studentEnrollmentId,
+                'student_enrollment_id' => $studentEnrollment->id,
                 'reward_id' => $reward->id,
                 'transaction_type' => TransactionType::REVOKED->value,
                 'processed_by' => Auth::id(),
                 'description' => "Reversal of incorrect reward: $reward->id",
-                'points_change' => $PointsAdded,
-                'intended_points' => $currentPoints + $PointsAdded,
+                'points_change' => -$pointsAdded,
+                'intended_points' => $currentPoints - $pointsAdded,
                 'points_before' => $currentPoints,
-                'points_after' => $currentPoints + $PointsAdded,
+                'points_after' => $currentPoints - $pointsAdded,
             ]);
 
             $reward->update([

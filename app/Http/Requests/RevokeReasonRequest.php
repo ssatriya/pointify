@@ -13,7 +13,7 @@ class RevokeReasonRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->can(Permission::VIOLATIONS_REVOKE->value || Permission::REWARDS_REVOKE->value);
+        return $this->user()->can(Permission::VIOLATIONS_REVOKE->value) || $this->user()->can(Permission::REWARDS_REVOKE->value);
     }
 
     /**
