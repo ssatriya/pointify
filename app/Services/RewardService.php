@@ -20,7 +20,7 @@ class RewardService
      */
     public function revokeReward(Reward $reward, array $data)
     {
-        return DB::transaction(function () use ($reward, $data) {
+        DB::transaction(function () use ($reward, $data) {
             $reward = Reward::lockForUpdate()->find($reward->id);
             $studentEnrollment = StudentEnrollment::lockForUpdate()->find($reward->student_enrollment_id);
             $studentEnrollment->load('pointTransactions');

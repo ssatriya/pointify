@@ -64,7 +64,7 @@ class StudentEnrollmentService
     /** @throws ValidationException|Throwable */
     public function delete(StudentEnrollment $studentEnrollment)
     {
-        return DB::transaction(function () use ($studentEnrollment) {
+        DB::transaction(function () use ($studentEnrollment) {
             $violations = Violation::where('student_enrollment_id', $studentEnrollment->id)->exists();
             $rewards = Reward::where('student_enrollment_id', $studentEnrollment->id)->exists();
 
@@ -118,7 +118,7 @@ class StudentEnrollmentService
             'total_violations' => $totalViolations,
             'total_rewards' => $totalRewards,
             'avg_point_balance' => $avgPointBalance,
-            'top_violation_type' => $topViolation?->violationType?->code ?? '-',
+            'top_violation_type' => $topViolation?->violationType->code ?? '-',
             'chart_data' => [
                 [
                     'name' => 'Pelanggaran',

@@ -65,7 +65,7 @@ class VocationalProgramController extends Controller
      * @authenticated
      *
      * @param VocationalProgram $vocationalProgram The resolved vocational program instance.
-     * @return Response
+     * @return \InertiaUI\Modal\Modal
      */
     public function show(VocationalProgram $vocationalProgram)
     {

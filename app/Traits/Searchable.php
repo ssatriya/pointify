@@ -43,6 +43,9 @@ trait Searchable
         return $query->select(["{$parentTable}.*"])->distinct();
     }
 
+    /**
+     * Get searchable attributes configuration
+     */
     protected function getSearchableAttributes(): array
     {
         return property_exists($this, 'searchable') ? $this->searchable : [];

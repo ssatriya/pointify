@@ -17,7 +17,7 @@ class SearchViolationTypeController extends Controller
      *
      * @authenticated
      *
-     * @param SelectOptionResource $request
+     * @param SearchQueryRequest $request
      * @return JsonResponse
      */
     public function __invoke(SearchQueryRequest $request): JsonResponse

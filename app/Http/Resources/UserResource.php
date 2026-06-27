@@ -5,6 +5,10 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @method \Illuminate\Support\Collection getAllPermissions()
+ * @method \Illuminate\Support\Collection getDirectPermissions()
+ */
 class UserResource extends JsonResource
 {
     /**

@@ -60,7 +60,7 @@ class HandleInertiaRequests extends Middleware
                 return Cache::rememberForever('student_classes_shared', function () {
                     return StudentClass::with(['vocationalProgram'])->orderBy('order')
                         ->get()
-                        ->map(fn($c) => [
+                        ->map(fn(StudentClass $c) => [
                             'id' => $c->id,
                             'name' => $c->name,
                             'abbreviation' => $c->abbreviation,

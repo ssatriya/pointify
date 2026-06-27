@@ -64,7 +64,7 @@ class AcademicYearController extends Controller
      * @authenticated
      *
      * @param AcademicYear $academicYear The resolved academic year instance.
-     * @return JsonResponse
+     * @return \InertiaUI\Modal\Modal
      */
     public function show(AcademicYear $academicYear)
     {

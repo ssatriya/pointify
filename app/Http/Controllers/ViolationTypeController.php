@@ -9,7 +9,6 @@ use App\Http\Resources\ViolationTypeResource;
 use App\Services\ViolationTypeService;
 use App\Models\ViolationType;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 use Throwable;
@@ -57,7 +56,7 @@ class ViolationTypeController extends Controller
      * @authenticated
      *
      * @param ViolationType $violationType The resolved vocational program instance.
-     * @return JsonResponse
+     * @return \InertiaUI\Modal\Modal
      */
     public function show(ViolationType $violationType)
     {

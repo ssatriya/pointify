@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('transaction_type');
             $table->foreignUlid('violation_id')->nullable()->constrained('violations');
             $table->foreignUlid('reward_id')->nullable()->constrained('rewards');
-            $table->foreignUlid('processed_by')->constrained('users');
+            $table->foreignUlid('processed_by')->constrained('users')->nullOnDelete();
             $table->string('description')->nullable();
             $table->integer('points_change'); // Negative for violations, positive for rewards/resets
             $table->integer('intended_points')->nullable(); // For partial deductions

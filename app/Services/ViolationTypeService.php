@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Facades\DataTable;
-use App\Facades\QueryBuilder;
+use App\Facades\QueryFilter;
 use App\Models\ViolationType;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
@@ -61,6 +61,6 @@ class ViolationTypeService
     {
         $query = ViolationType::limit(10)->latest();
 
-        return QueryBuilder::make($query)->search($validated['q'])->get();
+        return QueryFilter::make($query)->search($validated['q'])->get();
     }
 }

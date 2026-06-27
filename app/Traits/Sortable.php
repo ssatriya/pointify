@@ -4,12 +4,17 @@ namespace App\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOneOrMany;
 
 /**
  * @mixin Model
  */
 trait Sortable
 {
+    private string $DEFAULT_ORDER_BY = 'created_at';
+
     /**
      * Scope for dynamic sorting based on model's sortable fields
      */
@@ -18,7 +23,7 @@ trait Sortable
         $sortableFields = $this->getSortableAttributes();
 
         if (! in_array($orderBy, $sortableFields)) {
-            $orderBy = 'created_at'; // fallback
+            $orderBy = $this->DEFAULT_ORDER_BY;
         }
 
         if (str_contains($orderBy, '.')) {
@@ -38,21 +43,32 @@ trait Sortable
      */
     protected function sortByRelationSubquery(Builder $query, string $relation, string $column, string $direction): Builder
     {
+        if (! method_exists($this, $relation)) {
+            return $query;
+        }
+
         $relationInstance = $this->{$relation}();
+
+        if (! $relationInstance instanceof Relation) {
+            return $query;
+        }
+
         $relationModel = $relationInstance->getRelated();
         $relationTable = $relationModel->getTable();
         $parentTable = $this->getTable();
 
         $subQuery = $relationModel::select("{$relationTable}.{$column}");
 
-        if (method_exists($relationInstance, 'getForeignKeyName')) {
+        if ($relationInstance instanceof BelongsTo) {
             $foreignKey = $relationInstance->getForeignKeyName();
             $ownerKey = $relationInstance->getOwnerKeyName();
             $subQuery->whereColumn("{$relationTable}.{$ownerKey}", "{$parentTable}.{$foreignKey}");
-        } else {
+        } elseif ($relationInstance instanceof HasOneOrMany) {
             $foreignKey = $relationInstance->getForeignKeyName();
             $localKey = $relationInstance->getLocalKeyName();
             $subQuery->whereColumn("{$relationTable}.{$foreignKey}", "{$parentTable}.{$localKey}");
+        } else {
+            return $query;
         }
 
         return $query
@@ -61,7 +77,7 @@ trait Sortable
     }
 
     /**
-     * Get sortable attributes
+     * Get sortable attributes configuration
      */
     protected function getSortableAttributes(): array
     {

@@ -11,7 +11,7 @@ trait Filterable
      */
     public function scopeFilter(Builder $query, array $filters): Builder
     {
-        $filterableFields = $this->getFilterableAttributes();
+        $filterableFields = $this->filterable;
 
         foreach ($filters as $field => $values) {
             if (!isset($filterableFields[$field]) || empty($values)) {
@@ -58,6 +58,6 @@ trait Filterable
      */
     protected function getFilterableAttributes(): array
     {
-        return property_exists($this, 'filterable') ? $this->filterable : [];
+        return $this->filterable;
     }
 }

@@ -4,7 +4,7 @@ namespace App\Imports;
 
 use App\Models\Student;
 use App\Models\VocationalProgram;
-use Carbon\Carbon;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\ToCollection;
@@ -14,18 +14,18 @@ use Maatwebsite\Excel\Concerns\WithValidation;
 use Illuminate\Validation\Rule;
 
 class StudentImport implements ToCollection, WithHeadingRow, SkipsEmptyRows, WithValidation
-{
-    protected $vocationalPrograms;
+{   
+    protected Collection $vocationalPrograms;
 
     public function __construct()
     {
-        $this->vocationalPrograms = VocationalProgram::all()->pluck('id', 'name');
+        $this->vocationalPrograms = VocationalProgram::pluck('id', 'name');
     }
 
     /**
      * Normalize keys to be alphanumeric only for robust matching
      */
-    protected function normalizeRow($row): array
+    protected function normalizeRow(Collection $row): array
     {
         $normalized = [];
         foreach ($row as $key => $value) {

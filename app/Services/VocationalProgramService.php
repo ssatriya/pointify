@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Facades\DataTable;
+use App\Models\Student;
+use App\Models\StudentClass;
 use App\Models\VocationalProgram;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +36,7 @@ class VocationalProgramService
      */
     public function update(array $data, VocationalProgram $vocationalProgram)
     {
-        return DB::transaction(function () use ($data, $vocationalProgram) {
+        DB::transaction(function () use ($data, $vocationalProgram) {
             $vocationalProgram->update([...$data, 'updated_by' => Auth::id()]);
         });
     }
@@ -44,9 +46,9 @@ class VocationalProgramService
      */
     public function delete(VocationalProgram $vocationalProgram)
     {
-        return DB::transaction(function () use ($vocationalProgram) {
-            $hasStudents = \App\Models\Student::where('vocational_program_id', $vocationalProgram->id)->exists();
-            $hasClasses = \App\Models\StudentClass::where('vocational_program_id', $vocationalProgram->id)->exists();
+        DB::transaction(function () use ($vocationalProgram) {
+            $hasStudents = Student::where('vocational_program_id', $vocationalProgram->id)->exists();
+            $hasClasses = StudentClass::where('vocational_program_id', $vocationalProgram->id)->exists();
 
             if ($hasStudents || $hasClasses) {
                 throw ValidationException::withMessages([

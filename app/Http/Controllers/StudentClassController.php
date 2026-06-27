@@ -5,13 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\GetListRequestParams;
 use App\Http\Requests\Store\StoreStudentClassRequest;
 use App\Http\Requests\Update\UpdateStudentClassRequest;
-use App\Http\Resources\SelectOptionResource;
 use App\Http\Resources\StudentClassResource;
 use App\Services\StudentClassService;
 use App\Models\StudentClass;
-use App\Models\VocationalProgram;
-use App\Http\Resources\VocationalProgramResource;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -66,7 +62,7 @@ class StudentClassController extends Controller
      * @authenticated
      *
      * @param StudentClass $studentClass The resolved student class instance.
-     * @return Response
+     * @return \InertiaUI\Modal\Modal
      */
     public function show(StudentClass $studentClass)
     {

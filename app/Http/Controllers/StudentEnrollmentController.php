@@ -11,7 +11,6 @@ use App\Http\Resources\StudentEnrollmentSummaryResource;
 use App\Services\StudentEnrollmentService;
 use App\Models\StudentClass;
 use App\Models\StudentEnrollment;
-use Exception;
 use Inertia\Inertia;
 use Inertia\Response;
 use Throwable;
@@ -95,7 +94,7 @@ class StudentEnrollmentController extends Controller
     {
         $this->studentEnrollmentService->update($request->validated(), $studentEnrollment->loadMissing(['studentClass:id,name,slug']));
 
-        return Inertia::flash(['Data pendaftaran siswa berhasil diperbarui.'])->back();
+        return Inertia::flash(['message' => 'Data pendaftaran siswa berhasil diperbarui.'])->back();
     }
 
     /**

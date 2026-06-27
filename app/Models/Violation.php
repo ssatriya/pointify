@@ -67,6 +67,7 @@ class Violation extends Model
 
     /**
      * Get the violationType that owns the Violation
+     *  @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\ViolationType, $this>
      */
     public function violationType(): BelongsTo
     {

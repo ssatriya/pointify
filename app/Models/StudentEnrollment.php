@@ -44,6 +44,7 @@ class StudentEnrollment extends Model
 
     /**
      * Get the student that owns the StudentEnrollment
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\Student, $this>
      */
     public function student(): BelongsTo
     {
@@ -52,6 +53,7 @@ class StudentEnrollment extends Model
 
     /**
      * Get the studentClass that owns the StudentEnrollment
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\StudentClass, $this>
      */
     public function studentClass(): BelongsTo
     {
@@ -60,6 +62,7 @@ class StudentEnrollment extends Model
 
     /**
      * Get the academicYear that owns the StudentEnrollment
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\AcademicYear, $this>
      */
     public function academicYear(): BelongsTo
     {
@@ -68,6 +71,7 @@ class StudentEnrollment extends Model
 
     /**
      * Get all the violations for the StudentEnrollment
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Violation, $this>
      */
     public function violations(): HasMany
     {
@@ -76,6 +80,7 @@ class StudentEnrollment extends Model
 
     /**
      * Get all the rewards for the StudentEnrollment
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Reward, $this>
      */
     public function rewards(): HasMany
     {
@@ -84,6 +89,7 @@ class StudentEnrollment extends Model
 
     /**
      * Get all the pointTransactions for the StudentEnrollment
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\PointTransaction, $this>
      */
     public function pointTransactions(): HasMany
     {
@@ -92,6 +98,7 @@ class StudentEnrollment extends Model
 
     /**
      * Get all the pointTransactionGroups for the StudentEnrollment
+      * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\PointTransactionGroup, $this>
      */
     public function pointTransactionGroups(): HasMany
     {

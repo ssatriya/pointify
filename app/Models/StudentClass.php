@@ -12,6 +12,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Cache;
 
+/**
+ * @property-read string $abbreviation
+ */
 class StudentClass extends Model
 {
     use HasUlids, Sortable, Searchable, HasFactory;
@@ -45,6 +48,7 @@ class StudentClass extends Model
 
     /**
      * Get the vocationalProgram that owns the StudentClass
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\VocationalProgram, $this>
      */
     public function vocationalProgram(): BelongsTo
     {
@@ -53,6 +57,7 @@ class StudentClass extends Model
 
     /**
      * Get all the studentEnrollments for the StudentClass
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\StudentEnrollment, $this>
      */
     public function studentEnrollments(): HasMany
     {

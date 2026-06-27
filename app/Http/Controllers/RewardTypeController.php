@@ -9,7 +9,6 @@ use App\Http\Resources\RewardTypeResource;
 use App\Services\RewardTypeService;
 use App\Models\RewardType;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Throwable;
 
@@ -47,7 +46,7 @@ class RewardTypeController extends Controller
      * @authenticated
      *
      * @param RewardType $rewardType The resolved vocational program instance.
-     * @return JsonResponse
+     * @return \InertiaUI\Modal\Modal
      */
     public function show(RewardType $rewardType)
     {
