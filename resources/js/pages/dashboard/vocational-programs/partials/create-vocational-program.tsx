@@ -1,12 +1,19 @@
 import {
-    Dialog, DialogClose,
+    Dialog,
+    DialogClose,
     DialogContent,
     DialogDescription,
     DialogFooter,
     DialogHeader,
-    DialogTitle
+    DialogTitle,
 } from "@/components/ui/dialog";
-import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
+import {
+    Field,
+    FieldDescription,
+    FieldError,
+    FieldGroup,
+    FieldLabel,
+} from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import NiceModal, { useModal } from "@ebay/nice-modal-react";
@@ -17,11 +24,12 @@ import { store } from "@/actions/App/Http/Controllers/VocationalProgramControlle
 import { Loader } from "lucide-react";
 
 export default NiceModal.create(() => {
-    const { visible, hide, show, remove } = useModal()
-    const { visible: confirmVisible, show: confirmShow } = useModal("confirm-dialog")
+    const { visible, hide, show, remove } = useModal();
+    const { visible: confirmVisible, show: confirmShow } =
+        useModal("confirm-dialog");
     const { lastFocusedRef, onFocusCapture } = useFocusRestore(
         visible,
-        confirmVisible
+        confirmVisible,
     );
     const { data, setData, post, processing, errors, isDirty } = useForm({
         name: "",
@@ -29,12 +37,12 @@ export default NiceModal.create(() => {
     });
 
     function submit(e: SyntheticEvent<HTMLFormElement>) {
-        e.preventDefault()
+        e.preventDefault();
         post(store().url, {
             onSuccess: () => {
-                hide()
-            }
-        })
+                hide();
+            },
+        });
     }
 
     return (
@@ -58,45 +66,72 @@ export default NiceModal.create(() => {
             <DialogContent
                 initialFocus={visible ?? lastFocusedRef}
                 onFocusCapture={onFocusCapture}
-                className="sm:max-w-xl">
+                className="sm:max-w-xl"
+            >
                 <DialogHeader>
                     <DialogTitle>Edit profile</DialogTitle>
                     <DialogDescription>
-                        Make changes to your profile here. Click save when you&apos;re
-                        done.
+                        Make changes to your profile here. Click save when
+                        you&apos;re done.
                     </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={submit} id="create-vocational-program">
                     <FieldGroup>
                         <Field>
-                            <FieldLabel htmlFor="name">Nama kejuruan</FieldLabel>
+                            <FieldLabel htmlFor="name">
+                                Nama kejuruan
+                            </FieldLabel>
                             <Input
                                 id="name"
                                 type="text"
                                 value={data.name}
-                                onChange={(e) => setData("name", e.target.value)}
+                                onChange={(e) =>
+                                    setData("name", e.target.value)
+                                }
                                 aria-invalid={!!errors.name}
                             />
                             <FieldError>{errors.name}</FieldError>
                         </Field>
                         <Field>
-                            <FieldLabel htmlFor="abbreviation">Singkatan</FieldLabel>
+                            <FieldLabel htmlFor="abbreviation">
+                                Singkatan
+                            </FieldLabel>
                             <Input
                                 id="abbreviation"
                                 type="text"
                                 value={data.abbreviation}
-                                onChange={(e) => setData("abbreviation", e.target.value)}
-                                disabled={data.name.trim().split(/\s+/).filter(Boolean).length <= 1}
+                                onChange={(e) =>
+                                    setData("abbreviation", e.target.value)
+                                }
+                                disabled={
+                                    data.name
+                                        .trim()
+                                        .split(/\s+/)
+                                        .filter(Boolean).length <= 1
+                                }
                             />
-                            <FieldDescription>Hanya gunakan singkatan untuk nama program kejuruan yang panjang, misalnya
-                                memiliki lebih dari dua kata.</FieldDescription>
+                            <FieldDescription>
+                                Hanya gunakan singkatan untuk nama program
+                                kejuruan yang panjang, misalnya memiliki lebih
+                                dari dua kata.
+                            </FieldDescription>
                             <FieldError>{errors.abbreviation}</FieldError>
                         </Field>
                     </FieldGroup>
                 </form>
                 <DialogFooter>
-                    <DialogClose render={<Button variant="outline" className="min-w-18">Batal</Button>} />
-                    <Button type="submit" form="create-vocational-program" className="min-w-24">
+                    <DialogClose
+                        render={
+                            <Button variant="outline" className="min-w-18">
+                                Batal
+                            </Button>
+                        }
+                    />
+                    <Button
+                        type="submit"
+                        form="create-vocational-program"
+                        className="min-w-24"
+                    >
                         {processing ? (
                             <Loader className="h-4 w-4 animate-spin" />
                         ) : (
@@ -106,5 +141,5 @@ export default NiceModal.create(() => {
                 </DialogFooter>
             </DialogContent>
         </Dialog>
-    )
-})
+    );
+});

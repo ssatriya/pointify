@@ -15,6 +15,7 @@ return new class extends Migration
             $table->ulid('id')->primary();
             $table->string('name', 50);
             $table->string('abbreviation', 10)->nullable();
+            $table->unique('name');
             $table->foreignUlid('created_by')->constrained('users');
             $table->foreignUlid('updated_by')->nullable()->constrained('users');
             $table->timestamps();

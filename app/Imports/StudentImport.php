@@ -35,6 +35,9 @@ class StudentImport implements ToCollection, WithHeadingRow, SkipsEmptyRows, Wit
         return $normalized;
     }
 
+    /**
+     * @param Collection $rows
+     */
     public function collection(Collection $rows)
     {
         $userId = Auth::id();

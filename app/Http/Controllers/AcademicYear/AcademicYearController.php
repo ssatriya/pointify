@@ -9,7 +9,6 @@ use App\Http\Requests\Store\StoreAcademicYearRequest;
 use App\Http\Requests\Update\UpdateAcademicYearRequest;
 use App\Http\Resources\AcademicYearResource;
 use App\Models\AcademicYear;
-use Illuminate\Http\JsonResponse;
 use Inertia\Inertia;
 use Inertia\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;

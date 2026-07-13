@@ -12,7 +12,7 @@ use App\Models\Violation;
 use App\Models\ViolationType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class ViolationService
@@ -82,21 +82,12 @@ class ViolationService
             $pointThreshold = PointThreshold::exists();
 
             if (!$pointThreshold) {
-                throw \Illuminate\Validation\ValidationException::withMessages([
+                throw ValidationException::withMessages([
                     'point_threshold' => 'Batas poin belum diatur. Silakan atur terlebih dahulu sebelum menambah pelanggaran.',
                 ]);
             }
 
             $violationType = ViolationType::findOrFail($data['violation_type_id']);
-
-            $studentSignature = $data['student_signature'];
-
-            $base64 = preg_replace('/^data:image\/\w+;base64,/', '', $studentSignature);
-            $image = base64_decode($base64);
-
-            $fileName = 'signatures/' . uniqid() . '.png';
-
-            Storage::disk('public')->put($fileName, $image);
 
             $violation = Violation::create([
                 'student_enrollment_id' => $studentEnrollment->id,
@@ -104,7 +95,6 @@ class ViolationService
                 'approval_status' => ApprovalStatus::PENDING->value,
                 'created_by' => Auth::id(),
                 'notes' => $data['notes'] ?? null,
-                'student_signature_path' => $fileName,
             ]);
 
             return $violation->load([

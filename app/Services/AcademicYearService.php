@@ -25,9 +25,9 @@ class AcademicYearService
      * make other is_current to false
      * @throws ValidationException
      */
-    public function create(array $data): void
+    public function create(array $data): AcademicYear
     {
-        DB::transaction(function () use ($data) {
+        return DB::transaction(function () use ($data) {
             $isActive = $data['is_active'];
             $startYear = Carbon::parse($data['start_date'])->format('Y');
             $endYear = Carbon::parse($data['end_date'])->format('Y');
@@ -54,6 +54,8 @@ class AcademicYearService
             if (!$isActive && !AcademicYear::where('is_active', true)->exists()) {
                 $academicYear->update(['is_active' => true]);
             }
+
+            return $academicYear;
         });
     }
 

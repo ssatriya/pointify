@@ -6,10 +6,16 @@ import { send } from "@/routes/verification";
 import { Button } from "@/components/ui/button";
 import { Loader } from "lucide-react";
 
-export default function VerifyEmail() {
+export default function VerifyEmail({ status }: { status?: string }) {
     return (
         <>
             <Head title="Email verification" />
+            {status === "verification-link-sent" && (
+                <div className="mb-4 text-center text-sm font-medium text-green-600">
+                    A new verification link has been sent to the email address
+                    you provided during registration.
+                </div>
+            )}
             <Form
                 {...send.form()}
                 resetOnSuccess={["password"]}

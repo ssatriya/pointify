@@ -24,7 +24,6 @@ return new class extends Migration
             $table->timestamp('revoked_at')->nullable();
             $table->text('revoked_reason')->nullable();
             $table->foreignUlid('created_by')->constrained('users');
-            $table->string('student_signature_path');
             $table->text('notes')->nullable();
             $table->timestamps();
         });

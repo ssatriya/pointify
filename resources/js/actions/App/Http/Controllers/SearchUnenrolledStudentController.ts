@@ -4,7 +4,7 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFo
  * @see app/Http/Controllers/SearchUnenrolledStudentController.php:22
  * @route '/dashboard/students/select-unenrolled/{vocational_program}'
  */
-const SearchUnenrolledStudentController = (args: { vocational_program: string | number } | [vocational_program: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+const SearchUnenrolledStudentController = (args: { vocational_program: string | { id: string } } | [vocational_program: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: SearchUnenrolledStudentController.url(args, options),
     method: 'get',
 })
@@ -19,11 +19,14 @@ SearchUnenrolledStudentController.definition = {
  * @see app/Http/Controllers/SearchUnenrolledStudentController.php:22
  * @route '/dashboard/students/select-unenrolled/{vocational_program}'
  */
-SearchUnenrolledStudentController.url = (args: { vocational_program: string | number } | [vocational_program: string | number ] | string | number, options?: RouteQueryOptions) => {
+SearchUnenrolledStudentController.url = (args: { vocational_program: string | { id: string } } | [vocational_program: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { vocational_program: args }
     }
 
+            if (typeof args === 'object' && !Array.isArray(args) && 'id' in args) {
+            args = { vocational_program: args.id }
+        }
     
     if (Array.isArray(args)) {
         args = {
@@ -34,7 +37,9 @@ SearchUnenrolledStudentController.url = (args: { vocational_program: string | nu
     args = applyUrlDefaults(args)
 
     const parsedArgs = {
-                        vocational_program: args.vocational_program,
+                        vocational_program: typeof args.vocational_program === 'object'
+                ? args.vocational_program.id
+                : args.vocational_program,
                 }
 
     return SearchUnenrolledStudentController.definition.url
@@ -47,7 +52,7 @@ SearchUnenrolledStudentController.url = (args: { vocational_program: string | nu
  * @see app/Http/Controllers/SearchUnenrolledStudentController.php:22
  * @route '/dashboard/students/select-unenrolled/{vocational_program}'
  */
-SearchUnenrolledStudentController.get = (args: { vocational_program: string | number } | [vocational_program: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+SearchUnenrolledStudentController.get = (args: { vocational_program: string | { id: string } } | [vocational_program: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: SearchUnenrolledStudentController.url(args, options),
     method: 'get',
 })
@@ -56,7 +61,7 @@ SearchUnenrolledStudentController.get = (args: { vocational_program: string | nu
  * @see app/Http/Controllers/SearchUnenrolledStudentController.php:22
  * @route '/dashboard/students/select-unenrolled/{vocational_program}'
  */
-SearchUnenrolledStudentController.head = (args: { vocational_program: string | number } | [vocational_program: string | number ] | string | number, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+SearchUnenrolledStudentController.head = (args: { vocational_program: string | { id: string } } | [vocational_program: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: SearchUnenrolledStudentController.url(args, options),
     method: 'head',
 })
@@ -66,7 +71,7 @@ SearchUnenrolledStudentController.head = (args: { vocational_program: string | n
  * @see app/Http/Controllers/SearchUnenrolledStudentController.php:22
  * @route '/dashboard/students/select-unenrolled/{vocational_program}'
  */
-    const SearchUnenrolledStudentControllerForm = (args: { vocational_program: string | number } | [vocational_program: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const SearchUnenrolledStudentControllerForm = (args: { vocational_program: string | { id: string } } | [vocational_program: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: SearchUnenrolledStudentController.url(args, options),
         method: 'get',
     })
@@ -76,7 +81,7 @@ SearchUnenrolledStudentController.head = (args: { vocational_program: string | n
  * @see app/Http/Controllers/SearchUnenrolledStudentController.php:22
  * @route '/dashboard/students/select-unenrolled/{vocational_program}'
  */
-        SearchUnenrolledStudentControllerForm.get = (args: { vocational_program: string | number } | [vocational_program: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        SearchUnenrolledStudentControllerForm.get = (args: { vocational_program: string | { id: string } } | [vocational_program: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: SearchUnenrolledStudentController.url(args, options),
             method: 'get',
         })
@@ -85,7 +90,7 @@ SearchUnenrolledStudentController.head = (args: { vocational_program: string | n
  * @see app/Http/Controllers/SearchUnenrolledStudentController.php:22
  * @route '/dashboard/students/select-unenrolled/{vocational_program}'
  */
-        SearchUnenrolledStudentControllerForm.head = (args: { vocational_program: string | number } | [vocational_program: string | number ] | string | number, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        SearchUnenrolledStudentControllerForm.head = (args: { vocational_program: string | { id: string } } | [vocational_program: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: SearchUnenrolledStudentController.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',

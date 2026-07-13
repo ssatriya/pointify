@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignUlid('point_threshold_id')->constrained('point_thresholds');
             $table->integer('cumulative_points_when_sent'); // cumulative violation points when sent (this will be represented as - (minus))
             $table->integer('current_remaining_points');
+            $table->unique(['student_enrollment_id', 'point_transaction_group_id', 'point_threshold_id'], 'violation_letters_enrollment_group_threshold_unique');
             $table->timestamps();
         });
     }

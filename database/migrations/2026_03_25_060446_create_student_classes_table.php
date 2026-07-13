@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('section', 1)->nullable();
             $table->string('slug');
             $table->integer('order');
+            $table->unique('name');
             $table->foreignUlid('vocational_program_id')->constrained('vocational_programs');
             $table->foreignUlid('created_by')->constrained('users');
             $table->foreignUlid('updated_by')->nullable()->constrained('users');

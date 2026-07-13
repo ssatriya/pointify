@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Store\StoreViolationRequest;
 use App\Services\ViolationService;
 use App\Models\StudentEnrollment;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ViolationController extends Controller

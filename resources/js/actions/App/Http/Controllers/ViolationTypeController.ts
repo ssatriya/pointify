@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\ViolationTypeController::index
- * @see app/Http/Controllers/ViolationTypeController.php:33
+ * @see app/Http/Controllers/ViolationTypeController.php:32
  * @route '/dashboard/violation-types'
  */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\ViolationTypeController::index
- * @see app/Http/Controllers/ViolationTypeController.php:33
+ * @see app/Http/Controllers/ViolationTypeController.php:32
  * @route '/dashboard/violation-types'
  */
 index.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ index.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\ViolationTypeController::index
- * @see app/Http/Controllers/ViolationTypeController.php:33
+ * @see app/Http/Controllers/ViolationTypeController.php:32
  * @route '/dashboard/violation-types'
  */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,7 +34,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\ViolationTypeController::index
- * @see app/Http/Controllers/ViolationTypeController.php:33
+ * @see app/Http/Controllers/ViolationTypeController.php:32
  * @route '/dashboard/violation-types'
  */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,7 +44,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\ViolationTypeController::index
- * @see app/Http/Controllers/ViolationTypeController.php:33
+ * @see app/Http/Controllers/ViolationTypeController.php:32
  * @route '/dashboard/violation-types'
  */
     const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -54,7 +54,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\ViolationTypeController::index
- * @see app/Http/Controllers/ViolationTypeController.php:33
+ * @see app/Http/Controllers/ViolationTypeController.php:32
  * @route '/dashboard/violation-types'
  */
         indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -63,7 +63,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\ViolationTypeController::index
- * @see app/Http/Controllers/ViolationTypeController.php:33
+ * @see app/Http/Controllers/ViolationTypeController.php:32
  * @route '/dashboard/violation-types'
  */
         indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -79,7 +79,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     index.form = indexForm
 /**
 * @see \App\Http\Controllers\ViolationTypeController::store
- * @see app/Http/Controllers/ViolationTypeController.php:45
+ * @see app/Http/Controllers/ViolationTypeController.php:44
  * @route '/dashboard/violation-types'
  */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -94,7 +94,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\ViolationTypeController::store
- * @see app/Http/Controllers/ViolationTypeController.php:45
+ * @see app/Http/Controllers/ViolationTypeController.php:44
  * @route '/dashboard/violation-types'
  */
 store.url = (options?: RouteQueryOptions) => {
@@ -103,7 +103,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\ViolationTypeController::store
- * @see app/Http/Controllers/ViolationTypeController.php:45
+ * @see app/Http/Controllers/ViolationTypeController.php:44
  * @route '/dashboard/violation-types'
  */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -113,7 +113,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
     /**
 * @see \App\Http\Controllers\ViolationTypeController::store
- * @see app/Http/Controllers/ViolationTypeController.php:45
+ * @see app/Http/Controllers/ViolationTypeController.php:44
  * @route '/dashboard/violation-types'
  */
     const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -123,7 +123,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
             /**
 * @see \App\Http\Controllers\ViolationTypeController::store
- * @see app/Http/Controllers/ViolationTypeController.php:45
+ * @see app/Http/Controllers/ViolationTypeController.php:44
  * @route '/dashboard/violation-types'
  */
         storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -134,7 +134,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     store.form = storeForm
 /**
 * @see \App\Http\Controllers\ViolationTypeController::show
- * @see app/Http/Controllers/ViolationTypeController.php:62
+ * @see app/Http/Controllers/ViolationTypeController.php:61
  * @route '/dashboard/violation-types/{violationType}'
  */
 export const show = (args: { violationType: string | { id: string } } | [violationType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -149,7 +149,7 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\ViolationTypeController::show
- * @see app/Http/Controllers/ViolationTypeController.php:62
+ * @see app/Http/Controllers/ViolationTypeController.php:61
  * @route '/dashboard/violation-types/{violationType}'
  */
 show.url = (args: { violationType: string | { id: string } } | [violationType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
@@ -182,7 +182,7 @@ show.url = (args: { violationType: string | { id: string } } | [violationType: s
 
 /**
 * @see \App\Http\Controllers\ViolationTypeController::show
- * @see app/Http/Controllers/ViolationTypeController.php:62
+ * @see app/Http/Controllers/ViolationTypeController.php:61
  * @route '/dashboard/violation-types/{violationType}'
  */
 show.get = (args: { violationType: string | { id: string } } | [violationType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -191,7 +191,7 @@ show.get = (args: { violationType: string | { id: string } } | [violationType: s
 })
 /**
 * @see \App\Http\Controllers\ViolationTypeController::show
- * @see app/Http/Controllers/ViolationTypeController.php:62
+ * @see app/Http/Controllers/ViolationTypeController.php:61
  * @route '/dashboard/violation-types/{violationType}'
  */
 show.head = (args: { violationType: string | { id: string } } | [violationType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -201,7 +201,7 @@ show.head = (args: { violationType: string | { id: string } } | [violationType: 
 
     /**
 * @see \App\Http\Controllers\ViolationTypeController::show
- * @see app/Http/Controllers/ViolationTypeController.php:62
+ * @see app/Http/Controllers/ViolationTypeController.php:61
  * @route '/dashboard/violation-types/{violationType}'
  */
     const showForm = (args: { violationType: string | { id: string } } | [violationType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -211,7 +211,7 @@ show.head = (args: { violationType: string | { id: string } } | [violationType: 
 
             /**
 * @see \App\Http\Controllers\ViolationTypeController::show
- * @see app/Http/Controllers/ViolationTypeController.php:62
+ * @see app/Http/Controllers/ViolationTypeController.php:61
  * @route '/dashboard/violation-types/{violationType}'
  */
         showForm.get = (args: { violationType: string | { id: string } } | [violationType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -220,7 +220,7 @@ show.head = (args: { violationType: string | { id: string } } | [violationType: 
         })
             /**
 * @see \App\Http\Controllers\ViolationTypeController::show
- * @see app/Http/Controllers/ViolationTypeController.php:62
+ * @see app/Http/Controllers/ViolationTypeController.php:61
  * @route '/dashboard/violation-types/{violationType}'
  */
         showForm.head = (args: { violationType: string | { id: string } } | [violationType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -236,7 +236,7 @@ show.head = (args: { violationType: string | { id: string } } | [violationType: 
     show.form = showForm
 /**
 * @see \App\Http\Controllers\ViolationTypeController::update
- * @see app/Http/Controllers/ViolationTypeController.php:72
+ * @see app/Http/Controllers/ViolationTypeController.php:71
  * @route '/dashboard/violation-types/{violationType}'
  */
 export const update = (args: { violationType: string | { id: string } } | [violationType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -251,7 +251,7 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\ViolationTypeController::update
- * @see app/Http/Controllers/ViolationTypeController.php:72
+ * @see app/Http/Controllers/ViolationTypeController.php:71
  * @route '/dashboard/violation-types/{violationType}'
  */
 update.url = (args: { violationType: string | { id: string } } | [violationType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
@@ -284,7 +284,7 @@ update.url = (args: { violationType: string | { id: string } } | [violationType:
 
 /**
 * @see \App\Http\Controllers\ViolationTypeController::update
- * @see app/Http/Controllers/ViolationTypeController.php:72
+ * @see app/Http/Controllers/ViolationTypeController.php:71
  * @route '/dashboard/violation-types/{violationType}'
  */
 update.put = (args: { violationType: string | { id: string } } | [violationType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -294,7 +294,7 @@ update.put = (args: { violationType: string | { id: string } } | [violationType:
 
     /**
 * @see \App\Http\Controllers\ViolationTypeController::update
- * @see app/Http/Controllers/ViolationTypeController.php:72
+ * @see app/Http/Controllers/ViolationTypeController.php:71
  * @route '/dashboard/violation-types/{violationType}'
  */
     const updateForm = (args: { violationType: string | { id: string } } | [violationType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -309,7 +309,7 @@ update.put = (args: { violationType: string | { id: string } } | [violationType:
 
             /**
 * @see \App\Http\Controllers\ViolationTypeController::update
- * @see app/Http/Controllers/ViolationTypeController.php:72
+ * @see app/Http/Controllers/ViolationTypeController.php:71
  * @route '/dashboard/violation-types/{violationType}'
  */
         updateForm.put = (args: { violationType: string | { id: string } } | [violationType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -325,7 +325,7 @@ update.put = (args: { violationType: string | { id: string } } | [violationType:
     update.form = updateForm
 /**
 * @see \App\Http\Controllers\ViolationTypeController::destroy
- * @see app/Http/Controllers/ViolationTypeController.php:82
+ * @see app/Http/Controllers/ViolationTypeController.php:81
  * @route '/dashboard/violation-types/{violationType}'
  */
 export const destroy = (args: { violationType: string | { id: string } } | [violationType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -340,7 +340,7 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\ViolationTypeController::destroy
- * @see app/Http/Controllers/ViolationTypeController.php:82
+ * @see app/Http/Controllers/ViolationTypeController.php:81
  * @route '/dashboard/violation-types/{violationType}'
  */
 destroy.url = (args: { violationType: string | { id: string } } | [violationType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
@@ -373,7 +373,7 @@ destroy.url = (args: { violationType: string | { id: string } } | [violationType
 
 /**
 * @see \App\Http\Controllers\ViolationTypeController::destroy
- * @see app/Http/Controllers/ViolationTypeController.php:82
+ * @see app/Http/Controllers/ViolationTypeController.php:81
  * @route '/dashboard/violation-types/{violationType}'
  */
 destroy.delete = (args: { violationType: string | { id: string } } | [violationType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
@@ -383,7 +383,7 @@ destroy.delete = (args: { violationType: string | { id: string } } | [violationT
 
     /**
 * @see \App\Http\Controllers\ViolationTypeController::destroy
- * @see app/Http/Controllers/ViolationTypeController.php:82
+ * @see app/Http/Controllers/ViolationTypeController.php:81
  * @route '/dashboard/violation-types/{violationType}'
  */
     const destroyForm = (args: { violationType: string | { id: string } } | [violationType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -398,7 +398,7 @@ destroy.delete = (args: { violationType: string | { id: string } } | [violationT
 
             /**
 * @see \App\Http\Controllers\ViolationTypeController::destroy
- * @see app/Http/Controllers/ViolationTypeController.php:82
+ * @see app/Http/Controllers/ViolationTypeController.php:81
  * @route '/dashboard/violation-types/{violationType}'
  */
         destroyForm.delete = (args: { violationType: string | { id: string } } | [violationType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

@@ -29,6 +29,8 @@ return new class extends Migration
             $table->index(['transaction_type', 'created_at']);
             $table->index(['student_enrollment_id', 'transaction_type']);
             $table->index('processed_by');
+            $table->unique(['violation_id', 'transaction_type']);
+            $table->unique(['reward_id', 'transaction_type']);
             $table->timestamps();
         });
     }

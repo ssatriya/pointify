@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('sequence');
             $table->boolean('is_closed')->default(false);
             $table->timestamp('closed_at')->nullable();
+            $table->unique(['student_enrollment_id', 'sequence']);
             $table->timestamps();
         });
     }

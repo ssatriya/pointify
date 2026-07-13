@@ -2,11 +2,15 @@ import { MouseEventHandler } from "react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { IconEdit, IconTrash } from "@tabler/icons-react";
 import {
-    AlertDialog, AlertDialogAction, AlertDialogCancel,
-    AlertDialogContent, AlertDialogDescription, AlertDialogFooter,
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
-    AlertDialogTrigger
+    AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { ModalLink } from "@inertiaui/modal-react";
 import { Loader } from "lucide-react";
@@ -29,6 +33,7 @@ export default function TableOptions({
                 className={buttonVariants({
                     variant: "secondary",
                 })}
+                prefetch={true}
             >
                 {({ loading }) => (
                     <span>
@@ -42,27 +47,38 @@ export default function TableOptions({
             </ModalLink>
             {onClickConfirm && (
                 <AlertDialog>
-                    <AlertDialogTrigger render={<Button variant="destructive" />}>
+                    <AlertDialogTrigger
+                        render={<Button variant="destructive" />}
+                    >
                         <IconTrash className="size-4" />
                     </AlertDialogTrigger>
                     <AlertDialogContent className="sm:min-w-lg">
                         <AlertDialogHeader>
-                            <AlertDialogTitle>Apakah Anda yakin?</AlertDialogTitle>
+                            <AlertDialogTitle>
+                                Apakah Anda yakin?
+                            </AlertDialogTitle>
                             <AlertDialogDescription className="text-balance">
-                                Tindakan ini tidak dapat dibatalkan. Data akan dihapus secara permanent dari server dan tidak dapat
-                                dikembalikan.
+                                Tindakan ini tidak dapat dibatalkan. Data akan
+                                dihapus secara permanent dari server dan tidak
+                                dapat dikembalikan.
                             </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                            <AlertDialogCancel className="min-w-18">Batal</AlertDialogCancel>
-                            <AlertDialogAction onClick={onClickConfirm} variant="destructive"
-                                disabled={isPending} className="min-w-24">{
-                                    isPending ? (
-                                        <Loader className="h-4 w-4 animate-spin" />
-                                    ) : (
-                                        "Lanjutkan"
-                                    )
-                                }</AlertDialogAction>
+                            <AlertDialogCancel className="min-w-18">
+                                Batal
+                            </AlertDialogCancel>
+                            <AlertDialogAction
+                                onClick={onClickConfirm}
+                                variant="destructive"
+                                disabled={isPending}
+                                className="min-w-24"
+                            >
+                                {isPending ? (
+                                    <Loader className="h-4 w-4 animate-spin" />
+                                ) : (
+                                    "Lanjutkan"
+                                )}
+                            </AlertDialogAction>
                         </AlertDialogFooter>
                     </AlertDialogContent>
                 </AlertDialog>
