@@ -26,20 +26,16 @@ import type { OptionType } from "@/types";
 import SearchStudentEnrollmentController from "@/actions/App/Http/Controllers/SearchStudentEnrollmentController";
 import SearchViolationTypeController from "@/actions/App/Http/Controllers/SearchViolationTypeController";
 import ViolationController from "@/actions/App/Http/Controllers/ViolationController";
-import SignatureCanvas from "react-signature-canvas";
 import { toast } from "sonner";
 import { Loader } from "lucide-react";
 
 export default function CreateViolations() {
     const { get } = useHttp<{}, OptionType[]>();
-    const signatureRef = useRef<SignatureCanvas>(null);
-    const [hasSignature, setHasSignature] = useState(false);
     const { data, setData, post, processing, errors, reset, transform } =
         useForm({
             student_enrollment: null as OptionType | null,
             violation_type: null as OptionType | null,
             notes: "",
-            student_signature: "",
         });
 
     const loadStudentOptions = useCallback(
@@ -62,34 +58,21 @@ export default function CreateViolations() {
         [],
     );
 
-    const handleResetSignature = () => {
-        signatureRef.current?.clear();
-        setData("student_signature", "");
-        setHasSignature(false);
-    };
-
     const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // Use transform to ensure the latest signature is included
-        const signatureData =
-            signatureRef.current && !signatureRef.current.isEmpty()
-                ? signatureRef.current.toDataURL("image/png")
-                : "";
 
         transform((data) => ({
             ...data,
             student_enrollment_id: data.student_enrollment?.value,
             violation_type_id: data.violation_type?.value,
-            student_signature: signatureData,
         }));
 
         post(ViolationController.url(), {
             onSuccess: () => {
                 reset();
-                signatureRef.current?.clear();
-                setHasSignature(false);
             },
             onError: (error) => {
+                console.log(error);
                 if (error.point_threshold) {
                     toast.warning(error.point_threshold);
                 }
@@ -158,44 +141,6 @@ export default function CreateViolations() {
                                 aria-invalid={!!errors.notes}
                             />
                             <FieldError>{errors.notes}</FieldError>
-                        </Field>
-
-                        <Field>
-                            <FieldLabel>Tanda Tangan Siswa</FieldLabel>
-                            <div
-                                className={cn(
-                                    "border rounded-md overflow-hidden bg-white dark:bg-white relative h-40 transition-colors",
-                                    errors.student_signature
-                                        ? "border-destructive ring-3 ring-destructive/20 dark:border-destructive/50 dark:ring-destructive/40"
-                                        : "border-border",
-                                )}
-                            >
-                                <SignatureCanvas
-                                    ref={signatureRef}
-                                    penColor="black"
-                                    backgroundColor="rgba(0,0,0,0)"
-                                    canvasProps={{
-                                        className:
-                                            "w-full h-full cursor-crosshair",
-                                    }}
-                                    onEnd={() => setHasSignature(true)}
-                                />
-
-                                {hasSignature && (
-                                    <div className="absolute top-2 right-2">
-                                        <Button
-                                            type="button"
-                                            variant="secondary"
-                                            size="sm"
-                                            onClick={handleResetSignature}
-                                            className="h-8 text-xs shadow-sm border border-neutral-200 dark:border-neutral-800"
-                                        >
-                                            Reset Tanda Tangan
-                                        </Button>
-                                    </div>
-                                )}
-                            </div>
-                            <FieldError>{errors.student_signature}</FieldError>
                         </Field>
                     </FieldGroup>
 
