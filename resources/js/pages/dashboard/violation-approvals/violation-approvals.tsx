@@ -6,9 +6,16 @@ import {
     CardTableActions,
     CardTableContent,
     CardTableHeader,
-    CardTableTitle
+    CardTableTitle,
 } from "@/components/ui/card-table";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table";
 import type { Paginated, BreadcrumbItem } from "@/types";
 import TablePagination from "@/components/table/table-pagination";
 import ViolationApprovalAction from "./partials/violation-approval-action";
@@ -24,7 +31,6 @@ interface Violation {
         name: string;
         class: string;
         abbreviation?: string;
-        signature_src: string;
     };
     violation: {
         name: string;
@@ -41,22 +47,20 @@ type Props = {
 };
 
 export default function ViolationApprovals({ violations }: Props) {
-    const {
-        filters,
-        search,
-        setSearch,
-        handleFilterChange,
-        resetFilters
-    } = useFilter(violationApprovalsIndex().url);
+    const { filters, search, setSearch, handleFilterChange, resetFilters } =
+        useFilter(violationApprovalsIndex().url);
 
-    const filterArray = typeof filters.filter === 'string'
-        ? filters.filter.split(',').filter(Boolean)
-        : (Array.isArray(filters.filter) ? filters.filter : []);
+    const filterArray =
+        typeof filters.filter === "string"
+            ? filters.filter.split(",").filter(Boolean)
+            : Array.isArray(filters.filter)
+              ? filters.filter
+              : [];
 
     const handleFilterChangeCallback = (values: string[]) => {
         handleFilterChange({
-            filter: values.join(',') || undefined,
-            page: 1
+            filter: values.join(",") || undefined,
+            page: 1,
         });
     };
 
@@ -91,59 +95,89 @@ export default function ViolationApprovals({ violations }: Props) {
                     <Table className="min-w-[900px] table-fixed">
                         <TableHeader>
                             <TableRow className="h-12">
-                                <TableHead className="w-[20%]">Nama Siswa</TableHead>
+                                <TableHead className="w-[20%]">
+                                    Nama Siswa
+                                </TableHead>
                                 <TableHead className="w-[12%]">Kelas</TableHead>
-                                <TableHead className="w-[25%]">Pelanggaran</TableHead>
-                                <TableHead className="w-[8%] text-center">Poin</TableHead>
-                                <TableHead className="w-[15%]">Dibuat Oleh</TableHead>
-                                <TableHead className="w-[15%]">Tanggal Dibuat</TableHead>
+                                <TableHead className="w-[25%]">
+                                    Pelanggaran
+                                </TableHead>
+                                <TableHead className="w-[8%] text-center">
+                                    Poin
+                                </TableHead>
+                                <TableHead className="w-[15%]">
+                                    Dibuat Oleh
+                                </TableHead>
+                                <TableHead className="w-[15%]">
+                                    Tanggal Dibuat
+                                </TableHead>
                                 <TableHead className="w-[5%]"></TableHead>
                             </TableRow>
                         </TableHeader>
-                            <TableBody>
-                                {violations.data.length > 0 ? (
-                                    violations.data.map((item) => (
-                                        <TableRow key={item.id} className="h-12">
-                                            <TableCell className="truncate">{item.student.name}</TableCell>
-                                            <TableCell>{item.student.abbreviation || item.student.class}</TableCell>
-                                            <TableCell className="truncate">{item.violation.name}</TableCell>
-                                            <TableCell>{item.violation.points}</TableCell>
-                                            <TableCell className="truncate">{item.created_by}</TableCell>
-                                            <TableCell>{item.created_at}</TableCell>
-                                            <TableCell className="text-end">
-                                                <div className="flex justify-end gap-2">
-                                                    <ViolationApprovalAction
-                                                        id={item.id}
-                                                    />
-                                                </div>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))
-                                ) : (
-                                    <TableRow>
-                                        <TableCell colSpan={7} className="h-24 text-center text-muted-foreground">
-                                            Belum ada data
+                        <TableBody>
+                            {violations.data.length > 0 ? (
+                                violations.data.map((item) => (
+                                    <TableRow key={item.id} className="h-12">
+                                        <TableCell className="truncate">
+                                            {item.student.name}
+                                        </TableCell>
+                                        <TableCell>
+                                            {item.student.abbreviation ||
+                                                item.student.class}
+                                        </TableCell>
+                                        <TableCell className="truncate">
+                                            {item.violation.name}
+                                        </TableCell>
+                                        <TableCell>
+                                            {item.violation.points}
+                                        </TableCell>
+                                        <TableCell className="truncate">
+                                            {item.created_by}
+                                        </TableCell>
+                                        <TableCell>{item.created_at}</TableCell>
+                                        <TableCell className="text-end">
+                                            <div className="flex justify-end gap-2">
+                                                <ViolationApprovalAction
+                                                    id={item.id}
+                                                />
+                                            </div>
                                         </TableCell>
                                     </TableRow>
-                                )}
-                            </TableBody>
-                        </Table>
-                        <TablePagination links={violations.links} meta={violations.meta} />
+                                ))
+                            ) : (
+                                <TableRow>
+                                    <TableCell
+                                        colSpan={7}
+                                        className="h-24 text-center text-muted-foreground"
+                                    >
+                                        Belum ada data
+                                    </TableCell>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                    <TablePagination
+                        links={violations.links}
+                        meta={violations.meta}
+                    />
                 </CardTableContent>
             </CardTable>
         </>
     );
 }
 
-ViolationApprovals.layout = [AppLayout, {
-    breadcrumbs: [
-        {
-            title: "Dashboard",
-            href: dashboardIndex().url
-        },
-        {
-            title: "Persetujuan Pelanggaran",
-            href: violationApprovalsIndex().url
-        }
-    ]
-}]
+ViolationApprovals.layout = [
+    AppLayout,
+    {
+        breadcrumbs: [
+            {
+                title: "Dashboard",
+                href: dashboardIndex().url,
+            },
+            {
+                title: "Persetujuan Pelanggaran",
+                href: violationApprovalsIndex().url,
+            },
+        ],
+    },
+];

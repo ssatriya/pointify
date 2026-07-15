@@ -23,7 +23,6 @@ class ViolationFactory extends Factory
             'violation_type_id' => \App\Models\ViolationType::factory(),
             'approval_status' => 'approved',
             'created_by' => \App\Models\User::factory(),
-            'student_signature_path' => 'signatures/dummy.png',
         ];
     }
 }

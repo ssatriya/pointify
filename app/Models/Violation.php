@@ -33,7 +33,6 @@ class Violation extends Model
         'revoked_reason',
 
         'created_by',
-        'student_signature_path',
         'notes',
     ];
     protected array $searchable = [

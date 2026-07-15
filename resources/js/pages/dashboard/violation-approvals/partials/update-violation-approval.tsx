@@ -31,7 +31,6 @@ interface Violation {
     student: {
         name: string;
         class: string;
-        signature_src: string;
     };
     violation: {
         name: string;
@@ -188,53 +187,6 @@ export default function UpdateViolationApproval({ violation }: Props) {
                     </div>
                 </div>
 
-                {/* Tanda Tangan Siswa */}
-                <div className="space-y-4">
-                    <h3 className="text-sm font-semibold text-foreground">
-                        Tanda Tangan Siswa
-                    </h3>
-                    <div className="rounded-lg border bg-muted/30 p-4">
-                        <div className="relative">
-                            <Skeleton
-                                className={cn(
-                                    "w-full h-[130px] rounded transition-opacity duration-300",
-                                    !isImageLoading && "hidden",
-                                )}
-                            />
-                            <div
-                                className={cn(
-                                    "flex items-center justify-center bg-white rounded-md border p-4 min-h-[130px] transition-opacity duration-300",
-                                    isImageLoading
-                                        ? "opacity-0 absolute inset-0"
-                                        : "opacity-100",
-                                )}
-                            >
-                                {isImageError ? (
-                                    <div className="max-w-60 text-center text-muted-foreground">
-                                        File tanda tangan tidak ditemukan.
-                                    </div>
-                                ) : (
-                                    <img
-                                        src={violation.student.signature_src}
-                                        alt="Tanda tangan siswa"
-                                        className={cn(
-                                            "max-w-60 h-auto object-contain",
-                                            !isImageError
-                                                ? "opacity-100"
-                                                : "opacity-0",
-                                        )}
-                                        onLoad={() => setIsImageLoading(false)}
-                                        onError={() => {
-                                            setIsImageLoading(false);
-                                            setIsImageError(true);
-                                        }}
-                                    />
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 {/* Action Buttons */}
                 <div className="flex flex-col-reverse sm:flex-row gap-3 pt-2">
                     <Button
@@ -242,7 +194,10 @@ export default function UpdateViolationApproval({ violation }: Props) {
                         variant="outline"
                         className="flex-1 sm:flex-initial"
                         onClick={() =>
-                            showRejectionModal({ violationId: violation.id, parentModalRef: modalRef })
+                            showRejectionModal({
+                                violationId: violation.id,
+                                parentModalRef: modalRef,
+                            })
                         }
                         disabled={isPending}
                     >

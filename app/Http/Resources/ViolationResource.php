@@ -15,15 +15,12 @@ class ViolationResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $signaturePath = Storage::url($this->student_signature_path);
-
         return [
             'id' => $this->id,
             'student' => [
                 'name' => $this->studentEnrollment->student->name,
                 'class' => $this->studentEnrollment->studentClass->name,
                 'abbreviation' => $this->studentEnrollment->studentClass->abbreviation,
-                'signature_src' => asset($signaturePath)
             ],
             'violation' => [
                 'name' => $this->violationType->name,
