@@ -24,7 +24,7 @@ class StudentImport implements SkipsEmptyRows, ToCollection, WithHeadingRow, Wit
     /**
      * Normalize keys to be alphanumeric only for robust matching
      */
-    protected function normalizeRow(Collection $row): array
+    protected function normalizeRow(Collection|array $row): array
     {
         $normalized = [];
         foreach ($row as $key => $value) {
@@ -35,7 +35,7 @@ class StudentImport implements SkipsEmptyRows, ToCollection, WithHeadingRow, Wit
         return $normalized;
     }
 
-    public function collection(Collection $rows)
+    public function collection(Collection $rows): void
     {
         $userId = Auth::id();
 
