@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\SearchRewardTypeController::__invoke
- * @see app/Http/Controllers/SearchRewardTypeController.php:23
+ * @see app/Http/Controllers/SearchRewardTypeController.php:20
  * @route '/dashboard/reward-types/search'
  */
 const SearchRewardTypeController = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ SearchRewardTypeController.definition = {
 
 /**
 * @see \App\Http\Controllers\SearchRewardTypeController::__invoke
- * @see app/Http/Controllers/SearchRewardTypeController.php:23
+ * @see app/Http/Controllers/SearchRewardTypeController.php:20
  * @route '/dashboard/reward-types/search'
  */
 SearchRewardTypeController.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ SearchRewardTypeController.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\SearchRewardTypeController::__invoke
- * @see app/Http/Controllers/SearchRewardTypeController.php:23
+ * @see app/Http/Controllers/SearchRewardTypeController.php:20
  * @route '/dashboard/reward-types/search'
  */
 SearchRewardTypeController.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,7 +34,7 @@ SearchRewardTypeController.get = (options?: RouteQueryOptions): RouteDefinition<
 })
 /**
 * @see \App\Http\Controllers\SearchRewardTypeController::__invoke
- * @see app/Http/Controllers/SearchRewardTypeController.php:23
+ * @see app/Http/Controllers/SearchRewardTypeController.php:20
  * @route '/dashboard/reward-types/search'
  */
 SearchRewardTypeController.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,7 +44,7 @@ SearchRewardTypeController.head = (options?: RouteQueryOptions): RouteDefinition
 
     /**
 * @see \App\Http\Controllers\SearchRewardTypeController::__invoke
- * @see app/Http/Controllers/SearchRewardTypeController.php:23
+ * @see app/Http/Controllers/SearchRewardTypeController.php:20
  * @route '/dashboard/reward-types/search'
  */
     const SearchRewardTypeControllerForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -54,7 +54,7 @@ SearchRewardTypeController.head = (options?: RouteQueryOptions): RouteDefinition
 
             /**
 * @see \App\Http\Controllers\SearchRewardTypeController::__invoke
- * @see app/Http/Controllers/SearchRewardTypeController.php:23
+ * @see app/Http/Controllers/SearchRewardTypeController.php:20
  * @route '/dashboard/reward-types/search'
  */
         SearchRewardTypeControllerForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -63,7 +63,7 @@ SearchRewardTypeController.head = (options?: RouteQueryOptions): RouteDefinition
         })
             /**
 * @see \App\Http\Controllers\SearchRewardTypeController::__invoke
- * @see app/Http/Controllers/SearchRewardTypeController.php:23
+ * @see app/Http/Controllers/SearchRewardTypeController.php:20
  * @route '/dashboard/reward-types/search'
  */
         SearchRewardTypeControllerForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

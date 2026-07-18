@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\Student;
+use App\Models\User;
+use App\Models\VocationalProgram;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,10 +22,10 @@ class StudentFactory extends Factory
         return [
             'student_number' => $this->faker->unique()->numerify('##########'),
             'name' => $this->faker->name(),
-            'vocational_program_id' => \App\Models\VocationalProgram::factory(),
+            'vocational_program_id' => VocationalProgram::factory(),
             'is_active' => true,
-            'created_by' => \App\Models\User::factory(),
-            'updated_by' => \App\Models\User::factory(),
+            'created_by' => User::factory(),
+            'updated_by' => User::factory(),
         ];
     }
 }

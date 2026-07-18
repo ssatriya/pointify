@@ -1,10 +1,10 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\RevokeRewardController::__invoke
- * @see app/Http/Controllers/RevokeRewardController.php:18
+ * @see app/Http/Controllers/RevokeRewardController.php:12
  * @route '/dashboard/rewards/revoke/{reward}'
  */
-const RevokeRewardController = (args: { reward: string | { id: string } } | [reward: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+const RevokeRewardController = (args: { reward: string | number | { id: string | number } } | [reward: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: RevokeRewardController.url(args, options),
     method: 'post',
 })
@@ -16,10 +16,10 @@ RevokeRewardController.definition = {
 
 /**
 * @see \App\Http\Controllers\RevokeRewardController::__invoke
- * @see app/Http/Controllers/RevokeRewardController.php:18
+ * @see app/Http/Controllers/RevokeRewardController.php:12
  * @route '/dashboard/rewards/revoke/{reward}'
  */
-RevokeRewardController.url = (args: { reward: string | { id: string } } | [reward: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
+RevokeRewardController.url = (args: { reward: string | number | { id: string | number } } | [reward: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { reward: args }
     }
@@ -49,30 +49,30 @@ RevokeRewardController.url = (args: { reward: string | { id: string } } | [rewar
 
 /**
 * @see \App\Http\Controllers\RevokeRewardController::__invoke
- * @see app/Http/Controllers/RevokeRewardController.php:18
+ * @see app/Http/Controllers/RevokeRewardController.php:12
  * @route '/dashboard/rewards/revoke/{reward}'
  */
-RevokeRewardController.post = (args: { reward: string | { id: string } } | [reward: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
+RevokeRewardController.post = (args: { reward: string | number | { id: string | number } } | [reward: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     url: RevokeRewardController.url(args, options),
     method: 'post',
 })
 
     /**
 * @see \App\Http\Controllers\RevokeRewardController::__invoke
- * @see app/Http/Controllers/RevokeRewardController.php:18
+ * @see app/Http/Controllers/RevokeRewardController.php:12
  * @route '/dashboard/rewards/revoke/{reward}'
  */
-    const RevokeRewardControllerForm = (args: { reward: string | { id: string } } | [reward: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const RevokeRewardControllerForm = (args: { reward: string | number | { id: string | number } } | [reward: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: RevokeRewardController.url(args, options),
         method: 'post',
     })
 
             /**
 * @see \App\Http\Controllers\RevokeRewardController::__invoke
- * @see app/Http/Controllers/RevokeRewardController.php:18
+ * @see app/Http/Controllers/RevokeRewardController.php:12
  * @route '/dashboard/rewards/revoke/{reward}'
  */
-        RevokeRewardControllerForm.post = (args: { reward: string | { id: string } } | [reward: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        RevokeRewardControllerForm.post = (args: { reward: string | number | { id: string | number } } | [reward: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: RevokeRewardController.url(args, options),
             method: 'post',
         })

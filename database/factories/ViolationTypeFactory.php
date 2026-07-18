@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use App\Models\ViolationType;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,8 +23,8 @@ class ViolationTypeFactory extends Factory
             'description' => $this->faker->sentence(),
             'points' => $this->faker->numberBetween(5, 50),
             'is_active' => true,
-            'created_by' => \App\Models\User::factory(),
-            'updated_by' => \App\Models\User::factory(),
+            'created_by' => User::factory(),
+            'updated_by' => User::factory(),
         ];
     }
 }

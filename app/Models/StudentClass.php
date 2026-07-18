@@ -17,16 +17,18 @@ use Illuminate\Support\Facades\Cache;
  */
 class StudentClass extends Model
 {
-    use HasUlids, Sortable, Searchable, HasFactory;
+    use HasFactory, HasUlids, Searchable, Sortable;
 
     protected static function booted(): void
     {
-        static::saved(fn() => Cache::forget('student_classes_shared'));
-        static::deleted(fn() => Cache::forget('student_classes_shared'));
+        static::saved(fn () => Cache::forget('student_classes_shared'));
+        static::deleted(fn () => Cache::forget('student_classes_shared'));
     }
 
     public $incrementing = false;
+
     protected $keyType = 'string';
+
     protected $fillable = [
         'name',
         'grade_level',
@@ -37,9 +39,11 @@ class StudentClass extends Model
         'created_by',
         'updated_by',
     ];
+
     protected array $searchable = [
         'name',
     ];
+
     protected array $sortable = [
         'created_at',
         'grade_level',
@@ -48,7 +52,8 @@ class StudentClass extends Model
 
     /**
      * Get the vocationalProgram that owns the StudentClass
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\VocationalProgram, $this>
+     *
+     * @return BelongsTo<VocationalProgram, $this>
      */
     public function vocationalProgram(): BelongsTo
     {
@@ -57,7 +62,8 @@ class StudentClass extends Model
 
     /**
      * Get all the studentEnrollments for the StudentClass
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\StudentEnrollment, $this>
+     *
+     * @return HasMany<StudentEnrollment, $this>
      */
     public function studentEnrollments(): HasMany
     {
@@ -72,7 +78,7 @@ class StudentClass extends Model
     {
         return Attribute::make(
             get: function () {
-                if (!$this->relationLoaded('vocationalProgram') || !$this->vocationalProgram?->abbreviation) {
+                if (! $this->relationLoaded('vocationalProgram') || ! $this->vocationalProgram?->abbreviation) {
                     return null;
                 }
 

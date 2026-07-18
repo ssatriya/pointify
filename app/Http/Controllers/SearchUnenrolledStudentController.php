@@ -8,7 +8,6 @@ use App\Http\Resources\SelectOptionResource;
 use App\Models\Student;
 use App\Models\VocationalProgram;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class SearchUnenrolledStudentController extends Controller
 {

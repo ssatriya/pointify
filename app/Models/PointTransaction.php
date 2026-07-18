@@ -9,10 +9,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PointTransaction extends Model
 {
-    use HasUlids, HasFactory;
+    use HasFactory, HasUlids;
 
     public $incrementing = false;
+
     protected $keyType = 'string';
+
     protected $fillable = [
         'student_enrollment_id',
         'transaction_type',
@@ -25,13 +27,13 @@ class PointTransaction extends Model
         'points_before',
         'points_after',
     ];
+
     protected $casts = [
         'points_change' => 'integer',
         'intended_points' => 'integer',
         'points_before' => 'integer',
         'points_after' => 'integer',
     ];
-
 
     /**
      * Get the studentEnrollment that owns the PointTransaction

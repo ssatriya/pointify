@@ -4,8 +4,8 @@ namespace App\Http\Requests\Update;
 
 use App\Enums\Permission;
 use Illuminate\Contracts\Validation\ValidationRule;
-use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateVocationalProgramRequest extends FormRequest
 {
@@ -28,7 +28,7 @@ class UpdateVocationalProgramRequest extends FormRequest
 
         return [
             'name' => ['required', 'string', Rule::unique('vocational_programs', 'name')->ignore($vocationalProgram)],
-            'abbreviation' => ['sometimes', 'nullable', 'string']
+            'abbreviation' => ['sometimes', 'nullable', 'string'],
         ];
     }
 

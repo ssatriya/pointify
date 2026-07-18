@@ -2,36 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\StudentClass\CreateStudentClass;
+use App\Actions\StudentClass\DeleteStudentClass;
+use App\Actions\StudentClass\UpdateStudentClass;
 use App\Http\Requests\GetListRequestParams;
 use App\Http\Requests\Store\StoreStudentClassRequest;
 use App\Http\Requests\Update\UpdateStudentClassRequest;
 use App\Http\Resources\StudentClassResource;
-use App\Services\StudentClassService;
 use App\Models\StudentClass;
+use App\Queries\StudentClassList;
 use Inertia\Inertia;
 use Inertia\Response;
+use InertiaUI\Modal\Modal;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Throwable;
 
 class StudentClassController extends Controller
 {
-    public function __construct(
-        protected StudentClassService $studentClassService
-    ) {
-    }
-
     /**
      * Index.
      *
      * Getting student classes pagination list.
      *
      * @authenticated
-     *
-     * @return Response
      */
-    public function index(GetListRequestParams $request): Response
+    public function index(GetListRequestParams $request, StudentClassList $query): Response
     {
-        $paginatedList = $this->studentClassService->index($request->validated());
+        $paginatedList = $query->handle($request->validated());
 
         return Inertia::render('dashboard/classes/classes', [
             'classes' => StudentClassResource::collection($paginatedList),
@@ -45,12 +42,12 @@ class StudentClassController extends Controller
      *
      * @authenticated
      *
-     * @return RedirectResponse
      * @throws Throwable
      */
-    public function store(StoreStudentClassRequest $request): RedirectResponse
+    public function store(StoreStudentClassRequest $request, CreateStudentClass $action): RedirectResponse
     {
-        $this->studentClassService->create($request->validated());
+        $action->handle($request->validated());
+
         return Inertia::flash(['message' => 'Data kelas berhasil disimpan.'])->back();
     }
 
@@ -61,8 +58,8 @@ class StudentClassController extends Controller
      *
      * @authenticated
      *
-     * @param StudentClass $studentClass The resolved student class instance.
-     * @return \InertiaUI\Modal\Modal
+     * @param  StudentClass  $studentClass  The resolved student class instance.
+     * @return Modal
      */
     public function show(StudentClass $studentClass)
     {
@@ -78,13 +75,14 @@ class StudentClassController extends Controller
      *
      * @authenticated
      *
-     * @param StudentClass $studentClass The resolved academic year instance.
+     * @param  StudentClass  $studentClass  The resolved academic year instance.
      * @return RedirectResponse
+     *
      * @throws Throwable
      */
-    public function update(UpdateStudentClassRequest $request, StudentClass $studentClass)
+    public function update(UpdateStudentClassRequest $request, StudentClass $studentClass, UpdateStudentClass $action)
     {
-        $this->studentClassService->update($request->validated(), $studentClass);
+        $action->handle($request->validated(), $studentClass);
 
         return Inertia::flash(['message' => 'Data kelas berhasil diperbarui.'])->back();
     }
@@ -96,15 +94,14 @@ class StudentClassController extends Controller
      *
      * @authenticated
      *
-     * @param StudentClass $studentClass The resolved student class instance.
-     * @return RedirectResponse
+     * @param  StudentClass  $studentClass  The resolved student class instance.
+     *
      * @throws Throwable
      */
-    public function destroy(StudentClass $studentClass): RedirectResponse
+    public function destroy(StudentClass $studentClass, DeleteStudentClass $action): RedirectResponse
     {
-        $this->studentClassService->delete($studentClass);
+        $action->handle($studentClass);
 
         return Inertia::flash(['message' => 'Data kelas berhasil dihapus.'])->back();
     }
-
 }

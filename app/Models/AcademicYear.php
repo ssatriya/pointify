@@ -12,10 +12,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class AcademicYear extends Model
 {
-    use HasUlids, Sortable, Searchable, HasFactory;
+    use HasFactory, HasUlids, Searchable, Sortable;
 
     public $incrementing = false;
+
     protected $keyType = 'string';
+
     protected $fillable = [
         'name',
         'start_date',
@@ -24,12 +26,15 @@ class AcademicYear extends Model
         'created_by',
         'updated_by',
     ];
+
     protected array $searchable = [
         'name',
     ];
+
     protected array $sortable = [
         'created_at',
     ];
+
     protected $casts = [
         'start_date' => 'date',
         'end_date' => 'date',

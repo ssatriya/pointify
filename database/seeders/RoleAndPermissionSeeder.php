@@ -100,7 +100,7 @@ class RoleAndPermissionSeeder extends Seeder
         // Sync permissions to each role
         foreach ($rolePermissions as $roleName => $permissions) {
             $role = RoleModel::findByName($roleName);
-            $permissionValues = array_map(fn($p) => $p instanceof Permission ? $p->value : $p, $permissions);
+            $permissionValues = array_map(fn ($p) => $p instanceof Permission ? $p->value : $p, $permissions);
             $role->syncPermissions($permissionValues);
         }
     }

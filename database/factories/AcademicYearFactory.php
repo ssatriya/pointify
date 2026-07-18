@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use App\Models\AcademicYear;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,9 +21,9 @@ class AcademicYearFactory extends Factory
         $year = $this->faker->unique()->numberBetween(2030, 2099);
 
         return [
-            'name' => "$year/" . ($year + 1),
+            'name' => "$year/".($year + 1),
             'start_date' => "$year-07-01",
-            'end_date' => ($year + 1) . "-06-30",
+            'end_date' => ($year + 1).'-06-30',
             'is_active' => true,
             'created_by' => User::factory(),
             'updated_by' => User::factory(),

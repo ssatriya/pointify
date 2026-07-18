@@ -45,7 +45,7 @@ export default function Register() {
                                     autoComplete="name"
                                     placeholder="John Doe"
                                 />
-                                <FieldError>{errors.name}</FieldError>
+                                <FieldError data-test="input-error">{errors.name}</FieldError>
                             </Field>
                             <Field>
                                 <FieldLabel htmlFor="email">Email</FieldLabel>
@@ -56,7 +56,7 @@ export default function Register() {
                                     autoComplete="email"
                                     placeholder="m@example.com"
                                 />
-                                <FieldError>{errors.email}</FieldError>
+                                <FieldError data-test="input-error">{errors.email}</FieldError>
                             </Field>
                             <Field>
                                 <FieldLabel htmlFor="password">
@@ -67,7 +67,7 @@ export default function Register() {
                                     name="password"
                                     autoComplete="new-password"
                                 />
-                                <FieldError>{errors.password}</FieldError>
+                                <FieldError data-test="input-error">{errors.password}</FieldError>
                             </Field>
                             <Field>
                                 <FieldLabel htmlFor="password_confirmation">
@@ -78,12 +78,12 @@ export default function Register() {
                                     name="password_confirmation"
                                     autoComplete="new-password"
                                 />
-                                <FieldError>
+                                <FieldError data-test="input-error">
                                     {errors.password_confirmation}
                                 </FieldError>
                             </Field>
                             <Field>
-                                <Button onClick={() => clearErrors()} type="submit" disabled={processing}>
+                                <Button data-test="register-user-button" onClick={() => clearErrors()} type="submit" disabled={processing}>
                                     {processing ? (
                                         <Loader className="h-4 w-4 animate-spin" />
                                     ) : (

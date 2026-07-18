@@ -29,6 +29,7 @@ export default function VerifyEmail({ status }: { status?: string }) {
                                     type="submit"
                                     disabled={processing}
                                     variant="secondary"
+                                    data-test="resend-email-verification"
                                 >
                                     {processing ? (
                                         <Loader className="h-4 w-4 animate-spin" />

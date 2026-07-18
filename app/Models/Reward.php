@@ -11,10 +11,12 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Reward extends Model
 {
-    use HasUlids, Sortable, Searchable;
+    use HasUlids, Searchable, Sortable;
 
     public $incrementing = false;
+
     protected $keyType = 'string';
+
     protected $fillable = [
         'point_transaction_group_id',
         'student_enrollment_id',

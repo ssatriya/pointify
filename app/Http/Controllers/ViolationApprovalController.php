@@ -2,21 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\ViolationApproval\ApproveViolation;
 use App\Facades\DataTable;
 use App\Http\Requests\GetListRequestParams;
 use App\Http\Requests\ViolationApprovalRequest;
 use App\Http\Resources\ViolationResource;
-use App\Services\ViolationApprovalService;
 use App\Models\Violation;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class ViolationApprovalController extends Controller
 {
-    public function __construct(protected ViolationApprovalService $violationApprovalService)
-    {
-    }
-
     public function index(GetListRequestParams $request)
     {
         $validated = $request->validated();
@@ -37,9 +33,9 @@ class ViolationApprovalController extends Controller
         ]);
     }
 
-    public function update(Violation $violation, ViolationApprovalRequest $request)
+    public function update(Violation $violation, ViolationApprovalRequest $request, ApproveViolation $action)
     {
-        $this->violationApprovalService->update($request->validated(), $violation, Auth::id());
+        $action->handle($request->validated(), $violation, Auth::id());
 
         return Inertia::flash(['message' => 'Status persetujuan pelanggaran berhasil diperbarui.'])->back();
     }

@@ -2,22 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Violation\RevokeViolation;
 use App\Http\Requests\RevokeReasonRequest;
-use App\Services\ViolationService;
 use App\Models\Violation;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class RevokeViolationController extends Controller
 {
-    public function __construct(
-        protected ViolationService $violationService
-    ) {
-    }
-
-    public function __invoke(RevokeReasonRequest $request, Violation $violation)
+    public function __invoke(RevokeReasonRequest $request, Violation $violation, RevokeViolation $action)
     {
-        $this->violationService->revokeViolation($violation, $request->validated());
+        $action->handle($violation, $request->validated());
 
         return Inertia::flash(['message' => 'Poin pelanggaran berhasil dibatalkan.'])->back();
     }

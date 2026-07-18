@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\SearchViolationTypeController::__invoke
- * @see app/Http/Controllers/SearchViolationTypeController.php:23
+ * @see app/Http/Controllers/SearchViolationTypeController.php:20
  * @route '/dashboard/violation-types/search'
  */
 const SearchViolationTypeController = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ SearchViolationTypeController.definition = {
 
 /**
 * @see \App\Http\Controllers\SearchViolationTypeController::__invoke
- * @see app/Http/Controllers/SearchViolationTypeController.php:23
+ * @see app/Http/Controllers/SearchViolationTypeController.php:20
  * @route '/dashboard/violation-types/search'
  */
 SearchViolationTypeController.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ SearchViolationTypeController.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\SearchViolationTypeController::__invoke
- * @see app/Http/Controllers/SearchViolationTypeController.php:23
+ * @see app/Http/Controllers/SearchViolationTypeController.php:20
  * @route '/dashboard/violation-types/search'
  */
 SearchViolationTypeController.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,7 +34,7 @@ SearchViolationTypeController.get = (options?: RouteQueryOptions): RouteDefiniti
 })
 /**
 * @see \App\Http\Controllers\SearchViolationTypeController::__invoke
- * @see app/Http/Controllers/SearchViolationTypeController.php:23
+ * @see app/Http/Controllers/SearchViolationTypeController.php:20
  * @route '/dashboard/violation-types/search'
  */
 SearchViolationTypeController.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,7 +44,7 @@ SearchViolationTypeController.head = (options?: RouteQueryOptions): RouteDefinit
 
     /**
 * @see \App\Http\Controllers\SearchViolationTypeController::__invoke
- * @see app/Http/Controllers/SearchViolationTypeController.php:23
+ * @see app/Http/Controllers/SearchViolationTypeController.php:20
  * @route '/dashboard/violation-types/search'
  */
     const SearchViolationTypeControllerForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -54,7 +54,7 @@ SearchViolationTypeController.head = (options?: RouteQueryOptions): RouteDefinit
 
             /**
 * @see \App\Http\Controllers\SearchViolationTypeController::__invoke
- * @see app/Http/Controllers/SearchViolationTypeController.php:23
+ * @see app/Http/Controllers/SearchViolationTypeController.php:20
  * @route '/dashboard/violation-types/search'
  */
         SearchViolationTypeControllerForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -63,7 +63,7 @@ SearchViolationTypeController.head = (options?: RouteQueryOptions): RouteDefinit
         })
             /**
 * @see \App\Http\Controllers\SearchViolationTypeController::__invoke
- * @see app/Http/Controllers/SearchViolationTypeController.php:23
+ * @see app/Http/Controllers/SearchViolationTypeController.php:20
  * @route '/dashboard/violation-types/search'
  */
         SearchViolationTypeControllerForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

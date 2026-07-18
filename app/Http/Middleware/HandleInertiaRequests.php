@@ -3,8 +3,8 @@
 namespace App\Http\Middleware;
 
 use App\Http\Resources\UserResource;
-use Illuminate\Http\Request;
 use App\Models\StudentClass;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Inertia\Middleware;
 
@@ -60,7 +60,7 @@ class HandleInertiaRequests extends Middleware
                 return Cache::rememberForever('student_classes_shared', function () {
                     return StudentClass::with(['vocationalProgram'])->orderBy('order')
                         ->get()
-                        ->map(fn(StudentClass $c) => [
+                        ->map(fn (StudentClass $c) => [
                             'id' => $c->id,
                             'name' => $c->name,
                             'abbreviation' => $c->abbreviation,
@@ -77,7 +77,7 @@ class HandleInertiaRequests extends Middleware
                 'sort_by' => $request->query('sort_by'),
                 'sort_direction' => $request->query('sort_direction'),
             ],
-            'sidebarOpen' => !$request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
+            'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
             'flash' => [
                 'success' => $request->session()->get('success'),
                 'error' => $request->session()->get('error'),

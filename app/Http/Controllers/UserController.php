@@ -48,7 +48,7 @@ class UserController extends Controller
         return Inertia::render('dashboard/users/edit/edit', [
             'user' => new UserResource($user),
             'allPermissions' => Permission::all()->pluck('name'),
-            'allRoles' => collect(Role::cases())->map(fn($role) => [
+            'allRoles' => collect(Role::cases())->map(fn ($role) => [
                 'value' => $role->value,
                 'label' => $role->label(),
             ]),

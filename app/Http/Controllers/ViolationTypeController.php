@@ -2,24 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\ViolationType\CreateViolationType;
+use App\Actions\ViolationType\DeleteViolationType;
+use App\Actions\ViolationType\UpdateViolationType;
 use App\Http\Requests\GetListRequestParams;
 use App\Http\Requests\Store\StoreViolationTypeRequest;
 use App\Http\Requests\Update\UpdateViolationTypeRequest;
 use App\Http\Resources\ViolationTypeResource;
-use App\Services\ViolationTypeService;
 use App\Models\ViolationType;
-use Illuminate\Http\JsonResponse;
+use App\Queries\ViolationTypeList;
 use Inertia\Inertia;
 use Inertia\Response;
+use InertiaUI\Modal\Modal;
 use Throwable;
 
 class ViolationTypeController extends Controller
 {
-    public function __construct(
-        protected ViolationTypeService $violationTypeService
-    ) {
-    }
-
     /**
      * Index.
      *
@@ -29,21 +27,21 @@ class ViolationTypeController extends Controller
      *
      * @return Response
      */
-    public function index(GetListRequestParams $request)
+    public function index(GetListRequestParams $request, ViolationTypeList $query)
     {
-        $paginatedList = $this->violationTypeService->index($request->validated());
+        $paginatedList = $query->handle($request->validated());
 
         return Inertia::render('dashboard/violation-types/violation-types', [
-            'violationTypes' => ViolationTypeResource::collection($paginatedList)
+            'violationTypes' => ViolationTypeResource::collection($paginatedList),
         ]);
     }
 
     /**
      * @throws Throwable
      */
-    public function store(StoreViolationTypeRequest $request)
+    public function store(StoreViolationTypeRequest $request, CreateViolationType $action)
     {
-        $this->violationTypeService->create($request->validated());
+        $action->handle($request->validated());
 
         return Inertia::flash(['message' => 'Jenis pelanggaran berhasil disimpan.'])->back();
     }
@@ -55,8 +53,8 @@ class ViolationTypeController extends Controller
      *
      * @authenticated
      *
-     * @param ViolationType $violationType The resolved vocational program instance.
-     * @return \InertiaUI\Modal\Modal
+     * @param  ViolationType  $violationType  The resolved vocational program instance.
+     * @return Modal
      */
     public function show(ViolationType $violationType)
     {
@@ -68,9 +66,9 @@ class ViolationTypeController extends Controller
     /**
      * @throws Throwable
      */
-    public function update(UpdateViolationTypeRequest $request, ViolationType $violationType)
+    public function update(UpdateViolationTypeRequest $request, ViolationType $violationType, UpdateViolationType $action)
     {
-        $this->violationTypeService->update($request->validated(), $violationType);
+        $action->handle($request->validated(), $violationType);
 
         return Inertia::flash(['message' => 'Jenis pelanggaran berhasil diperbarui.'])->back();
     }
@@ -78,9 +76,9 @@ class ViolationTypeController extends Controller
     /**
      * @throws Throwable
      */
-    public function destroy(ViolationType $violationType)
+    public function destroy(ViolationType $violationType, DeleteViolationType $action)
     {
-        $this->violationTypeService->delete($violationType);
+        $action->handle($violationType);
 
         return Inertia::flash(['message' => 'Jenis pelanggaran berhasil dihapus.'])->back();
     }

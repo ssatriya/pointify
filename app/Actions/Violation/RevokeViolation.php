@@ -1,26 +1,25 @@
 <?php
 
-namespace App\Services;
+declare(strict_types=1);
+
+namespace App\Actions\Violation;
 
 use App\Enums\ApprovalStatus;
 use App\Enums\TransactionType;
-use App\Models\PointThreshold;
 use App\Models\PointTransaction;
 use App\Models\PointTransactionGroup;
 use App\Models\StudentEnrollment;
 use App\Models\Violation;
-use App\Models\ViolationType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Validation\ValidationException;
 use Throwable;
 
-class ViolationService
+final class RevokeViolation
 {
     /**
      * @throws Throwable
      */
-    public function revokeViolation(Violation $violation, array $data): void
+    public function handle(Violation $violation, array $data): void
     {
         DB::transaction(function () use ($violation, $data) {
             $violation = Violation::lockForUpdate()->find($violation->id);
@@ -70,36 +69,6 @@ class ViolationService
             ]);
 
             $this->reopenTransactionGroup($violation);
-        });
-    }
-
-    /**
-     * @throws Throwable
-     */
-    public function create(array $data, StudentEnrollment $studentEnrollment)
-    {
-        return DB::transaction(function () use ($data, $studentEnrollment) {
-            $pointThreshold = PointThreshold::exists();
-
-            if (!$pointThreshold) {
-                throw ValidationException::withMessages([
-                    'point_threshold' => 'Batas poin belum diatur. Silakan atur terlebih dahulu sebelum menambah pelanggaran.',
-                ]);
-            }
-
-            $violationType = ViolationType::findOrFail($data['violation_type_id']);
-
-            $violation = Violation::create([
-                'student_enrollment_id' => $studentEnrollment->id,
-                'violation_type_id' => $violationType->id,
-                'approval_status' => ApprovalStatus::PENDING->value,
-                'created_by' => Auth::id(),
-                'notes' => $data['notes'] ?? null,
-            ]);
-
-            return $violation->load([
-                'violationType',
-            ]);
         });
     }
 

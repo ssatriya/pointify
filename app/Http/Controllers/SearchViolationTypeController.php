@@ -16,9 +16,6 @@ class SearchViolationTypeController extends Controller
      * Search an entry of violation type.
      *
      * @authenticated
-     *
-     * @param SearchQueryRequest $request
-     * @return JsonResponse
      */
     public function __invoke(SearchQueryRequest $request): JsonResponse
     {

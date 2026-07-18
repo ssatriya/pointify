@@ -2,7 +2,11 @@
 
 namespace Database\Factories;
 
+use App\Models\AcademicYear;
+use App\Models\Student;
+use App\Models\StudentClass;
 use App\Models\StudentEnrollment;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,14 +22,14 @@ class StudentEnrollmentFactory extends Factory
     public function definition(): array
     {
         return [
-            'student_id' => \App\Models\Student::factory(),
-            'student_class_id' => \App\Models\StudentClass::factory(),
-            'academic_year_id' => \App\Models\AcademicYear::factory(),
+            'student_id' => Student::factory(),
+            'student_class_id' => StudentClass::factory(),
+            'academic_year_id' => AcademicYear::factory(),
             'initial_points' => 100,
             'is_repeating' => false,
             'is_active' => true,
-            'created_by' => \App\Models\User::factory(),
-            'updated_by' => \App\Models\User::factory(),
+            'created_by' => User::factory(),
+            'updated_by' => User::factory(),
         ];
     }
 }

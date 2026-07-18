@@ -2,26 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\StudentEnrollment\CreateStudentEnrollment;
+use App\Actions\StudentEnrollment\DeleteStudentEnrollment;
+use App\Actions\StudentEnrollment\UpdateStudentEnrollment;
 use App\Facades\DataTable;
 use App\Http\Requests\GetListRequestParams;
 use App\Http\Requests\Store\StoreStudentEnrollmentRequest;
 use App\Http\Requests\Update\UpdateStudentEnrollmentRequest;
 use App\Http\Resources\StudentEnrollmentResource;
 use App\Http\Resources\StudentEnrollmentSummaryResource;
-use App\Services\StudentEnrollmentService;
 use App\Models\StudentClass;
 use App\Models\StudentEnrollment;
+use App\Queries\ClassOverviewMetrics;
 use Inertia\Inertia;
 use Inertia\Response;
 use Throwable;
 
 class StudentEnrollmentController extends Controller
 {
-    public function __construct(
-        protected StudentEnrollmentService $studentEnrollmentService
-    ) {
-    }
-
     public function index(GetListRequestParams $request, StudentClass $studentClass): Response
     {
         $validated = $request->validated();
@@ -33,8 +31,8 @@ class StudentEnrollmentController extends Controller
                 'academicYear:id,name',
                 'pointTransactions:id,student_enrollment_id,transaction_type,points_change,violation_id,reward_id',
             ])
-            ->whereHas('studentClass', fn($q) => $q->where('id', $studentClass->id))
-            ->whereHas('academicYear', fn($q) => $q->where('is_active', true))
+            ->whereHas('studentClass', fn ($q) => $q->where('id', $studentClass->id))
+            ->whereHas('academicYear', fn ($q) => $q->where('is_active', true))
             ->select([
                 'id',
                 'student_id',
@@ -54,9 +52,9 @@ class StudentEnrollmentController extends Controller
         ]);
     }
 
-    public function reports(StudentClass $studentClass): Response
+    public function reports(StudentClass $studentClass, ClassOverviewMetrics $query): Response
     {
-        $classOverview = $this->studentEnrollmentService->getClassOverviewMetrics($studentClass->id);
+        $classOverview = $query->handle($studentClass->id);
 
         return Inertia::render('dashboard/student-enrollments/reports/reports', [
             'studentClass' => $studentClass,
@@ -67,14 +65,12 @@ class StudentEnrollmentController extends Controller
     /**
      * @throws Throwable
      */
-    public function store(StoreStudentEnrollmentRequest $request, StudentClass $studentClass)
+    public function store(StoreStudentEnrollmentRequest $request, StudentClass $studentClass, CreateStudentEnrollment $action)
     {
         // if (!Gate::allows(Permission::STUDENT_ENROLLMENTS_CREATE->value)) {
         //     throw new AuthorizationException(ErrorMessage::UNAUTHORIZED_CREATE->value);
         // }
-        $this->studentEnrollmentService->create([
-            ...$request->validated(),
-        ], $studentClass->id);
+        $action->handle($request->validated(), $studentClass->id);
 
         return Inertia::flash(['message' => 'Pendaftaran siswa berhasil disimpan.'])->back();
     }
@@ -82,6 +78,7 @@ class StudentEnrollmentController extends Controller
     public function show(StudentEnrollment $studentEnrollment)
     {
         $studentEnrollment->loadMissing(['student', 'academicYear', 'studentClass:id,name,slug']);
+
         return Inertia::modal('dashboard/student-enrollments/partials/edit-student-enrollment', [
             'studentEnrollment' => new StudentEnrollmentResource($studentEnrollment),
         ])->baseRoute('dashboard.student-enrollments.class.index', $studentEnrollment->studentClass->slug);
@@ -90,9 +87,9 @@ class StudentEnrollmentController extends Controller
     /**
      * @throws Throwable
      */
-    public function update(UpdateStudentEnrollmentRequest $request, StudentEnrollment $studentEnrollment)
+    public function update(UpdateStudentEnrollmentRequest $request, StudentEnrollment $studentEnrollment, UpdateStudentEnrollment $action)
     {
-        $this->studentEnrollmentService->update($request->validated(), $studentEnrollment->loadMissing(['studentClass:id,name,slug']));
+        $action->handle($request->validated(), $studentEnrollment->loadMissing(['studentClass:id,name,slug']));
 
         return Inertia::flash(['message' => 'Data pendaftaran siswa berhasil diperbarui.'])->back();
     }
@@ -100,13 +97,13 @@ class StudentEnrollmentController extends Controller
     /**
      * @throws Throwable
      */
-    public function destroy(StudentEnrollment $studentEnrollment)
+    public function destroy(StudentEnrollment $studentEnrollment, DeleteStudentEnrollment $action)
     {
         // if (!Gate::allows(Permission::STUDENT_ENROLLMENTS_DELETE->value)) {
         //     throw new AuthorizationException(ErrorMessage::UNAUTHORIZED_DELETE->value);
         // }
 
-        $this->studentEnrollmentService->delete($studentEnrollment);
+        $action->handle($studentEnrollment);
 
         return Inertia::flash(['message' => 'Pendaftaran siswa berhasil dihapus.'])->back();
     }
@@ -118,7 +115,7 @@ class StudentEnrollmentController extends Controller
             'academicYear',
             'studentClass',
             'pointTransactions',
-            'pointTransactionGroups' => fn($q) => $q->with([
+            'pointTransactionGroups' => fn ($q) => $q->with([
                 'violations.pointTransaction.violation.violationType',
                 'violations.pointTransaction.violation.createdBy',
                 'rewards.pointTransaction.reward.rewardType',

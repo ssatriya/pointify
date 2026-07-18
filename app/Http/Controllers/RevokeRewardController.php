@@ -2,22 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Reward\RevokeReward;
 use App\Http\Requests\RevokeReasonRequest;
-use App\Services\RewardService;
 use App\Models\Reward;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class RevokeRewardController extends Controller
 {
-    public function __construct(
-        protected RewardService $rewardService
-    ) {
-    }
-
-    public function __invoke(RevokeReasonRequest $request, Reward $reward)
+    public function __invoke(RevokeReasonRequest $request, Reward $reward, RevokeReward $action)
     {
-        $this->rewardService->revokeReward($reward, $request->validated());
+        $action->handle($reward, $request->validated());
 
         return Inertia::flash(['message' => 'Poin prestasi berhasil dibatalkan.'])->back();
     }

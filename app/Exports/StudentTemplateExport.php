@@ -1,17 +1,18 @@
 <?php
+
 namespace App\Exports;
 
-use Maatwebsite\Excel\Concerns\WithHeadings;
-use Maatwebsite\Excel\Concerns\WithTitle;
-use Maatwebsite\Excel\Concerns\WithStyles;
+use App\Models\VocationalProgram;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use Maatwebsite\Excel\Concerns\WithTitle;
 use Maatwebsite\Excel\Events\AfterSheet;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Cell\DataValidation;
-use App\Models\VocationalProgram;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class StudentTemplateExport implements WithHeadings, WithTitle, WithStyles, WithColumnWidths, WithEvents
+class StudentTemplateExport implements WithColumnWidths, WithEvents, WithHeadings, WithStyles, WithTitle
 {
     public function title(): string
     {
@@ -48,22 +49,22 @@ class StudentTemplateExport implements WithHeadings, WithTitle, WithStyles, With
     public function registerEvents(): array
     {
         return [
-            AfterSheet::class => function(AfterSheet $event) {
+            AfterSheet::class => function (AfterSheet $event) {
                 $sheet = $event->sheet->getDelegate();
-                
+
                 // Fetch vocational programs names
                 $programs = VocationalProgram::pluck('name')->toArray();
-                
+
                 if (empty($programs)) {
                     return;
                 }
 
                 // Create a comma-separated list for the dropdown
                 // Excel has a limit of 255 characters for this formula
-                $options = '"' . implode(',', $programs) . '"';
-                
+                $options = '"'.implode(',', $programs).'"';
+
                 // Apply validation for column C (rows 2 to 501)
-                $validation = $sheet->getDataValidation("C2:C501");
+                $validation = $sheet->getDataValidation('C2:C501');
                 $validation->setType(DataValidation::TYPE_LIST);
                 $validation->setErrorStyle(DataValidation::STYLE_STOP);
                 $validation->setAllowBlank(false);

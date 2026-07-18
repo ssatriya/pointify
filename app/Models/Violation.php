@@ -13,10 +13,12 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Violation extends Model
 {
-    use HasUlids, Sortable, Searchable, Filterable, HasFactory;
+    use Filterable, HasFactory, HasUlids, Searchable, Sortable;
 
     public $incrementing = false;
+
     protected $keyType = 'string';
+
     protected $fillable = [
         'point_transaction_group_id',
         'student_enrollment_id',
@@ -35,17 +37,20 @@ class Violation extends Model
         'created_by',
         'notes',
     ];
+
     protected array $searchable = [
         'studentEnrollment.student.name',
     ];
+
     protected array $sortable = [
         'created_at',
     ];
+
     protected array $filterable = [
         'filter' => [
             'column' => 'approval_status',
-            'type' => 'in'
-        ]
+            'type' => 'in',
+        ],
     ];
 
     /**
@@ -66,7 +71,8 @@ class Violation extends Model
 
     /**
      * Get the violationType that owns the Violation
-     *  @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\ViolationType, $this>
+     *
+     * @return BelongsTo<ViolationType, $this>
      */
     public function violationType(): BelongsTo
     {
@@ -88,5 +94,4 @@ class Violation extends Model
     {
         return $this->hasOne(PointTransaction::class);
     }
-
 }

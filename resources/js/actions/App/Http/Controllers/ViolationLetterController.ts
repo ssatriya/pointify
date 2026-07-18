@@ -4,7 +4,7 @@ import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFo
  * @see app/Http/Controllers/ViolationLetterController.php:11
  * @route '/dashboard/student-enrollments/{studentEnrollment}/sequence/{sequence}'
  */
-const ViolationLetterController = (args: { studentEnrollment: string | { id: string }, sequence: string | number } | [studentEnrollment: string | { id: string }, sequence: string | number ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+const ViolationLetterController = (args: { studentEnrollment: string | number | { id: string | number }, sequence: string | number } | [studentEnrollment: string | number | { id: string | number }, sequence: string | number ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: ViolationLetterController.url(args, options),
     method: 'get',
 })
@@ -19,7 +19,7 @@ ViolationLetterController.definition = {
  * @see app/Http/Controllers/ViolationLetterController.php:11
  * @route '/dashboard/student-enrollments/{studentEnrollment}/sequence/{sequence}'
  */
-ViolationLetterController.url = (args: { studentEnrollment: string | { id: string }, sequence: string | number } | [studentEnrollment: string | { id: string }, sequence: string | number ], options?: RouteQueryOptions) => {
+ViolationLetterController.url = (args: { studentEnrollment: string | number | { id: string | number }, sequence: string | number } | [studentEnrollment: string | number | { id: string | number }, sequence: string | number ], options?: RouteQueryOptions) => {
     if (Array.isArray(args)) {
         args = {
                     studentEnrollment: args[0],
@@ -47,7 +47,7 @@ ViolationLetterController.url = (args: { studentEnrollment: string | { id: strin
  * @see app/Http/Controllers/ViolationLetterController.php:11
  * @route '/dashboard/student-enrollments/{studentEnrollment}/sequence/{sequence}'
  */
-ViolationLetterController.get = (args: { studentEnrollment: string | { id: string }, sequence: string | number } | [studentEnrollment: string | { id: string }, sequence: string | number ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+ViolationLetterController.get = (args: { studentEnrollment: string | number | { id: string | number }, sequence: string | number } | [studentEnrollment: string | number | { id: string | number }, sequence: string | number ], options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: ViolationLetterController.url(args, options),
     method: 'get',
 })
@@ -56,7 +56,7 @@ ViolationLetterController.get = (args: { studentEnrollment: string | { id: strin
  * @see app/Http/Controllers/ViolationLetterController.php:11
  * @route '/dashboard/student-enrollments/{studentEnrollment}/sequence/{sequence}'
  */
-ViolationLetterController.head = (args: { studentEnrollment: string | { id: string }, sequence: string | number } | [studentEnrollment: string | { id: string }, sequence: string | number ], options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+ViolationLetterController.head = (args: { studentEnrollment: string | number | { id: string | number }, sequence: string | number } | [studentEnrollment: string | number | { id: string | number }, sequence: string | number ], options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: ViolationLetterController.url(args, options),
     method: 'head',
 })
@@ -66,7 +66,7 @@ ViolationLetterController.head = (args: { studentEnrollment: string | { id: stri
  * @see app/Http/Controllers/ViolationLetterController.php:11
  * @route '/dashboard/student-enrollments/{studentEnrollment}/sequence/{sequence}'
  */
-    const ViolationLetterControllerForm = (args: { studentEnrollment: string | { id: string }, sequence: string | number } | [studentEnrollment: string | { id: string }, sequence: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const ViolationLetterControllerForm = (args: { studentEnrollment: string | number | { id: string | number }, sequence: string | number } | [studentEnrollment: string | number | { id: string | number }, sequence: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: ViolationLetterController.url(args, options),
         method: 'get',
     })
@@ -76,7 +76,7 @@ ViolationLetterController.head = (args: { studentEnrollment: string | { id: stri
  * @see app/Http/Controllers/ViolationLetterController.php:11
  * @route '/dashboard/student-enrollments/{studentEnrollment}/sequence/{sequence}'
  */
-        ViolationLetterControllerForm.get = (args: { studentEnrollment: string | { id: string }, sequence: string | number } | [studentEnrollment: string | { id: string }, sequence: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        ViolationLetterControllerForm.get = (args: { studentEnrollment: string | number | { id: string | number }, sequence: string | number } | [studentEnrollment: string | number | { id: string | number }, sequence: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: ViolationLetterController.url(args, options),
             method: 'get',
         })
@@ -85,7 +85,7 @@ ViolationLetterController.head = (args: { studentEnrollment: string | { id: stri
  * @see app/Http/Controllers/ViolationLetterController.php:11
  * @route '/dashboard/student-enrollments/{studentEnrollment}/sequence/{sequence}'
  */
-        ViolationLetterControllerForm.head = (args: { studentEnrollment: string | { id: string }, sequence: string | number } | [studentEnrollment: string | { id: string }, sequence: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        ViolationLetterControllerForm.head = (args: { studentEnrollment: string | number | { id: string | number }, sequence: string | number } | [studentEnrollment: string | number | { id: string | number }, sequence: string | number ], options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: ViolationLetterController.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',

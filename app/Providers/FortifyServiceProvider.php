@@ -4,8 +4,6 @@ namespace App\Providers;
 
 use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
-use App\Actions\Fortify\UpdateUserPassword;
-use App\Actions\Fortify\UpdateUserProfileInformation;
 use App\Enums\ErrorMessage;
 use App\Models\User;
 use Illuminate\Cache\RateLimiting\Limit;
@@ -16,7 +14,6 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Inertia\Inertia;
-use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
 use Laravel\Fortify\Features;
 use Laravel\Fortify\Fortify;
 
@@ -41,7 +38,7 @@ class FortifyServiceProvider extends ServiceProvider
         $this->configureAuthentication();
     }
 
-      /**
+    /**
      * Configure Fortify actions.
      */
     private function configureActions(): void

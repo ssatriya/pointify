@@ -3,6 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\PointTransaction;
+use App\Models\StudentEnrollment;
+use App\Models\User;
+use App\Models\Violation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,10 +21,10 @@ class PointTransactionFactory extends Factory
     public function definition(): array
     {
         return [
-            'student_enrollment_id' => \App\Models\StudentEnrollment::factory(),
+            'student_enrollment_id' => StudentEnrollment::factory(),
             'transaction_type' => 'violation',
-            'violation_id' => \App\Models\Violation::factory(),
-            'processed_by' => \App\Models\User::factory(),
+            'violation_id' => Violation::factory(),
+            'processed_by' => User::factory(),
             'points_change' => -10,
             'intended_points' => -10,
             'points_before' => 100,

@@ -14,10 +14,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class StudentEnrollment extends Model
 {
-    use HasUlids, Sortable, Searchable, HasFactory;
+    use HasFactory, HasUlids, Searchable, Sortable;
 
     public $incrementing = false;
+
     protected $keyType = 'string';
+
     protected $fillable = [
         'student_id',
         'student_class_id',
@@ -34,9 +36,11 @@ class StudentEnrollment extends Model
         'is_repeating' => 'boolean',
         'initial_points' => 'integer',
     ];
+
     protected array $searchable = [
         'student.name',
     ];
+
     protected array $sortable = [
         'created_at',
         'student.name',
@@ -44,7 +48,8 @@ class StudentEnrollment extends Model
 
     /**
      * Get the student that owns the StudentEnrollment
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\Student, $this>
+     *
+     * @return BelongsTo<Student, $this>
      */
     public function student(): BelongsTo
     {
@@ -53,7 +58,8 @@ class StudentEnrollment extends Model
 
     /**
      * Get the studentClass that owns the StudentEnrollment
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\StudentClass, $this>
+     *
+     * @return BelongsTo<StudentClass, $this>
      */
     public function studentClass(): BelongsTo
     {
@@ -62,7 +68,8 @@ class StudentEnrollment extends Model
 
     /**
      * Get the academicYear that owns the StudentEnrollment
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<\App\Models\AcademicYear, $this>
+     *
+     * @return BelongsTo<AcademicYear, $this>
      */
     public function academicYear(): BelongsTo
     {
@@ -71,7 +78,8 @@ class StudentEnrollment extends Model
 
     /**
      * Get all the violations for the StudentEnrollment
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Violation, $this>
+     *
+     * @return HasMany<Violation, $this>
      */
     public function violations(): HasMany
     {
@@ -80,7 +88,8 @@ class StudentEnrollment extends Model
 
     /**
      * Get all the rewards for the StudentEnrollment
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\Reward, $this>
+     *
+     * @return HasMany<Reward, $this>
      */
     public function rewards(): HasMany
     {
@@ -89,7 +98,8 @@ class StudentEnrollment extends Model
 
     /**
      * Get all the pointTransactions for the StudentEnrollment
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\PointTransaction, $this>
+     *
+     * @return HasMany<PointTransaction, $this>
      */
     public function pointTransactions(): HasMany
     {
@@ -98,7 +108,8 @@ class StudentEnrollment extends Model
 
     /**
      * Get all the pointTransactionGroups for the StudentEnrollment
-      * @return \Illuminate\Database\Eloquent\Relations\HasMany<\App\Models\PointTransactionGroup, $this>
+     *
+     * @return HasMany<PointTransactionGroup, $this>
      */
     public function pointTransactionGroups(): HasMany
     {
@@ -116,7 +127,6 @@ class StudentEnrollment extends Model
     /**
      * Get the student current points for this enrollment.
      * Using + operator since points_change can be negative (deductions).
-     * @return int
      */
     public function getCurrentPointsAttribute(): int
     {
@@ -126,12 +136,11 @@ class StudentEnrollment extends Model
     /**
      * Get the student total violations points for this enrollment.
      * Do not return the count, but rather the sum of violation points.
-     * @return int
      */
     public function getTotalViolationsPointsAttribute(): int
     {
         return $this->pointTransactions
-            ->filter(fn($t) => $t->transaction_type === TransactionType::VIOLATION->value
+            ->filter(fn ($t) => $t->transaction_type === TransactionType::VIOLATION->value
                 || ($t->transaction_type === TransactionType::REVOKED->value && $t->violation_id !== null))
             ->sum('points_change');
     }
@@ -139,12 +148,11 @@ class StudentEnrollment extends Model
     /**
      * Get the student total rewards points for this enrollment.
      * Do not return the count, but rather the sum of reward points.
-     * @return int
      */
     public function getTotalRewardsPointsAttribute(): int
     {
         return $this->pointTransactions
-            ->filter(fn($t) => $t->transaction_type === TransactionType::REWARD->value
+            ->filter(fn ($t) => $t->transaction_type === TransactionType::REWARD->value
                 || ($t->transaction_type === TransactionType::REVOKED->value && $t->reward_id !== null))
             ->sum('points_change');
     }

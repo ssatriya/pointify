@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
 use App\Models\VocationalProgram;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,8 +21,8 @@ class VocationalProgramFactory extends Factory
         return [
             'name' => $this->faker->company(),
             'abbreviation' => strtoupper($this->faker->lexify('???')),
-            'created_by' => \App\Models\User::factory(),
-            'updated_by' => \App\Models\User::factory(),
+            'created_by' => User::factory(),
+            'updated_by' => User::factory(),
         ];
     }
 }

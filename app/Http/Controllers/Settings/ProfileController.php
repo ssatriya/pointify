@@ -55,8 +55,8 @@ class ProfileController extends Controller
                 imagealphablending($image, true);
                 imagesavealpha($image, true);
 
-                $filename = 'avatars/' . uniqid() . '.webp';
-                
+                $filename = 'avatars/'.uniqid().'.webp';
+
                 // Capture the WebP output buffer
                 ob_start();
                 imagewebp($image, null, 80); // 80 is the quality

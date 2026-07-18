@@ -1,23 +1,20 @@
 <?php
 
+use App\Actions\Reward\CreateReward;
+use App\Actions\Reward\RevokeReward;
+use App\Actions\Violation\RevokeViolation;
+use App\Actions\ViolationApproval\ApproveViolation;
 use App\Enums\ApprovalStatus;
 use App\Enums\TransactionType;
 use App\Models\AcademicYear;
 use App\Models\PointThreshold;
 use App\Models\PointTransaction;
 use App\Models\PointTransactionGroup;
-use App\Models\Reward;
 use App\Models\RewardType;
 use App\Models\StudentEnrollment;
 use App\Models\User;
 use App\Models\Violation;
 use App\Models\ViolationType;
-use App\Services\RewardService;
-use App\Services\ViolationApprovalService;
-use App\Services\ViolationService;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-
-uses(RefreshDatabase::class);
 
 beforeEach(function () {
     $this->user = User::factory()->create();
@@ -53,8 +50,8 @@ test('approving a violation deducts points and creates transaction', function ()
         'created_by' => $this->user->id,
     ]);
 
-    $service = app(ViolationApprovalService::class);
-    $service->update(['status' => ApprovalStatus::APPROVED->value], $violation, $this->user->id);
+    $act3 = app(ApproveViolation::class);
+    $act3->handle(['status' => ApprovalStatus::APPROVED->value], $violation, $this->user->id);
 
     $violation->refresh();
     expect($violation->approval_status)->toBe(ApprovalStatus::APPROVED->value);
@@ -75,8 +72,8 @@ test('approving an already approved violation does nothing', function () {
         'created_by' => $this->user->id,
     ]);
 
-    $service = app(ViolationApprovalService::class);
-    $service->update(['status' => ApprovalStatus::APPROVED->value], $violation, $this->user->id);
+    $act = app(ApproveViolation::class);
+    $act->handle(['status' => ApprovalStatus::APPROVED->value], $violation, $this->user->id);
 
     expect(PointTransaction::where('violation_id', $violation->id)->count())->toBe(0);
 });
@@ -89,8 +86,8 @@ test('rejecting a violation sets status without creating transaction', function 
         'created_by' => $this->user->id,
     ]);
 
-    $service = app(ViolationApprovalService::class);
-    $service->update([
+    $action = app(ApproveViolation::class);
+    $action->handle([
         'status' => ApprovalStatus::REJECTED->value,
         'rejection_reason' => 'Invalid evidence',
     ], $violation, $this->user->id);
@@ -116,8 +113,8 @@ test('points reset when student reaches zero', function () {
         'created_by' => $this->user->id,
     ]);
 
-    $service = app(ViolationApprovalService::class);
-    $service->update(['status' => ApprovalStatus::APPROVED->value], $violation, $this->user->id);
+    $act4 = app(ApproveViolation::class);
+    $act4->handle(['status' => ApprovalStatus::APPROVED->value], $violation, $this->user->id);
 
     $transactions = PointTransaction::where('student_enrollment_id', $this->studentEnrollment->id)
         ->orderBy('created_at')
@@ -144,8 +141,8 @@ test('reset closes the transaction group', function () {
         'created_by' => $this->user->id,
     ]);
 
-    $service = app(ViolationApprovalService::class);
-    $service->update(['status' => ApprovalStatus::APPROVED->value], $violation, $this->user->id);
+    $act2 = app(ApproveViolation::class);
+    $act2->handle(['status' => ApprovalStatus::APPROVED->value], $violation, $this->user->id);
 
     $group = PointTransactionGroup::where('student_enrollment_id', $this->studentEnrollment->id)->first();
     expect($group->is_closed)->toBeTruthy();
@@ -163,13 +160,13 @@ test('revoking a violation restores points', function () {
         'created_by' => $this->user->id,
     ]);
 
-    $approvalService = app(ViolationApprovalService::class);
-    $approvalService->update(['status' => ApprovalStatus::APPROVED->value], $violation, $this->user->id);
+    $approvalAction = app(ApproveViolation::class);
+    $approvalAction->handle(['status' => ApprovalStatus::APPROVED->value], $violation, $this->user->id);
 
     // Now revoke
     $violation->refresh();
-    $violationService = app(ViolationService::class);
-    $violationService->revokeViolation($violation, ['revoke_reason' => 'Wrong student']);
+    $revokeAction = app(RevokeViolation::class);
+    $revokeAction->handle($violation, ['revoke_reason' => 'Wrong student']);
 
     $violation->refresh();
     expect($violation->approval_status)->toBe(ApprovalStatus::REVOKED->value);
@@ -194,13 +191,13 @@ test('revoking a violation that triggered reset also reverses the reset', functi
     ]);
 
     // Approve (triggers reset)
-    $approvalService = app(ViolationApprovalService::class);
-    $approvalService->update(['status' => ApprovalStatus::APPROVED->value], $violation, $this->user->id);
+    $approvalAction = app(ApproveViolation::class);
+    $approvalAction->handle(['status' => ApprovalStatus::APPROVED->value], $violation, $this->user->id);
 
     // Revoke
     $violation->refresh();
-    $violationService = app(ViolationService::class);
-    $violationService->revokeViolation($violation, ['revoke_reason' => 'Error']);
+    $revokeAction = app(RevokeViolation::class);
+    $revokeAction->handle($violation, ['revoke_reason' => 'Error']);
 
     // Points: 100 -100(violation) +100(reset) +100(revoke violation) -100(revoke reset) = 100
     $this->studentEnrollment->load('pointTransactions');
@@ -218,8 +215,8 @@ test('revoking a reward subtracts the rewarded points', function () {
         'created_by' => $this->user->id,
     ]);
 
-    $rewardService = app(RewardService::class);
-    $reward = $rewardService->create([
+    $createReward = app(CreateReward::class);
+    $reward = $createReward->handle([
         'reward_type_id' => $rewardType->id,
         'notes' => 'Test reward',
     ], $this->studentEnrollment);
@@ -229,7 +226,8 @@ test('revoking a reward subtracts the rewarded points', function () {
     expect($this->studentEnrollment->currentPoints)->toBe(105);
 
     // Revoke
-    $rewardService->revokeReward($reward, ['revoke_reason' => 'Mistake']);
+    $revokeReward = app(RevokeReward::class);
+    $revokeReward->handle($reward, ['revoke_reason' => 'Mistake']);
 
     // Points should be back to 100
     $this->studentEnrollment->refresh()->load('pointTransactions');

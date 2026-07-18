@@ -2,24 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\VocationalProgram\CreateVocationalProgram;
+use App\Actions\VocationalProgram\DeleteVocationalProgram;
+use App\Actions\VocationalProgram\UpdateVocationalProgram;
 use App\Http\Requests\GetListRequestParams;
 use App\Http\Requests\Store\StoreVocationalProgramRequest;
 use App\Http\Requests\Update\UpdateVocationalProgramRequest;
 use App\Http\Resources\VocationalProgramResource;
-use App\Services\VocationalProgramService;
 use App\Models\VocationalProgram;
+use App\Queries\VocationalProgramList;
 use Inertia\Inertia;
 use Inertia\Response;
+use InertiaUI\Modal\Modal;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Throwable;
 
 class VocationalProgramController extends Controller
 {
-    public function __construct(
-        protected VocationalProgramService $vocationalProgramService
-    ) {
-    }
-
     /**
      * Index.
      *
@@ -29,9 +28,9 @@ class VocationalProgramController extends Controller
      *
      * @return Response
      */
-    public function index(GetListRequestParams $request)
+    public function index(GetListRequestParams $request, VocationalProgramList $query)
     {
-        $paginatedList = $this->vocationalProgramService->index($request->validated());
+        $paginatedList = $query->handle($request->validated());
 
         return Inertia::render('dashboard/vocational-programs/vocational-programs', [
             'vocationalPrograms' => VocationalProgramResource::collection($paginatedList),
@@ -45,15 +44,14 @@ class VocationalProgramController extends Controller
      *
      * @authenticated
      *
-     * @return RedirectResponse
      * @throws Throwable
      */
-    public function store(StoreVocationalProgramRequest $request): RedirectResponse
+    public function store(StoreVocationalProgramRequest $request, CreateVocationalProgram $action): RedirectResponse
     {
-        $this->vocationalProgramService->create($request->validated());
+        $action->handle($request->validated());
 
         return Inertia::flash([
-            'message' => 'Program kejuruan berhasil disimpan.'
+            'message' => 'Program kejuruan berhasil disimpan.',
         ])->back();
     }
 
@@ -64,8 +62,8 @@ class VocationalProgramController extends Controller
      *
      * @authenticated
      *
-     * @param VocationalProgram $vocationalProgram The resolved vocational program instance.
-     * @return \InertiaUI\Modal\Modal
+     * @param  VocationalProgram  $vocationalProgram  The resolved vocational program instance.
+     * @return Modal
      */
     public function show(VocationalProgram $vocationalProgram)
     {
@@ -81,14 +79,11 @@ class VocationalProgramController extends Controller
      *
      * @authenticated
      *
-     * @param UpdateVocationalProgramRequest $request
-     * @param VocationalProgram $vocationalProgram
-     * @return RedirectResponse
      * @throws Throwable
      */
-    public function update(UpdateVocationalProgramRequest $request, VocationalProgram $vocationalProgram): RedirectResponse
+    public function update(UpdateVocationalProgramRequest $request, VocationalProgram $vocationalProgram, UpdateVocationalProgram $action): RedirectResponse
     {
-        $this->vocationalProgramService->update($request->validated(), $vocationalProgram);
+        $action->handle($request->validated(), $vocationalProgram);
 
         return Inertia::flash(['message' => 'Program kejuruan berhasil diperbarui.'])->back();
     }
@@ -100,13 +95,11 @@ class VocationalProgramController extends Controller
      *
      * @authenticated
      *
-     * @param VocationalProgram $vocationalProgram
-     * @return RedirectResponse
      * @throws Throwable
      */
-    public function destroy(VocationalProgram $vocationalProgram): RedirectResponse
+    public function destroy(VocationalProgram $vocationalProgram, DeleteVocationalProgram $action): RedirectResponse
     {
-        $this->vocationalProgramService->delete($vocationalProgram);
+        $action->handle($vocationalProgram);
 
         return Inertia::flash(['message' => 'Program kejuruan berhasil dihapus.'])->back();
     }

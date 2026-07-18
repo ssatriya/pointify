@@ -2,26 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Student\CreateStudent;
+use App\Actions\Student\DeleteStudent;
+use App\Actions\Student\UpdateStudent;
 use App\Http\Requests\GetListRequestParams;
 use App\Http\Requests\Store\StoreStudentRequest;
 use App\Http\Requests\Update\UpdateStudentRequest;
 use App\Http\Resources\StudentResource;
-use App\Http\Resources\VocationalProgramResource;
-use App\Services\StudentService;
 use App\Models\Student;
 use App\Models\VocationalProgram;
-use Illuminate\Http\Request;
+use App\Queries\StudentList;
 use Inertia\Inertia;
 use Inertia\Response;
 use Throwable;
 
 class StudentController extends Controller
 {
-    public function __construct(
-        protected StudentService $studentService
-    ) {
-    }
-
     /**
      * Index.
      *
@@ -31,9 +27,9 @@ class StudentController extends Controller
      *
      * @return Response
      */
-    public function index(GetListRequestParams $request)
+    public function index(GetListRequestParams $request, StudentList $query)
     {
-        $paginatedList = $this->studentService->index($request->validated());
+        $paginatedList = $query->handle($request->validated());
 
         return Inertia::render('dashboard/students/students', [
             'students' => StudentResource::collection($paginatedList),
@@ -44,9 +40,9 @@ class StudentController extends Controller
     /**
      * @throws Throwable
      */
-    public function store(StoreStudentRequest $request)
+    public function store(StoreStudentRequest $request, CreateStudent $action)
     {
-        $this->studentService->create($request->validated());
+        $action->handle($request->validated());
 
         return Inertia::flash(['message' => 'Data siswa berhasil disimpan.'])->back();
     }
@@ -61,24 +57,23 @@ class StudentController extends Controller
     /**
      * @throws Throwable
      */
-    public function update(UpdateStudentRequest $request, Student $student)
+    public function update(UpdateStudentRequest $request, Student $student, UpdateStudent $action)
     {
-        $this->studentService->update($request->validated(), $student);
+        $action->handle($request->validated(), $student);
 
         return Inertia::flash(['message' => 'Data siswa berhasil diperbarui.'])->back();
     }
 
-
     /**
      * @throws Throwable
      */
-    public function destroy(Student $student)
+    public function destroy(Student $student, DeleteStudent $action)
     {
         // if (!Gate::allows(Permission::STUDENTS_DELETE->value, $student)) {
         //     throw new AuthorizationException(ErrorMessage::UNAUTHORIZED_DELETE->value);
         // }
 
-        $this->studentService->delete($student);
+        $action->handle($student);
 
         return Inertia::flash(['message' => 'Data siswa berhasil dihapus.'])->back();
     }

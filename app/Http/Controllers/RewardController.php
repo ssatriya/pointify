@@ -2,29 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Reward\CreateReward;
 use App\Http\Requests\Store\StoreRewardRequest;
-use App\Services\RewardService;
 use App\Models\StudentEnrollment;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Throwable;
 
 class RewardController extends Controller
 {
-    public function __construct(
-        protected RewardService $rewardService
-    ) {
-    }
-
     /**
      * @throws Throwable
      */
-    public function __invoke(StoreRewardRequest $request)
+    public function __invoke(StoreRewardRequest $request, CreateReward $action)
     {
         $studentEnrollmentId = $request->validated('student_enrollment_id');
         $studentEnrollment = StudentEnrollment::findOrFail($studentEnrollmentId);
 
-        $this->rewardService->create($request->validated(), $studentEnrollment);
+        $action->handle($request->validated(), $studentEnrollment);
 
         return Inertia::flash(['message' => 'Data poin prestasi berhasil disimpan.'])->back();
     }

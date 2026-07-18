@@ -3,9 +3,9 @@
 namespace App\Http\Requests\Update;
 
 use App\Enums\Permission;
-use Illuminate\Validation\Rule;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateStudentEnrollmentRequest extends FormRequest
 {

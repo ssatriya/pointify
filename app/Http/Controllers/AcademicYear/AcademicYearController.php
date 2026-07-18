@@ -1,38 +1,38 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\AcademicYear;
 
+use App\Actions\AcademicYear\CreateAcademicYear;
+use App\Actions\AcademicYear\DeleteAcademicYear;
+use App\Actions\AcademicYear\UpdateAcademicYear;
 use App\Http\Controllers\Controller;
-use App\Services\AcademicYearService;
 use App\Http\Requests\GetListRequestParams;
 use App\Http\Requests\Store\StoreAcademicYearRequest;
 use App\Http\Requests\Update\UpdateAcademicYearRequest;
 use App\Http\Resources\AcademicYearResource;
 use App\Models\AcademicYear;
+use App\Queries\AcademicYearList;
 use Inertia\Inertia;
 use Inertia\Response;
+use InertiaUI\Modal\Modal;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Throwable;
 
 class AcademicYearController extends Controller
 {
-    public function __construct(
-        protected AcademicYearService $academicYearService
-    ) {
-    }
-
     /**
      * Index.
      *
      * Getting academic years pagination list.
      *
      * @authenticated
-     *
-     * @return Response
      */
-    public function index(GetListRequestParams $request): Response
+    public function index(GetListRequestParams $request, AcademicYearList $action): Response
     {
-        $paginatedList = $this->academicYearService->index($request->validated());
+        $paginatedList = $action->handle($request->validated());
+
         return Inertia::render('dashboard/academic-years/academic-years', [
             'academicYears' => AcademicYearResource::collection($paginatedList),
         ]);
@@ -45,13 +45,12 @@ class AcademicYearController extends Controller
      *
      * @authenticated
      *
-     * @param StoreAcademicYearRequest $request
-     * @return RedirectResponse
      * @throws Throwable
      */
-    public function store(StoreAcademicYearRequest $request): RedirectResponse
+    public function store(StoreAcademicYearRequest $request, CreateAcademicYear $action): RedirectResponse
     {
-        $this->academicYearService->create($request->validated());
+        $action->handle($request->validated());
+
         return Inertia::flash(['message' => 'Tahun akademik berhasil disimpan.'])->back();
     }
 
@@ -62,8 +61,8 @@ class AcademicYearController extends Controller
      *
      * @authenticated
      *
-     * @param AcademicYear $academicYear The resolved academic year instance.
-     * @return \InertiaUI\Modal\Modal
+     * @param  AcademicYear  $academicYear  The resolved academic year instance.
+     * @return Modal
      */
     public function show(AcademicYear $academicYear)
     {
@@ -79,13 +78,14 @@ class AcademicYearController extends Controller
      *
      * @authenticated
      *
-     * @param AcademicYear $academicYear The resolved academic year instance.
-     * @return RedirectResponse
+     * @param  AcademicYear  $academicYear  The resolved academic year instance.
+     *
      * @throws Throwable
      */
-    public function update(UpdateAcademicYearRequest $request, AcademicYear $academicYear): RedirectResponse
+    public function update(UpdateAcademicYearRequest $request, AcademicYear $academicYear, UpdateAcademicYear $action): RedirectResponse
     {
-        $this->academicYearService->update($request->validated(), $academicYear);
+        $action->handle($request->validated(), $academicYear);
+
         return Inertia::flash(['message' => 'Tahun akademik berhasil diperbarui.'])->back();
     }
 
@@ -96,13 +96,14 @@ class AcademicYearController extends Controller
      *
      * @authenticated
      *
-     * @param AcademicYear $academicYear The resolved academic year instance.
-     * @return RedirectResponse
+     * @param  AcademicYear  $academicYear  The resolved academic year instance.
+     *
      * @throws Throwable
      */
-    public function destroy(AcademicYear $academicYear): RedirectResponse
+    public function destroy(AcademicYear $academicYear, DeleteAcademicYear $action): RedirectResponse
     {
-        $this->academicYearService->delete($academicYear);
+        $action->handle($academicYear);
+
         return Inertia::flash(['message' => 'Tahun akademik berhasil dihapus.'])->back();
     }
 }

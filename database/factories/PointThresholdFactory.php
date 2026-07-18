@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\AcademicYear;
 use App\Models\PointThreshold;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,12 +20,12 @@ class PointThresholdFactory extends Factory
     public function definition(): array
     {
         return [
-            'academic_year_id' => \App\Models\AcademicYear::factory(),
+            'academic_year_id' => AcademicYear::factory(),
             'cumulative_points_threshold' => $this->faker->randomElement([30, 50, 70, 100]),
             'description' => $this->faker->sentence(),
             'is_active' => true,
-            'created_by' => \App\Models\User::factory(),
-            'updated_by' => \App\Models\User::factory(),
+            'created_by' => User::factory(),
+            'updated_by' => User::factory(),
         ];
     }
 }

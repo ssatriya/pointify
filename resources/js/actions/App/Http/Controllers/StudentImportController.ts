@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\StudentImportController::downloadTemplate
- * @see app/Http/Controllers/StudentImportController.php:38
+ * @see app/Http/Controllers/StudentImportController.php:35
  * @route '/dashboard/students/download-template'
  */
 export const downloadTemplate = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ downloadTemplate.definition = {
 
 /**
 * @see \App\Http\Controllers\StudentImportController::downloadTemplate
- * @see app/Http/Controllers/StudentImportController.php:38
+ * @see app/Http/Controllers/StudentImportController.php:35
  * @route '/dashboard/students/download-template'
  */
 downloadTemplate.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ downloadTemplate.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\StudentImportController::downloadTemplate
- * @see app/Http/Controllers/StudentImportController.php:38
+ * @see app/Http/Controllers/StudentImportController.php:35
  * @route '/dashboard/students/download-template'
  */
 downloadTemplate.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,7 +34,7 @@ downloadTemplate.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => 
 })
 /**
 * @see \App\Http\Controllers\StudentImportController::downloadTemplate
- * @see app/Http/Controllers/StudentImportController.php:38
+ * @see app/Http/Controllers/StudentImportController.php:35
  * @route '/dashboard/students/download-template'
  */
 downloadTemplate.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,7 +44,7 @@ downloadTemplate.head = (options?: RouteQueryOptions): RouteDefinition<'head'> =
 
     /**
 * @see \App\Http\Controllers\StudentImportController::downloadTemplate
- * @see app/Http/Controllers/StudentImportController.php:38
+ * @see app/Http/Controllers/StudentImportController.php:35
  * @route '/dashboard/students/download-template'
  */
     const downloadTemplateForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -54,7 +54,7 @@ downloadTemplate.head = (options?: RouteQueryOptions): RouteDefinition<'head'> =
 
             /**
 * @see \App\Http\Controllers\StudentImportController::downloadTemplate
- * @see app/Http/Controllers/StudentImportController.php:38
+ * @see app/Http/Controllers/StudentImportController.php:35
  * @route '/dashboard/students/download-template'
  */
         downloadTemplateForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -63,7 +63,7 @@ downloadTemplate.head = (options?: RouteQueryOptions): RouteDefinition<'head'> =
         })
             /**
 * @see \App\Http\Controllers\StudentImportController::downloadTemplate
- * @see app/Http/Controllers/StudentImportController.php:38
+ * @see app/Http/Controllers/StudentImportController.php:35
  * @route '/dashboard/students/download-template'
  */
         downloadTemplateForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -79,7 +79,7 @@ downloadTemplate.head = (options?: RouteQueryOptions): RouteDefinition<'head'> =
     downloadTemplate.form = downloadTemplateForm
 /**
 * @see \App\Http\Controllers\StudentImportController::importMethod
- * @see app/Http/Controllers/StudentImportController.php:22
+ * @see app/Http/Controllers/StudentImportController.php:18
  * @route '/dashboard/students/import'
  */
 export const importMethod = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -94,7 +94,7 @@ importMethod.definition = {
 
 /**
 * @see \App\Http\Controllers\StudentImportController::importMethod
- * @see app/Http/Controllers/StudentImportController.php:22
+ * @see app/Http/Controllers/StudentImportController.php:18
  * @route '/dashboard/students/import'
  */
 importMethod.url = (options?: RouteQueryOptions) => {
@@ -103,7 +103,7 @@ importMethod.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\StudentImportController::importMethod
- * @see app/Http/Controllers/StudentImportController.php:22
+ * @see app/Http/Controllers/StudentImportController.php:18
  * @route '/dashboard/students/import'
  */
 importMethod.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -113,7 +113,7 @@ importMethod.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
     /**
 * @see \App\Http\Controllers\StudentImportController::importMethod
- * @see app/Http/Controllers/StudentImportController.php:22
+ * @see app/Http/Controllers/StudentImportController.php:18
  * @route '/dashboard/students/import'
  */
     const importMethodForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -123,7 +123,7 @@ importMethod.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
             /**
 * @see \App\Http\Controllers\StudentImportController::importMethod
- * @see app/Http/Controllers/StudentImportController.php:22
+ * @see app/Http/Controllers/StudentImportController.php:18
  * @route '/dashboard/students/import'
  */
         importMethodForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

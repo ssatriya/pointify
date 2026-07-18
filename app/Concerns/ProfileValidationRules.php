@@ -4,6 +4,7 @@ namespace App\Concerns;
 
 use App\Models\User;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Unique;
 
 trait ProfileValidationRules
 {
@@ -34,7 +35,7 @@ trait ProfileValidationRules
     /**
      * Get the validation rules used to validate user emails.
      *
-     * @return array<int, \Illuminate\Validation\Rules\Unique|string>
+     * @return array<int, Unique|string>
      */
     protected function emailRules(?string $userId = null): array
     {

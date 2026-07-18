@@ -5,7 +5,6 @@ namespace App\Facades;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-
 class DataTable
 {
     protected Builder $query;
@@ -33,7 +32,7 @@ class DataTable
     {
         $searchTerm = $searchTerm ?? $this->params['search'] ?? null;
 
-        if (!empty($searchTerm)) {
+        if (! empty($searchTerm)) {
             $this->query->search($searchTerm);
         }
 
@@ -45,9 +44,9 @@ class DataTable
      */
     public function filter(array $filters = []): self
     {
-        $filters = !empty($filters) ? $filters : $this->params;
+        $filters = ! empty($filters) ? $filters : $this->params;
 
-        if (!empty($filters) && method_exists($this->query->getModel(), 'scopeFilter')) {
+        if (! empty($filters) && method_exists($this->query->getModel(), 'scopeFilter')) {
             $this->query->filter($filters);
         }
 

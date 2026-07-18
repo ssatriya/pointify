@@ -2,36 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Student\ImportStudent;
 use App\Exports\StudentTemplateExport;
-use App\Services\StudentService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Validators\ValidationException;
 use Throwable;
 
 class StudentImportController extends Controller
 {
-    public function __construct(
-        protected StudentService $studentService
-    ) {
-    }
-
     /**
      * @throws Throwable
      */
-    public function import(Request $request)
+    public function import(Request $request, ImportStudent $action)
     {
         $request->validate([
             'file' => ['required', 'file', 'mimes:xlsx,xls,csv', 'max:2048'],
         ]);
 
         try {
-            $this->studentService->import($request->file('file'));
+            $action->handle($request->file('file'));
+
             return Inertia::flash(['message' => 'Data siswa berhasil diimpor.'])->back();
-        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+        } catch (ValidationException $e) {
             return back()->withErrors($e->failures());
         } catch (Throwable $e) {
-            return Inertia::flash(['error' => 'Gagal mengimpor data: ' . $e->getMessage()])->back();
+            return Inertia::flash(['error' => 'Gagal mengimpor data: '.$e->getMessage()])->back();
         }
     }
 

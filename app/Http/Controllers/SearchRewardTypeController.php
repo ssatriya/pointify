@@ -16,9 +16,6 @@ class SearchRewardTypeController extends Controller
      * Search an entry of reward type.
      *
      * @authenticated
-     *
-     * @param SearchQueryRequest $request
-     * @return JsonResponse
      */
     public function __invoke(SearchQueryRequest $request): JsonResponse
     {

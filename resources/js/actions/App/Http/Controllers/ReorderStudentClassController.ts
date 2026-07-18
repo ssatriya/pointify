@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\ReorderStudentClassController::__invoke
- * @see app/Http/Controllers/ReorderStudentClassController.php:23
+ * @see app/Http/Controllers/ReorderStudentClassController.php:16
  * @route '/dashboard/classes/reorder'
  */
 const ReorderStudentClassController = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -16,7 +16,7 @@ ReorderStudentClassController.definition = {
 
 /**
 * @see \App\Http\Controllers\ReorderStudentClassController::__invoke
- * @see app/Http/Controllers/ReorderStudentClassController.php:23
+ * @see app/Http/Controllers/ReorderStudentClassController.php:16
  * @route '/dashboard/classes/reorder'
  */
 ReorderStudentClassController.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ ReorderStudentClassController.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\ReorderStudentClassController::__invoke
- * @see app/Http/Controllers/ReorderStudentClassController.php:23
+ * @see app/Http/Controllers/ReorderStudentClassController.php:16
  * @route '/dashboard/classes/reorder'
  */
 ReorderStudentClassController.put = (options?: RouteQueryOptions): RouteDefinition<'put'> => ({
@@ -35,7 +35,7 @@ ReorderStudentClassController.put = (options?: RouteQueryOptions): RouteDefiniti
 
     /**
 * @see \App\Http\Controllers\ReorderStudentClassController::__invoke
- * @see app/Http/Controllers/ReorderStudentClassController.php:23
+ * @see app/Http/Controllers/ReorderStudentClassController.php:16
  * @route '/dashboard/classes/reorder'
  */
     const ReorderStudentClassControllerForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -50,7 +50,7 @@ ReorderStudentClassController.put = (options?: RouteQueryOptions): RouteDefiniti
 
             /**
 * @see \App\Http\Controllers\ReorderStudentClassController::__invoke
- * @see app/Http/Controllers/ReorderStudentClassController.php:23
+ * @see app/Http/Controllers/ReorderStudentClassController.php:16
  * @route '/dashboard/classes/reorder'
  */
         ReorderStudentClassControllerForm.put = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

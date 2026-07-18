@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\PointTransactionGroup;
+use App\Models\StudentEnrollment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +19,7 @@ class PointTransactionGroupFactory extends Factory
     public function definition(): array
     {
         return [
-            'student_enrollment_id' => \App\Models\StudentEnrollment::factory(),
+            'student_enrollment_id' => StudentEnrollment::factory(),
             'sequence' => 1,
             'is_closed' => false,
         ];

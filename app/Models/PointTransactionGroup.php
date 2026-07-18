@@ -10,10 +10,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PointTransactionGroup extends Model
 {
-    use HasUlids, HasFactory;
+    use HasFactory, HasUlids;
 
     public $incrementing = false;
+
     protected $keyType = 'string';
+
     protected $fillable = [
         'student_enrollment_id',
         'sequence',

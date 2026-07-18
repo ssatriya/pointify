@@ -17,7 +17,7 @@ class VocationalProgramResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'abbreviation' => $this->abbreviation ?? "",
+            'abbreviation' => $this->abbreviation ?? '',
             'created_at' => $this->created_at->format('d/m/Y'),
         ];
     }

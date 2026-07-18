@@ -9,10 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class RewardType extends Model
 {
-    use HasUlids, Sortable, Searchable;
+    use HasUlids, Searchable, Sortable;
 
     public $incrementing = false;
+
     protected $keyType = 'string';
+
     protected $fillable = [
         'code',
         'description',

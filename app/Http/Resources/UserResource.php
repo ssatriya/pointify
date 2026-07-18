@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Enums\Role;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -25,15 +26,15 @@ class UserResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'role' => $role?->name,
-            'role_label' => \App\Enums\Role::tryFrom($role?->name)?->label() ?? $role?->name,
+            'role_label' => Role::tryFrom($role?->name)?->label() ?? $role?->name,
             'permissions' => $this->getAllPermissions()->pluck('name'),
             'direct_permissions' => $this->when(
                 $request->routeIs('dashboard.users.edit'),
-                fn() => $this->getDirectPermissions()->pluck('name')
+                fn () => $this->getDirectPermissions()->pluck('name')
             ),
             'avatar' => $this->avatar_path
-                ? asset('storage/' . $this->avatar_path)
-                : "https://ui-avatars.com/api/?name=" . urlencode($this->name) . "&color=7F9CF5&background=EBF4FF",
+                ? asset('storage/'.$this->avatar_path)
+                : 'https://ui-avatars.com/api/?name='.urlencode($this->name).'&color=7F9CF5&background=EBF4FF',
             'email_verified_at' => $this->email_verified_at,
             'created_at' => $this->created_at?->format('d M Y'),
         ];

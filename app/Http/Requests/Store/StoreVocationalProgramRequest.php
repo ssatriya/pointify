@@ -25,7 +25,7 @@ class StoreVocationalProgramRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'unique:vocational_programs,name'],
-            'abbreviation' => ['sometimes', 'nullable', 'string']
+            'abbreviation' => ['sometimes', 'nullable', 'string'],
         ];
     }
 

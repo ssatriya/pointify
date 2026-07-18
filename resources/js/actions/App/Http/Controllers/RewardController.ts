@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\RewardController::__invoke
- * @see app/Http/Controllers/RewardController.php:22
+ * @see app/Http/Controllers/RewardController.php:16
  * @route '/dashboard/rewards'
  */
 const RewardController = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -16,7 +16,7 @@ RewardController.definition = {
 
 /**
 * @see \App\Http\Controllers\RewardController::__invoke
- * @see app/Http/Controllers/RewardController.php:22
+ * @see app/Http/Controllers/RewardController.php:16
  * @route '/dashboard/rewards'
  */
 RewardController.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ RewardController.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\RewardController::__invoke
- * @see app/Http/Controllers/RewardController.php:22
+ * @see app/Http/Controllers/RewardController.php:16
  * @route '/dashboard/rewards'
  */
 RewardController.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -35,7 +35,7 @@ RewardController.post = (options?: RouteQueryOptions): RouteDefinition<'post'> =
 
     /**
 * @see \App\Http\Controllers\RewardController::__invoke
- * @see app/Http/Controllers/RewardController.php:22
+ * @see app/Http/Controllers/RewardController.php:16
  * @route '/dashboard/rewards'
  */
     const RewardControllerForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -45,7 +45,7 @@ RewardController.post = (options?: RouteQueryOptions): RouteDefinition<'post'> =
 
             /**
 * @see \App\Http\Controllers\RewardController::__invoke
- * @see app/Http/Controllers/RewardController.php:22
+ * @see app/Http/Controllers/RewardController.php:16
  * @route '/dashboard/rewards'
  */
         RewardControllerForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({

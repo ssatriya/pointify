@@ -4,17 +4,16 @@ namespace App\Imports;
 
 use App\Models\Student;
 use App\Models\VocationalProgram;
-use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\WithValidation;
-use Illuminate\Validation\Rule;
 
-class StudentImport implements ToCollection, WithHeadingRow, SkipsEmptyRows, WithValidation
-{   
+class StudentImport implements SkipsEmptyRows, ToCollection, WithHeadingRow, WithValidation
+{
     protected Collection $vocationalPrograms;
 
     public function __construct()
@@ -29,26 +28,24 @@ class StudentImport implements ToCollection, WithHeadingRow, SkipsEmptyRows, Wit
     {
         $normalized = [];
         foreach ($row as $key => $value) {
-            $cleanKey = preg_replace('/[^a-z0-9]/', '', strtolower((string)$key));
+            $cleanKey = preg_replace('/[^a-z0-9]/', '', strtolower((string) $key));
             $normalized[$cleanKey] = $value;
         }
+
         return $normalized;
     }
 
-    /**
-     * @param Collection $rows
-     */
     public function collection(Collection $rows)
     {
         $userId = Auth::id();
-        
+
         foreach ($rows as $row) {
             $data = $this->normalizeRow($row);
-            
+
             $namaLengkap = trim($data['namalengkap'] ?? '');
-            $nisNisn = trim((string)($data['nisnisn'] ?? '')) ?: null;
+            $nisNisn = trim((string) ($data['nisnisn'] ?? '')) ?: null;
             $kejuruanName = trim($data['kejuruan'] ?? '');
-            
+
             if (empty($namaLengkap) || empty($kejuruanName)) {
                 continue;
             }
@@ -58,7 +55,7 @@ class StudentImport implements ToCollection, WithHeadingRow, SkipsEmptyRows, Wit
                 return strtolower(trim((string) $name)) === strtolower(trim((string) $kejuruanName));
             })->first();
 
-            if (!$programId) {
+            if (! $programId) {
                 continue;
             }
 
@@ -75,7 +72,7 @@ class StudentImport implements ToCollection, WithHeadingRow, SkipsEmptyRows, Wit
     public function prepareForValidation($data, $index)
     {
         $normalized = $this->normalizeRow($data);
-        
+
         // Re-map normalized data back to standard keys for validation rules
         return [
             'nama-lengkap' => $normalized['namalengkap'] ?? null,
@@ -89,23 +86,23 @@ class StudentImport implements ToCollection, WithHeadingRow, SkipsEmptyRows, Wit
         return [
             'nama-lengkap' => ['required', 'string', 'max:100'],
             'nis-nisn' => [
-                'nullable', 
-                'string', 
-                'max:20', 
-                Rule::unique('students', 'student_number')
+                'nullable',
+                'string',
+                'max:20',
+                Rule::unique('students', 'student_number'),
             ],
             'kejuruan' => [
-                'required', 
+                'required',
                 'string',
                 function ($attribute, $value, $fail) {
                     $exists = $this->vocationalPrograms->keys()->contains(function ($name) use ($value) {
                         return strtolower((string) $name) === strtolower((string) $value);
                     });
-                    
-                    if (!$exists) {
+
+                    if (! $exists) {
                         $fail("Kejuruan '{$value}' tidak terdaftar di sistem.");
                     }
-                }
+                },
             ],
         ];
     }

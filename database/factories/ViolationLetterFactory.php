@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\PointThreshold;
+use App\Models\PointTransactionGroup;
+use App\Models\StudentEnrollment;
 use App\Models\ViolationLetter;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -18,9 +21,9 @@ class ViolationLetterFactory extends Factory
     public function definition(): array
     {
         return [
-            'student_enrollment_id' => \App\Models\StudentEnrollment::factory(),
-            'point_transaction_group_id' => \App\Models\PointTransactionGroup::factory(),
-            'point_threshold_id' => \App\Models\PointThreshold::factory(),
+            'student_enrollment_id' => StudentEnrollment::factory(),
+            'point_transaction_group_id' => PointTransactionGroup::factory(),
+            'point_threshold_id' => PointThreshold::factory(),
             'cumulative_points_when_sent' => 30,
             'current_remaining_points' => 70,
         ];

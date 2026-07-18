@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition, applyUrlDefaults } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\RewardTypeController::index
- * @see app/Http/Controllers/RewardTypeController.php:22
+ * @see app/Http/Controllers/RewardTypeController.php:20
  * @route '/dashboard/reward-types'
  */
 export const index = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ index.definition = {
 
 /**
 * @see \App\Http\Controllers\RewardTypeController::index
- * @see app/Http/Controllers/RewardTypeController.php:22
+ * @see app/Http/Controllers/RewardTypeController.php:20
  * @route '/dashboard/reward-types'
  */
 index.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ index.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\RewardTypeController::index
- * @see app/Http/Controllers/RewardTypeController.php:22
+ * @see app/Http/Controllers/RewardTypeController.php:20
  * @route '/dashboard/reward-types'
  */
 index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,7 +34,7 @@ index.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
 })
 /**
 * @see \App\Http\Controllers\RewardTypeController::index
- * @see app/Http/Controllers/RewardTypeController.php:22
+ * @see app/Http/Controllers/RewardTypeController.php:20
  * @route '/dashboard/reward-types'
  */
 index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,7 +44,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
     /**
 * @see \App\Http\Controllers\RewardTypeController::index
- * @see app/Http/Controllers/RewardTypeController.php:22
+ * @see app/Http/Controllers/RewardTypeController.php:20
  * @route '/dashboard/reward-types'
  */
     const indexForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -54,7 +54,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
 
             /**
 * @see \App\Http\Controllers\RewardTypeController::index
- * @see app/Http/Controllers/RewardTypeController.php:22
+ * @see app/Http/Controllers/RewardTypeController.php:20
  * @route '/dashboard/reward-types'
  */
         indexForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -63,7 +63,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
         })
             /**
 * @see \App\Http\Controllers\RewardTypeController::index
- * @see app/Http/Controllers/RewardTypeController.php:22
+ * @see app/Http/Controllers/RewardTypeController.php:20
  * @route '/dashboard/reward-types'
  */
         indexForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -79,7 +79,7 @@ index.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     index.form = indexForm
 /**
 * @see \App\Http\Controllers\RewardTypeController::store
- * @see app/Http/Controllers/RewardTypeController.php:34
+ * @see app/Http/Controllers/RewardTypeController.php:32
  * @route '/dashboard/reward-types'
  */
 export const store = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -94,7 +94,7 @@ store.definition = {
 
 /**
 * @see \App\Http\Controllers\RewardTypeController::store
- * @see app/Http/Controllers/RewardTypeController.php:34
+ * @see app/Http/Controllers/RewardTypeController.php:32
  * @route '/dashboard/reward-types'
  */
 store.url = (options?: RouteQueryOptions) => {
@@ -103,7 +103,7 @@ store.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\RewardTypeController::store
- * @see app/Http/Controllers/RewardTypeController.php:34
+ * @see app/Http/Controllers/RewardTypeController.php:32
  * @route '/dashboard/reward-types'
  */
 store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
@@ -113,7 +113,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
     /**
 * @see \App\Http\Controllers\RewardTypeController::store
- * @see app/Http/Controllers/RewardTypeController.php:34
+ * @see app/Http/Controllers/RewardTypeController.php:32
  * @route '/dashboard/reward-types'
  */
     const storeForm = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -123,7 +123,7 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
 
             /**
 * @see \App\Http\Controllers\RewardTypeController::store
- * @see app/Http/Controllers/RewardTypeController.php:34
+ * @see app/Http/Controllers/RewardTypeController.php:32
  * @route '/dashboard/reward-types'
  */
         storeForm.post = (options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
@@ -134,10 +134,10 @@ store.post = (options?: RouteQueryOptions): RouteDefinition<'post'> => ({
     store.form = storeForm
 /**
 * @see \App\Http\Controllers\RewardTypeController::show
- * @see app/Http/Controllers/RewardTypeController.php:51
+ * @see app/Http/Controllers/RewardTypeController.php:49
  * @route '/dashboard/reward-types/{rewardType}'
  */
-export const show = (args: { rewardType: string | { id: string } } | [rewardType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+export const show = (args: { rewardType: string | number | { id: string | number } } | [rewardType: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
@@ -149,10 +149,10 @@ show.definition = {
 
 /**
 * @see \App\Http\Controllers\RewardTypeController::show
- * @see app/Http/Controllers/RewardTypeController.php:51
+ * @see app/Http/Controllers/RewardTypeController.php:49
  * @route '/dashboard/reward-types/{rewardType}'
  */
-show.url = (args: { rewardType: string | { id: string } } | [rewardType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
+show.url = (args: { rewardType: string | number | { id: string | number } } | [rewardType: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { rewardType: args }
     }
@@ -182,48 +182,48 @@ show.url = (args: { rewardType: string | { id: string } } | [rewardType: string 
 
 /**
 * @see \App\Http\Controllers\RewardTypeController::show
- * @see app/Http/Controllers/RewardTypeController.php:51
+ * @see app/Http/Controllers/RewardTypeController.php:49
  * @route '/dashboard/reward-types/{rewardType}'
  */
-show.get = (args: { rewardType: string | { id: string } } | [rewardType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
+show.get = (args: { rewardType: string | number | { id: string | number } } | [rewardType: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'get'> => ({
     url: show.url(args, options),
     method: 'get',
 })
 /**
 * @see \App\Http\Controllers\RewardTypeController::show
- * @see app/Http/Controllers/RewardTypeController.php:51
+ * @see app/Http/Controllers/RewardTypeController.php:49
  * @route '/dashboard/reward-types/{rewardType}'
  */
-show.head = (args: { rewardType: string | { id: string } } | [rewardType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
+show.head = (args: { rewardType: string | number | { id: string | number } } | [rewardType: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'head'> => ({
     url: show.url(args, options),
     method: 'head',
 })
 
     /**
 * @see \App\Http\Controllers\RewardTypeController::show
- * @see app/Http/Controllers/RewardTypeController.php:51
+ * @see app/Http/Controllers/RewardTypeController.php:49
  * @route '/dashboard/reward-types/{rewardType}'
  */
-    const showForm = (args: { rewardType: string | { id: string } } | [rewardType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+    const showForm = (args: { rewardType: string | number | { id: string | number } } | [rewardType: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
         action: show.url(args, options),
         method: 'get',
     })
 
             /**
 * @see \App\Http\Controllers\RewardTypeController::show
- * @see app/Http/Controllers/RewardTypeController.php:51
+ * @see app/Http/Controllers/RewardTypeController.php:49
  * @route '/dashboard/reward-types/{rewardType}'
  */
-        showForm.get = (args: { rewardType: string | { id: string } } | [rewardType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.get = (args: { rewardType: string | number | { id: string | number } } | [rewardType: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, options),
             method: 'get',
         })
             /**
 * @see \App\Http\Controllers\RewardTypeController::show
- * @see app/Http/Controllers/RewardTypeController.php:51
+ * @see app/Http/Controllers/RewardTypeController.php:49
  * @route '/dashboard/reward-types/{rewardType}'
  */
-        showForm.head = (args: { rewardType: string | { id: string } } | [rewardType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
+        showForm.head = (args: { rewardType: string | number | { id: string | number } } | [rewardType: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
             action: show.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'HEAD',
@@ -236,10 +236,10 @@ show.head = (args: { rewardType: string | { id: string } } | [rewardType: string
     show.form = showForm
 /**
 * @see \App\Http\Controllers\RewardTypeController::update
- * @see app/Http/Controllers/RewardTypeController.php:61
+ * @see app/Http/Controllers/RewardTypeController.php:59
  * @route '/dashboard/reward-types/{rewardType}'
  */
-export const update = (args: { rewardType: string | { id: string } } | [rewardType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+export const update = (args: { rewardType: string | number | { id: string | number } } | [rewardType: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
@@ -251,10 +251,10 @@ update.definition = {
 
 /**
 * @see \App\Http\Controllers\RewardTypeController::update
- * @see app/Http/Controllers/RewardTypeController.php:61
+ * @see app/Http/Controllers/RewardTypeController.php:59
  * @route '/dashboard/reward-types/{rewardType}'
  */
-update.url = (args: { rewardType: string | { id: string } } | [rewardType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
+update.url = (args: { rewardType: string | number | { id: string | number } } | [rewardType: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { rewardType: args }
     }
@@ -284,20 +284,20 @@ update.url = (args: { rewardType: string | { id: string } } | [rewardType: strin
 
 /**
 * @see \App\Http\Controllers\RewardTypeController::update
- * @see app/Http/Controllers/RewardTypeController.php:61
+ * @see app/Http/Controllers/RewardTypeController.php:59
  * @route '/dashboard/reward-types/{rewardType}'
  */
-update.put = (args: { rewardType: string | { id: string } } | [rewardType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
+update.put = (args: { rewardType: string | number | { id: string | number } } | [rewardType: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'put'> => ({
     url: update.url(args, options),
     method: 'put',
 })
 
     /**
 * @see \App\Http\Controllers\RewardTypeController::update
- * @see app/Http/Controllers/RewardTypeController.php:61
+ * @see app/Http/Controllers/RewardTypeController.php:59
  * @route '/dashboard/reward-types/{rewardType}'
  */
-    const updateForm = (args: { rewardType: string | { id: string } } | [rewardType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const updateForm = (args: { rewardType: string | number | { id: string | number } } | [rewardType: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: update.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'PUT',
@@ -309,10 +309,10 @@ update.put = (args: { rewardType: string | { id: string } } | [rewardType: strin
 
             /**
 * @see \App\Http\Controllers\RewardTypeController::update
- * @see app/Http/Controllers/RewardTypeController.php:61
+ * @see app/Http/Controllers/RewardTypeController.php:59
  * @route '/dashboard/reward-types/{rewardType}'
  */
-        updateForm.put = (args: { rewardType: string | { id: string } } | [rewardType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        updateForm.put = (args: { rewardType: string | number | { id: string | number } } | [rewardType: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: update.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'PUT',
@@ -325,10 +325,10 @@ update.put = (args: { rewardType: string | { id: string } } | [rewardType: strin
     update.form = updateForm
 /**
 * @see \App\Http\Controllers\RewardTypeController::destroy
- * @see app/Http/Controllers/RewardTypeController.php:71
+ * @see app/Http/Controllers/RewardTypeController.php:69
  * @route '/dashboard/reward-types/{rewardType}'
  */
-export const destroy = (args: { rewardType: string | { id: string } } | [rewardType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+export const destroy = (args: { rewardType: string | number | { id: string | number } } | [rewardType: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
@@ -340,10 +340,10 @@ destroy.definition = {
 
 /**
 * @see \App\Http\Controllers\RewardTypeController::destroy
- * @see app/Http/Controllers/RewardTypeController.php:71
+ * @see app/Http/Controllers/RewardTypeController.php:69
  * @route '/dashboard/reward-types/{rewardType}'
  */
-destroy.url = (args: { rewardType: string | { id: string } } | [rewardType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions) => {
+destroy.url = (args: { rewardType: string | number | { id: string | number } } | [rewardType: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions) => {
     if (typeof args === 'string' || typeof args === 'number') {
         args = { rewardType: args }
     }
@@ -373,20 +373,20 @@ destroy.url = (args: { rewardType: string | { id: string } } | [rewardType: stri
 
 /**
 * @see \App\Http\Controllers\RewardTypeController::destroy
- * @see app/Http/Controllers/RewardTypeController.php:71
+ * @see app/Http/Controllers/RewardTypeController.php:69
  * @route '/dashboard/reward-types/{rewardType}'
  */
-destroy.delete = (args: { rewardType: string | { id: string } } | [rewardType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
+destroy.delete = (args: { rewardType: string | number | { id: string | number } } | [rewardType: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteDefinition<'delete'> => ({
     url: destroy.url(args, options),
     method: 'delete',
 })
 
     /**
 * @see \App\Http\Controllers\RewardTypeController::destroy
- * @see app/Http/Controllers/RewardTypeController.php:71
+ * @see app/Http/Controllers/RewardTypeController.php:69
  * @route '/dashboard/reward-types/{rewardType}'
  */
-    const destroyForm = (args: { rewardType: string | { id: string } } | [rewardType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+    const destroyForm = (args: { rewardType: string | number | { id: string | number } } | [rewardType: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
         action: destroy.url(args, {
                     [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                         _method: 'DELETE',
@@ -398,10 +398,10 @@ destroy.delete = (args: { rewardType: string | { id: string } } | [rewardType: s
 
             /**
 * @see \App\Http\Controllers\RewardTypeController::destroy
- * @see app/Http/Controllers/RewardTypeController.php:71
+ * @see app/Http/Controllers/RewardTypeController.php:69
  * @route '/dashboard/reward-types/{rewardType}'
  */
-        destroyForm.delete = (args: { rewardType: string | { id: string } } | [rewardType: string | { id: string } ] | string | { id: string }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
+        destroyForm.delete = (args: { rewardType: string | number | { id: string | number } } | [rewardType: string | number | { id: string | number } ] | string | number | { id: string | number }, options?: RouteQueryOptions): RouteFormDefinition<'post'> => ({
             action: destroy.url(args, {
                         [options?.mergeQuery ? 'mergeQuery' : 'query']: {
                             _method: 'DELETE',

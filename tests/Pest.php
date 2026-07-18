@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Sleep;
 use Tests\TestCase;
 
 /*
@@ -14,8 +16,16 @@ use Tests\TestCase;
 */
 
 pest()->extend(TestCase::class)
- // ->use(Illuminate\Foundation\Testing\RefreshDatabase::class)
-    ->in('Feature');
+    ->use(RefreshDatabase::class)
+    ->beforeEach(function (): void {
+        Str::createRandomStringsNormally();
+        // Http::preventStrayRequests();
+        Process::preventStrayProcesses();
+        Sleep::fake();
+
+        $this->freezeTime();
+    })
+    ->in('Browser', 'Feature', 'Unit');
 
 /*
 |--------------------------------------------------------------------------

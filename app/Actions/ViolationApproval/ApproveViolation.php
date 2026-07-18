@@ -1,23 +1,25 @@
 <?php
 
-namespace App\Services;
+declare(strict_types=1);
 
+namespace App\Actions\ViolationApproval;
+
+use App\Actions\PointThreshold\CheckProgressiveThreshold;
 use App\Enums\ApprovalStatus;
 use App\Enums\TransactionType;
 use App\Models\PointTransaction;
 use App\Models\PointTransactionGroup;
 use App\Models\StudentEnrollment;
 use App\Models\Violation;
-use DB;
+use Illuminate\Support\Facades\DB;
 
-class ViolationApprovalService
+final class ApproveViolation
 {
     public function __construct(
-        private PointThresholdService $pointThresholdService
-    ) {
-    }
+        private CheckProgressiveThreshold $checkProgressiveThreshold,
+    ) {}
 
-    public function update(array $data, Violation $violation, string $processorId): void
+    public function handle(array $data, Violation $violation, string $processorId): void
     {
         $approvalStatus = $data['status'];
 
@@ -46,14 +48,14 @@ class ViolationApprovalService
                         'is_closed' => false,
                     ],
                     [
-                        'sequence' => $lastSequence + 1
+                        'sequence' => $lastSequence + 1,
                     ]
                 );
                 $violation->update([
                     'point_transaction_group_id' => $transactionGroup->id,
                     'approval_status' => ApprovalStatus::APPROVED->value,
                     'approved_by' => $processorId,
-                    'approved_at' => now()
+                    'approved_at' => now(),
                 ]);
                 $violation->pointTransaction()->create([
                     'student_enrollment_id' => $studentEnrollment->id,
@@ -62,10 +64,10 @@ class ViolationApprovalService
                     'points_change' => -$actualDeducted,
                     'intended_points' => -$violationPoints,
                     'points_before' => $currentPoints,
-                    'points_after' => $newPoints
+                    'points_after' => $newPoints,
                 ]);
-                // Call injected service
-                $this->pointThresholdService->checkProgressiveThresholds(
+
+                $this->checkProgressiveThreshold->handle(
                     $studentEnrollment->id,
                     $transactionGroup->id
                 );
@@ -73,7 +75,7 @@ class ViolationApprovalService
                 if ($willTriggerReset) {
                     $this->processPointReset($studentEnrollment, $newPoints, $processorId);
                 }
-            } else if ($approvalStatus === ApprovalStatus::REJECTED->value) {
+            } elseif ($approvalStatus === ApprovalStatus::REJECTED->value) {
                 $violation->update([
                     'approval_status' => ApprovalStatus::REJECTED->value,
                     'approved_by' => $processorId,

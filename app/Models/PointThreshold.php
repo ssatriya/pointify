@@ -11,10 +11,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PointThreshold extends Model
 {
-    use HasUlids, Sortable, Searchable, HasFactory;
+    use HasFactory, HasUlids, Searchable, Sortable;
 
     public $incrementing = false;
+
     protected $keyType = 'string';
+
     protected $fillable = [
         'academic_year_id',
         'cumulative_points_threshold',

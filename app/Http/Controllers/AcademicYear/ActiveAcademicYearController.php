@@ -20,7 +20,7 @@ class ActiveAcademicYearController extends Controller
     {
         $data = AcademicYear::where('is_active', true)->first();
 
-        abort_if(!$data, 404, 'Tahun akademik aktif tidak ditemukan');
+        abort_if(! $data, 404, 'Tahun akademik aktif tidak ditemukan');
 
         return response()->json(
             [

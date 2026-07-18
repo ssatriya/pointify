@@ -3,32 +3,32 @@
 use App\Http\Controllers\AcademicYear\AcademicYearController;
 use App\Http\Controllers\ActiveAcademicYearController;
 use App\Http\Controllers\PointThresholdController;
+use App\Http\Controllers\ReorderStudentClassController;
 use App\Http\Controllers\RevokeRewardController;
 use App\Http\Controllers\RevokeViolationController;
 use App\Http\Controllers\RewardController;
 use App\Http\Controllers\RewardTypeController;
 use App\Http\Controllers\SearchAcademicYearController;
-use App\Http\Controllers\SearchUnenrolledStudentController;
 use App\Http\Controllers\SearchRewardTypeController;
+use App\Http\Controllers\SearchStudentEnrollmentController;
+use App\Http\Controllers\SearchUnenrolledStudentController;
 use App\Http\Controllers\SearchViolationTypeController;
 use App\Http\Controllers\SearchVocationalProgramController;
-use App\Http\Controllers\ReorderStudentClassController;
-use App\Http\Controllers\SearchStudentEnrollmentController;
 use App\Http\Controllers\StudentClassController;
 use App\Http\Controllers\StudentController;
-use App\Http\Controllers\StudentImportController;
 use App\Http\Controllers\StudentEnrollmentController;
+use App\Http\Controllers\StudentImportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ViolationApprovalController;
 use App\Http\Controllers\ViolationController;
-use App\Http\Controllers\ViolationTypeController;
 use App\Http\Controllers\ViolationLetterController;
+use App\Http\Controllers\ViolationTypeController;
 use App\Http\Controllers\VocationalProgramController;
 use Illuminate\Support\Facades\Route;
 
 Route::inertia('/', 'welcome')->name('home');
 
-require __DIR__ . '/settings.php';
+require __DIR__.'/settings.php';
 
 Route::middleware(['auth', 'verified'])
     ->prefix('dashboard')
@@ -87,7 +87,7 @@ Route::middleware(['auth', 'verified'])
         //         Route::prefix('letter')->group(function () {
         //     Route::get('/{student_enrollment}/{sequence}', [ViolationLetterController::class, 'generate']);
         // });
-    
+
         Route::prefix('students')->name('students.')->group(function () {
             Route::get('/select-unenrolled/{vocational_program}', SearchUnenrolledStudentController::class)->name('selectUnenrolled');
             Route::get('/download-template', [StudentImportController::class, 'downloadTemplate'])->name('download-template');
@@ -149,6 +149,4 @@ Route::middleware(['auth', 'verified'])
             Route::post('/', RewardController::class)->name('store');
         });
 
-
     });
-

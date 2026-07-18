@@ -3,7 +3,10 @@
 namespace Database\Factories;
 
 use App\Models\StudentClass;
+use App\Models\User;
+use App\Models\VocationalProgram;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 /**
  * @extends Factory<StudentClass>
@@ -18,15 +21,16 @@ class StudentClassFactory extends Factory
     public function definition(): array
     {
         $name = $this->faker->unique()->word;
+
         return [
             'name' => $name,
             'grade_level' => $this->faker->randomElement([10, 11, 12]),
             'section' => strtoupper($this->faker->lexify('?')),
-            'slug' => \Illuminate\Support\Str::slug($name),
+            'slug' => Str::slug($name),
             'order' => $this->faker->numberBetween(1, 100),
-            'vocational_program_id' => \App\Models\VocationalProgram::factory(),
-            'created_by' => \App\Models\User::factory(),
-            'updated_by' => \App\Models\User::factory(),
+            'vocational_program_id' => VocationalProgram::factory(),
+            'created_by' => User::factory(),
+            'updated_by' => User::factory(),
         ];
     }
 }

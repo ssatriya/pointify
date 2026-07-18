@@ -1,7 +1,7 @@
 import { queryParams, type RouteQueryOptions, type RouteDefinition, type RouteFormDefinition } from './../../../../wayfinder'
 /**
 * @see \App\Http\Controllers\ActiveAcademicYearController::__invoke
- * @see app/Http/Controllers/ActiveAcademicYearController.php:19
+ * @see app/Http/Controllers/ActiveAcademicYearController.php:18
  * @route '/dashboard/academic-years/active'
  */
 const ActiveAcademicYearController = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -16,7 +16,7 @@ ActiveAcademicYearController.definition = {
 
 /**
 * @see \App\Http\Controllers\ActiveAcademicYearController::__invoke
- * @see app/Http/Controllers/ActiveAcademicYearController.php:19
+ * @see app/Http/Controllers/ActiveAcademicYearController.php:18
  * @route '/dashboard/academic-years/active'
  */
 ActiveAcademicYearController.url = (options?: RouteQueryOptions) => {
@@ -25,7 +25,7 @@ ActiveAcademicYearController.url = (options?: RouteQueryOptions) => {
 
 /**
 * @see \App\Http\Controllers\ActiveAcademicYearController::__invoke
- * @see app/Http/Controllers/ActiveAcademicYearController.php:19
+ * @see app/Http/Controllers/ActiveAcademicYearController.php:18
  * @route '/dashboard/academic-years/active'
  */
 ActiveAcademicYearController.get = (options?: RouteQueryOptions): RouteDefinition<'get'> => ({
@@ -34,7 +34,7 @@ ActiveAcademicYearController.get = (options?: RouteQueryOptions): RouteDefinitio
 })
 /**
 * @see \App\Http\Controllers\ActiveAcademicYearController::__invoke
- * @see app/Http/Controllers/ActiveAcademicYearController.php:19
+ * @see app/Http/Controllers/ActiveAcademicYearController.php:18
  * @route '/dashboard/academic-years/active'
  */
 ActiveAcademicYearController.head = (options?: RouteQueryOptions): RouteDefinition<'head'> => ({
@@ -44,7 +44,7 @@ ActiveAcademicYearController.head = (options?: RouteQueryOptions): RouteDefiniti
 
     /**
 * @see \App\Http\Controllers\ActiveAcademicYearController::__invoke
- * @see app/Http/Controllers/ActiveAcademicYearController.php:19
+ * @see app/Http/Controllers/ActiveAcademicYearController.php:18
  * @route '/dashboard/academic-years/active'
  */
     const ActiveAcademicYearControllerForm = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -54,7 +54,7 @@ ActiveAcademicYearController.head = (options?: RouteQueryOptions): RouteDefiniti
 
             /**
 * @see \App\Http\Controllers\ActiveAcademicYearController::__invoke
- * @see app/Http/Controllers/ActiveAcademicYearController.php:19
+ * @see app/Http/Controllers/ActiveAcademicYearController.php:18
  * @route '/dashboard/academic-years/active'
  */
         ActiveAcademicYearControllerForm.get = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({
@@ -63,7 +63,7 @@ ActiveAcademicYearController.head = (options?: RouteQueryOptions): RouteDefiniti
         })
             /**
 * @see \App\Http\Controllers\ActiveAcademicYearController::__invoke
- * @see app/Http/Controllers/ActiveAcademicYearController.php:19
+ * @see app/Http/Controllers/ActiveAcademicYearController.php:18
  * @route '/dashboard/academic-years/active'
  */
         ActiveAcademicYearControllerForm.head = (options?: RouteQueryOptions): RouteFormDefinition<'get'> => ({

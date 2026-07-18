@@ -1,19 +1,16 @@
 <?php
 
 use App\Actions\Fortify\CreateNewUser;
-use App\Models\User;
 use App\Enums\Role;
-use Database\Seeders\RoleAndPermissionSeeder;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\User;
+use Database\Seeders\DatabaseSeeder;
 
-uses(RefreshDatabase::class);
-
-beforeEach(function () {
-    $this->seed(RoleAndPermissionSeeder::class);
+beforeEach(function (): void {
+    $this->seed(DatabaseSeeder::class);
 });
 
 test('first registered user is assigned super-admin role', function () {
-    $creator = new CreateNewUser();
+    $creator = new CreateNewUser;
 
     $user = $creator->create([
         'name' => 'First User',
@@ -27,7 +24,7 @@ test('first registered user is assigned super-admin role', function () {
 });
 
 test('subsequent registered users are assigned duty-teacher role', function () {
-    $creator = new CreateNewUser();
+    $creator = new CreateNewUser;
 
     // Create first user
     $creator->create([

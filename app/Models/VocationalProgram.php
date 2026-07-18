@@ -10,20 +10,24 @@ use Illuminate\Database\Eloquent\Model;
 
 class VocationalProgram extends Model
 {
-    use HasUlids, Sortable, Searchable, HasFactory;
+    use HasFactory, HasUlids, Searchable, Sortable;
 
     public $incrementing = false;
+
     protected $keyType = 'string';
+
     protected $fillable = [
         'name',
         'abbreviation',
         'created_by',
         'updated_by',
     ];
+
     protected array $searchable = [
         'name',
-        'abbreviation'
+        'abbreviation',
     ];
+
     protected array $sortable = [
         'created_at',
     ];

@@ -37,7 +37,7 @@ class StoreViolationRequest extends FormRequest
             'notes' => [
                 'required',
                 'string',
-            ]
+            ],
         ];
     }
 
@@ -65,7 +65,7 @@ class StoreViolationRequest extends FormRequest
         return [
             'student_enrollment_id' => 'Pendaftaran siswa',
             'violation_type_id' => 'Jenis pelanggaran',
-            'notes' => 'Catatan'
+            'notes' => 'Catatan',
         ];
     }
 }

@@ -55,7 +55,9 @@ export default function Login({
                                     autoComplete="email"
                                     placeholder="m@example.com"
                                 />
-                                <FieldError>{errors.email}</FieldError>
+                                <FieldError data-test="input-error">
+                                    {errors.email}
+                                </FieldError>
                             </Field>
                             <Field>
                                 <div className="flex items-center">
@@ -76,10 +78,17 @@ export default function Login({
                                     name="password"
                                     autoComplete="new-password"
                                 />
-                                <FieldError>{errors.password}</FieldError>
+                                <FieldError data-test="input-error">
+                                    {errors.password}
+                                </FieldError>
                             </Field>
                             <Field>
-                                <Button onClick={() => clearErrors()} type="submit" disabled={processing}>
+                                <Button
+                                    onClick={() => clearErrors()}
+                                    type="submit"
+                                    disabled={processing}
+                                    data-test="login-button"
+                                >
                                     {processing ? (
                                         <Loader className="h-4 w-4 animate-spin" />
                                     ) : (

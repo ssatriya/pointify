@@ -4,7 +4,6 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Storage;
 
 class ViolationResource extends JsonResource
 {
@@ -26,10 +25,10 @@ class ViolationResource extends JsonResource
                 'name' => $this->violationType->name,
                 'points' => $this->violationType->points,
             ],
-            'notes' => $this->notes ?? "",
+            'notes' => $this->notes ?? '',
             'approval_status' => $this->approval_status,
             'created_by' => $this->createdBy->name,
-            'created_at' => $this->created_at->format('d/m/Y H:i:s')
+            'created_at' => $this->created_at->format('d/m/Y H:i:s'),
         ];
     }
 }

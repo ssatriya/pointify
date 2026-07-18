@@ -2,38 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\RewardType\CreateRewardType;
+use App\Actions\RewardType\DeleteRewardType;
+use App\Actions\RewardType\UpdateRewardType;
 use App\Http\Requests\GetListRequestParams;
 use App\Http\Requests\Store\StoreRewardTypeRequest;
 use App\Http\Requests\Update\UpdateRewardTypeRequest;
 use App\Http\Resources\RewardTypeResource;
-use App\Services\RewardTypeService;
 use App\Models\RewardType;
-use Illuminate\Http\JsonResponse;
+use App\Queries\RewardTypeList;
 use Inertia\Inertia;
+use InertiaUI\Modal\Modal;
 use Throwable;
 
 class RewardTypeController extends Controller
 {
-    public function __construct(
-        protected RewardTypeService $rewardTypeService
-    ) {
-    }
-
-    public function index(GetListRequestParams $request)
+    public function index(GetListRequestParams $request, RewardTypeList $query)
     {
-        $paginatedList = $this->rewardTypeService->index($request->validated());
+        $paginatedList = $query->handle($request->validated());
 
         return Inertia::render('dashboard/reward-types/reward-types', [
-            'rewardTypes' => RewardTypeResource::collection($paginatedList)
+            'rewardTypes' => RewardTypeResource::collection($paginatedList),
         ]);
     }
 
     /**
      * @throws Throwable
      */
-    public function store(StoreRewardTypeRequest $request)
+    public function store(StoreRewardTypeRequest $request, CreateRewardType $action)
     {
-        $this->rewardTypeService->create($request->validated());
+        $action->handle($request->validated());
 
         return Inertia::flash(['message' => 'Data jenis pelanggaran berhasil disimpan.'])->back();
     }
@@ -45,8 +43,8 @@ class RewardTypeController extends Controller
      *
      * @authenticated
      *
-     * @param RewardType $rewardType The resolved vocational program instance.
-     * @return \InertiaUI\Modal\Modal
+     * @param  RewardType  $rewardType  The resolved vocational program instance.
+     * @return Modal
      */
     public function show(RewardType $rewardType)
     {
@@ -58,9 +56,9 @@ class RewardTypeController extends Controller
     /**
      * @throws Throwable
      */
-    public function update(UpdateRewardTypeRequest $request, RewardType $rewardType)
+    public function update(UpdateRewardTypeRequest $request, RewardType $rewardType, UpdateRewardType $action)
     {
-        $this->rewardTypeService->update($request->validated(), $rewardType);
+        $action->handle($request->validated(), $rewardType);
 
         return Inertia::flash(['message' => 'Data jenis pelanggaran berhasil diperbarui.'])->back();
     }
@@ -68,9 +66,9 @@ class RewardTypeController extends Controller
     /**
      * @throws Throwable
      */
-    public function destroy(RewardType $rewardType)
+    public function destroy(RewardType $rewardType, DeleteRewardType $action)
     {
-        $this->rewardTypeService->delete($rewardType);
+        $action->handle($rewardType);
 
         return Inertia::flash(['message' => 'Tipe prestasi berhasil dihapus.'])->back();
     }

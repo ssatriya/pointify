@@ -14,7 +14,7 @@ trait Filterable
         $filterableFields = $this->filterable;
 
         foreach ($filters as $field => $values) {
-            if (!isset($filterableFields[$field]) || empty($values)) {
+            if (! isset($filterableFields[$field]) || empty($values)) {
                 continue;
             }
 
@@ -44,7 +44,7 @@ trait Filterable
         $relation = $config['relation'] ?? null;
         $column = $config['column'] ?? 'id';
 
-        if (!$relation) {
+        if (! $relation) {
             return $query;
         }
 

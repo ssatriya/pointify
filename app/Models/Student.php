@@ -5,18 +5,20 @@ namespace App\Models;
 use App\Traits\Filterable;
 use App\Traits\Searchable;
 use App\Traits\Sortable;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasUlids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Student extends Model
 {
-    use HasFactory, HasUlids, Sortable, Searchable, Filterable;
+    use Filterable, HasFactory, HasUlids, Searchable, Sortable;
 
     public $incrementing = false;
+
     protected $keyType = 'string';
+
     protected $fillable = [
         'student_number',
         'name',
@@ -32,7 +34,7 @@ class Student extends Model
 
     protected array $searchable = [
         'name',
-        'student_number'
+        'student_number',
     ];
 
     protected array $sortable = [
@@ -43,17 +45,14 @@ class Student extends Model
     protected array $filterable = [
         'filter' => [
             'column' => 'students.vocational_program_id',
-            'type' => 'in'
-        ]
+            'type' => 'in',
+        ],
     ];
-
 
     /**
      * Get the vocationalProgram that owns the Student
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function vocationalProgram(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function vocationalProgram(): BelongsTo
     {
         return $this->belongsTo(VocationalProgram::class);
     }
