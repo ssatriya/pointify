@@ -33,6 +33,9 @@ jobs:
               git clone https://github.com/ssatriya/pointify.git /var/www/pointify
               cd /var/www/pointify
               echo "${{ secrets.VPS_ENV_FILE }}" > .env
+
+              composer install --no-dev --optimize-autoloader --no-interaction
+              
               php artisan key:generate
               php artisan storage:link
             fi
