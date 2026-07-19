@@ -8,8 +8,10 @@ use App\Enums\ApprovalStatus;
 use App\Enums\TransactionType;
 use App\Models\PointTransaction;
 use App\Models\PointTransactionGroup;
+use App\Models\Reward;
 use App\Models\StudentEnrollment;
 use App\Models\Violation;
+use App\Models\ViolationLetter;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Throwable;
@@ -32,6 +34,8 @@ final class RevokeViolation
 
             $actualPointsDeducted = abs($originalTransaction->points_change);
             $currentPoints = $studentEnrollment->currentPoints;
+            $willReverseReset = $this->violationTriggeredReset($violation);
+            $resetReversalPoints = $willReverseReset ? -$studentEnrollment->initial_points : 0;
 
             PointTransaction::create([
                 'student_enrollment_id' => $studentEnrollment->id,
@@ -42,12 +46,12 @@ final class RevokeViolation
                 'points_change' => $actualPointsDeducted,
                 'intended_points' => $currentPoints + $actualPointsDeducted,
                 'points_before' => $currentPoints,
-                'points_after' => $currentPoints + $actualPointsDeducted,
+                'points_after' => $currentPoints + $actualPointsDeducted + $resetReversalPoints,
             ]);
 
             $currentPoints += $actualPointsDeducted;
 
-            if ($this->violationTriggeredReset($violation)) {
+            if ($willReverseReset) {
                 $initialPoints = $studentEnrollment->initial_points;
                 PointTransaction::create([
                     'student_enrollment_id' => $studentEnrollment->id,
@@ -80,14 +84,39 @@ final class RevokeViolation
             ->exists();
     }
 
+    /**
+     * Opens the violation's own transaction group so a replacement violation
+     * can be added to the same group and keep the group intact.
+     * Any newer open groups are merged into this group to avoid having
+     * multiple open groups for the same enrollment.
+     */
     private function reopenTransactionGroup(Violation $violation): void
     {
-        $transactionGroup = PointTransactionGroup::where('student_enrollment_id', $violation->student_enrollment_id)
-            ->where('is_closed', true)
-            ->orderBy('closed_at', 'desc')
-            ->first();
+        $transactionGroup = PointTransactionGroup::find($violation->point_transaction_group_id);
 
-        $transactionGroup?->update([
+        if (! $transactionGroup) {
+            return;
+        }
+
+        $newerOpenGroups = PointTransactionGroup::where('student_enrollment_id', $violation->student_enrollment_id)
+            ->where('is_closed', false)
+            ->where('sequence', '>', $transactionGroup->sequence)
+            ->get();
+
+        foreach ($newerOpenGroups as $newerGroup) {
+            Violation::where('point_transaction_group_id', $newerGroup->id)
+                ->update(['point_transaction_group_id' => $transactionGroup->id]);
+
+            Reward::where('point_transaction_group_id', $newerGroup->id)
+                ->update(['point_transaction_group_id' => $transactionGroup->id]);
+
+            ViolationLetter::where('point_transaction_group_id', $newerGroup->id)
+                ->update(['point_transaction_group_id' => $transactionGroup->id]);
+
+            $newerGroup->delete();
+        }
+
+        $transactionGroup->update([
             'is_closed' => false,
         ]);
     }

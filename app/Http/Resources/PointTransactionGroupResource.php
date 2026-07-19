@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\PointTransaction;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -14,18 +15,29 @@ class PointTransactionGroupResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $violations = $this->violations
-            ->map(fn ($violation) => $violation->pointTransaction)
-            ->filter();
+        $violationIds = $this->violations->pluck('id');
+        $rewardIds = $this->rewards->pluck('id');
 
-        $rewards = $this->rewards
-            ->map(fn ($reward) => $reward->pointTransaction)
-            ->filter();
+        $transactions = PointTransaction::with([
+            'violation.violationType',
+            'violation.createdBy',
+            'reward.rewardType',
+            'reward.createdBy',
+        ])
+            ->where(function ($q) use ($violationIds, $rewardIds) {
+                $hasViolations = $violationIds->isNotEmpty();
+                $hasRewards = $rewardIds->isNotEmpty();
 
-        $transactions = $violations
-            ->merge($rewards)
-            ->sortByDesc('created_at')
-            ->values();
+                if ($hasViolations) {
+                    $q->whereIn('violation_id', $violationIds);
+                }
+
+                if ($hasRewards) {
+                    $q->{$hasViolations ? 'orWhereIn' : 'whereIn'}('reward_id', $rewardIds);
+                }
+            })
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return [
             'id' => $this->id,

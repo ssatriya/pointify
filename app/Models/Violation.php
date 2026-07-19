@@ -92,6 +92,6 @@ class Violation extends Model
      */
     public function pointTransaction(): HasOne
     {
-        return $this->hasOne(PointTransaction::class)->latest();
+        return $this->hasOne(PointTransaction::class)->ofMany('created_at');
     }
 }

@@ -127,39 +127,70 @@ class StudentEnrollment extends Model
     /**
      * Get the student current points for this enrollment.
      * Using + operator since points_change can be negative (deductions).
+     * Falls back to a DB sum query when the collection isn't loaded.
      */
     public function getCurrentPointsAttribute(): int
     {
-        return $this->initial_points + $this->pointTransactions->sum('points_change');
+        if ($this->relationLoaded('pointTransactions')) {
+            return $this->initial_points + $this->pointTransactions->sum('points_change');
+        }
+
+        return $this->initial_points + (int) $this->pointTransactions()->sum('points_change');
     }
 
     /**
      * Get the student total violations points for this enrollment.
      * Do not return the count, but rather the sum of violation points.
+     * Falls back to a DB sum query when the collection isn't loaded.
      */
     public function getTotalViolationsPointsAttribute(): int
     {
-        return $this->pointTransactions
-            ->filter(fn ($t) => $t->transaction_type === TransactionType::VIOLATION->value
-                || ($t->transaction_type === TransactionType::REVOKED->value && $t->violation_id !== null))
+        if ($this->relationLoaded('pointTransactions')) {
+            return $this->pointTransactions
+                ->filter(fn ($t) => $t->transaction_type === TransactionType::VIOLATION->value
+                    || ($t->transaction_type === TransactionType::REVOKED->value && $t->violation_id !== null))
+                ->sum('points_change');
+        }
+
+        return (int) $this->pointTransactions()
+            ->whereIn('transaction_type', [TransactionType::VIOLATION->value])
+            ->orWhere(fn ($q) => $q
+                ->where('transaction_type', TransactionType::REVOKED->value)
+                ->whereNotNull('violation_id'),
+            )
             ->sum('points_change');
     }
 
     /**
      * Get the student total rewards points for this enrollment.
      * Do not return the count, but rather the sum of reward points.
+     * Falls back to a DB sum query when the collection isn't loaded.
      */
     public function getTotalRewardsPointsAttribute(): int
     {
-        return $this->pointTransactions
-            ->filter(fn ($t) => $t->transaction_type === TransactionType::REWARD->value
-                || ($t->transaction_type === TransactionType::REVOKED->value && $t->reward_id !== null))
+        if ($this->relationLoaded('pointTransactions')) {
+            return $this->pointTransactions
+                ->filter(fn ($t) => $t->transaction_type === TransactionType::REWARD->value
+                    || ($t->transaction_type === TransactionType::REVOKED->value && $t->reward_id !== null))
+                ->sum('points_change');
+        }
+
+        return (int) $this->pointTransactions()
+            ->whereIn('transaction_type', [TransactionType::REWARD->value])
+            ->orWhere(fn ($q) => $q
+                ->where('transaction_type', TransactionType::REVOKED->value)
+                ->whereNotNull('reward_id'),
+            )
             ->sum('points_change');
     }
 
     public function getResetCountAttribute(): int
     {
-        return $this->pointTransactions->where('transaction_type', 'reset')->count();
+        if ($this->relationLoaded('pointTransactions')) {
+            return $this->pointTransactions->where('transaction_type', 'reset')->count();
+        }
+
+        return (int) $this->pointTransactions()->where('transaction_type', 'reset')->count();
     }
 
     public function getRecentViolationsAttribute(): Collection

@@ -234,3 +234,40 @@ test('revoking a reward subtracts the rewarded points', function () {
     expect($this->studentEnrollment->currentPoints)->toBe(100);
     expect($reward->fresh()->approval_status)->toBe(ApprovalStatus::REVOKED->value);
 });
+
+test('revoking a violation reopens its own group and merges newer open groups', function () {
+    // Group A: violation with 100 points → triggers reset → Group A closed
+    $violationA = Violation::factory()->create([
+        'student_enrollment_id' => $this->studentEnrollment->id,
+        'violation_type_id' => ViolationType::factory()->create(['points' => 100, 'created_by' => $this->user->id])->id,
+        'approval_status' => ApprovalStatus::PENDING->value,
+        'created_by' => $this->user->id,
+    ]);
+    app(ApproveViolation::class)->handle(['status' => ApprovalStatus::APPROVED->value], $violationA, $this->user->id);
+    $violationA->refresh();
+    $groupA = PointTransactionGroup::find($violationA->point_transaction_group_id);
+
+    // Group B: small violation → no reset → Group B stays open
+    $violationB = Violation::factory()->create([
+        'student_enrollment_id' => $this->studentEnrollment->id,
+        'violation_type_id' => ViolationType::factory()->create(['points' => 5, 'created_by' => $this->user->id])->id,
+        'approval_status' => ApprovalStatus::PENDING->value,
+        'created_by' => $this->user->id,
+    ]);
+    app(ApproveViolation::class)->handle(['status' => ApprovalStatus::APPROVED->value], $violationB, $this->user->id);
+    $violationB->refresh();
+    $groupB = PointTransactionGroup::find($violationB->point_transaction_group_id);
+
+    expect($groupA->is_closed)->toBe(1);
+    expect($groupB->is_closed)->toBe(0);
+    expect($groupB->sequence)->toBeGreaterThan($groupA->sequence);
+
+    // Revoke violation A → Group A reopened, Group B merged into A and deleted
+    $violationA->refresh();
+    app(RevokeViolation::class)->handle($violationA, ['revoke_reason' => 'Error']);
+
+    $groupA->refresh();
+    expect($groupA->is_closed)->toBe(0);
+    expect($violationB->refresh()->point_transaction_group_id)->toBe($groupA->id);
+    expect(PointTransactionGroup::find($groupB->id))->toBeNull();
+});
