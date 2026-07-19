@@ -150,7 +150,10 @@ export default function CreateViolations() {
                             className="w-full md:w-auto"
                         >
                             {processing ? (
-                                <Loader2 className="h-4 w-4 animate-spin" />
+                                <>
+                                    Simpan
+                                    <Loader2 className="h-4 w-4 animate-spin" />
+                                </>
                             ) : (
                                 "Simpan"
                             )}
