@@ -1,6 +1,6 @@
-import { usePage } from '@inertiajs/react';
-import { useEffect } from 'react';
-import { toast } from 'sonner';
+import { usePage } from "@inertiajs/react";
+import { useEffect } from "react";
+import { toast } from "sonner";
 
 export default function ToastListener() {
     const { flash, errors } = usePage().props as any;

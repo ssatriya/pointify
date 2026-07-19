@@ -14,7 +14,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "@inertiajs/react";
 import { toast } from "sonner";
-import { RotateCcw } from "lucide-react";
+import { Loader2, RotateCcw } from "lucide-react";
 import RevokeViolationController from "@/actions/App/Http/Controllers/RevokeViolationController";
 import RevokeRewardController from "@/actions/App/Http/Controllers/RevokeRewardController";
 import { PointTransaction } from "@/types/data-props";
@@ -55,7 +55,10 @@ export function RevokeTransactionAction({
         };
 
         if (isViolation) {
-            put(RevokeViolationController.url(item.violation_id!), options as any);
+            put(
+                RevokeViolationController.url(item.violation_id!),
+                options as any,
+            );
         } else {
             post(RevokeRewardController.url(item.reward_id!), options as any);
         }
@@ -119,9 +122,14 @@ export function RevokeTransactionAction({
                             variant="destructive"
                             disabled={processing || !data.revoke_reason}
                         >
-                            {processing
-                                ? "Memproses..."
-                                : "Konfirmasi Pembatalan"}
+                            {processing ? (
+                                <>
+                                    Konfirmasi Pembatalan{" "}
+                                    <Loader2 className="h-4 w-4 animate-spin" />
+                                </>
+                            ) : (
+                                "Konfirmasi Pembatalan"
+                            )}
                         </AlertDialogAction>
                     </AlertDialogFooter>
                 </form>

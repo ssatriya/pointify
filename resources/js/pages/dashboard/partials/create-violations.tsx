@@ -27,7 +27,7 @@ import SearchStudentEnrollmentController from "@/actions/App/Http/Controllers/Se
 import SearchViolationTypeController from "@/actions/App/Http/Controllers/SearchViolationTypeController";
 import ViolationController from "@/actions/App/Http/Controllers/ViolationController";
 import { toast } from "sonner";
-import { Loader } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 export default function CreateViolations() {
     const { get } = useHttp<{}, OptionType[]>();
@@ -72,7 +72,6 @@ export default function CreateViolations() {
                 reset();
             },
             onError: (error) => {
-                console.log(error);
                 if (error.point_threshold) {
                     toast.warning(error.point_threshold);
                 }
@@ -151,7 +150,7 @@ export default function CreateViolations() {
                             className="w-full md:w-auto"
                         >
                             {processing ? (
-                                <Loader className="h-4 w-4 animate-spin" />
+                                <Loader2 className="h-4 w-4 animate-spin" />
                             ) : (
                                 "Simpan"
                             )}

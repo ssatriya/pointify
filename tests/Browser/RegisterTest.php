@@ -59,6 +59,6 @@ it('redirected into verification email page', function (): void {
         ->fill('password', 'password')
         ->fill('password_confirmation', 'password')
         ->click('@register-user-button');
-        
+
     $page->assertPathIs('/email/verify')->assertSee('Kirim ulang email verifikasi');
 });

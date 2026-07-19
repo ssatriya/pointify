@@ -199,7 +199,7 @@ export default function StudentDetail({ studentEnrollment }: Props) {
                 </div>
                 <div className="space-y-6">
                     <div className="flex items-center gap-3">
-                        <h2 className="text-lg font-bold tracking-tight uppercase text-muted-foreground/80">
+                        <h2 className="text-lg font-semibold tracking-tight uppercase text-muted-foreground/80">
                             Riwayat Transaksi Poin
                         </h2>
                         <div className="h-px flex-1 bg-muted/60" />
@@ -220,11 +220,11 @@ export default function StudentDetail({ studentEnrollment }: Props) {
                                                 <div className="flex items-center gap-3">
                                                     <Badge
                                                         variant="outline"
-                                                        className="font-bold rounded-md bg-background border-muted-foreground/20 px-2 h-7 text-xs text-muted-foreground shadow-sm"
+                                                        className="rounded-md bg-background border-muted-foreground/20 px-2 h-7 text-xs text-muted-foreground"
                                                     >
                                                         Siklus #{group.sequence}
                                                     </Badge>
-                                                    <span className="font-bold text-lg tracking-tight">
+                                                    <span className="font-semibold">
                                                         Riwayat Penanganan
                                                     </span>
                                                 </div>

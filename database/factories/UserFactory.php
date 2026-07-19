@@ -46,7 +46,8 @@ class UserFactory extends Factory
         ]);
     }
 
-    public function withoutTwoFactor():self {
+    public function withoutTwoFactor(): self
+    {
         return $this->state(fn (array $attributes): array => [
             'two_factor_secret' => null,
             'two_factor_recovery_codes' => null,

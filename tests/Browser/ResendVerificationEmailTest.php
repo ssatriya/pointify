@@ -8,7 +8,7 @@ beforeEach(function (): void {
     $this->seed(DatabaseSeeder::class);
 });
 
-it('send new verification email', function(): void {
+it('send new verification email', function (): void {
     $page = visit('/register');
 
     $page->fill('name', 'Test User')

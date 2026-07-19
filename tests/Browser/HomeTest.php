@@ -11,6 +11,6 @@ it('has the landing page', function (): void {
 
 it('may welcome the user', function () {
     $page = visit('/');
- 
+
     $page->assertSee('Simplifying student reward and violation systems');
 });

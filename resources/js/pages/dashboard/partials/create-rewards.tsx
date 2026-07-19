@@ -19,7 +19,7 @@ import type { OptionType } from "@/types";
 import SearchStudentEnrollmentController from "@/actions/App/Http/Controllers/SearchStudentEnrollmentController";
 import SearchRewardTypeController from "@/actions/App/Http/Controllers/SearchRewardTypeController";
 import RewardController from "@/actions/App/Http/Controllers/RewardController";
-import { Loader } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 export default function CreateRewards() {
     const { data, setData, post, processing, errors, reset, transform } =
@@ -137,7 +137,7 @@ export default function CreateRewards() {
                             className="w-full md:w-auto"
                         >
                             {processing ? (
-                                <Loader className="h-4 w-4 animate-spin" />
+                                <Loader2 className="h-4 w-4 animate-spin" />
                             ) : (
                                 "Simpan"
                             )}
