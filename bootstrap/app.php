@@ -9,6 +9,8 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Inertia\Inertia;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 
@@ -37,8 +39,17 @@ return Application::configure(basePath: dirname(__DIR__))
                 return $response;
             }
 
-            // return Inertia::render('error', ['status' => $response->getStatusCode()])
-            //     ->toResponse($request)
-            //     ->setStatusCode($response->getStatusCode());
+            try {
+                return Inertia::render('error', ['status' => $response->getStatusCode()])
+                    ->toResponse($request)
+                    ->setStatusCode($response->getStatusCode());
+            } catch (Throwable $e) {
+                Log::warning('Failed to render Inertia error page, falling back to default response', [
+                    'status' => $response->getStatusCode(),
+                    'error' => $e->getMessage(),
+                ]);
+
+                return $response;
+            }
         });
     })->create();
