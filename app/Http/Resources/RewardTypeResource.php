@@ -20,7 +20,7 @@ class RewardTypeResource extends JsonResource
             'description' => $this->description,
             'points' => $this->points,
             'is_active' => $this->is_active,
-            'created_at' => $this->created_at->format('d/m/Y'),
+            'created_at' => $this->created_at->setTimezone('Asia/Makassar')->format('d/m/Y'),
         ];
     }
 }

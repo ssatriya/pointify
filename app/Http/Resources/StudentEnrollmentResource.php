@@ -30,7 +30,7 @@ class StudentEnrollmentResource extends JsonResource
             'total_violations_points' => $this->total_violations_points,
             'total_rewards_points' => $this->total_rewards_points,
             'reset_count' => $this->reset_count,
-            'created_at' => $this->created_at,
+            'created_at' => $this->created_at->setTimezone('Asia/Makassar'),
         ];
     }
 }

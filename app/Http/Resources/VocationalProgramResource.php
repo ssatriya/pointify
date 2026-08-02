@@ -18,7 +18,7 @@ class VocationalProgramResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'abbreviation' => $this->abbreviation ?? '',
-            'created_at' => $this->created_at->format('d/m/Y'),
+            'created_at' => $this->created_at->setTimezone('Asia/Makassar')->format('d/m/Y'),
         ];
     }
 }

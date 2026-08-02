@@ -22,7 +22,7 @@ class AcademicYearResource extends JsonResource
             'end_date' => $this->end_date->format('d/m/Y'),
             'end_date_raw' => $this->end_date->format('Y-m-d'),
             'is_active' => $this->is_active,
-            'created_at' => $this->created_at->format('d/m/Y'),
+            'created_at' => $this->created_at->setTimezone('Asia/Makassar')->format('d/m/Y'),
         ];
     }
 }

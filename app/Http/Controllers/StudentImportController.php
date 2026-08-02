@@ -22,9 +22,19 @@ class StudentImportController extends Controller
         ]);
 
         try {
-            $action->handle($request->file('file'));
+            $result = $action->handle($request->file('file'));
 
-            return Inertia::flash(['message' => 'Data siswa berhasil diimpor.'])->back();
+            if ($result['skipped'] > 0) {
+                $message = implode(' ', array_slice($result['skipped_reasons'], 0, 3));
+
+                if (count($result['skipped_reasons']) > 3) {
+                    $message .= ' Dan '.(count($result['skipped_reasons']) - 3).' lainnya.';
+                }
+
+                return Inertia::flash(['error' => $message])->back();
+            }
+
+            return Inertia::flash(['message' => "Berhasil mengimpor {$result['imported']} siswa."])->back();
         } catch (ValidationException $e) {
             return back()->withErrors($e->failures());
         } catch (Throwable $e) {

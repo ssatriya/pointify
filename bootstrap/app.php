@@ -30,7 +30,11 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        $exceptions->respond(function (Response $response, Throwable $e, Request $request) {
+        $exceptions->respond(function (?Response $response, Throwable $e, Request $request) {
+            if ($response === null) {
+                return;
+            }
+
             if ($e instanceof TransportExceptionInterface) {
                 return back()->with('error', 'Kami tidak dapat mengirimkan email saat ini. Silakan coba lagi dalam beberapa saat atau hubungi bantuan jika masalah berlanjut.');
             }

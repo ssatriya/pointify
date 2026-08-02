@@ -6,7 +6,6 @@ use App\Models\Student;
 use App\Models\VocationalProgram;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
@@ -16,14 +15,20 @@ class StudentImport implements SkipsEmptyRows, ToCollection, WithHeadingRow, Wit
 {
     protected Collection $vocationalPrograms;
 
+    protected array $seenStudentNumbers = [];
+
+    public int $importedCount = 0;
+
+    public int $skippedCount = 0;
+
+    /** @var list<string> */
+    public array $skippedReasons = [];
+
     public function __construct()
     {
         $this->vocationalPrograms = VocationalProgram::pluck('id', 'name');
     }
 
-    /**
-     * Normalize keys to be alphanumeric only for robust matching
-     */
     protected function normalizeRow(Collection|array $row): array
     {
         $normalized = [];
@@ -43,29 +48,54 @@ class StudentImport implements SkipsEmptyRows, ToCollection, WithHeadingRow, Wit
             $data = $this->normalizeRow($row);
 
             $namaLengkap = trim($data['namalengkap'] ?? '');
-            $nisNisn = trim((string) ($data['nisnisn'] ?? '')) ?: null;
+            $nisn = trim((string) ($data['nisnisn'] ?? '')) ?: null;
             $kejuruanName = trim($data['kejuruan'] ?? '');
 
-            if (empty($namaLengkap) || empty($kejuruanName)) {
+            if ($namaLengkap === '' || $kejuruanName === '') {
                 continue;
             }
 
-            // Case-insensitive mapping for vocational programs by name
-            $programId = $this->vocationalPrograms->filter(function ($id, $name) use ($kejuruanName) {
-                return strtolower(trim((string) $name)) === strtolower(trim((string) $kejuruanName));
-            })->first();
+            $programId = $this->vocationalPrograms->first(function ($id, $name) use ($kejuruanName) {
+                return strtolower(trim((string) $name)) === strtolower(trim($kejuruanName));
+            });
 
-            if (! $programId) {
+            if ($programId === null) {
+                $this->skippedCount++;
+                $this->skippedReasons[] = "Kejuruan '{$kejuruanName}' tidak ditemukan untuk {$namaLengkap}.";
+
                 continue;
+            }
+
+            if ($nisn !== null) {
+                if (in_array($nisn, $this->seenStudentNumbers, true)) {
+                    $this->skippedCount++;
+                    $this->skippedReasons[] = "NIS/NISN {$nisn} duplikat dalam file (untuk {$namaLengkap}).";
+
+                    continue;
+                }
+                $this->seenStudentNumbers[] = $nisn;
+            }
+
+            if ($nisn !== null) {
+                $student = Student::where('student_number', $nisn)->first();
+
+                if ($student !== null) {
+                    $this->skippedCount++;
+                    $this->skippedReasons[] = "NIS/NISN {$nisn} sudah terdaftar atas nama {$student->name}.";
+
+                    continue;
+                }
             }
 
             Student::create([
                 'name' => $namaLengkap,
-                'student_number' => $nisNisn,
+                'student_number' => $nisn,
                 'vocational_program_id' => $programId,
                 'created_by' => $userId,
                 'is_active' => true,
             ]);
+
+            $this->importedCount++;
         }
     }
 
@@ -73,7 +103,6 @@ class StudentImport implements SkipsEmptyRows, ToCollection, WithHeadingRow, Wit
     {
         $normalized = $this->normalizeRow($data);
 
-        // Re-map normalized data back to standard keys for validation rules
         return [
             'nama-lengkap' => $normalized['namalengkap'] ?? null,
             'nis-nisn' => isset($normalized['nisnisn']) ? (string) $normalized['nisnisn'] : null,
@@ -89,7 +118,6 @@ class StudentImport implements SkipsEmptyRows, ToCollection, WithHeadingRow, Wit
                 'nullable',
                 'string',
                 'max:20',
-                Rule::unique('students', 'student_number'),
             ],
             'kejuruan' => [
                 'required',
@@ -112,7 +140,6 @@ class StudentImport implements SkipsEmptyRows, ToCollection, WithHeadingRow, Wit
         return [
             'nama-lengkap.required' => 'Nama lengkap wajib diisi.',
             'kejuruan.required' => 'Kejuruan wajib diisi.',
-            'nis-nisn.unique' => 'NIS/NISN :input sudah terdaftar.',
         ];
     }
 }

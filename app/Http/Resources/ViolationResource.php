@@ -28,7 +28,7 @@ class ViolationResource extends JsonResource
             'notes' => $this->notes ?? '',
             'approval_status' => $this->approval_status,
             'created_by' => $this->createdBy->name,
-            'created_at' => $this->created_at->format('d/m/Y H:i:s'),
+            'created_at' => $this->created_at->setTimezone('Asia/Makassar')->format('d/m/Y H:i:s'),
         ];
     }
 }

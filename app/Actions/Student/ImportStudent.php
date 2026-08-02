@@ -6,19 +6,26 @@ namespace App\Actions\Student;
 
 use App\Imports\StudentImport;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
 use Throwable;
 
 final class ImportStudent
 {
     /**
+     * @return array{imported: int, skipped: int, skipped_reasons: list<string>}
+     *
      * @throws Throwable
      */
-    public function handle(UploadedFile $file): void
+    public function handle(UploadedFile $file): array
     {
-        DB::transaction(function () use ($file) {
-            Excel::import(new StudentImport, $file);
-        });
+        $import = new StudentImport;
+
+        Excel::import($import, $file);
+
+        return [
+            'imported' => $import->importedCount,
+            'skipped' => $import->skippedCount,
+            'skipped_reasons' => $import->skippedReasons,
+        ];
     }
 }

@@ -32,7 +32,7 @@ class PointTransactionResource extends JsonResource
             'points_change' => $this->points_change,
             'intended_points' => $this->intended_points,
             'points_after' => $this->points_after ?? null,
-            'created_at' => $violation->created_at ?? $reward?->created_at,
+            'created_at' => ($violation->created_at ?? $reward?->created_at)?->setTimezone('Asia/Makassar'),
         ];
     }
 }
