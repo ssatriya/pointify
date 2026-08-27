@@ -22,8 +22,9 @@ it('has correct headings', function () {
         'No',
         'Nama Siswa',
         'Poin Awal',
-        'Total Dikurangkan',
+        'Poin Pelanggaran',
         'Jumlah Reset',
+        'Poin Prestasi',
         'Poin Saat Ini',
     ]);
 });
@@ -57,9 +58,10 @@ it('exports student with violations and no resets', function () {
     $mapped = $export->map($collection->first());
     expect($mapped[0])->toBe(1); // No
     expect($mapped[2])->toBe(100); // Poin Awal
-    expect($mapped[3])->toBe(-30); // Total Dikurangkan (negative)
+    expect($mapped[3])->toBe(-30); // Poin Pelanggaran (negative)
     expect($mapped[4])->toBe(0); // Jumlah Reset
-    expect($mapped[5])->toBe(70); // Poin Saat Ini
+    expect($mapped[5])->toBe(0); // Poin Prestasi
+    expect($mapped[6])->toBe(70); // Poin Saat Ini
 });
 
 it('exports student with a reset', function () {
@@ -104,9 +106,10 @@ it('exports student with a reset', function () {
 
     $mapped = $export->map($collection->first());
     expect($mapped[2])->toBe(100); // Poin Awal
-    expect($mapped[3])->toBe(-15); // Total Dikurangkan: 100 - 85 = 15, negative
+    expect($mapped[3])->toBe(-115); // Poin Pelanggaran (all violations total)
     expect($mapped[4])->toBe(1); // Jumlah Reset
-    expect($mapped[5])->toBe(85); // Poin Saat Ini: 100 - 100 + 100 - 15 = 85
+    expect($mapped[5])->toBe(0); // Poin Prestasi
+    expect($mapped[6])->toBe(85); // Poin Saat Ini
 });
 
 it('exports multiple students', function () {
@@ -223,7 +226,8 @@ it('handles student with no transactions', function () {
 
     $mapped = $export->map($collection->first());
     expect($mapped[2])->toBe(100); // Poin Awal
-    expect($mapped[3])->toBe(0); // Total Dikurangkan
+    expect($mapped[3])->toBe(0); // Poin Pelanggaran
     expect($mapped[4])->toBe(0); // Jumlah Reset
-    expect($mapped[5])->toBe(100); // Poin Saat Ini
+    expect($mapped[5])->toBe(0); // Poin Prestasi
+    expect($mapped[6])->toBe(100); // Poin Saat Ini
 });

@@ -8,11 +8,13 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithStartRow;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use Maatwebsite\Excel\Concerns\WithTitle;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class StudentEnrollmentReportExport implements FromCollection, WithColumnWidths, WithHeadings, WithMapping, WithStyles, WithTitle
+class StudentEnrollmentReportExport implements FromCollection, WithColumnWidths, WithHeadings, WithMapping, WithStartRow, WithStyles, WithTitle
 {
     private int $row = 0;
 
@@ -41,32 +43,51 @@ class StudentEnrollmentReportExport implements FromCollection, WithColumnWidths,
             'No',
             'Nama Siswa',
             'Poin Awal',
-            'Total Dikurangkan',
+            'Poin Pelanggaran',
             'Jumlah Reset',
+            'Poin Prestasi',
             'Poin Saat Ini',
         ];
+    }
+
+    public function startRow(): int
+    {
+        return 2;
     }
 
     public function map($enrollment): array
     {
         $resetCount = $enrollment->pointTransactions->where('transaction_type', 'reset')->count();
-        $totalDeducted = $enrollment->initial_points - $enrollment->current_points;
 
         return [
             ++$this->row,
             $enrollment->student->name,
             $enrollment->initial_points,
-            -$totalDeducted,
+            $enrollment->total_violations_points,
             $resetCount,
+            $enrollment->total_rewards_points,
             $enrollment->current_points,
         ];
     }
 
     public function styles(Worksheet $sheet): array
     {
-        return [
+        $styles = [
             1 => ['font' => ['bold' => true]],
         ];
+
+        for ($i = 2; $i <= $this->row + 1; $i++) {
+            if ($i % 2 === 0) {
+                $styles[$i] = [
+                    'fill' => [
+                        'fillType' => Fill::FILL_SOLID,
+                        'color' => ['rgb' => 'F2F2F2'],
+                    ],
+                ];
+            }
+        }
+
+        return $styles;
     }
 
     public function columnWidths(): array
@@ -77,7 +98,8 @@ class StudentEnrollmentReportExport implements FromCollection, WithColumnWidths,
             'C' => 12,
             'D' => 18,
             'E' => 14,
-            'F' => 14,
+            'F' => 16,
+            'G' => 14,
         ];
     }
 }
