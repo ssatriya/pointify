@@ -4,7 +4,6 @@ import type { Class } from "@/types";
 import { lazy, Suspense } from "react";
 import { Download, Loader } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { exportReports } from "@/routes/dashboard/student-enrollments/class";
 
 const ClassOverviewChart = lazy(
     () => import("../partials/class-overview-chart"),
@@ -48,7 +47,7 @@ Reports.layout = ({ studentClass }: Props) => [
         activeTab: "laporan",
         headerRight: (
             <Button variant="outline" render={
-                <a href={exportReports({ studentClass: studentClass.slug }).url} target="_blank" />
+                <a href={`/dashboard/student-enrollments/${studentClass.slug}/export-reports`} target="_blank" />
             }>
                 <Download className="mr-2 h-4 w-4" />
                 Unduh Laporan
