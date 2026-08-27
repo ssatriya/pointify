@@ -9,9 +9,10 @@ type Props = {
     children: ReactNode;
     studentClass: Class;
     activeTab: "daftar-siswa" | "laporan";
+    headerRight?: ReactNode;
 };
 
-export default function ClassLayout({ children, studentClass, activeTab }: Props) {
+export default function ClassLayout({ children, studentClass, activeTab, headerRight }: Props) {
     const breadcrumbs: BreadcrumbItem[] = [
         {
             title: "Dashboard",
@@ -32,19 +33,21 @@ export default function ClassLayout({ children, studentClass, activeTab }: Props
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Tabs
-                value={activeTab}
-                onValueChange={(v) => {
-                    if (v === "laporan") router.visit(reports({ studentClass: studentClass.slug }).url);
-                    if (v === "daftar-siswa") router.visit(index({ studentClass: studentClass.slug }).url);
-                }}
-                className="w-full"
-            >
-                <TabsList>
-                    <TabsTrigger value="daftar-siswa">Daftar Siswa</TabsTrigger>
-                    <TabsTrigger value="laporan">Laporan</TabsTrigger>
-                </TabsList>
-            </Tabs>
+            <div className="flex items-center justify-between">
+                <Tabs
+                    value={activeTab}
+                    onValueChange={(v) => {
+                        if (v === "laporan") router.visit(reports({ studentClass: studentClass.slug }).url);
+                        if (v === "daftar-siswa") router.visit(index({ studentClass: studentClass.slug }).url);
+                    }}
+                >
+                    <TabsList>
+                        <TabsTrigger value="daftar-siswa">Daftar Siswa</TabsTrigger>
+                        <TabsTrigger value="laporan">Laporan</TabsTrigger>
+                    </TabsList>
+                </Tabs>
+                {headerRight}
+            </div>
             <div>
                 {children}
             </div>

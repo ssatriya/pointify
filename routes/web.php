@@ -79,6 +79,7 @@ Route::middleware(['auth', 'verified'])
                 Route::post('/', 'store')->name('store');
 
                 Route::get('/reports', 'reports')->name('reports');
+                Route::get('/export-reports', 'export')->name('exportReports');
 
                 Route::get('/{studentEnrollment}', 'studentByEnrollment')->name('student-detail');
             });

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Actions\StudentEnrollment\CreateStudentEnrollment;
 use App\Actions\StudentEnrollment\DeleteStudentEnrollment;
 use App\Actions\StudentEnrollment\UpdateStudentEnrollment;
+use App\Exports\StudentEnrollmentReportExport;
 use App\Facades\DataTable;
 use App\Http\Requests\GetListRequestParams;
 use App\Http\Requests\Store\StoreStudentEnrollmentRequest;
@@ -16,6 +17,8 @@ use App\Models\StudentEnrollment;
 use App\Queries\ClassOverviewMetrics;
 use Inertia\Inertia;
 use Inertia\Response;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Throwable;
 
 class StudentEnrollmentController extends Controller
@@ -60,6 +63,14 @@ class StudentEnrollmentController extends Controller
             'studentClass' => $studentClass,
             'classOverview' => $classOverview,
         ]);
+    }
+
+    public function export(StudentClass $studentClass): BinaryFileResponse
+    {
+        return Excel::download(
+            new StudentEnrollmentReportExport($studentClass->id),
+            'laporan-poin-siswa-'.$studentClass->slug.'.xlsx'
+        );
     }
 
     /**

@@ -2,9 +2,13 @@ import { Head } from "@inertiajs/react";
 import ClassLayout from "@/components/layout/class-layout";
 import type { Class } from "@/types";
 import { lazy, Suspense } from "react";
-import { Loader } from "lucide-react";
+import { Download, Loader } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { exportReports } from "@/routes/dashboard/student-enrollments/class";
 
-const ClassOverviewChart = lazy(() => import('../partials/class-overview-chart'))
+const ClassOverviewChart = lazy(
+    () => import("../partials/class-overview-chart"),
+);
 
 type Props = {
     studentClass: Class;
@@ -29,7 +33,10 @@ export default function Reports({ studentClass, classOverview }: Props) {
                     </div>
                 }
             >
-                <ClassOverviewChart studentClass={studentClass} classOverview={classOverview} />
+                <ClassOverviewChart
+                    studentClass={studentClass}
+                    classOverview={classOverview}
+                />
             </Suspense>
         </>
     );
@@ -39,6 +46,14 @@ Reports.layout = ({ studentClass }: Props) => [
     ClassLayout,
     {
         activeTab: "laporan",
+        headerRight: (
+            <Button variant="outline" render={
+                <a href={exportReports({ studentClass: studentClass.slug }).url} target="_blank" />
+            }>
+                <Download className="mr-2 h-4 w-4" />
+                Unduh Laporan
+            </Button>
+        ),
         breadcrumbs: [
             {
                 title: "Dashboard",
