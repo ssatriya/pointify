@@ -62,13 +62,13 @@ jobs:
 
             composer install --no-dev --optimize-autoloader --no-interaction
 
-            # Fix permissions for web server (before any artisan commands)
-            sudo chown -R www-data:www-data storage bootstrap/cache
-            sudo chmod -R 775 storage bootstrap/cache
-
-            # Build frontend assets
+            # Build frontend assets (as ubuntu user)
             pnpm install --frozen-lockfile
             NODE_OPTIONS=--max-old-space-size=512 pnpm run build
+
+            # Fix permissions for web server (after build, before artisan commands)
+            sudo chown -R www-data:www-data storage bootstrap/cache
+            sudo chmod -R 775 storage bootstrap/cache
 
             # Maintenance mode
             php artisan down --retry=5 --secret="${{ secrets.MAINTENANCE_SECRET }}"
