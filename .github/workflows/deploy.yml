@@ -58,6 +58,10 @@ jobs:
 
             composer install --no-dev --optimize-autoloader --no-interaction
 
+            # Fix permissions FIRST (before any artisan commands)
+            sudo chown -R www-data:www-data storage bootstrap/cache
+            sudo chmod -R 775 storage bootstrap/cache
+
             # Build frontend assets
             pnpm install --frozen-lockfile
             NODE_OPTIONS=--max-old-space-size=512 pnpm run build
@@ -80,10 +84,6 @@ jobs:
 
             # Reset OPcache
             sudo systemctl reload php8.3-fpm
-
-            # Fix permissions
-            sudo chown -R www-data:www-data storage bootstrap/cache
-            sudo chmod -R 775 storage bootstrap/cache
 
             # Exit maintenance mode
             php artisan up
