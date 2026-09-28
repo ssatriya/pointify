@@ -60,7 +60,7 @@ jobs:
             # Generate APP_KEY if empty
             if ! grep -q "^APP_KEY=base64:" .env; then
               echo ">>> Generating APP_KEY..."
-              sudo -u www-data php artisan key:generate --force
+              php artisan key:generate --force
             fi
 
             git fetch origin
