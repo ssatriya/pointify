@@ -4,6 +4,7 @@
 # Run as root or with sudo
 # ============================================
 
+export DEBIAN_FRONTEND=noninteractive
 set -e
 
 echo ">>> Installing system dependencies..."

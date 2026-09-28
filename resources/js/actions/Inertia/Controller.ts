@@ -234,6 +234,11 @@ Controller42a740574ecbfbac32f8cc353fc32db9.head = (options?: RouteQueryOptions):
     
     Controller42a740574ecbfbac32f8cc353fc32db9.form = Controller42a740574ecbfbac32f8cc353fc32db9Form
 
+/**
+* Multiple routes resolve to \Inertia\Controller::Controller, so this export is a
+* dictionary keyed by URI rather than a callable. Call a specific route with `Controller['<uri>'](...)`,
+* or import the route by name from your generated `routes/` directory.
+*/
 const Controller = {
     '/': Controller980bb49ee7ae63891f1d891d2fbcf1c9,
     '/dashboard/settings/appearance': Controller4e5587561dbcb930cf96e8d4852bdf18,
