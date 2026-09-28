@@ -22,7 +22,7 @@ apt update
 # Install PHP 8.3 and extensions
 apt install -y php8.3-fpm php8.3-cli php8.3-common php8.3-mbstring \
     php8.3-xml php8.3-curl php8.3-pgsql php8.3-zip php8.3-bcmath \
-    php8.3-intl php8.3-opcache php8.3-readline php8.3-redis
+    php8.3-intl php8.3-opcache php8.3-readline php8.3-redis php8.3-gd
 
 # Install PostgreSQL
 apt install -y postgresql postgresql-contrib
