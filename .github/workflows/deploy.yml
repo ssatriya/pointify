@@ -41,7 +41,6 @@ jobs:
               sudo chown -R $USER:$USER /var/www
               git clone https://github.com/ssatriya/pointify.git $DEPLOY_DIR
               cd $DEPLOY_DIR
-              echo "${{ secrets.VPS_ENV_FILE }}" > .env
 
               composer install --no-dev --optimize-autoloader --no-interaction
 
@@ -50,6 +49,9 @@ jobs:
             fi
 
             cd $DEPLOY_DIR
+
+            # Always update .env from secret
+            echo "${{ secrets.VPS_ENV_FILE }}" > .env
 
             git fetch origin
             git reset --hard origin/main
