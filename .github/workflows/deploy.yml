@@ -50,6 +50,10 @@ jobs:
 
             cd $DEPLOY_DIR
 
+            # Fix permissions before git operations
+            sudo chown -R $USER:$USER storage bootstrap/cache
+            sudo chmod -R 775 storage bootstrap/cache
+
             # Always update .env from secret
             echo "${{ secrets.VPS_ENV_FILE }}" > .env
 
@@ -58,7 +62,7 @@ jobs:
 
             composer install --no-dev --optimize-autoloader --no-interaction
 
-            # Fix permissions FIRST (before any artisan commands)
+            # Fix permissions for web server (before any artisan commands)
             sudo chown -R www-data:www-data storage bootstrap/cache
             sudo chmod -R 775 storage bootstrap/cache
 
