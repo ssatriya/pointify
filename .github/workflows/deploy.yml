@@ -58,7 +58,7 @@ jobs:
 
             # Build frontend assets
             pnpm install --frozen-lockfile
-            NODE_OPTIONS=--max-old-space-size=1536 pnpm run build
+            NODE_OPTIONS=--max-old-space-size=512 pnpm run build
 
             # Maintenance mode
             php artisan down --retry=5 --secret="${{ secrets.MAINTENANCE_SECRET }}"
